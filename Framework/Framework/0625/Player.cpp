@@ -34,18 +34,18 @@ void CPlayer::Ready(void)
 
 int CPlayer::Update(float _fDeltaTime)
 {
-	CKeyMgr::Get_Instance()->Update();
-	if (CKeyMgr::Get_Instance()->IsKeyPressing(KEY::KEY_RIGHT)) {
+	CKeyMgr::GetInstance()->Update();
+	if (CKeyMgr::GetInstance()->IsKeyPressing(KEY::KEY_RIGHT)) {
 		DO_IF_IS_VALID_OBJ(m_pGunBarrel) { m_pGunBarrel->RotateCW(_fDeltaTime); }
 		MoveTo(cfDeltaX[OBJ::DIR_RIGHT] * m_fSpeed * _fDeltaTime, 0.f);
 	}
 
-	if (CKeyMgr::Get_Instance()->IsKeyPressing(KEY::KEY_LEFT)) {
+	if (CKeyMgr::GetInstance()->IsKeyPressing(KEY::KEY_LEFT)) {
 		DO_IF_IS_VALID_OBJ(m_pGunBarrel) { m_pGunBarrel->RotateCCW(_fDeltaTime); }
 		MoveTo(cfDeltaX[OBJ::DIR_LEFT] * m_fSpeed * _fDeltaTime, 0.f);
 	}
 
-	if (CKeyMgr::Get_Instance()->IsKeyDown(KEY::KEY_UP)) {
+	if (CKeyMgr::GetInstance()->IsKeyDown(KEY::KEY_UP)) {
 		/*DO_IF_IS_VALID_OBJ(m_pGunBarrel) {
 			MoveTo(m_pGunBarrel->GetDirX() * m_fSpeed, m_pGunBarrel->GetDirY() * m_fSpeed);
 		}*/

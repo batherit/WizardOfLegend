@@ -7,14 +7,14 @@ public:
 	~CKeyMgr();
 
 public:
-	static CKeyMgr* Get_Instance()
+	static CKeyMgr* GetInstance()
 	{
 		if (nullptr == m_pInstance)
 			m_pInstance = new CKeyMgr;
 
 		return m_pInstance;
 	}
-	static void Destroy_Instance()
+	static void DestroyInstance()
 	{
 		if (m_pInstance)
 		{

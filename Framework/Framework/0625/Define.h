@@ -64,4 +64,11 @@
 
 #define	KM_LBUTTON	0x00000010
 #define	KM_RBUTTON	0x00000020 
+#define KM_Q		0x00000040
+#define KM_E		0x00000080
+
+#define KM_W		0x00000100
+#define KM_A		0x00000200
+#define KM_S		0x00000400
+#define KM_D		0x00000800
 

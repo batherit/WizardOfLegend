@@ -14,7 +14,11 @@ public:
 	virtual void Ready(void) {};
 	virtual int Update(float _fDeltaTime);
 	virtual void LateUpdate(void) {};
-	virtual void Render(const HDC& _hdc) { /*카메라는 그려지는 대상이 아니다.*/ };
+	virtual void Render(const HDC& _hdc) {
+		TCHAR szBuffer[64];
+		swprintf(szBuffer, sizeof(szBuffer), L"%f %f", GetX(), GetY());
+		TextOut(_hdc, 0, 0, szBuffer, lstrlen(szBuffer));
+	};
 	virtual void Release(void) {};
 
 public:
@@ -23,7 +27,9 @@ public:
 
 private:
 	CObj* m_pOwner = nullptr;
-	float m_fZoomMultiple = 1.0f;
-	const float m_cfZoomSpeed = 2.0f;
+	float m_fZoomMultiple = 1.f;
+	const float m_cfZoomSpeed = 2.f;
+	const float m_cfMaxZoomOut = 0.2f;
+	const float m_cfMaxZoomIn = 2.0f;
 };
 

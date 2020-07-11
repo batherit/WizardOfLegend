@@ -57,7 +57,8 @@ void CMainApp::Update(void)
 	float fDeltaTime = GetTimer()->GetElapsedTimePerFrame();
 	for (auto& pBullet : m_listBullets) { pBullet->Update(fDeltaTime); }
 	for (auto& pMonster : m_listMonsters) { pMonster->Update(fDeltaTime); }
-	m_pPlayer->Update(fDeltaTime);
+	DO_IF_IS_VALID_OBJ(m_pPlayer) { m_pPlayer->Update(fDeltaTime); }
+	m_pCamera->Update(fDeltaTime);
 }
 
 void CMainApp::LateUpdate(void)
@@ -82,6 +83,7 @@ void CMainApp::Render(void)
 	for (auto& pBullet : m_listBullets) { pBullet->Render(GetBackbufferDC(), m_pCamera); }
 	m_pPlayer->Render(GetBackbufferDC(), m_pCamera);
 	RenderLine(GetBackbufferDC(), m_pCamera);
+	m_pCamera->Render(GetBackbufferDC());
 
 	BitBlt(GetHDC(), 0, 0, WINCX, WINCY, GetBackbufferDC(), 0, 0, SRCCOPY);
 }
