@@ -7,7 +7,7 @@ CShield::CShield(CGameWorld& _rGameWorld, CObj * _pOwner, size_t _iWidth, size_t
 	:
 	m_pOwner(nullptr),
 	m_pScrewBall(new CScrewBall(_rGameWorld, this, 20, 20, 10.f, CLAMP_DEGREE(0.f), ((_iWidth > _iHeight ? _iWidth : _iHeight) >> 1) + 30.f)),
-	CObj(_rGameWorld, 0.f, 0.f, _iWidth, _iHeight, _fSpeed, Ellipse)
+	CObj(_rGameWorld, 0.f, 0.f, _iWidth, _iHeight, 0.f, 0.f, _fSpeed, Ellipse)
 {
 	if (_pOwner) {
 		m_pOwner = _pOwner;
@@ -45,10 +45,10 @@ void CShield::LateUpdate(void)
 	}
 }
 
-void CShield::Render(const HDC & _hdc)
+void CShield::Render(const HDC & _hdc, CCamera2D* _pCamera)
 {
 	//Ellipse(_hdc, GetLeft(), GetTop(), GetRight(), GetBottom());
-	DO_IF_IS_VALID_OBJ(m_pScrewBall) { m_pScrewBall->Render(_hdc); }
+	DO_IF_IS_VALID_OBJ(m_pScrewBall) { m_pScrewBall->Render(_hdc, _pCamera); }
 }
 
 void CShield::Release(void)

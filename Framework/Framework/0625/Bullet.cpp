@@ -5,9 +5,7 @@
 
 CBullet::CBullet(CGameWorld& _rGameWorld, float _fX, float _fY, float _fToX, float _fToY, size_t _iWidth /*= ciBulletSize*/, size_t _iHeight /*= ciBulletSize*/, float _fSpeed /*= cfBulletSpeed*/, float _fDamage /*= cfBulletSpeed*/)
 	:
-	CObj(_rGameWorld, _fX, _fY, _iWidth, _iHeight, _fSpeed, Ellipse),
-	m_fToX(_fToX),
-	m_fToY(_fToY),
+	CObj(_rGameWorld, _fX, _fY, _iWidth, _iHeight, _fToX, _fToY, _fSpeed, Ellipse),
 	m_fDamage(_fDamage)
 {
 	// 방향 벡터 설정
@@ -41,9 +39,9 @@ void CBullet::LateUpdate(void)
 	}
 }
 
-void CBullet::Render(const HDC & _hdc)
+void CBullet::Render(const HDC & _hdc, CCamera2D* _pCamera)
 {
-	CObj::Render(_hdc);
+	CObj::Render(_hdc, _pCamera);
 }
 
 void CBullet::Release(void)

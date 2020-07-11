@@ -1,11 +1,12 @@
 #include "stdafx.h"
 #include "ScrewBall.h"
+#include "CCamera2D.h"
 
 
 CScrewBall::CScrewBall(CGameWorld& _rGameWorld, CObj * _pOwner, size_t _iWidth, size_t _iHeight, float _fSpeed, float _fDegree, float _fOffset)
 	:
 	m_pOwner(nullptr),
-	CObj(_rGameWorld, 0.f, 0.f, _iWidth, _iHeight, _fSpeed, Ellipse),
+	CObj(_rGameWorld, 0.f, 0.f, _iWidth, _iHeight, 0.f, 0.f, _fSpeed, Ellipse),
 	m_fScrewBallDegree(_fDegree),
 	m_fScrewBallOffset(_fOffset)
 {
@@ -41,15 +42,33 @@ void CScrewBall::LateUpdate(void)
 {
 }
 
-void CScrewBall::Render(const HDC & _hdc)
+void CScrewBall::Render(const HDC & _hdc, CCamera2D* _pCamera)
 {
-	Ellipse(_hdc,
-		GetScrewBallX() - (GetWidth() >> 1),
-		GetScrewBallY() - (GetHeight() >> 1),
-		GetScrewBallX() + (GetWidth() >> 1),
-		GetScrewBallY() + (GetHeight() >> 1));
+	if (_pCamera) {
+		RECT rc = _pCamera->TransformRect(GetScrewBallRect());
+		Ellipse(_hdc, rc.left, rc.top, rc.right, rc.bottom);
+	}
+	else {
+		Ellipse(_hdc,
+			GetScrewBallLeft(),
+			GetScrewBallTop(),
+			GetScrewBallRight(),
+			GetScrewBallBottom());
+	}
 }
 
 void CScrewBall::Release(void)
 {
+}
+
+RECT CScrewBall::GetScrewBallRect(void) const
+{
+	RECT rc;
+
+	rc.left = GetScrewBallX() - (GetWidth() >> 1);
+	rc.top = GetScrewBallY() - (GetHeight() >> 1);
+	rc.right = GetScrewBallX() + (GetWidth() >> 1);
+	rc.bottom = GetScrewBallY() + (GetHeight() >> 1);
+
+	return rc;
 }

@@ -2,6 +2,7 @@
 #include "CGameWorld.h"
 
 class CObj;
+class CCamera2D;
 
 class CMainApp final : public CGameWorld 
 {
@@ -24,9 +25,10 @@ public:
 	vector<pair<float, float>>& GetPoints(void) { return m_vecLines; }
 	
 	// 시간없어서 임시적으로 만든 변수
-	void RenderLine(const HDC& _hdc);
+	void RenderLine(const HDC& _hdc, CCamera2D* _pCamera);
 
 private:
+	CCamera2D* m_pCamera;
 	CObj* m_pPlayer; 
 	CObj* m_pViewSpace;
 	list<CObj*> m_listMonsters;

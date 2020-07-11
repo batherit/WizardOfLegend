@@ -4,9 +4,11 @@
 #include "Monster.h"
 #include "CSpace.h"
 #include "CTimer.h"
+#include "CCamera2D.h"
 
 CMainApp::CMainApp()
 	:
+	m_pCamera(nullptr),
 	m_pPlayer(nullptr),
 	m_pViewSpace(nullptr)
 {
@@ -24,6 +26,8 @@ void CMainApp::Ready(void)
 	//m_hDC = GetDC(g_hWND);
 
 	srand((time_t)time(nullptr));
+
+	m_pCamera = new CCamera2D(*this, nullptr, WINCX >> 1, WINCY >> 1);
 
 	if (!m_pPlayer) {
 		m_pPlayer = new CPlayer(*this, WINCX >> 1, WINCY >> 1);
@@ -73,17 +77,18 @@ void CMainApp::Render(void)
 	ClearWindow();
 	//InvalidateRect(g_hWND, nullptr, true);
 
-	m_pViewSpace->Render(GetBackbufferDC());
-	for (auto& pMonster : m_listMonsters) { pMonster->Render(GetBackbufferDC()); }
-	for (auto& pBullet : m_listBullets) { pBullet->Render(GetBackbufferDC()); }
-	m_pPlayer->Render(GetBackbufferDC());
-	RenderLine(GetBackbufferDC());
+	m_pViewSpace->Render(GetBackbufferDC(), m_pCamera);
+	for (auto& pMonster : m_listMonsters) { pMonster->Render(GetBackbufferDC(), m_pCamera); }
+	for (auto& pBullet : m_listBullets) { pBullet->Render(GetBackbufferDC(), m_pCamera); }
+	m_pPlayer->Render(GetBackbufferDC(), m_pCamera);
+	RenderLine(GetBackbufferDC(), m_pCamera);
 
 	BitBlt(GetHDC(), 0, 0, WINCX, WINCY, GetBackbufferDC(), 0, 0, SRCCOPY);
 }
 
 void CMainApp::Release(void)
 {
+	DeleteSafe(m_pCamera);
 	DeleteSafe(m_pPlayer);
 	DeleteSafe(m_pViewSpace);
 	DeleteListSafe(m_listBullets);
@@ -92,7 +97,7 @@ void CMainApp::Release(void)
 	//ReleaseDC(g_hWND, m_hDC);
 }
 
-void CMainApp::RenderLine(const HDC& _hdc)
+void CMainApp::RenderLine(const HDC& _hdc, CCamera2D* _pCamera)
 {
 	pair<float, float> pairFrom;
 	pair<float, float> pairTo;
@@ -100,6 +105,10 @@ void CMainApp::RenderLine(const HDC& _hdc)
 	for (int i = 0; i < m_vecLines.size() - 1; i++) {
 		pairFrom = m_vecLines[i];
 		pairTo = m_vecLines[i + 1];
+
+		pairFrom = _pCamera->TransformPoint(pairFrom.first, pairFrom.second);
+		pairTo = _pCamera->TransformPoint(pairTo.first, pairTo.second);
+
 		MoveToEx(_hdc, pairFrom.first, pairFrom.second, nullptr);
 		LineTo(_hdc, pairTo.first, pairTo.second);
 	}

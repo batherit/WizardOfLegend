@@ -11,7 +11,7 @@ public:
 	virtual void Ready(void)				override;
 	virtual int Update(float _fDeltaTime)	override;
 	virtual void LateUpdate(void)			override;
-	virtual void Render(const HDC& _hdc)	override;
+	virtual void Render(const HDC& _hdc, CCamera2D* _pCamera)	override;
 	virtual void Release(void)				override;
 
 public:
@@ -23,6 +23,13 @@ public:
 
 	float GetScrewBallX(void) const { return GetX() + m_fScrewBallOffset * DIR_X_DEGREE(m_fScrewBallDegree); }
 	float GetScrewBallY(void) const { return GetY() + m_fScrewBallOffset * DIR_Y_DEGREE(m_fScrewBallDegree); }
+
+	RECT GetScrewBallRect(void) const;
+	float GetScrewBallLeft(void) const		{ return GetScrewBallX() - (GetWidth() >> 1); }
+	float GetScrewBallTop(void) const		{ return GetScrewBallY() - (GetHeight() >> 1); }
+	float GetScrewBallRight(void) const		{ return GetScrewBallX() + (GetWidth() >> 1); }
+	float GetScrewBallBottom(void) const	{ return GetScrewBallY() + (GetHeight() >> 1); }
+
 
 private:
 	CObj* m_pOwner;

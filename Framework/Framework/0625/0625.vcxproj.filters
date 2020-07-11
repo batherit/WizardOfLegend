@@ -57,6 +57,9 @@
     <Filter Include="소스 파일\04.Manager">
       <UniqueIdentifier>{7c2b6b65-01cb-4b0a-b32a-cf35fade515b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="소스 파일\03.Obj\01.Camera">
+      <UniqueIdentifier>{780a1e12-7302-4ca8-97aa-67e171c89e92}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CLayer.h">
@@ -137,6 +140,9 @@
     <ClInclude Include="KeyMgr.h">
       <Filter>소스 파일\04.Manager</Filter>
     </ClInclude>
+    <ClInclude Include="CCamera2D.h">
+      <Filter>소스 파일\03.Obj\01.Camera</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CLayer.cpp">
@@ -201,6 +207,9 @@
     </ClCompile>
     <ClCompile Include="KeyMgr.cpp">
       <Filter>소스 파일\04.Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="CCamera2D.cpp">
+      <Filter>소스 파일\03.Obj\01.Camera</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

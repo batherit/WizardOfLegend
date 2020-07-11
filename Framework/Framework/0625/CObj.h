@@ -1,19 +1,23 @@
 #pragma once
 
 class CGameWorld;
+class CCamera2D;
 
 class CObj //abstract
 {
 public:
 	CObj(CGameWorld& _rGameWorld);
-	CObj(CGameWorld& _rGameWorld, float _fX = 0, float _fY = 0, size_t _iWidth = 10, size_t _iHeight = 10, float _fSpeed = 0.f, BOOL(__stdcall *_pDrawFunc) (HDC hdc, int _left, int _right, int _top, int _bottom) = Rectangle);
+	CObj(CGameWorld& _rGameWorld, 
+		float _fX = 0.f, float _fY = 0.f, size_t _iWidth = 10, size_t _iHeight = 10, 
+		float _fToX = 0.f, float _fToY = -1.f, float _fSpeed = 0.f, 
+		BOOL(__stdcall *_pDrawFunc) (HDC hdc, int _left, int _right, int _top, int _bottom) = Rectangle);
 	virtual ~CObj();
 
 public: 
 	virtual void Ready(void) {};
 	virtual int Update(float _fDeltaTime) { return 0; };
 	virtual void LateUpdate(void) {};
-	virtual void Render(const HDC& _hdc) { if(m_pDrawFunc) m_pDrawFunc(_hdc, GetLeft(), GetTop(), GetRight(), GetBottom()); };
+	virtual void Render(const HDC& _hdc, CCamera2D* _pCamera = nullptr);
 	virtual void Release(void) {};
 
 public:
@@ -24,9 +28,15 @@ public:
 	void SetX(float _fX) { m_fX = _fX; }
 	void SetY(float _fY) { m_fY = _fY; }
 	void SetXY(float _fX, float _fY) { SetX(_fX); SetY(_fY); }
+	void SetToX(float _fToX) { m_fToX = _fToX; }
+	void SetToY(float _fToY) { m_fToY = _fToY; }
+	void SetToXY(float _fToX, float _fToY) { SetToX(_fToX); SetToY(_fToY); }
 	float GetX(void) const { return m_fX; }
 	float GetY(void) const { return m_fY; }
 	pair<float, float> GetXY(void) const { return make_pair(GetX(), GetY()); }
+	float GetToX(void) const { return m_fToX; }
+	float GetToY(void) const { return m_fToY; }
+	pair<float, float> GetToXY(void) const { return make_pair(GetToX(), GetToY()); }
 	int GetLeft(void) const { return static_cast<int>(m_fX - (m_iWidth >> 1)); }
 	int GetTop(void) const { return static_cast<int>(m_fY - (m_iHeight >> 1)); }
 	int GetRight(void) const { return static_cast<int>(m_fX + (m_iWidth >> 1)); }
@@ -51,13 +61,15 @@ public:
 	bool IsActive(void) { return m_bIsActive; }*/
 
 protected:
-	bool m_bIsValid;
-	float m_fX;
-	float m_fY;
-	float m_fSpeed;
-	size_t m_iWidth;
-	size_t m_iHeight;
-	BOOL (__stdcall *m_pDrawFunc) (HDC hdc, int _left, int _right, int _top, int _bottom);
+	bool m_bIsValid = true;
+	float m_fX = 0.f;
+	float m_fY = 0.f;
+	float m_fToX = 0.f;
+	float m_fToY = -1.f;
+	float m_fSpeed = 0.f;
+	size_t m_iWidth = 10;
+	size_t m_iHeight = 10;
+	BOOL (__stdcall *m_pDrawFunc) (HDC hdc, int _left, int _right, int _top, int _bottom) = Rectangle;
 
 private:
 	// CObj는 무조건 GameWorld 객체를 지녀야만 한다.

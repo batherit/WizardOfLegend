@@ -10,13 +10,13 @@
 
 CPlayer::CPlayer(CGameWorld& _rGameWorld)
 	:
-	CObj(_rGameWorld, 0, 0, ciPlayerSize, ciPlayerSize, cfPlayerSpeed, Rectangle)
+	CObj(_rGameWorld, 0, 0, ciPlayerSize, ciPlayerSize, 0.f, 0.f, cfPlayerSpeed, Rectangle)
 {
 }
 
 CPlayer::CPlayer(CGameWorld& _rGameWorld, float _fX, float _fY, size_t _iWidth /*= ciPlayerSize*/, size_t _iHeight /*= ciPlayerSize*/, float _fSpeed /*= cfPlayerSpeed*/)
 	:
-	CObj(_rGameWorld, _fX, _fY, _iWidth, _iHeight, _fSpeed, Rectangle),
+	CObj(_rGameWorld, _fX, _fY, _iWidth, _iHeight, 0.f, 0.f, _fSpeed, Rectangle),
 	m_pGunBarrel(new CGunBarrel(_rGameWorld, this, 90.f, GetWidth(), 5.f)),
 	m_fVelocityY(0.f)
 {
@@ -163,11 +163,11 @@ void CPlayer::LateUpdate(void)
 	}
 }
 
-void CPlayer::Render(const HDC & _hdc)
+void CPlayer::Render(const HDC & _hdc, CCamera2D* _pCamera)
 {
-	CObj::Render(_hdc);
-	DO_IF_IS_VALID_OBJ(m_pGunBarrel) { m_pGunBarrel->Render(_hdc); }
-	for (auto& pShield : m_listShield) { DO_IF_IS_VALID_OBJ(pShield) { pShield->Render(_hdc); } }
+	CObj::Render(_hdc, _pCamera);
+	DO_IF_IS_VALID_OBJ(m_pGunBarrel) { m_pGunBarrel->Render(_hdc, _pCamera); }
+	for (auto& pShield : m_listShield) { DO_IF_IS_VALID_OBJ(pShield) { pShield->Render(_hdc, _pCamera); } }
 }
 
 void CPlayer::Release(void)

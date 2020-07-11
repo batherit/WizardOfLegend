@@ -11,7 +11,7 @@ public:
 	//virtual void Ready(void) {};
 	virtual int Update(float _fDeltaTime);
 	//virtual void LateUpdate(void) {};
-	virtual void Render(const HDC& _hdc);
+	virtual void Render(const HDC& _hdc, CCamera2D* _pCamera);
 	virtual void Release(void) { m_pOwner = nullptr; }
 
 	float GetStartX(void) const { return CObj::GetX(); }

@@ -15,7 +15,7 @@ public:
 	virtual void Ready(void)				override;
 	virtual int Update(float _fDeltaTime)				override;
 	virtual void LateUpdate(void)			override;
-	virtual void Render(const HDC& _hdc)	override;
+	virtual void Render(const HDC& _hdc, CCamera2D* _pCamera)	override;
 	virtual void Release(void)				override;
 
 public:
@@ -30,8 +30,6 @@ public:
 	void SetToXnY(float _fToX, float _fToY) { m_fToX = _fToX; m_fToY = _fToY; NormalizeVector(m_fToX, m_fToY); }
 
 private:
-	float m_fToX;
-	float m_fToY;
 	float m_fHp;
 	CUI_Gauge* m_pHpGauge;
 };

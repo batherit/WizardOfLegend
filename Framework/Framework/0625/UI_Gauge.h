@@ -10,7 +10,7 @@ public:
 public:
 	void SetCurrentGauge(float _fCurrent);
 	virtual int Update(float _fDeltaTime);
-	virtual void Render(const HDC& _hdc);
+	virtual void Render(const HDC& _hdc, CCamera2D* _pCamera = nullptr) override;
 	virtual void Release(void) { m_pOwner = nullptr; }
 
 private:

@@ -33,10 +33,10 @@ void CScrewBullet::LateUpdate(void)
 	DO_IF_IS_VALID_OBJ(m_pScrewBall) { m_pScrewBall->LateUpdate(); }
 }
 
-void CScrewBullet::Render(const HDC & _hdc)
+void CScrewBullet::Render(const HDC & _hdc, CCamera2D* _pCamera)
 {
-	CBullet::Render(_hdc);
-	DO_IF_IS_VALID_OBJ(m_pScrewBall) { m_pScrewBall->Render(_hdc); }
+	CBullet::Render(_hdc, _pCamera);
+	DO_IF_IS_VALID_OBJ(m_pScrewBall) { m_pScrewBall->Render(_hdc, _pCamera); }
 }
 
 void CScrewBullet::Release(void)

@@ -8,14 +8,14 @@
 
 CMonster::CMonster(CGameWorld& _rGameWorld)
 	: 
-	CObj(_rGameWorld, 0, 0, ciPlayerSize, ciPlayerSize, cfPlayerSpeed, Rectangle)
+	CObj(_rGameWorld, 0, 0, ciPlayerSize, ciPlayerSize, 0.f, 0.f, cfPlayerSpeed, Rectangle)
 {
 }
 
 
 CMonster::CMonster(CGameWorld& _rGameWorld, float _fX, float _fY, size_t _iWidth /*= ciMonsterSize*/, size_t _iHeight /*= ciMonsterSize*/, float _fSpeed /*= cfMonsterSpeed*/, float _fHp /*= cfMonsterHp*/)
 	:
-	CObj(_rGameWorld, _fX, _fY, _iWidth, _iHeight, _fSpeed, Rectangle),
+	CObj(_rGameWorld, _fX, _fY, _iWidth, _iHeight, 0.f, 0.f, _fSpeed, Rectangle),
 	m_fHp(_fHp),
 	m_pHpGauge(new CUI_Gauge(_rGameWorld, this, _iWidth * 2.f, 10.f, m_fHp, m_fHp, 0.f, -((m_iHeight >> 1) + 10.f)))
 {
@@ -77,9 +77,9 @@ void CMonster::LateUpdate(void)
 	}
 }
 
-void CMonster::Render(const HDC & _hdc)
+void CMonster::Render(const HDC & _hdc, CCamera2D* _pCamera)
 {
-	CObj::Render(_hdc);
+	CObj::Render(_hdc, _pCamera);
 	DO_IF_IS_VALID_OBJ(m_pHpGauge) { m_pHpGauge->Render(_hdc); }
 }
 
