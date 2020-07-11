@@ -1,0 +1,224 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="소스 파일">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="리소스 파일">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="소스 파일\99.Default">
+      <UniqueIdentifier>{ce7e1dc7-37ec-480c-bf62-8572ca08b7c1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\98.Headers">
+      <UniqueIdentifier>{a8ccd129-c10e-492d-a6fe-26186d7972ae}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\00.MainProcess">
+      <UniqueIdentifier>{27fa68eb-72eb-4aff-b97f-13b3a5c993d1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\01.MainApp">
+      <UniqueIdentifier>{5cd5388f-07f2-4c7f-9dbd-b4e2a3a611af}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\100.ETC">
+      <UniqueIdentifier>{6b2e7814-6533-422d-8b69-b0021a2a1bf5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\03.Obj">
+      <UniqueIdentifier>{af10e551-4468-4027-9745-21977866f482}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\03.Obj\040.UI">
+      <UniqueIdentifier>{f62bd796-09de-47d5-89e7-c76e562ea31a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\03.Obj\030.Space">
+      <UniqueIdentifier>{9edab618-d9aa-4302-b51e-bb59cdb14b1c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\03.Obj\020.Player">
+      <UniqueIdentifier>{203cac16-3859-498a-a48e-fa9500dfe812}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\03.Obj\021.Bullet">
+      <UniqueIdentifier>{7c13d2f4-4fc5-425e-a17e-39d2ef573043}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\03.Obj\024.Shield">
+      <UniqueIdentifier>{93992826-4508-4d63-a435-f7b28ced47fc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\02.Timer">
+      <UniqueIdentifier>{3b534a1b-9690-4ff4-a72a-247952904540}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\03.Obj\022.GunBarrel">
+      <UniqueIdentifier>{796f33fd-5530-46a8-a5ef-ff60532a9391}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\03.Obj\023.Monster">
+      <UniqueIdentifier>{f7a0ac0a-f887-4e5b-8b4c-7bfabf8f5d4d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\03.Obj\025.ScrewBall">
+      <UniqueIdentifier>{6c99e75e-6583-4c85-971b-fcaf24885e23}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\04.Manager">
+      <UniqueIdentifier>{7c2b6b65-01cb-4b0a-b32a-cf35fade515b}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="CLayer.h">
+      <Filter>소스 파일\100.ETC</Filter>
+    </ClInclude>
+    <ClInclude Include="CObj.h">
+      <Filter>소스 파일\03.Obj</Filter>
+    </ClInclude>
+    <ClInclude Include="targetver.h">
+      <Filter>소스 파일\99.Default</Filter>
+    </ClInclude>
+    <ClInclude Include="stdafx.h">
+      <Filter>소스 파일\99.Default</Filter>
+    </ClInclude>
+    <ClInclude Include="Resource.h">
+      <Filter>소스 파일\99.Default</Filter>
+    </ClInclude>
+    <ClInclude Include="0625.h">
+      <Filter>소스 파일\99.Default</Filter>
+    </ClInclude>
+    <ClInclude Include="Extern.h">
+      <Filter>소스 파일\98.Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Define.h">
+      <Filter>소스 파일\98.Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Function.h">
+      <Filter>소스 파일\98.Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Struct.h">
+      <Filter>소스 파일\98.Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Player.h">
+      <Filter>소스 파일\03.Obj\020.Player</Filter>
+    </ClInclude>
+    <ClInclude Include="Bullet.h">
+      <Filter>소스 파일\03.Obj\021.Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="Enum.h">
+      <Filter>소스 파일\98.Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Const.h">
+      <Filter>소스 파일\98.Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="Monster.h">
+      <Filter>소스 파일\03.Obj\023.Monster</Filter>
+    </ClInclude>
+    <ClInclude Include="UI_Gauge.h">
+      <Filter>소스 파일\03.Obj\040.UI</Filter>
+    </ClInclude>
+    <ClInclude Include="GunBarrel.h">
+      <Filter>소스 파일\03.Obj\022.GunBarrel</Filter>
+    </ClInclude>
+    <ClInclude Include="ScrewBullet.h">
+      <Filter>소스 파일\03.Obj\021.Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="MainApp.h">
+      <Filter>소스 파일\01.MainApp</Filter>
+    </ClInclude>
+    <ClInclude Include="CGameWorld.h">
+      <Filter>소스 파일\01.MainApp</Filter>
+    </ClInclude>
+    <ClInclude Include="CTimer.h">
+      <Filter>소스 파일\02.Timer</Filter>
+    </ClInclude>
+    <ClInclude Include="CSpace.h">
+      <Filter>소스 파일\03.Obj\030.Space</Filter>
+    </ClInclude>
+    <ClInclude Include="ScrewBall.h">
+      <Filter>소스 파일\03.Obj\025.ScrewBall</Filter>
+    </ClInclude>
+    <ClInclude Include="Shield.h">
+      <Filter>소스 파일\03.Obj\024.Shield</Filter>
+    </ClInclude>
+    <ClInclude Include="GuidedBullet.h">
+      <Filter>소스 파일\03.Obj\021.Bullet</Filter>
+    </ClInclude>
+    <ClInclude Include="KeyMgr.h">
+      <Filter>소스 파일\04.Manager</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="CLayer.cpp">
+      <Filter>소스 파일\100.ETC</Filter>
+    </ClCompile>
+    <ClCompile Include="CObj.cpp">
+      <Filter>소스 파일\03.Obj</Filter>
+    </ClCompile>
+    <ClCompile Include="stdafx.cpp">
+      <Filter>소스 파일\99.Default</Filter>
+    </ClCompile>
+    <ClCompile Include="그림출력.cpp">
+      <Filter>소스 파일\00.MainProcess</Filter>
+    </ClCompile>
+    <ClCompile Include="총알상자.cpp">
+      <Filter>소스 파일\00.MainProcess</Filter>
+    </ClCompile>
+    <ClCompile Include="총알상자2.cpp">
+      <Filter>소스 파일\00.MainProcess</Filter>
+    </ClCompile>
+    <ClCompile Include="MainApp.cpp">
+      <Filter>소스 파일\01.MainApp</Filter>
+    </ClCompile>
+    <ClCompile Include="Player.cpp">
+      <Filter>소스 파일\03.Obj\020.Player</Filter>
+    </ClCompile>
+    <ClCompile Include="Bullet.cpp">
+      <Filter>소스 파일\03.Obj\021.Bullet</Filter>
+    </ClCompile>
+    <ClCompile Include="Function.cpp">
+      <Filter>소스 파일\98.Headers</Filter>
+    </ClCompile>
+    <ClCompile Include="Monster.cpp">
+      <Filter>소스 파일\03.Obj\023.Monster</Filter>
+    </ClCompile>
+    <ClCompile Include="UI_Gauge.cpp">
+      <Filter>소스 파일\03.Obj\040.UI</Filter>
+    </ClCompile>
+    <ClCompile Include="GunBarrel.cpp">
+      <Filter>소스 파일\03.Obj\022.GunBarrel</Filter>
+    </ClCompile>
+    <ClCompile Include="ScrewBullet.cpp">
+      <Filter>소스 파일\03.Obj\021.Bullet</Filter>
+    </ClCompile>
+    <ClCompile Include="Shield.cpp">
+      <Filter>소스 파일\03.Obj\024.Shield</Filter>
+    </ClCompile>
+    <ClCompile Include="CGameWorld.cpp">
+      <Filter>소스 파일\01.MainApp</Filter>
+    </ClCompile>
+    <ClCompile Include="CTimer.cpp">
+      <Filter>소스 파일\02.Timer</Filter>
+    </ClCompile>
+    <ClCompile Include="CSpace.cpp">
+      <Filter>소스 파일\03.Obj\030.Space</Filter>
+    </ClCompile>
+    <ClCompile Include="ScrewBall.cpp">
+      <Filter>소스 파일\03.Obj\025.ScrewBall</Filter>
+    </ClCompile>
+    <ClCompile Include="GuidedBullet.cpp">
+      <Filter>소스 파일\03.Obj\021.Bullet</Filter>
+    </ClCompile>
+    <ClCompile Include="KeyMgr.cpp">
+      <Filter>소스 파일\04.Manager</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="0625.rc">
+      <Filter>리소스 파일</Filter>
+    </ResourceCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="small.ico">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="0625.ico">
+      <Filter>리소스 파일</Filter>
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="ReadMe.txt">
+      <Filter>소스 파일\99.Default</Filter>
+    </Text>
+  </ItemGroup>
+</Project>

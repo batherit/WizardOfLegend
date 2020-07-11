@@ -1,0 +1,24 @@
+#pragma once
+
+// DIR_LEFT, DIR_RIGHT, DIR_UP, DIR_DOWN, DIR_END
+const char ccDirKey[OBJ::DIR_END] = { 'A', 'D', 'W', 'S' };
+const float cfDeltaX[OBJ::DIR_END] = { -1.f, 1.f, 0.f, 0.f };
+const float cfDeltaY[OBJ::DIR_END] = { 0.f, 0.f, -1.f, 1.f };
+
+// 플레이어 변수
+const size_t ciPlayerSize = 50;
+const float cfPlayerSpeed = 100.f;
+
+// 총알 변수
+const size_t ciBulletSize = 8;
+const float cfBulletSpeed = 5.f;
+const float cfBulletDamage = 5.f;
+
+// 몬스터 변수
+const size_t ciMonsterSize = 40;
+const float cfMonsterSpeed = 1.f;
+const float cfMonsterHp = 200.f;
+
+// 키보드 변수 (const 키워드 빼면 재정의 버그가 나는데 왜 그런지 모르겠다.)
+const DWORD cdwKey[KEY::KEY_END] = { VK_LEFT, VK_RIGHT, VK_UP, VK_DOWN, VK_LBUTTON, VK_RBUTTON };
+const DWORD cdwKeyMask[KEY::KEY_END] = { KM_LEFT, KM_RIGHT, KM_UP, KM_DOWN, KM_LBUTTON, KM_RBUTTON };
