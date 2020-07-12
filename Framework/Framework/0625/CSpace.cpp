@@ -3,7 +3,7 @@
 
 
 
-CSpace::CSpace(CGameWorld& _rGameWorld, float _fX, float _fY, size_t _iWidth, size_t _iHeight, list<CObj*>* _pBulletList)
+CSpace::CSpace(CGameWorld& _rGameWorld, float _fX, float _fY, size_t _iWidth, size_t _iHeight)
 	:
 	CObj(_rGameWorld, _fX, _fY, _iWidth, _iHeight)
 {

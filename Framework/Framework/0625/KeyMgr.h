@@ -9,7 +9,7 @@ public:
 public:
 	static CKeyMgr* GetInstance()
 	{
-		if (nullptr == m_pInstance)
+		if (!m_pInstance)
 			m_pInstance = new CKeyMgr;
 
 		return m_pInstance;

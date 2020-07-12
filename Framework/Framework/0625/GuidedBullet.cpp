@@ -1,6 +1,6 @@
 #include "stdafx.h"
 #include "GuidedBullet.h"
-#include "MainApp.h"
+//#include "MainApp.h"
 
 CGuidedBullet::CGuidedBullet(CGameWorld& _rGameWorld, float _fX, float _fY, float _fToX, float _fToY, size_t _iWidth, size_t _iHeight, float _fSpeed, float _fDamage)
 	:

@@ -17,9 +17,8 @@ public:
 
 public:
 	void RunTick(void);
-	
-protected:
 	void ClearWindow(void);
+	void RenderWindow(void);
 	HDC& GetHDC(void) { return m_hDC; }
 	HDC& GetBackbufferDC(void) { return m_hBackbufferDC; }
 	CTimer* GetTimer(void) { return m_pTimer; }

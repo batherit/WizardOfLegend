@@ -34,7 +34,7 @@ void CMainApp::Ready(void)
 		m_pPlayer->Ready();
 	}
 
-	m_pViewSpace = new CSpace(*this, WINCX >> 1, WINCY >> 1, static_cast<int>(WINCX / 1.2f), static_cast<int>(WINCY / 1.2f), &m_listBullets);
+	m_pViewSpace = new CSpace(*this, WINCX >> 1, WINCY >> 1, static_cast<int>(WINCX / 1.2f), static_cast<int>(WINCY / 1.2f));
 
 	/*CObj* pMonster = nullptr;
 	for (int i = 0; i < 4; i++) {
@@ -76,8 +76,8 @@ void CMainApp::LateUpdate(void)
 void CMainApp::Render(void)
 {
 	ClearWindow();
-	//InvalidateRect(g_hWND, nullptr, true);
 
+	// TODO: 여기에 그림 그리는 코드를 작성하세용~
 	m_pViewSpace->Render(GetBackbufferDC(), m_pCamera);
 	for (auto& pMonster : m_listMonsters) { pMonster->Render(GetBackbufferDC(), m_pCamera); }
 	for (auto& pBullet : m_listBullets) { pBullet->Render(GetBackbufferDC(), m_pCamera); }
@@ -85,7 +85,7 @@ void CMainApp::Render(void)
 	RenderLine(GetBackbufferDC(), m_pCamera);
 	m_pCamera->Render(GetBackbufferDC());
 
-	BitBlt(GetHDC(), 0, 0, WINCX, WINCY, GetBackbufferDC(), 0, 0, SRCCOPY);
+	RenderWindow();
 }
 
 void CMainApp::Release(void)

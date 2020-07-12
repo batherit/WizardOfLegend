@@ -5,7 +5,7 @@ class CSpace :
 	public CObj
 {
 public:
-	CSpace(CGameWorld& _rGameWorld, float _fX, float _fY, size_t _iWidth, size_t _iHeight, list<CObj*>* _pBulletList);
+	CSpace(CGameWorld& _rGameWorld, float _fX, float _fY, size_t _iWidth, size_t _iHeight);
 	virtual ~CSpace();
 
 public:

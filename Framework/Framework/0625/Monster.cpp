@@ -3,7 +3,7 @@
 #include "Bullet.h"
 #include "CSpace.h"
 #include "UI_Gauge.h"
-#include "MainApp.h"
+//#include "MainApp.h"
 #include "CSpace.h"
 
 CMonster::CMonster(CGameWorld& _rGameWorld)

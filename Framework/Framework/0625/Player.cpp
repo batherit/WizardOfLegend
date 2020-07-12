@@ -5,7 +5,7 @@
 #include "GuidedBullet.h"
 #include "GunBarrel.h"
 #include "Shield.h"
-#include "MainApp.h"
+//#include "MainApp.h"
 #include "CTimer.h"
 
 CPlayer::CPlayer(CGameWorld& _rGameWorld)
@@ -148,7 +148,7 @@ void CPlayer::LateUpdate(void)
 
 		
 		vector<pair<float, float>>& vecPoints = TO_GAMEWORLD(GetGameWorld()).GetPoints();
-		for (int i = 0; i < vecPoints.size(); i++) {
+		for (int i = 0; i < vecPoints.size() - 1; i++) {
 			if (vecPoints[i].first <= GetX() && GetX() <= vecPoints[i + 1].first) {
 				float fInclination = (vecPoints[i].second - vecPoints[i + 1].second) / (vecPoints[i].first - vecPoints[i + 1].first);
 				float fNewY = vecPoints[i].second + fInclination * (GetX() - vecPoints[i].first);

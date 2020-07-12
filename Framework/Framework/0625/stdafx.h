@@ -33,3 +33,5 @@ using namespace std;
 #include "Extern.h"
 #include "Function.h"
 #include "KeyMgr.h"
+#include "CMapTool.h"
+// #include "MainApp.h"

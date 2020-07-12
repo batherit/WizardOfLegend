@@ -34,3 +34,8 @@ void CGameWorld::ClearWindow(void)
 	RECT rc{ 0,0, WINCX, WINCY };
 	FillRect(m_hBackbufferDC, &rc, (HBRUSH)GetStockObject(WHITE_BRUSH));
 }
+
+void CGameWorld::RenderWindow(void)
+{
+	BitBlt(GetHDC(), 0, 0, WINCX, WINCY, GetBackbufferDC(), 0, 0, SRCCOPY);
+}

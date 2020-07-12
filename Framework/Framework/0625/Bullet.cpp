@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "Bullet.h"
 #include "CSpace.h"
-#include "MainApp.h"
+//#include "MainApp.h"
 
 CBullet::CBullet(CGameWorld& _rGameWorld, float _fX, float _fY, float _fToX, float _fToY, size_t _iWidth /*= ciBulletSize*/, size_t _iHeight /*= ciBulletSize*/, float _fSpeed /*= cfBulletSpeed*/, float _fDamage /*= cfBulletSpeed*/)
 	:
