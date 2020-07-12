@@ -3,6 +3,7 @@
 
 DWORD  CKeyMgr::m_dwOldKeyState = 0;
 DWORD  CKeyMgr::m_dwCurrentKeyState = 0;
+POINT CKeyMgr::m_ptOldClickedPoint = {0, 0};
 CKeyMgr* CKeyMgr::m_pInstance = nullptr;
 
 CKeyMgr::CKeyMgr()

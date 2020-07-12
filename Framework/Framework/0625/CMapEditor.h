@@ -45,13 +45,14 @@ public:
 	void SetMapLeft(LONG _iMapLeft) { m_lMapLeft = _iMapLeft; }
 	void SetMapTop(LONG _iMapTop) { m_lMapTop = _iMapTop; }
 	// 타일맵 사이즈는 초기 설정 이후로 변경되지 않는다.
-	void SetMapWidth(size_t _iMapWidth) { m_iMapWidth = _iMapWidth;	Clamp(&m_iMapWidth, static_cast<size_t>(1), static_cast<size_t>(1000)); }
-	void SetMapHeight(size_t _iMapHeight) { m_iMapHeight = _iMapHeight; Clamp(&m_iMapHeight, static_cast<size_t>(1), static_cast<size_t>(1000)); }
+	void SetMapWidth(size_t _iMapWidth) { m_iMapWidth = _iMapWidth;}
+	void SetMapHeight(size_t _iMapHeight) { m_iMapHeight = _iMapHeight; }
 
 public:
 	// Button Event
 	void ChangeMapWidth(void* _pDeltaWidth);
 	void ChangeMapHeight(void* _pDeltaHeight);
+	void MoveCameraToMapCenter(void*);
 
 private:
 	CGameWorld& m_rGameWorld;

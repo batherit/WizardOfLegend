@@ -17,6 +17,7 @@ CMapEditor::CMapEditor(CGameWorld& _rGameWorld)
 	m_vecEditorButtons.emplace_back(new CUI_Button<CMapEditor>(m_rGameWorld, 50 * 2, WINCY - 25, 40, 25, TEXT("H-"), this, &CMapEditor::ChangeMapHeight, new int(-1)));
 	m_vecEditorButtons.emplace_back(new CUI_Button<CMapEditor>(m_rGameWorld, 50 * 3, WINCY - 25, 40, 25, TEXT("H+"), this, &CMapEditor::ChangeMapHeight, new int(1)));
 	m_vecEditorButtons.emplace_back(new CUI_Button<CMapEditor>(m_rGameWorld, 50 * 4, WINCY - 25, 40, 25, TEXT("H++"), this, &CMapEditor::ChangeMapHeight, new int(5)));
+	m_vecEditorButtons.emplace_back(new CUI_Button<CMapEditor>(m_rGameWorld, 50 * 1, WINCY - 85, 40, 25, TEXT("Cent"), this, &CMapEditor::MoveCameraToMapCenter, nullptr));
 	
 	TO_GAMEWORLD(m_rGameWorld).GetCamera()->SetXY(GetMapMiddleX(), GetMapMiddleY());
 }
@@ -29,6 +30,27 @@ CMapEditor::~CMapEditor()
 
 void CMapEditor::Update(float _fDeltaTime)
 {
+	CKeyMgr* pKeyMgrInst = CKeyMgr::GetInstance();
+	if (pKeyMgrInst->IsKeyDown(KEY::KEY_RBUTTON)) {
+		pKeyMgrInst->SetOldClickedPoint(GetClientCursorPoint());
+	}
+
+	if (pKeyMgrInst->IsKeyPressing(KEY::KEY_RBUTTON)) {
+		POINT ptOldClickedPoint = pKeyMgrInst->GetOldClickedPoint();
+		POINT ptCurClickedPoint = GetClientCursorPoint();
+		CObj* pCamera = TO_GAMEWORLD(m_rGameWorld).GetCamera();
+		POINT ptDeltaMove = {
+			(ptOldClickedPoint.x - ptCurClickedPoint.x) / TO_CAMERA2D(pCamera)->GetZoomMultiple(),
+			(ptOldClickedPoint.y - ptCurClickedPoint.y) / TO_CAMERA2D(pCamera)->GetZoomMultiple()
+		};
+		TO_CAMERA2D(pCamera)->MoveTo(ptDeltaMove.x, ptDeltaMove.y);
+		pKeyMgrInst->SetOldClickedPoint(ptCurClickedPoint);
+	}
+
+	if (pKeyMgrInst->IsKeyUp(KEY::KEY_RBUTTON)) {
+		pKeyMgrInst->SetOldClickedPoint(POINT{0, 0});
+	}
+
 	for (auto& pButton : m_vecEditorButtons) {
 		pButton->Update(_fDeltaTime);
 	}
@@ -90,12 +112,17 @@ void CMapEditor::RenderZeroPoint(const HDC & _hdc, CCamera2D * _pCamera)
 
 void CMapEditor::ChangeMapWidth(void* _pDeltaWidth)
 {
-	int iDeltaWidth = *static_cast<int*>(_pDeltaWidth);
-	SetMapWidth(GetMapWidth() + iDeltaWidth);
+	int iDeltaWidth = GetMapWidth() + *static_cast<int*>(_pDeltaWidth);
+	SetMapWidth(Clamp(iDeltaWidth, 1, 1000));
 }
 
 void CMapEditor::ChangeMapHeight(void* _pDeltaHeight)
 {
-	int iDeltaHeight = *static_cast<int*>(_pDeltaHeight);
-	SetMapHeight(GetMapHeight() + iDeltaHeight);
+	int iDeltaHeight = GetMapHeight() + *static_cast<int*>(_pDeltaHeight);
+	SetMapHeight(Clamp(iDeltaHeight, 1, 1000));
+}
+
+void CMapEditor::MoveCameraToMapCenter(void *)
+{
+	TO_GAMEWORLD(m_rGameWorld).GetCamera()->SetXY(GetMapMiddleX(), GetMapMiddleY());
 }

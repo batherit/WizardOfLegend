@@ -18,6 +18,8 @@ void DeleteListSafe(list<T>& _list) {
 bool IsCollided(const RECT& _rRect1, const RECT& _rRect2);
 bool IsCollided(const CObj* _pObj1, const CObj* _pObj2);
 bool IsCollided(const CObj* _pObj1, const CObj* _pObj2, RECT& _rCollidedPoint);
+bool IsPointInRect(const RECT& _rRect, const POINT& _rPoint);
+POINT GetClientCursorPoint(void);
 float GetRandomFloat(void);
 int GetNumberMinBetweenMax(int _iMin, int _iMax);
 float GetNumberMinBetweenMax(float _fMin, float _fMax);

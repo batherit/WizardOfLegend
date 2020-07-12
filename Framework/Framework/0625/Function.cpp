@@ -26,6 +26,20 @@ bool IsCollided(const CObj * _pObj1, const CObj * _pObj2, RECT& _rCollidedPoint)
 	return IntersectRect(&_rCollidedPoint, &(_pObj1->GetRect()), &(_pObj2->GetRect()));
 }
 
+bool IsPointInRect(const RECT & _rRect, const POINT & _rPoint)
+{
+	return (_rRect.left <= _rPoint.x && _rPoint.x <= _rRect.right) && (_rRect.top <= _rPoint.y && _rPoint.y <= _rRect.bottom);
+}
+
+POINT GetClientCursorPoint(void)
+{
+	POINT pt;
+	GetCursorPos(&pt);				// 데스크탑 기준 좌표
+	ScreenToClient(g_hWND, &pt);	// 윈도우창 기준 좌표
+
+	return pt;
+}
+
 float GetRandomFloat(void)
 {
 	return static_cast <float> (rand()) / static_cast <float> (RAND_MAX);

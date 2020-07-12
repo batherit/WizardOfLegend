@@ -17,6 +17,7 @@
 #define TO_BULLET(_pObj)			dynamic_cast<CBullet*>(_pObj)
 #define TO_SCREW_BULLET(_pObj)		dynamic_cast<CScrewBullet*> (_pObj)
 #define TO_MONSTER(_pObj)			dynamic_cast<CMonster*>(_pObj)
+#define TO_CAMERA2D(_pObj)			dynamic_cast<CCamera2D*>(_pObj)
 #define TO_GAMEWORLD(_pGameWorld)	dynamic_cast<CMapTool&>(_pGameWorld)
 
 // 수학 관련

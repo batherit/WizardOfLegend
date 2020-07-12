@@ -41,10 +41,8 @@ inline CUI_Button<T>::~CUI_Button()
 template<typename T>
 int CUI_Button<T>::Update(float _fDeltaTime)
 {
-	POINT pt = {};
-	GetCursorPos(&pt);				// 데스크탑 기준 좌표
-	ScreenToClient(g_hWND, &pt);	// 윈도우창 기준 좌표
-	if ((pt.x > GetLeft() && GetRight() > pt.x) && (pt.y > GetTop() && GetBottom() > pt.y))
+	POINT pt = GetClientCursorPoint();
+	if (IsPointInRect(GetRect(), pt))
 	{
 		if (CKeyMgr::GetInstance()->IsKeyDown(KEY::KEY_LBUTTON)) {
 			if (m_pOwner && m_pEvent) (m_pOwner->*m_pEvent)(m_pArgu);
