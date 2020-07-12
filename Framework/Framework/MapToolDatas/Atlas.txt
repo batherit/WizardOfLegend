@@ -1,0 +1,3 @@
+1 
+../Textures/WOL_TILE_DUNGEON.bmp
+1920 1314 0.5 73 73

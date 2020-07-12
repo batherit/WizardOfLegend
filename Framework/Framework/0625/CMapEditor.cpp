@@ -2,12 +2,15 @@
 #include "CMapEditor.h"
 #include "UI_Button.h"
 #include "CCamera2D.h"
+#include "CAtlasLoader.h"
 
 
 CMapEditor::CMapEditor(CGameWorld& _rGameWorld)
 	:
 	m_rGameWorld(_rGameWorld)
 {
+	// 파일로부터 맵툴 데이터 로드
+	GenerateAtlasFromFile();
 
 	m_vecEditorButtons.emplace_back(new CUI_Button<CMapEditor>(m_rGameWorld, 50 * 1, WINCY - 55, 40, 25, TEXT("W--"), this, &CMapEditor::ChangeMapWidth, new int(-5)));
 	m_vecEditorButtons.emplace_back(new CUI_Button<CMapEditor>(m_rGameWorld, 50 * 2, WINCY - 55, 40, 25, TEXT("W-"), this, &CMapEditor::ChangeMapWidth, new int(-1)));
@@ -26,6 +29,31 @@ CMapEditor::CMapEditor(CGameWorld& _rGameWorld)
 CMapEditor::~CMapEditor()
 {
 	Release();
+}
+
+void CMapEditor::GenerateAtlasFromFile(void)
+{
+	FILE* fpIn = nullptr;
+	errno_t err = fopen_s(&fpIn, "../MapToolDatas/Atlas.txt", "rt");
+	if (!err) {
+		int iAtlasNum = 0;
+		fscanf_s(fpIn, "%d ", &iAtlasNum);			// 로드할 아틀라스 수
+		_atlas_info stAtlasInfo;
+		for (int i = 0; i < iAtlasNum; i++) {
+			// 문자열은 fgets로 하는게 안전한 것 같다.
+			fgets(stAtlasInfo.szAtlasFileDirectory, sizeof(stAtlasInfo.szAtlasFileDirectory), fpIn);
+			stAtlasInfo.szAtlasFileDirectory[strlen(stAtlasInfo.szAtlasFileDirectory) - 1] = '\0';	// 개행문자 제거
+			int size = strlen(stAtlasInfo.szAtlasFileDirectory);
+			fscanf_s(fpIn, " %d %d %f %d %d",
+				&stAtlasInfo.iAtlasWidth,
+				&stAtlasInfo.iAtlasHeight,
+				&stAtlasInfo.fAtlasRatio,
+				&stAtlasInfo.iTileWidth,
+				&stAtlasInfo.iTileHeight);
+			m_vecAtlasLoaders.emplace_back(new CAtlasLoader(stAtlasInfo));
+		}
+	}
+	if (fpIn) fclose(fpIn);
 }
 
 void CMapEditor::Update(float _fDeltaTime)
@@ -63,6 +91,10 @@ void CMapEditor::Render(HDC & _hdc, CCamera2D* _pCamera)
 	for (auto& pButton : m_vecEditorButtons) {
 		pButton->Render(_hdc, nullptr);
 	}
+	for (auto& pAtlas : m_vecAtlasLoaders) {
+		pAtlas->Render(_hdc, _pCamera);
+	}
+
 }
 
 void CMapEditor::Release(void)

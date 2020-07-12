@@ -4,12 +4,16 @@ class CGameWorld;
 class CMapObj;
 template<typename T> class CUI_Button;
 class CCamera2D;
+class CAtlasLoader;
 
 class CMapEditor
 {
 public:
 	CMapEditor(CGameWorld& _rGameWorld);
 	~CMapEditor();
+
+public:
+	void GenerateAtlasFromFile(void);
 
 public:
 	void Ready(void);
@@ -58,6 +62,7 @@ private:
 	CGameWorld& m_rGameWorld;
 
 	vector<CUI_Button<CMapEditor>*> m_vecEditorButtons;				// 에디터에서 사용하는 버튼들.
+	vector<CAtlasLoader*> m_vecAtlasLoaders;
 
 	CMapObj** m_ppMapObjsArr[MAP_EDITOR::LAYER_END];	// 맵 오브젝트들(중요!)
 	LONG m_lMapLeft = 0;								// 맵의 좌상단 시작 X

@@ -149,6 +149,7 @@
     <ClInclude Include="Bullet.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
     </ClInclude>
+    <ClInclude Include="CAtlasLoader.h" />
     <ClInclude Include="CCamera2D.h" />
     <ClInclude Include="CMapEditor.h" />
     <ClInclude Include="CMapObj.h">
@@ -205,6 +206,7 @@
     <ClCompile Include="Bullet.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
     </ClCompile>
+    <ClCompile Include="CAtlasLoader.cpp" />
     <ClCompile Include="CCamera2D.cpp" />
     <ClCompile Include="CMapEditor.cpp" />
     <ClCompile Include="CMapObj.cpp">

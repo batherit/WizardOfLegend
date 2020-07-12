@@ -66,6 +66,9 @@
     <Filter Include="소스 파일\97.MapEditor">
       <UniqueIdentifier>{18bf22b5-06af-443d-b3a3-ef511342116c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="소스 파일\97.MapEditor\AtlasLoader">
+      <UniqueIdentifier>{f0ca620c-f67f-430a-9184-ad9b30932d9e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CLayer.h">
@@ -161,6 +164,9 @@
     <ClInclude Include="UI_Button.h">
       <Filter>소스 파일\03.Obj\040.UI</Filter>
     </ClInclude>
+    <ClInclude Include="CAtlasLoader.h">
+      <Filter>소스 파일\97.MapEditor\AtlasLoader</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CLayer.cpp">
@@ -243,6 +249,9 @@
     </ClCompile>
     <ClCompile Include="UI_Button.cpp">
       <Filter>소스 파일\03.Obj\040.UI</Filter>
+    </ClCompile>
+    <ClCompile Include="CAtlasLoader.cpp">
+      <Filter>소스 파일\97.MapEditor\AtlasLoader</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
