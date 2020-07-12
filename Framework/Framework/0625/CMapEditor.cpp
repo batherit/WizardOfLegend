@@ -12,6 +12,7 @@ CMapEditor::CMapEditor(CGameWorld& _rGameWorld)
 	// 파일로부터 맵툴 데이터 로드
 	GenerateAtlasFromFile();
 
+	// 맵 제어 버튼
 	m_vecEditorButtons.emplace_back(new CUI_Button<CMapEditor>(m_rGameWorld, 50 * 1, WINCY - 55, 40, 25, TEXT("W--"), this, &CMapEditor::ChangeMapWidth, new int(-5)));
 	m_vecEditorButtons.emplace_back(new CUI_Button<CMapEditor>(m_rGameWorld, 50 * 2, WINCY - 55, 40, 25, TEXT("W-"), this, &CMapEditor::ChangeMapWidth, new int(-1)));
 	m_vecEditorButtons.emplace_back(new CUI_Button<CMapEditor>(m_rGameWorld, 50 * 3, WINCY - 55, 40, 25, TEXT("W+"), this, &CMapEditor::ChangeMapWidth, new int(1)));
@@ -20,7 +21,16 @@ CMapEditor::CMapEditor(CGameWorld& _rGameWorld)
 	m_vecEditorButtons.emplace_back(new CUI_Button<CMapEditor>(m_rGameWorld, 50 * 2, WINCY - 25, 40, 25, TEXT("H-"), this, &CMapEditor::ChangeMapHeight, new int(-1)));
 	m_vecEditorButtons.emplace_back(new CUI_Button<CMapEditor>(m_rGameWorld, 50 * 3, WINCY - 25, 40, 25, TEXT("H+"), this, &CMapEditor::ChangeMapHeight, new int(1)));
 	m_vecEditorButtons.emplace_back(new CUI_Button<CMapEditor>(m_rGameWorld, 50 * 4, WINCY - 25, 40, 25, TEXT("H++"), this, &CMapEditor::ChangeMapHeight, new int(5)));
+
+	// 카메라 제어 버튼
 	m_vecEditorButtons.emplace_back(new CUI_Button<CMapEditor>(m_rGameWorld, 50 * 1, WINCY - 85, 40, 25, TEXT("Cent"), this, &CMapEditor::MoveCameraToMapCenter, nullptr));
+
+	// 아틀라스 토클 버튼
+	TCHAR szID[10];
+	for (int id = 0; id < m_vecAtlasLoaders.size(); id++) {
+		swprintf_s(szID, TEXT("Atlas_%d"), id);
+		m_vecEditorButtons.emplace_back(new CUI_Button<CMapEditor>(m_rGameWorld, WINCX - 100, 60 + id * 30, 60, 25, szID, this, &CMapEditor::ToggleAtlas, new int(id)));
+	}
 	
 	TO_GAMEWORLD(m_rGameWorld).GetCamera()->SetXY(GetMapMiddleX(), GetMapMiddleY());
 }
@@ -41,7 +51,10 @@ void CMapEditor::GenerateAtlasFromFile(void)
 		_atlas_info stAtlasInfo;
 		for (int i = 0; i < iAtlasNum; i++) {
 			// 문자열은 fgets로 하는게 안전한 것 같다.
-			fgets(stAtlasInfo.szAtlasFileDirectory, sizeof(stAtlasInfo.szAtlasFileDirectory), fpIn);
+			do {
+				fgets(stAtlasInfo.szAtlasFileDirectory, sizeof(stAtlasInfo.szAtlasFileDirectory), fpIn);
+			} while (strcmp(stAtlasInfo.szAtlasFileDirectory, "\n") == 0);	// 개행문자는 거른다.
+			
 			stAtlasInfo.szAtlasFileDirectory[strlen(stAtlasInfo.szAtlasFileDirectory) - 1] = '\0';	// 개행문자 제거
 			int size = strlen(stAtlasInfo.szAtlasFileDirectory);
 			fscanf_s(fpIn, " %d %d %f %d %d",
@@ -126,9 +139,6 @@ void CMapEditor::RenderTileBoard(const HDC & _hdc, CCamera2D * _pCamera)
 		pairConvPoint = _pCamera->GetScreenPoint(GetMapLeft() + GetTileWidth() * i, GetMapBottom());
 		LineTo(_hdc, pairConvPoint.first, pairConvPoint.second);
 	}
-
-	size_t h1 = GetMapTop() + GetTileHeight() * m_iMapHeight;
-	size_t h2 = GetMapBottom();
 }
 
 void CMapEditor::RenderZeroPoint(const HDC & _hdc, CCamera2D * _pCamera)
@@ -157,4 +167,16 @@ void CMapEditor::ChangeMapHeight(void* _pDeltaHeight)
 void CMapEditor::MoveCameraToMapCenter(void *)
 {
 	TO_GAMEWORLD(m_rGameWorld).GetCamera()->SetXY(GetMapMiddleX(), GetMapMiddleY());
+}
+
+void CMapEditor::ToggleAtlas(void * _Index)
+{
+	int iIndex = *static_cast<int*>(_Index);
+
+	if (m_vecAtlasLoaders[iIndex]->IsVisible()) {
+		m_vecAtlasLoaders[iIndex]->SetVisible(false);
+	}
+	else {
+		m_vecAtlasLoaders[iIndex]->SetVisible(true);
+	}
 }

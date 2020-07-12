@@ -57,6 +57,7 @@ public:
 	void ChangeMapWidth(void* _pDeltaWidth);
 	void ChangeMapHeight(void* _pDeltaHeight);
 	void MoveCameraToMapCenter(void*);
+	void ToggleAtlas(void* _Index);
 
 private:
 	CGameWorld& m_rGameWorld;
