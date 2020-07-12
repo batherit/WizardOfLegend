@@ -77,7 +77,7 @@ void CMonster::LateUpdate(void)
 	}
 }
 
-void CMonster::Render(const HDC & _hdc, CCamera2D* _pCamera)
+void CMonster::Render(HDC & _hdc, CCamera2D* _pCamera)
 {
 	CObj::Render(_hdc, _pCamera);
 	DO_IF_IS_VALID_OBJ(m_pHpGauge) { m_pHpGauge->Render(_hdc); }

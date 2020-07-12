@@ -33,7 +33,7 @@ void CScrewBullet::LateUpdate(void)
 	DO_IF_IS_VALID_OBJ(m_pScrewBall) { m_pScrewBall->LateUpdate(); }
 }
 
-void CScrewBullet::Render(const HDC & _hdc, CCamera2D* _pCamera)
+void CScrewBullet::Render(HDC & _hdc, CCamera2D* _pCamera)
 {
 	CBullet::Render(_hdc, _pCamera);
 	DO_IF_IS_VALID_OBJ(m_pScrewBall) { m_pScrewBall->Render(_hdc, _pCamera); }

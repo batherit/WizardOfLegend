@@ -31,12 +31,12 @@ int CCamera2D::Update(float _fDeltaTime)
 	else {
 		if (CKeyMgr::GetInstance()->IsKeyPressing(KEY::KEY_Q)) {
 			// ÁÜÀÎÀÌ ÀÌ·ç¾îÁü.
-			Clamp(&(m_fZoomMultiple -= (m_cfZoomSpeed * _fDeltaTime)), m_cfMaxZoomOut, m_cfMaxZoomIn);
+			ZoomIn(_fDeltaTime);
 		}
 
 		if (CKeyMgr::GetInstance()->IsKeyPressing(KEY::KEY_E)) {
 			// ÁÜ¾Æ¿ôÀÌ ÀÌ·ç¾îÁü.
-			Clamp(&(m_fZoomMultiple += (m_cfZoomSpeed * _fDeltaTime)), m_cfMaxZoomOut, m_cfMaxZoomIn);
+			ZoomOut(_fDeltaTime);
 		}
 
 		if (CKeyMgr::GetInstance()->IsKeyPressing(KEY::KEY_W)) {
@@ -59,25 +59,42 @@ int CCamera2D::Update(float _fDeltaTime)
 	return 0;
 }
 
-RECT CCamera2D::TransformRect(RECT& _rRect)
+void CCamera2D::ZoomIn(float _fDeltaTime)
+{
+	Clamp(&(m_fZoomMultiple -= (m_cfZoomSpeed * _fDeltaTime)), m_cfMaxZoomOut, m_cfMaxZoomIn);
+}
+
+void CCamera2D::ZoomOut(float _fDeltaTime)
+{
+	Clamp(&(m_fZoomMultiple += (m_cfZoomSpeed * _fDeltaTime)), m_cfMaxZoomOut, m_cfMaxZoomIn);
+}
+
+RECT CCamera2D::GetScreenRect(RECT& _rRectW)
 {
 	RECT rc;
 
-	//_rRect.right - GetX() - GetX() 
-
-	rc.right = (_rRect.right - GetX()) * m_fZoomMultiple + (WINCX >> 1);
-	rc.top = (_rRect.top - GetY())* m_fZoomMultiple + (WINCY >> 1);
-	rc.left = (_rRect.left - GetX()) * m_fZoomMultiple + (WINCX >> 1);
-	rc.bottom = (_rRect.bottom - GetY())* m_fZoomMultiple + (WINCY >> 1);
+	rc.right = (_rRectW.right - GetX()) * m_fZoomMultiple + (WINCX >> 1);
+	rc.top = (_rRectW.top - GetY())* m_fZoomMultiple + (WINCY >> 1);
+	rc.left = (_rRectW.left - GetX()) * m_fZoomMultiple + (WINCX >> 1);
+	rc.bottom = (_rRectW.bottom - GetY())* m_fZoomMultiple + (WINCY >> 1);
 
 	return rc;
 }
 
-pair<float, float> CCamera2D::TransformPoint(float _fX, float _fY)
+pair<float, float> CCamera2D::GetScreenPoint(float _fXW, float _fYW)
 {
-	pair<float, float> pairPoint;
-	pairPoint.first = (_fX - GetX())* m_fZoomMultiple + (WINCX >> 1);
-	pairPoint.second = (_fY - GetY())* m_fZoomMultiple + (WINCY >> 1);
+	pair<float, float> pairScreenPoint;
+	pairScreenPoint.first = (_fXW - GetX())* m_fZoomMultiple + (WINCX >> 1);
+	pairScreenPoint.second = (_fYW - GetY())* m_fZoomMultiple + (WINCY >> 1);
 
-	return pairPoint;
+	return pairScreenPoint;
+}
+
+pair<float, float> CCamera2D::GetWorldPoint(float _fXS, float _fYS)
+{
+	pair<float, float> pairWorldPoint;
+	pairWorldPoint.first = (_fXS - (WINCX >> 1)) / m_fZoomMultiple + GetX();
+	pairWorldPoint.second = (_fYS - (WINCY >> 1)) / m_fZoomMultiple + GetY();
+
+	return pairWorldPoint;
 }

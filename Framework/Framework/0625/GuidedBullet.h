@@ -11,7 +11,7 @@ public:
 	virtual void Ready(void)				override;
 	virtual int Update(float _fDeltaTime)				override;
 	virtual void LateUpdate(void)			override;
-	virtual void Render(const HDC& _hdc, CCamera2D* _pCamera)	override;
+	virtual void Render(HDC& _hdc, CCamera2D* _pCamera)	override;
 	virtual void Release(void)				override;
 };
 

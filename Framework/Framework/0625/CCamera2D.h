@@ -14,7 +14,7 @@ public:
 	virtual void Ready(void) {};
 	virtual int Update(float _fDeltaTime);
 	virtual void LateUpdate(void) {};
-	virtual void Render(const HDC& _hdc) {
+	virtual void Render(HDC& _hdc) {
 		TCHAR szBuffer[64];
 		swprintf(szBuffer, sizeof(szBuffer), L"Camera X : %f, Y : %f, Zoom : %f", GetX(), GetY(), m_fZoomMultiple);
 		TextOut(_hdc, 0, 0, szBuffer, lstrlen(szBuffer));
@@ -22,8 +22,14 @@ public:
 	virtual void Release(void) {};
 
 public:
-	RECT TransformRect(RECT& _rRect);
-	pair<float, float> TransformPoint(float _fX, float _fY);
+	void ZoomIn(float _fDeltaTime);
+	void ZoomOut(float _fDeltaTime);
+	float GetZoomMultiple(void) const { return m_fZoomMultiple; }
+
+public:
+	RECT GetScreenRect(RECT& _rRectW);
+	pair<float, float> GetScreenPoint(float _fXW, float _fYW);
+	pair<float, float> GetWorldPoint(float _fXS, float _fYS);
 
 private:
 	CObj* m_pOwner = nullptr;

@@ -17,7 +17,7 @@ public:
 	virtual void Ready(void) {};
 	virtual int Update(float _fDeltaTime) { return 0; };
 	virtual void LateUpdate(void) {};
-	virtual void Render(const HDC& _hdc, CCamera2D* _pCamera = nullptr);
+	virtual void Render(HDC& _hdc, CCamera2D* _pCamera = nullptr);
 	virtual void Release(void) {};
 
 public:

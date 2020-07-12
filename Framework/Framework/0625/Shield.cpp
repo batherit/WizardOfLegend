@@ -45,7 +45,7 @@ void CShield::LateUpdate(void)
 	}
 }
 
-void CShield::Render(const HDC & _hdc, CCamera2D* _pCamera)
+void CShield::Render(HDC & _hdc, CCamera2D* _pCamera)
 {
 	//Ellipse(_hdc, GetLeft(), GetTop(), GetRight(), GetBottom());
 	DO_IF_IS_VALID_OBJ(m_pScrewBall) { m_pScrewBall->Render(_hdc, _pCamera); }

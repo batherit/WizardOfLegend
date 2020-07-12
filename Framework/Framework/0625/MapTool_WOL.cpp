@@ -12,6 +12,8 @@ HINSTANCE hInst;                                // 현재 인스턴스입니다.
 WCHAR szTitle[MAX_LOADSTRING];                  // 제목 표시줄 텍스트입니다.
 WCHAR szWindowClass[MAX_LOADSTRING];            // 기본 창 클래스 이름입니다.
 HWND g_hWND;
+CMapTool* pMain;
+
 // 이 코드 모듈에 들어 있는 함수의 정방향 선언입니다.
 ATOM                MyRegisterClass(HINSTANCE hInstance);
 BOOL                InitInstance(HINSTANCE, int);
@@ -40,9 +42,10 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 	}
 
 	HACCEL hAccelTable = LoadAccelerators(hInstance, MAKEINTRESOURCE(IDC_MY0625));
-
-	CMapTool tMain;
-	tMain.Ready();
+	
+	// g_hWND가 설정되었다는 전제.
+	pMain = new CMapTool();
+	pMain->Ready();
 
 	MSG msg;
 	msg.message = WM_NULL;
@@ -50,6 +53,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 	//DWORD dwOldTime = GetTickCount();
 	while (WM_QUIT != msg.message)
 	{
+		pMain->RunTick();
 		if (PeekMessage(&msg, nullptr, 0, 0, PM_REMOVE)) {
 
 			if (!TranslateAccelerator(msg.hwnd, hAccelTable, &msg))
@@ -60,11 +64,11 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 		}
 		//if (dwOldTime + 10 < GetTickCount())
 		//{
-		tMain.RunTick();
+		
 		CKeyMgr::GetInstance()->Update();
-		tMain.Update();
-		tMain.LateUpdate();
-		tMain.Render();
+		pMain->Update();
+		pMain->LateUpdate();
+		pMain->Render();
 		//dwOldTime = GetTickCount();
 	//}
 	}
@@ -161,6 +165,9 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 		}
 	}
 	break;
+	case WM_MOUSEWHEEL:
+		pMain->OnProcessingWindowMessage(hWnd, message, wParam, lParam);
+		break;
 	/*case WM_PAINT:
 	{
 		PAINTSTRUCT ps;

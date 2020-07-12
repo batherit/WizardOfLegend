@@ -39,7 +39,7 @@ void CBullet::LateUpdate(void)
 	}
 }
 
-void CBullet::Render(const HDC & _hdc, CCamera2D* _pCamera)
+void CBullet::Render(HDC & _hdc, CCamera2D* _pCamera)
 {
 	CObj::Render(_hdc, _pCamera);
 }

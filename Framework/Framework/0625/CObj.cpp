@@ -36,10 +36,10 @@ CObj::~CObj()
 {
 }
 
-void CObj::Render(const HDC & _hdc, CCamera2D * _pCamera)
+void CObj::Render(HDC & _hdc, CCamera2D * _pCamera)
 {
 	if (_pCamera) {
-		RECT rc = _pCamera->TransformRect(GetRect());
+		RECT rc = _pCamera->GetScreenRect(GetRect());
 		if (m_pDrawFunc) m_pDrawFunc(_hdc, rc.left, rc.top, rc.right, rc.bottom);
 	}
 	else {

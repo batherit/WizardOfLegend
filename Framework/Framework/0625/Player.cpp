@@ -163,7 +163,7 @@ void CPlayer::LateUpdate(void)
 	}
 }
 
-void CPlayer::Render(const HDC & _hdc, CCamera2D* _pCamera)
+void CPlayer::Render(HDC & _hdc, CCamera2D* _pCamera)
 {
 	CObj::Render(_hdc, _pCamera);
 	DO_IF_IS_VALID_OBJ(m_pGunBarrel) { m_pGunBarrel->Render(_hdc, _pCamera); }

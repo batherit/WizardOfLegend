@@ -9,6 +9,7 @@ public:
 	~CGameWorld();
 
 public:
+	virtual LRESULT CALLBACK OnProcessingWindowMessage(HWND hWnd, UINT nMessageID, WPARAM wParam, LPARAM lParam) = 0;
 	virtual void Ready(void) = 0;
 	virtual void Update(void) = 0;
 	virtual void LateUpdate(void) = 0;

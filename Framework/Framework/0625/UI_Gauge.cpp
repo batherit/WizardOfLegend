@@ -54,7 +54,7 @@ int CUI_Gauge::Update(float _fDeltaTime)
 	return 0;
 }
 
-void CUI_Gauge::Render(const HDC & _hdc, CCamera2D* _pCamera)
+void CUI_Gauge::Render(HDC & _hdc, CCamera2D* _pCamera)
 {
 	if (m_fCurrent > 0) {
 		m_pDrawFunc(_hdc, GetLeft(), GetTop(), GetRight(), GetBottom());

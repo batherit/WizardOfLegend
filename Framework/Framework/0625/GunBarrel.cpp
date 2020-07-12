@@ -30,11 +30,11 @@ int CGunBarrel::Update(float _fDeltaTime)
 	return 0;
 }
 
-void CGunBarrel::Render(const HDC & _hdc, CCamera2D* _pCamera)
+void CGunBarrel::Render(HDC & _hdc, CCamera2D* _pCamera)
 {
 	if (_pCamera) {
-		pair<float, float> pairStart = _pCamera->TransformPoint(GetStartX(), GetStartY());
-		pair<float, float> pairEnd = _pCamera->TransformPoint(GetEndX(), GetEndY());
+		pair<float, float> pairStart = _pCamera->GetScreenPoint(GetStartX(), GetStartY());
+		pair<float, float> pairEnd = _pCamera->GetScreenPoint(GetEndX(), GetEndY());
 
 		MoveToEx(_hdc, pairStart.first, pairStart.second, nullptr);
 		LineTo(_hdc, pairEnd.first, pairEnd.second);

@@ -49,7 +49,7 @@ void CGuidedBullet::LateUpdate(void)
 	CBullet::LateUpdate();
 }
 
-void CGuidedBullet::Render(const HDC & _hdc, CCamera2D* _pCamera)
+void CGuidedBullet::Render(HDC & _hdc, CCamera2D* _pCamera)
 {
 	CBullet::Render(_hdc, _pCamera);
 }

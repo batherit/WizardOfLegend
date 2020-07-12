@@ -63,3 +63,23 @@ void CMapTool::Release(void)
 	DeleteSafe(m_pCamera);
 	DeleteSafe(m_pMapEditor);
 }
+
+LRESULT CMapTool::OnProcessingWindowMessage(HWND hWnd, UINT nMessageID, WPARAM wParam, LPARAM lParam)
+{
+	switch (nMessageID)
+	{
+	case WM_MOUSEWHEEL:
+	{
+		int zDelta = GET_WHEEL_DELTA_WPARAM(wParam);
+
+		if (zDelta > 0) {
+			m_pCamera->ZoomIn(0.2f);
+		}
+		else {
+			m_pCamera->ZoomOut(0.2f);
+		}
+		break;
+	}
+	}
+	return 0;
+}

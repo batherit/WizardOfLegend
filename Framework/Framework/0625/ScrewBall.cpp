@@ -42,10 +42,10 @@ void CScrewBall::LateUpdate(void)
 {
 }
 
-void CScrewBall::Render(const HDC & _hdc, CCamera2D* _pCamera)
+void CScrewBall::Render(HDC & _hdc, CCamera2D* _pCamera)
 {
 	if (_pCamera) {
-		RECT rc = _pCamera->TransformRect(GetScrewBallRect());
+		RECT rc = _pCamera->GetScreenRect(GetScrewBallRect());
 		Ellipse(_hdc, rc.left, rc.top, rc.right, rc.bottom);
 	}
 	else {

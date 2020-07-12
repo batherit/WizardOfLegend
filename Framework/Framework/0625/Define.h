@@ -1,14 +1,7 @@
 #pragma once
 
-#define WINCX 1280
-#define WINCY 1024
-
-// 키 입력 관련
-//#define NOT_PRESS_(_Key)			((GetAsyncKeyState(_Key) ^ 0xFFFF0000) == 0)
-//#define JUST_RELEASE_(_Key)			((GetAsyncKeyState(_Key) ^ 0xFFFF0001) == 0)
-//#define KEEP_PRESSING_(_Key)		((GetAsyncKeyState(_Key) ^ 0xFFFF8000) == 0)
-//#define JUST_PRESS_(_Key)			((GetAsyncKeyState(_Key) ^ 0xFFFF8001) == 0)
-//#define IS_PRESS_KEY_(_Key)				(GetAsyncKeyState(_Key) & 0x8000)
+#define WINCX 1400
+#define WINCY 800
 
 // 타이머 관련
 #define WORLD_TIMER	CGameWorldTimer::Instance()

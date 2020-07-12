@@ -12,7 +12,7 @@ public:
 	virtual void Ready(void) {};
 	virtual int Update(float _fDeltaTime) { return 0; };
 	virtual void LateUpdate(void);
-	virtual void Render(const HDC& _hdc) { m_pDrawFunc(_hdc, GetLeft(), GetTop(), GetRight(), GetBottom()); }
+	virtual void Render(HDC& _hdc) { m_pDrawFunc(_hdc, GetLeft(), GetTop(), GetRight(), GetBottom()); }
 	virtual void Release(void) { }
 
 public:
