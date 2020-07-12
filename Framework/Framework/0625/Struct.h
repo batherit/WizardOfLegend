@@ -8,3 +8,8 @@ struct _atlas_info {
 	int iTileWidth = 73;
 	int iTileHeight = 73;
 };
+
+struct _detected_tile_info {
+	int iAtlasID = -1;		// 검출 아틀라스 아이디
+	pair<int, int> pairRowCol{ -1, -1 }; // 검출된 타일의 행과 열
+};

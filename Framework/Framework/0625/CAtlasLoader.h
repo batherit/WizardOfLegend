@@ -12,15 +12,22 @@ public:
 public:
 	void RenderAtlas(HDC& _hdc, CCamera2D* _pCamera);
 	void RenderGrid(HDC& _hdc, CCamera2D* _pCamera);
-	LONG GetLeft(void) const { return 0; }
-	LONG GetTop(void) const { return 0; }
-	LONG GetBottom(void) const { return m_iStretchedAtlasHeight; }
-	LONG GetRight(void) const { return m_iStretchedAtlasWidth; }
-	size_t GetTileWidth(void) const { return m_iStretchedTileWidth; }
-	size_t GetTileHeight(void) const { return m_iStretchedTileHeight; }
+	
+	HBITMAP& GetBitmap(void) { return m_bitmapAtlas; }
+	
+	LONG GetStretchedLeft(void) const { return 0; }
+	LONG GetStretchedTop(void) const { return 0; }
+	LONG GetStretchedBottom(void) const { return m_iStretchedAtlasHeight; }
+	LONG GetStretchedRight(void) const { return m_iStretchedAtlasWidth; }
+	size_t GetStretchedTileWidth(void) const { return m_iStretchedTileWidth; }
+	size_t GetStretchedTileHeight(void) const { return m_iStretchedTileHeight; }
+
+	_atlas_info GetAtlasInfo(void) const { return m_stAtlasInfo; }
 	
 	void SetVisible(bool _bIsVisible) { m_bIsVisible = _bIsVisible; }
 	bool IsVisible(void) const { return m_bIsVisible; }
+
+	pair<int, int> GetDetectedTileRowCol(const POINT& _ptClicked);
 
 private:
 	HBITMAP m_bitmapAtlas;

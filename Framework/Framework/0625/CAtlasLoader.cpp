@@ -50,7 +50,11 @@ void CAtlasLoader::RenderAtlas(HDC & _hdc, CCamera2D * _pCamera)
 		0,
 		m_iStretchedAtlasWidth,
 		m_iStretchedAtlasHeight,
-		memdc, 0, 0, m_stAtlasInfo.iAtlasWidth, m_stAtlasInfo.iAtlasHeight, SRCCOPY);
+		memdc, 
+		0, 
+		0, 
+		m_stAtlasInfo.iAtlasWidth, 
+		m_stAtlasInfo.iAtlasHeight, SRCCOPY);
 	DeleteDC(memdc);
 }
 
@@ -58,13 +62,37 @@ void CAtlasLoader::RenderGrid(HDC & _hdc, CCamera2D * _pCamera)
 {
 	// 가로줄 그리기
 	for (int i = 0; i < m_iRow + 1; i++) {
-		MoveToEx(_hdc, GetLeft(), GetTop() + GetTileHeight() * i, nullptr);
-		LineTo(_hdc, GetRight(), GetTop() + GetTileHeight() * i);
+		MoveToEx(_hdc, GetStretchedLeft(), GetStretchedTop() + GetStretchedTileHeight() * i, nullptr);
+		LineTo(_hdc, GetStretchedRight(), GetStretchedTop() + GetStretchedTileHeight() * i);
 	}
 
 	// 세로줄 그리기
 	for (int i = 0; i < m_iCol + 1; i++) {
-		MoveToEx(_hdc, GetLeft() + GetTileWidth() * i, GetTop(), nullptr);
-		LineTo(_hdc, GetLeft() + GetTileWidth() * i, GetBottom());
+		MoveToEx(_hdc, GetStretchedLeft() + GetStretchedTileWidth() * i, GetStretchedTop(), nullptr);
+		LineTo(_hdc, GetStretchedLeft() + GetStretchedTileWidth() * i, GetStretchedBottom());
 	}
+}
+
+pair<int, int> CAtlasLoader::GetDetectedTileRowCol(const POINT& _ptClicked)
+{
+	pair<int, int> pairRowCol(-1, -1);
+
+	if (IsVisible()) {
+		RECT rcStretchedTile;
+		for (int i = 0; i < m_iRow; i++) {
+			for (int j = 0; j < m_iCol; j++) {
+				rcStretchedTile.left = m_iStretchedTileWidth * j;
+				rcStretchedTile.top = m_iStretchedTileHeight * i;
+				rcStretchedTile.right = m_iStretchedTileWidth * (j + 1);
+				rcStretchedTile.bottom = m_iStretchedTileHeight * (i + 1);
+				if (IsPointInRect(rcStretchedTile, _ptClicked)) {
+					pairRowCol.first = i;
+					pairRowCol.second = j;
+					return pairRowCol;
+				}
+			}
+		}
+	}
+	
+	return pairRowCol;
 }
