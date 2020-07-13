@@ -5,6 +5,7 @@
 #include "CAtlasLoader.h"
 #include "CTileMapObj.h"
 #include "CAtlasObj.h"
+#include "CCollider.h"
 
 
 CMapEditor::CMapEditor(CGameWorld& _rGameWorld)
@@ -28,12 +29,24 @@ CMapEditor::CMapEditor(CGameWorld& _rGameWorld)
 	m_vecEditorButtons.emplace_back(new CUI_Button<CMapEditor>(m_rGameWorld, 50 * 1, WINCY - 85, 40, 25, TEXT("Cent"), this, &CMapEditor::MoveCameraToMapCenter, nullptr));
 
 	// 아틀라스 비저블 토큰 버튼
-	TCHAR szID[10];
+	TCHAR szBuf[10];
 	for (int id = 0; id < m_stMapRenderInfo.vecAtlasLoaders.size(); id++) {
-		swprintf_s(szID, TEXT("Atlas_%d"), id);
-		m_vecEditorButtons.emplace_back(new CUI_Button<CMapEditor>(m_rGameWorld, WINCX - 100, 60 + id * 30, 60, 25, szID, this, &CMapEditor::ToggleAtlas, new int(id)));
+		swprintf_s(szBuf, TEXT("Atlas_%d"), id);
+		m_vecEditorButtons.emplace_back(new CUI_Button<CMapEditor>(m_rGameWorld, WINCX - 100, 60 + id * 30, 60, 25, szBuf, this, &CMapEditor::ToggleAtlas, new int(id)));
 	}
-	
+
+	// Layer 변경
+	for (int i = 0; i < 3; i++) {
+		swprintf_s(szBuf, TEXT("Layer_%d"), i);
+		m_vecEditorButtons.emplace_back(new CUI_Button<CMapEditor>(m_rGameWorld, 330, WINCY - 25 - 30 * i, 60, 25, szBuf, this, &CMapEditor::ChangeDrawLayerIndex, new int(i)));
+	}
+	m_vecEditorButtons.emplace_back(new CUI_Button<CMapEditor>(m_rGameWorld, 400, WINCY - 55, 40, 25, TEXT("Draw"), this, &CMapEditor::ChangeLayer, new MAP_EDITOR::E_LAYER(MAP_EDITOR::LAYER_DRAW)));
+	m_vecEditorButtons.emplace_back(new CUI_Button<CMapEditor>(m_rGameWorld, 450, WINCY - 55, 40, 25, TEXT("Col"), this, &CMapEditor::ChangeLayer, new MAP_EDITOR::E_LAYER(MAP_EDITOR::LAYER_COLLISION)));
+
+	// Tool 변경
+	m_vecEditorButtons.emplace_back(new CUI_Button<CMapEditor>(m_rGameWorld, 410, WINCY - 25, 60, 25, TEXT("Paint"), this, &CMapEditor::ChangeTool, new MAP_EDITOR::E_TOOL(MAP_EDITOR::TOOL_PAINT)));
+	m_vecEditorButtons.emplace_back(new CUI_Button<CMapEditor>(m_rGameWorld, 480, WINCY - 25, 60, 25, TEXT("Erase"), this, &CMapEditor::ChangeTool, new MAP_EDITOR::E_TOOL(MAP_EDITOR::TOOL_ERASE)));
+
 	TO_GAMEWORLD(m_rGameWorld).GetCamera()->SetXY(GetMapMiddleX(), GetMapMiddleY());
 }
 
@@ -115,10 +128,65 @@ void CMapEditor::Update(float _fDeltaTime)
 			ptWorldPoint.y = pairWorldPoint.second;
 
 			if (IsPointInRect(GetMapRect(), ptWorldPoint)) {
+				// 커서 좌표가 맵 영역에 들어온 경우.
 				int iCol = pairWorldPoint.first / GetTileWidth();
 				int iRow = pairWorldPoint.second / GetTileHeight();
 
-				m_listMapObjs.emplace_back(new CAtlasObj(m_stMapRenderInfo, iRow, iCol, m_stDetectedAtlasObj));
+				switch (m_eLayerType)
+				{
+				case MAP_EDITOR::LAYER_DRAW:
+				{
+					CTileMapObj* pPickedObj = nullptr;
+					for (auto& obj : m_listAtlasObjs[m_iDrawLayerIndex]) {
+						if (IsPointInRect(obj->GetRowColRect(), POINT{ iCol, iRow })) {
+							pPickedObj = obj;
+							break;
+						}
+					}
+					switch (m_eTool)
+					{
+					case MAP_EDITOR::TOOL_PAINT:
+						if(!pPickedObj) 
+							m_listAtlasObjs[m_iDrawLayerIndex].emplace_back(new CAtlasObj(m_stMapRenderInfo, iRow, iCol, m_stDetectedAtlasObj));
+						break;
+					case MAP_EDITOR::TOOL_ERASE:
+						if (pPickedObj)
+							m_listAtlasObjs[m_iDrawLayerIndex].erase(find(m_listAtlasObjs[m_iDrawLayerIndex].begin(), m_listAtlasObjs[m_iDrawLayerIndex].end(), pPickedObj));
+						break;
+					default:
+						break;
+					}
+				break;
+				}
+				case MAP_EDITOR::LAYER_COLLISION:
+				{
+					CTileMapObj* pPickedObj = nullptr;
+					for (auto& obj : m_listColliders) {
+						if (IsPointInRect(obj->GetRowColRect(), POINT{ iCol, iRow })) {
+							pPickedObj = obj;
+							break;
+						}
+					}
+					switch (m_eTool)
+					{
+					case MAP_EDITOR::TOOL_PAINT:
+						if (!pPickedObj)
+							m_listColliders.emplace_back(new CCollider(m_stMapRenderInfo, iRow, iCol));
+						break;
+					case MAP_EDITOR::TOOL_ERASE:
+						if (pPickedObj)
+							m_listColliders.erase(find(m_listColliders.begin(), m_listColliders.end(), pPickedObj));
+						break;
+					default:
+						break;
+					}
+				break;
+				}
+				default:
+					break;
+				}
+
+				
 			}
 		}
 	}
@@ -131,18 +199,23 @@ void CMapEditor::Update(float _fDeltaTime)
 void CMapEditor::Render(HDC & _hdc, CCamera2D* _pCamera)
 {
 	RenderTileBoard(_hdc, _pCamera);
-
-	for (auto& pObj : m_listMapObjs) {
+	for (int i = 0; i < 3; i++) {
+		for (auto& pObj : m_listAtlasObjs[i]) {
+			pObj->Render(_hdc, _pCamera);
+		}
+	}
+	for (auto& pObj : m_listColliders) {
 		pObj->Render(_hdc, _pCamera);
 	}
 
+	RenderZeroPoint(_hdc, _pCamera);
 	for (auto& pButton : m_vecEditorButtons) {
 		pButton->Render(_hdc, nullptr);
 	}
+	RenderMode(_hdc, _pCamera);
 	for (auto& pAtlas : m_stMapRenderInfo.vecAtlasLoaders) {
 		pAtlas->Render(_hdc, _pCamera);
 	}
-	RenderZeroPoint(_hdc, _pCamera);
 	RenderDetectedTile(_hdc, _pCamera);
 }
 
@@ -218,6 +291,16 @@ void CMapEditor::RenderDetectedTile(HDC & _hdc, CCamera2D * _pCamera)
 	DeleteDC(memdc);
 }
 
+void CMapEditor::RenderMode(HDC & _hdc, CCamera2D * _pCamera)
+{
+	const static TCHAR* szLayer[2] = { TEXT("Draw Layer"), TEXT("Col Layer") };
+	const static TCHAR* szTool[2] = { TEXT("Paint"), TEXT("Erase") };
+
+	TCHAR szMode[128];
+	swprintf_s(szMode, TEXT("(Draw Layer Index : %d) [%s_%s Mode]"), m_iDrawLayerIndex, szLayer[m_eLayerType], szTool[m_eTool]);
+	TextOut(_hdc, 600, WINCY - 30, szMode, lstrlen(szMode));
+}
+
 void CMapEditor::ChangeMapWidth(void* _pDeltaWidth)
 {
 	int iDeltaWidth = GetMapWidth() + *static_cast<int*>(_pDeltaWidth);
@@ -253,4 +336,19 @@ void CMapEditor::ToggleAtlas(void * _pID)
 		m_stMapRenderInfo.vecAtlasLoaders[iID]->SetVisible(true);
 		m_iVisibleAtlasID = iID;		// 현재 보여지고 있는 아틀라스 아이디를 등록. => 타일 검출에 쓰임.
 	}
+}
+
+void CMapEditor::ChangeLayer(void * _pLayerType)
+{
+	m_eLayerType = *static_cast<MAP_EDITOR::E_LAYER*>(_pLayerType);
+}
+
+void CMapEditor::ChangeDrawLayerIndex(void * _pDrawLayerIndex)
+{
+	m_iDrawLayerIndex = *static_cast<int*>(_pDrawLayerIndex);
+}
+
+void CMapEditor::ChangeTool(void * _pTool)
+{
+	m_eTool = *static_cast<MAP_EDITOR::E_TOOL*>(_pTool);
 }

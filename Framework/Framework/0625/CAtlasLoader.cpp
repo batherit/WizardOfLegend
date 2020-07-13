@@ -105,17 +105,6 @@ void CAtlasLoader::RenderGrid(HDC & _hdc, CCamera2D * _pCamera)
 		LineTo(_hdc, lStartX, lStartY + lHeight);
 		LineTo(_hdc, lStartX, lStartY);
 	}
-	//// 가로줄 그리기
-	//for (int i = 0; i < m_iRow + 1; i++) {
-	//	MoveToEx(_hdc, GetStretchedLeft(), GetStretchedTop() + GetStretchedTileHeight() * i, nullptr);
-	//	LineTo(_hdc, GetStretchedRight(), GetStretchedTop() + GetStretchedTileHeight() * i);
-	//}
-
-	//// 세로줄 그리기
-	//for (int i = 0; i < m_iCol + 1; i++) {
-	//	MoveToEx(_hdc, GetStretchedLeft() + GetStretchedTileWidth() * i, GetStretchedTop(), nullptr);
-	//	LineTo(_hdc, GetStretchedLeft() + GetStretchedTileWidth() * i, GetStretchedBottom());
-	//}
 }
 
 _atlas_obj_info CAtlasLoader::GetDetectedTileRowCol(const POINT& _ptClicked)

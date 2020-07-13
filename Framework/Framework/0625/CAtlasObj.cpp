@@ -6,7 +6,7 @@
 
 CAtlasObj::CAtlasObj(const _obj_render_info & _rObjRenderInfo, int _iPivotRow, int _iPivotCol, const _atlas_obj_info& _rAtlasObjInfo)
 	:
-	CTileMapObj(_rObjRenderInfo, _iPivotRow, _iPivotCol),
+	CTileMapObj(_rObjRenderInfo, _iPivotRow, _iPivotCol, MAP_OBJ::TYPE_ATLAS_OBJ),
 	m_stAtlasObjInfo(_rAtlasObjInfo)
 {
 }
@@ -54,8 +54,8 @@ void CAtlasObj::Render(HDC & _hdc, CCamera2D * _pCamera)
 	StretchBlt(_hdc,
 		pairLeftTop.first,			// 출력 시작좌표 X
 		pairLeftTop.second,			// 출력 시작좌표 Y
-		pairRightBottom.first - pairLeftTop.first,					// 출력 크기
-		pairRightBottom.second - pairLeftTop.second,				// 출력 크기
+		pairRightBottom.first - pairLeftTop.first + 1,					// 출력 크기 (1은 빈여백을 없애기 위한 추가 픽셀이다.)
+		pairRightBottom.second - pairLeftTop.second + 1,				// 출력 크기 (1은 빈여백을 없애기 위한 추가 픽셀이다.)
 		memdc,
 		m_stAtlasObjInfo.rcOutputArea.left,
 		m_stAtlasObjInfo.rcOutputArea.top,

@@ -167,7 +167,12 @@
     <ClInclude Include="CTileMapObj.h">
       <Filter>소스 파일\03.Obj\TileMapObj</Filter>
     </ClInclude>
-    <ClInclude Include="CAtlasObj.h" />
+    <ClInclude Include="CAtlasObj.h">
+      <Filter>소스 파일\03.Obj\TileMapObj</Filter>
+    </ClInclude>
+    <ClInclude Include="CCollider.h">
+      <Filter>소스 파일\03.Obj\TileMapObj</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CLayer.cpp">
@@ -215,9 +220,6 @@
     <ClCompile Include="Shield.cpp">
       <Filter>소스 파일\03.Obj\024.Shield</Filter>
     </ClCompile>
-    <ClCompile Include="CGameWorld.cpp">
-      <Filter>소스 파일\01.MainApp</Filter>
-    </ClCompile>
     <ClCompile Include="CTimer.cpp">
       <Filter>소스 파일\02.Timer</Filter>
     </ClCompile>
@@ -255,7 +257,13 @@
       <Filter>소스 파일\03.Obj\TileMapObj</Filter>
     </ClCompile>
     <ClCompile Include="CAtlasObj.cpp">
-      <Filter>소스 파일</Filter>
+      <Filter>소스 파일\03.Obj\TileMapObj</Filter>
+    </ClCompile>
+    <ClCompile Include="CGameWorld.cpp">
+      <Filter>소스 파일\01.MainApp</Filter>
+    </ClCompile>
+    <ClCompile Include="CCollider.cpp">
+      <Filter>소스 파일\03.Obj\TileMapObj</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

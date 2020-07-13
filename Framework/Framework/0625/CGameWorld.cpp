@@ -32,7 +32,7 @@ void CGameWorld::RunTick(void)
 void CGameWorld::ClearWindow(void)
 {
 	RECT rc{ 0,0, WINCX, WINCY };
-	FillRect(m_hBackbufferDC, &rc, (HBRUSH)GetStockObject(WHITE_BRUSH));
+	FillRect(m_hBackbufferDC, &rc, (HBRUSH)GetStockObject(GRAY_BRUSH));
 }
 
 void CGameWorld::RenderWindow(void)

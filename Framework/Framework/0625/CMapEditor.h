@@ -25,6 +25,7 @@ public:
 	void RenderTileBoard(HDC& _hdc, CCamera2D* _pCamera);
 	void RenderZeroPoint(HDC& _hdc, CCamera2D* _pCamera);
 	void RenderDetectedTile(HDC& _hdc, CCamera2D* _pCamera);
+	void RenderMode(HDC& _hdc, CCamera2D* _pCamera);
 
 public:
 	LONG GetMapLeft(void) const { return m_stMapRenderInfo.lMapLeft; }
@@ -59,16 +60,23 @@ public:
 	void ChangeMapHeight(void* _pDeltaHeight);
 	void MoveCameraToMapCenter(void*);
 	void ToggleAtlas(void* _pID);
+	void ChangeLayer(void* _pLayerType);
+	void ChangeDrawLayerIndex(void* _pDrawLayerIndex);
+	void ChangeTool(void* _pTool);
 
 private:
 	CGameWorld& m_rGameWorld;
 
 	vector<CUI_Button<CMapEditor>*> m_vecEditorButtons;			// 에디터에서 사용하는 버튼들.
-	
-	list<CTileMapObj*> m_listMapObjs;								// 현재 출력되고 있는 맵 오브젝트들
+	bool m_bIsLayerVisible[MAP_EDITOR::LAYER_END];				// TODO : 기능 구현해야함.
+	MAP_EDITOR::E_LAYER m_eLayerType = MAP_EDITOR::LAYER_DRAW; 
+	MAP_EDITOR::E_TOOL m_eTool = MAP_EDITOR::TOOL_PAINT;
+	list<CTileMapObj*> m_listAtlasObjs[3];						// 아틀라스 오브젝트
+	int m_iDrawLayerIndex = 0;									// 아틀라스 오브젝트 드로우 레이어 인덱스
+	list<CTileMapObj*> m_listColliders;							// 콜라이더
 	int m_iVisibleAtlasID = -1;									// 현재 보이는 아틀라스 ID; 
 	_atlas_obj_info m_stDetectedAtlasObj;						// 검출된 타일
-	_obj_render_info m_stMapRenderInfo;						// 맵 렌더에 공유해서 쓰는 정보 맵 오브젝트들은 이를 공유한다.
+	_obj_render_info m_stMapRenderInfo;							// 맵 렌더에 공유해서 쓰는 정보 맵 오브젝트들은 이를 공유한다.
 };
 
 /*

@@ -152,6 +152,7 @@
     <ClInclude Include="CAtlasLoader.h" />
     <ClInclude Include="CAtlasObj.h" />
     <ClInclude Include="CCamera2D.h" />
+    <ClInclude Include="CCollider.h" />
     <ClInclude Include="CMapEditor.h" />
     <ClInclude Include="CMapTool.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
@@ -208,6 +209,7 @@
     <ClCompile Include="CAtlasLoader.cpp" />
     <ClCompile Include="CAtlasObj.cpp" />
     <ClCompile Include="CCamera2D.cpp" />
+    <ClCompile Include="CCollider.cpp" />
     <ClCompile Include="CMapEditor.cpp" />
     <ClCompile Include="CMapTool.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
