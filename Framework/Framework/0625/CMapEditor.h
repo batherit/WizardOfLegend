@@ -1,7 +1,7 @@
 #pragma once
 
 class CGameWorld;
-class CMapObj;
+class CTileMapObj;
 template<typename T> class CUI_Button;
 class CCamera2D;
 class CAtlasLoader;
@@ -27,10 +27,10 @@ public:
 	void RenderDetectedTile(HDC& _hdc, CCamera2D* _pCamera);
 
 public:
-	LONG GetMapLeft(void) const { return m_lMapLeft; }
-	LONG GetMapTop(void) const { return m_lMapTop; }
-	LONG GetMapRight(void) const { return m_lMapLeft + m_iMapWidth * m_iTileWidth; }
-	LONG GetMapBottom(void) const { return m_lMapTop + m_iMapHeight * m_iTileHeight; }
+	LONG GetMapLeft(void) const { return m_stMapRenderInfo.lMapLeft; }
+	LONG GetMapTop(void) const { return m_stMapRenderInfo.lMapTop; }
+	LONG GetMapRight(void) const { return m_stMapRenderInfo.lMapLeft + m_stMapRenderInfo.iMapWidth * m_stMapRenderInfo.iTileWidth; }
+	LONG GetMapBottom(void) const { return m_stMapRenderInfo.lMapTop + m_stMapRenderInfo.iMapHeight * m_stMapRenderInfo.iTileHeight; }
 	RECT GetMapRect(void) const {
 		RECT rc = {
 			GetMapLeft(),
@@ -43,15 +43,15 @@ public:
 	LONG GetMapMiddleX(void) const { return (GetMapLeft() + GetMapRight()) >> 1; }
 	LONG GetMapMiddleY(void) const { return (GetMapTop() + GetMapBottom()) >> 1; }
 	
-	size_t GetTileWidth(void) const { return m_iTileWidth; }
-	size_t GetTileHeight(void) const { return m_iTileHeight; }
-	size_t GetMapWidth(void) const { return m_iMapWidth; }
-	size_t GetMapHeight(void) const { return m_iMapHeight; }
-	void SetMapLeft(LONG _iMapLeft) { m_lMapLeft = _iMapLeft; }
-	void SetMapTop(LONG _iMapTop) { m_lMapTop = _iMapTop; }
+	size_t GetTileWidth(void) const { return m_stMapRenderInfo.iTileWidth; }
+	size_t GetTileHeight(void) const { return m_stMapRenderInfo.iTileHeight; }
+	size_t GetMapWidth(void) const { return m_stMapRenderInfo.iMapWidth; }
+	size_t GetMapHeight(void) const { return m_stMapRenderInfo.iMapHeight; }
+	void SetMapLeft(LONG _iMapLeft) { m_stMapRenderInfo.lMapLeft = _iMapLeft; }
+	void SetMapTop(LONG _iMapTop) { m_stMapRenderInfo.lMapTop = _iMapTop; }
 	// 타일맵 사이즈는 초기 설정 이후로 변경되지 않는다.
-	void SetMapWidth(size_t _iMapWidth) { m_iMapWidth = _iMapWidth;}
-	void SetMapHeight(size_t _iMapHeight) { m_iMapHeight = _iMapHeight; }
+	void SetMapWidth(size_t _iMapWidth) { m_stMapRenderInfo.iMapWidth = _iMapWidth;}
+	void SetMapHeight(size_t _iMapHeight) { m_stMapRenderInfo.iMapHeight = _iMapHeight; }
 
 public:
 	// Button Event
@@ -64,17 +64,11 @@ private:
 	CGameWorld& m_rGameWorld;
 
 	vector<CUI_Button<CMapEditor>*> m_vecEditorButtons;			// 에디터에서 사용하는 버튼들.
-	vector<CAtlasLoader*> m_vecAtlasLoaders;					// 아틀라스들
+	
+	list<CTileMapObj*> m_listMapObjs;								// 현재 출력되고 있는 맵 오브젝트들
 	int m_iVisibleAtlasID = -1;									// 현재 보이는 아틀라스 ID; 
-	_detected_tile_info m_stDetectedTile;							// 검출된 타일
-
-	CMapObj** m_ppMapObjsArr[MAP_EDITOR::LAYER_END];	// 맵 오브젝트들(중요!)
-	LONG m_lMapLeft = 0;								// 맵의 좌상단 시작 X
-	LONG m_lMapTop = 0;									// 맵의 좌상단 시작 Y
-	size_t m_iTileWidth = 73;							// 맵을 구성하는 타일의 너비 (픽셀)
-	size_t m_iTileHeight = 73;							// 맵을 구성하는 타일의 높이 (픽셀)
-	size_t m_iMapWidth = 10;							// 가로로 놓일 수 있는 오브젝트의 최대 수
-	size_t m_iMapHeight = 10;							// 세로로 놓일 수 있는 오브젝트의 최대 수
+	_atlas_obj_info m_stDetectedAtlasObj;						// 검출된 타일
+	_obj_render_info m_stMapRenderInfo;						// 맵 렌더에 공유해서 쓰는 정보 맵 오브젝트들은 이를 공유한다.
 };
 
 /*

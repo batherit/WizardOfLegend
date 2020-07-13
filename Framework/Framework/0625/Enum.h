@@ -10,7 +10,7 @@ namespace UI {
 }
 
 namespace TIMER {
-	enum E_TYPE { TIMER_TYPE_TIME, TIMER_TYPE_TICKCOUNT, TIMER_TYPE_WINDOWS };
+	enum E_TYPE { TIMER_TYPE_TIME, TIMER_TYPE_TICKCOUNT, TIMER_TYPE_WINDOWS, TIMER_TYPE_END };
 }
 
 namespace KEY {
@@ -19,4 +19,10 @@ namespace KEY {
 
 namespace MAP_EDITOR {
 	enum E_LAYER { LAYER_TILE, LAYER_OBJECT, LAYER_COLLISION, LAYER_END };
+}
+
+namespace ATLAS_LOADER {
+	// UNIFORM : 타일처럼 가로 세로 길이가 일정한 오브젝트를 지닌 아틀라스의 경우
+	// NON_UNIFORM : 타일 이외 가로 세로 길이가 일정하지 않은 오브젝트를 지닌 아틀라스의 경우
+	enum E_TYPE { TYPE_UNIFORM, TYPE_NON_UNIFORM, TYPE_END};
 }

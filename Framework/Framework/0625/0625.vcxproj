@@ -150,11 +150,9 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
     </ClInclude>
     <ClInclude Include="CAtlasLoader.h" />
+    <ClInclude Include="CAtlasObj.h" />
     <ClInclude Include="CCamera2D.h" />
     <ClInclude Include="CMapEditor.h" />
-    <ClInclude Include="CMapObj.h">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
-    </ClInclude>
     <ClInclude Include="CMapTool.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
     </ClInclude>
@@ -163,6 +161,7 @@
     <ClInclude Include="CLayer.h" />
     <ClInclude Include="CObj.h" />
     <ClInclude Include="Const.h" />
+    <ClInclude Include="CTileMapObj.h" />
     <ClInclude Include="CTimer.h" />
     <ClInclude Include="Define.h" />
     <ClInclude Include="Enum.h" />
@@ -207,17 +206,16 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="CAtlasLoader.cpp" />
+    <ClCompile Include="CAtlasObj.cpp" />
     <ClCompile Include="CCamera2D.cpp" />
     <ClCompile Include="CMapEditor.cpp" />
-    <ClCompile Include="CMapObj.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
-    </ClCompile>
     <ClCompile Include="CMapTool.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="CSpace.cpp" />
     <ClCompile Include="CGameWorld.cpp" />
     <ClCompile Include="CLayer.cpp" />
+    <ClCompile Include="CTileMapObj.cpp" />
     <ClCompile Include="CTimer.cpp" />
     <ClCompile Include="Function.cpp" />
     <ClCompile Include="GuidedBullet.cpp">

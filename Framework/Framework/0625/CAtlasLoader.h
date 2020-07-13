@@ -2,7 +2,7 @@
 class CAtlasLoader
 {
 public:
-	CAtlasLoader(_atlas_info& _stAtlasInfo);
+	CAtlasLoader(int _iID, _atlas_loader_info& _stAtlasInfo);
 	~CAtlasLoader();
 
 public:
@@ -19,28 +19,27 @@ public:
 	LONG GetStretchedTop(void) const { return 0; }
 	LONG GetStretchedBottom(void) const { return m_iStretchedAtlasHeight; }
 	LONG GetStretchedRight(void) const { return m_iStretchedAtlasWidth; }
-	size_t GetStretchedTileWidth(void) const { return m_iStretchedTileWidth; }
-	size_t GetStretchedTileHeight(void) const { return m_iStretchedTileHeight; }
 
-	_atlas_info GetAtlasInfo(void) const { return m_stAtlasInfo; }
+	_atlas_loader_info GetAtlasInfo(void) const { return m_stAtlasInfo; }
 	
 	void SetVisible(bool _bIsVisible) { m_bIsVisible = _bIsVisible; }
 	bool IsVisible(void) const { return m_bIsVisible; }
 
-	pair<int, int> GetDetectedTileRowCol(const POINT& _ptClicked);
+	_atlas_obj_info GetDetectedTileRowCol(const POINT& _ptClicked);
 
 private:
+	int m_iID;
+
 	HBITMAP m_bitmapAtlas;
 	HBITMAP m_bitmapOldAtlas;
-	_atlas_info m_stAtlasInfo;
+	_atlas_loader_info m_stAtlasInfo;
+	
+	// 개편된 데이터
+	vector<_atlas_obj_info> m_vecAtlasObjInfos;
 
 	// 로드된 아틀라스 정보로부터 유도되는 데이터 (비율 영향)
-	size_t m_iRow;
-	size_t m_iCol;
 	size_t m_iStretchedAtlasWidth;
 	size_t m_iStretchedAtlasHeight;
-	size_t m_iStretchedTileWidth;
-	size_t m_iStretchedTileHeight;
 
 	bool m_bIsVisible = false;
 };

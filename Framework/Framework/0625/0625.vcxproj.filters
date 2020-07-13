@@ -60,14 +60,14 @@
     <Filter Include="소스 파일\03.Obj\01.Camera">
       <UniqueIdentifier>{780a1e12-7302-4ca8-97aa-67e171c89e92}</UniqueIdentifier>
     </Filter>
-    <Filter Include="소스 파일\03.Obj\026.MapObj">
-      <UniqueIdentifier>{5482cfee-3f29-4dcb-9497-55a36f4f63ee}</UniqueIdentifier>
-    </Filter>
     <Filter Include="소스 파일\97.MapEditor">
       <UniqueIdentifier>{18bf22b5-06af-443d-b3a3-ef511342116c}</UniqueIdentifier>
     </Filter>
     <Filter Include="소스 파일\97.MapEditor\AtlasLoader">
       <UniqueIdentifier>{f0ca620c-f67f-430a-9184-ad9b30932d9e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\03.Obj\TileMapObj">
+      <UniqueIdentifier>{5482cfee-3f29-4dcb-9497-55a36f4f63ee}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -155,9 +155,6 @@
     <ClInclude Include="CMapTool.h">
       <Filter>소스 파일\01.MainApp</Filter>
     </ClInclude>
-    <ClInclude Include="CMapObj.h">
-      <Filter>소스 파일\03.Obj\026.MapObj</Filter>
-    </ClInclude>
     <ClInclude Include="CMapEditor.h">
       <Filter>소스 파일\97.MapEditor</Filter>
     </ClInclude>
@@ -167,6 +164,10 @@
     <ClInclude Include="CAtlasLoader.h">
       <Filter>소스 파일\97.MapEditor\AtlasLoader</Filter>
     </ClInclude>
+    <ClInclude Include="CTileMapObj.h">
+      <Filter>소스 파일\03.Obj\TileMapObj</Filter>
+    </ClInclude>
+    <ClInclude Include="CAtlasObj.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CLayer.cpp">
@@ -241,9 +242,6 @@
     <ClCompile Include="MapTool_WOL.cpp">
       <Filter>소스 파일\00.MainProcess</Filter>
     </ClCompile>
-    <ClCompile Include="CMapObj.cpp">
-      <Filter>소스 파일\03.Obj\026.MapObj</Filter>
-    </ClCompile>
     <ClCompile Include="CMapEditor.cpp">
       <Filter>소스 파일\97.MapEditor</Filter>
     </ClCompile>
@@ -252,6 +250,12 @@
     </ClCompile>
     <ClCompile Include="CAtlasLoader.cpp">
       <Filter>소스 파일\97.MapEditor\AtlasLoader</Filter>
+    </ClCompile>
+    <ClCompile Include="CTileMapObj.cpp">
+      <Filter>소스 파일\03.Obj\TileMapObj</Filter>
+    </ClCompile>
+    <ClCompile Include="CAtlasObj.cpp">
+      <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

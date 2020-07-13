@@ -3,6 +3,8 @@
 #include "UI_Button.h"
 #include "CCamera2D.h"
 #include "CAtlasLoader.h"
+#include "CTileMapObj.h"
+#include "CAtlasObj.h"
 
 
 CMapEditor::CMapEditor(CGameWorld& _rGameWorld)
@@ -25,9 +27,9 @@ CMapEditor::CMapEditor(CGameWorld& _rGameWorld)
 	// 카메라 제어 버튼
 	m_vecEditorButtons.emplace_back(new CUI_Button<CMapEditor>(m_rGameWorld, 50 * 1, WINCY - 85, 40, 25, TEXT("Cent"), this, &CMapEditor::MoveCameraToMapCenter, nullptr));
 
-	// 아틀라스 토클 버튼
+	// 아틀라스 비저블 토큰 버튼
 	TCHAR szID[10];
-	for (int id = 0; id < m_vecAtlasLoaders.size(); id++) {
+	for (int id = 0; id < m_stMapRenderInfo.vecAtlasLoaders.size(); id++) {
 		swprintf_s(szID, TEXT("Atlas_%d"), id);
 		m_vecEditorButtons.emplace_back(new CUI_Button<CMapEditor>(m_rGameWorld, WINCX - 100, 60 + id * 30, 60, 25, szID, this, &CMapEditor::ToggleAtlas, new int(id)));
 	}
@@ -48,22 +50,24 @@ void CMapEditor::GenerateAtlasFromFile(void)
 	if (!err) {
 		int iAtlasNum = 0;
 		fscanf_s(fpIn, "%d ", &iAtlasNum);			// 로드할 아틀라스 수
-		_atlas_info stAtlasInfo;
+		_atlas_loader_info stAtlasInfo;
 		for (int i = 0; i < iAtlasNum; i++) {
 			// 문자열은 fgets로 하는게 안전한 것 같다.
 			do {
 				fgets(stAtlasInfo.szAtlasFileDirectory, sizeof(stAtlasInfo.szAtlasFileDirectory), fpIn);
 			} while (strcmp(stAtlasInfo.szAtlasFileDirectory, "\n") == 0);	// 개행문자는 거른다.
-			
 			stAtlasInfo.szAtlasFileDirectory[strlen(stAtlasInfo.szAtlasFileDirectory) - 1] = '\0';	// 개행문자 제거
 			int size = strlen(stAtlasInfo.szAtlasFileDirectory);
-			fscanf_s(fpIn, " %d %d %f %d %d",
+			fscanf_s(fpIn, " %d %d %d %d %f %d %d",
+				&stAtlasInfo.iID,
+				&stAtlasInfo.eLoaderType,
 				&stAtlasInfo.iAtlasWidth,
 				&stAtlasInfo.iAtlasHeight,
 				&stAtlasInfo.fAtlasRatio,
 				&stAtlasInfo.iTileWidth,
 				&stAtlasInfo.iTileHeight);
-			m_vecAtlasLoaders.emplace_back(new CAtlasLoader(stAtlasInfo));
+			// i를 아틀라스 로더의 아이디로 삼는다.
+			m_stMapRenderInfo.vecAtlasLoaders.emplace_back(new CAtlasLoader(i, stAtlasInfo));
 		}
 	}
 	if (fpIn) fclose(fpIn);
@@ -92,13 +96,30 @@ void CMapEditor::Update(float _fDeltaTime)
 		pKeyMgrInst->SetOldClickedPoint(POINT{0, 0});
 	}
 
-	// 클릭시 타일 검출 관련.
-	if (m_iVisibleAtlasID != -1) {
-		if (pKeyMgrInst->IsKeyDown(KEY::KEY_LBUTTON)) {
-			m_stDetectedTile.iAtlasID = m_iVisibleAtlasID;
-			m_stDetectedTile.pairRowCol = m_vecAtlasLoaders[m_iVisibleAtlasID]->GetDetectedTileRowCol(GetClientCursorPoint());
-			m_vecAtlasLoaders[m_iVisibleAtlasID]->SetVisible(false);
+	
+	if (pKeyMgrInst->IsKeyDown(KEY::KEY_LBUTTON)) {
+		if (m_iVisibleAtlasID != -1) {
+			// 클릭시 타일 검출 관련. (Detect Tile)
+			m_stDetectedAtlasObj = m_stMapRenderInfo.vecAtlasLoaders[m_iVisibleAtlasID]->GetDetectedTileRowCol(GetClientCursorPoint());
+			m_stMapRenderInfo.vecAtlasLoaders[m_iVisibleAtlasID]->SetVisible(false);
 			m_iVisibleAtlasID = -1;
+		}
+		else {
+			// 타일맵에 타일을 칠한다. (Paint Tile)
+			CObj* pCamera = TO_GAMEWORLD(m_rGameWorld).GetCamera();
+			POINT ptScreenPoint = GetClientCursorPoint();
+			// 스크린 커서 좌표 -> 월드 커서 좌표 변환
+			pair<float, float> pairWorldPoint = TO_CAMERA2D(pCamera)->GetWorldPoint(ptScreenPoint.x, ptScreenPoint.y);
+			POINT ptWorldPoint;
+			ptWorldPoint.x = pairWorldPoint.first;
+			ptWorldPoint.y = pairWorldPoint.second;
+
+			if (IsPointInRect(GetMapRect(), ptWorldPoint)) {
+				int iCol = pairWorldPoint.first / GetTileWidth();
+				int iRow = pairWorldPoint.second / GetTileHeight();
+
+				m_listMapObjs.emplace_back(new CAtlasObj(m_stMapRenderInfo, iRow, iCol, m_stDetectedAtlasObj));
+			}
 		}
 	}
 
@@ -109,14 +130,19 @@ void CMapEditor::Update(float _fDeltaTime)
 
 void CMapEditor::Render(HDC & _hdc, CCamera2D* _pCamera)
 {
-	RenderZeroPoint(_hdc, _pCamera);
 	RenderTileBoard(_hdc, _pCamera);
+
+	for (auto& pObj : m_listMapObjs) {
+		pObj->Render(_hdc, _pCamera);
+	}
+
 	for (auto& pButton : m_vecEditorButtons) {
 		pButton->Render(_hdc, nullptr);
 	}
-	for (auto& pAtlas : m_vecAtlasLoaders) {
+	for (auto& pAtlas : m_stMapRenderInfo.vecAtlasLoaders) {
 		pAtlas->Render(_hdc, _pCamera);
 	}
+	RenderZeroPoint(_hdc, _pCamera);
 	RenderDetectedTile(_hdc, _pCamera);
 }
 
@@ -133,7 +159,7 @@ void CMapEditor::RenderTileBoard(HDC & _hdc, CCamera2D * _pCamera)
 {
 	pair<float, float> pairConvPoint;
 	// 가로줄 그리기
-	for (int i = 0; i < m_iMapHeight + 1; i++) {
+	for (int i = 0; i < m_stMapRenderInfo.iMapHeight + 1; i++) {
 		pairConvPoint = _pCamera->GetScreenPoint(GetMapLeft(), GetMapTop() + GetTileHeight() * i);
 		MoveToEx(_hdc, pairConvPoint.first, pairConvPoint.second, nullptr);
 
@@ -142,7 +168,7 @@ void CMapEditor::RenderTileBoard(HDC & _hdc, CCamera2D * _pCamera)
 	}
 
 	// 세로줄 그리기
-	for (int i = 0; i < m_iMapWidth + 1; i++) {
+	for (int i = 0; i < m_stMapRenderInfo.iMapWidth + 1; i++) {
 		pairConvPoint = _pCamera->GetScreenPoint(GetMapLeft() + GetTileWidth() * i, GetMapTop());
 		MoveToEx(_hdc, pairConvPoint.first, pairConvPoint.second, nullptr);
 
@@ -164,19 +190,15 @@ void CMapEditor::RenderZeroPoint(HDC & _hdc, CCamera2D * _pCamera)
 
 void CMapEditor::RenderDetectedTile(HDC & _hdc, CCamera2D * _pCamera)
 {
-	int iDetectedAtlasID = m_stDetectedTile.iAtlasID;
-	int iDetectedRow = m_stDetectedTile.pairRowCol.first;
-	int iDetectedCol = m_stDetectedTile.pairRowCol.second;
-
 	// 검출된 타일이 없다면 그리지 않는다.
-	if (iDetectedRow < 0 || iDetectedCol < 0) return;
+	if (m_stDetectedAtlasObj.iAtlasID < 0) return;
 
 	// 검출된 타일이 속한 아틀라스 비트맵을 가져온다.
 	HDC memdc = CreateCompatibleDC(_hdc);
-	HBITMAP m_bitmapOldAtlas = (HBITMAP)SelectObject(memdc, m_vecAtlasLoaders[iDetectedAtlasID]->GetBitmap());
+	HBITMAP m_bitmapOldAtlas = (HBITMAP)SelectObject(memdc, m_stMapRenderInfo.vecAtlasLoaders[m_stDetectedAtlasObj.iAtlasID]->GetBitmap());
 
 	// 검출된 타일의 너비와 높이
-	_atlas_info stAtlasInfo = m_vecAtlasLoaders[iDetectedAtlasID]->GetAtlasInfo();
+	_atlas_loader_info stAtlasInfo = m_stMapRenderInfo.vecAtlasLoaders[m_stDetectedAtlasObj.iAtlasID]->GetAtlasInfo();
 
 	// 검출된 타일 출력 좌표
 	int fX = WINCX - GetTileWidth() - 30;
@@ -188,10 +210,11 @@ void CMapEditor::RenderDetectedTile(HDC & _hdc, CCamera2D * _pCamera)
 		GetTileWidth(),					// 출력 크기
 		GetTileHeight(),				// 출력 크기
 		memdc, 
-		stAtlasInfo.iTileWidth * iDetectedCol, 
-		stAtlasInfo.iTileHeight * iDetectedRow, 
-		stAtlasInfo.iTileWidth, 
-		stAtlasInfo.iTileHeight, SRCCOPY);
+		m_stDetectedAtlasObj.rcOutputArea.left,
+		m_stDetectedAtlasObj.rcOutputArea.top,
+		m_stDetectedAtlasObj.rcOutputArea.right - m_stDetectedAtlasObj.rcOutputArea.left,
+		m_stDetectedAtlasObj.rcOutputArea.bottom - m_stDetectedAtlasObj.rcOutputArea.top,
+		SRCCOPY);
 	DeleteDC(memdc);
 }
 
@@ -216,18 +239,18 @@ void CMapEditor::ToggleAtlas(void * _pID)
 {
 	int iID = *static_cast<int*>(_pID);
 
-	bool bIsVisible = m_vecAtlasLoaders[iID]->IsVisible();
+	bool bIsVisible = m_stMapRenderInfo.vecAtlasLoaders[iID]->IsVisible();
 
-	for (int i = 0; i < m_vecAtlasLoaders.size(); i++) {
-		m_vecAtlasLoaders[i]->SetVisible(false);
+	for (int i = 0; i < m_stMapRenderInfo.vecAtlasLoaders.size(); i++) {
+		m_stMapRenderInfo.vecAtlasLoaders[i]->SetVisible(false);
 	}
 	
 	if (bIsVisible) {
-		m_vecAtlasLoaders[iID]->SetVisible(false);
+		m_stMapRenderInfo.vecAtlasLoaders[iID]->SetVisible(false);
 		m_iVisibleAtlasID = -1;			// 현재 보여지고 있는 아틀라스가 없다.
 	}
 	else {
-		m_vecAtlasLoaders[iID]->SetVisible(true);
+		m_stMapRenderInfo.vecAtlasLoaders[iID]->SetVisible(true);
 		m_iVisibleAtlasID = iID;		// 현재 보여지고 있는 아틀라스 아이디를 등록. => 타일 검출에 쓰임.
 	}
 }
