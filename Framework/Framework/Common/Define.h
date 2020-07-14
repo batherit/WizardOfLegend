@@ -1,7 +1,7 @@
 #pragma once
 
-#define WINCX 1400
-#define WINCY 800
+#define WINCX 1920// 1400 
+#define WINCY 1080 // 800 
 
 // 타이머 관련
 #define WORLD_TIMER	CGameWorldTimer::Instance()
