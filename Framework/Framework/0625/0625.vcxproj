@@ -151,6 +151,8 @@
     </ClInclude>
     <ClInclude Include="CAtlasLoader.h" />
     <ClInclude Include="CAtlasObj.h" />
+    <ClInclude Include="CBitmapManager.h" />
+    <ClInclude Include="CBitmapObj.h" />
     <ClInclude Include="CCamera2D.h" />
     <ClInclude Include="CCollider.h" />
     <ClInclude Include="CMapEditor.h" />
@@ -209,6 +211,8 @@
     </ClCompile>
     <ClCompile Include="CAtlasLoader.cpp" />
     <ClCompile Include="CAtlasObj.cpp" />
+    <ClCompile Include="CBitmapManager.cpp" />
+    <ClCompile Include="CBitmapObj.cpp" />
     <ClCompile Include="CCamera2D.cpp" />
     <ClCompile Include="CCollider.cpp" />
     <ClCompile Include="CMapEditor.cpp" />

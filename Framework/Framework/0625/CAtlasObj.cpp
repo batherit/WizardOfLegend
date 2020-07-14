@@ -42,7 +42,7 @@ void CAtlasObj::Render(HDC & _hdc, CCamera2D * _pCamera)
 	// 검출된 타일이 속한 아틀라스 비트맵을 가져온다.
 	HDC memdc = CreateCompatibleDC(_hdc);
 
-	HBITMAP m_bitmapOldAtlas = (HBITMAP)SelectObject(memdc, m_rMapRenderInfo.vecAtlasLoaders[m_stAtlasObjInfo.iAtlasID]->GetBitmap());
+	//HBITMAP m_bitmapOldAtlas = (HBITMAP)SelectObject(memdc, m_rMapRenderInfo.vecAtlasLoaders[m_stAtlasObjInfo.iAtlasID]->GetBitmap());
 
 	// 그릴 영역을 가져온다.
 	RECT rcDrawArea = GetRect();
@@ -56,7 +56,7 @@ void CAtlasObj::Render(HDC & _hdc, CCamera2D * _pCamera)
 		pairLeftTop.second,			// 출력 시작좌표 Y
 		pairRightBottom.first - pairLeftTop.first + 1,					// 출력 크기 (1은 빈여백을 없애기 위한 추가 픽셀이다.)
 		pairRightBottom.second - pairLeftTop.second + 1,				// 출력 크기 (1은 빈여백을 없애기 위한 추가 픽셀이다.)
-		memdc,
+		m_rMapRenderInfo.vecAtlasLoaders[m_stAtlasObjInfo.iAtlasID]->GetMemDC(),
 		m_stAtlasObjInfo.rcOutputArea.left,
 		m_stAtlasObjInfo.rcOutputArea.top,
 		m_stAtlasObjInfo.rcOutputArea.right - m_stAtlasObjInfo.rcOutputArea.left,

@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "CAtlasLoader.h"
+#include "CBitmapObj.h"
 
 
 CAtlasLoader::CAtlasLoader(int _iID, _atlas_loader_info& _stAtlasInfo)
@@ -10,7 +11,9 @@ CAtlasLoader::CAtlasLoader(int _iID, _atlas_loader_info& _stAtlasInfo)
 	TCHAR szConvDir[256] = TEXT(""); // 초기화 안해주면 변환이 제대로 안됨.
 	MultiByteToWideChar(CP_ACP, MB_PRECOMPOSED, 
 		_stAtlasInfo.szAtlasFileDirectory, strlen(_stAtlasInfo.szAtlasFileDirectory), szConvDir, 256);
-	m_bitmapAtlas = (HBITMAP)LoadImage(NULL, szConvDir, 0, 0, 0, LR_CREATEDIBSECTION | LR_LOADFROMFILE | LR_DEFAULTSIZE);
+
+	m_pBitmapObj = new CBitmapObj;
+	m_pBitmapObj->LoadBmp(szConvDir);
 
 	m_iStretchedAtlasWidth = _stAtlasInfo.fAtlasRatio * _stAtlasInfo.iAtlasWidth;
 	m_iStretchedAtlasHeight = _stAtlasInfo.fAtlasRatio * _stAtlasInfo.iAtlasHeight;
@@ -50,6 +53,7 @@ CAtlasLoader::CAtlasLoader(int _iID, _atlas_loader_info& _stAtlasInfo)
 
 CAtlasLoader::~CAtlasLoader()
 {
+	DeleteSafe(m_pBitmapObj);
 }
 
 void CAtlasLoader::Update(float _fDeltaTime)
@@ -69,20 +73,16 @@ void CAtlasLoader::Render(HDC & _hdc, CCamera2D * _pCamera)
 
 void CAtlasLoader::RenderAtlas(HDC & _hdc, CCamera2D * _pCamera)
 {
-	HDC memdc = CreateCompatibleDC(_hdc);
-	m_bitmapOldAtlas = (HBITMAP)SelectObject(memdc, m_bitmapAtlas);
-
 	StretchBlt(_hdc,
 		0,
 		0,
 		m_iStretchedAtlasWidth,
 		m_iStretchedAtlasHeight,
-		memdc, 
+		GetMemDC(), 
 		0, 
 		0, 
 		m_stAtlasInfo.iAtlasWidth, 
 		m_stAtlasInfo.iAtlasHeight, SRCCOPY);
-	DeleteDC(memdc);
 }
 
 void CAtlasLoader::RenderGrid(HDC & _hdc, CCamera2D * _pCamera)
@@ -105,6 +105,11 @@ void CAtlasLoader::RenderGrid(HDC & _hdc, CCamera2D * _pCamera)
 		LineTo(_hdc, lStartX, lStartY + lHeight);
 		LineTo(_hdc, lStartX, lStartY);
 	}
+}
+
+const HDC & CAtlasLoader::GetMemDC(void)
+{
+	return m_pBitmapObj->GetMemDC();
 }
 
 _atlas_obj_info CAtlasLoader::GetDetectedTileRowCol(const POINT& _ptClicked)

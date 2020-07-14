@@ -3,10 +3,6 @@
 class CKeyMgr
 {
 public:
-	CKeyMgr();
-	~CKeyMgr();
-
-public:
 	static CKeyMgr* GetInstance()
 	{
 		if (!m_pInstance)
@@ -22,6 +18,10 @@ public:
 			m_pInstance = nullptr;
 		}
 	}
+
+private:
+	CKeyMgr();
+	~CKeyMgr();
 
 public:
 	void Update(void);

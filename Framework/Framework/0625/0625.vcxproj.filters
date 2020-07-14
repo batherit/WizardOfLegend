@@ -72,6 +72,9 @@
     <Filter Include="소스 파일\97.MapEditor\MapFileMgr">
       <UniqueIdentifier>{80e0ed4c-0538-4df0-823d-4440f3c9b064}</UniqueIdentifier>
     </Filter>
+    <Filter Include="소스 파일\05.Bitmap">
+      <UniqueIdentifier>{fb3a5d37-fe5b-4c04-a69c-13cf4d88bafe}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CLayer.h">
@@ -179,6 +182,12 @@
     <ClInclude Include="CMapFileMgr.h">
       <Filter>소스 파일\97.MapEditor\MapFileMgr</Filter>
     </ClInclude>
+    <ClInclude Include="CBitmapObj.h">
+      <Filter>소스 파일\05.Bitmap</Filter>
+    </ClInclude>
+    <ClInclude Include="CBitmapManager.h">
+      <Filter>소스 파일\04.Manager</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CLayer.cpp">
@@ -273,6 +282,12 @@
     </ClCompile>
     <ClCompile Include="CMapFileMgr.cpp">
       <Filter>소스 파일\97.MapEditor\MapFileMgr</Filter>
+    </ClCompile>
+    <ClCompile Include="CBitmapObj.cpp">
+      <Filter>소스 파일\05.Bitmap</Filter>
+    </ClCompile>
+    <ClCompile Include="CBitmapManager.cpp">
+      <Filter>소스 파일\04.Manager</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

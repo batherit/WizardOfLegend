@@ -45,6 +45,25 @@ CMapEditor::CMapEditor(CGameWorld& _rGameWorld)
 	}
 	m_vecEditorButtons.emplace_back(new CUI_Button<CMapEditor>(m_rGameWorld, 400, WINCY - 55, 40, 25, TEXT("Draw"), this, &CMapEditor::ChangeLayer, new MAP_EDITOR::E_LAYER(MAP_EDITOR::LAYER_DRAW)));
 	m_vecEditorButtons.emplace_back(new CUI_Button<CMapEditor>(m_rGameWorld, 450, WINCY - 55, 40, 25, TEXT("Col"), this, &CMapEditor::ChangeLayer, new MAP_EDITOR::E_LAYER(MAP_EDITOR::LAYER_COLLISION)));
+	m_vecEditorButtons.emplace_back(new CUI_Button<CMapEditor>(m_rGameWorld, 500, WINCY - 55, 40, 25, TEXT("Trig"), this, &CMapEditor::ChangeLayer, new MAP_EDITOR::E_LAYER(MAP_EDITOR::LAYER_TRIGGER)));
+	m_vecEditorButtons.emplace_back(new CUI_Button<CMapEditor>(m_rGameWorld, 550, WINCY - 55, 40, 25, TEXT("Door"), this, &CMapEditor::ChangeLayer, new MAP_EDITOR::E_LAYER(MAP_EDITOR::LAYER_DOOR)));
+
+	// TriggerID 변경
+	int iNewTriggerID = -1;
+	for (int i = 0; i < 3; i++) {
+		for (int j = 0; j < 3; j++) {
+			iNewTriggerID = 3 * i + j;
+			swprintf_s(szBuf, TEXT("TrigID_%d"), iNewTriggerID);
+			m_vecEditorButtons.emplace_back(new CUI_Button<CMapEditor>(m_rGameWorld, 620 + 90 * j, WINCY - 25 - 30 * i, 80, 25, szBuf, this, &CMapEditor::ChangeTriggerID, new int(iNewTriggerID)));
+		}
+	}
+
+	// MapID 변경
+	for (int i = 0; i < 5; i++) {
+		swprintf_s(szBuf, TEXT("MapID_%d"), i);
+		m_vecEditorButtons.emplace_back(new CUI_Button<CMapEditor>(m_rGameWorld, WINCX - 100, (WINCY >> 1) + i * 30, 80, 25, szBuf, this, &CMapEditor::ChangeMapID, new int(i)));
+	}
+
 
 	// Tool 변경
 	m_vecEditorButtons.emplace_back(new CUI_Button<CMapEditor>(m_rGameWorld, 410, WINCY - 25, 60, 25, TEXT("Paint"), this, &CMapEditor::ChangeTool, new MAP_EDITOR::E_TOOL(MAP_EDITOR::TOOL_PAINT)));
@@ -58,36 +77,6 @@ CMapEditor::~CMapEditor()
 {
 	Release();
 }
-
-//void CMapEditor::GenerateAtlasFromFile(void)
-//{
-//	FILE* fpIn = nullptr;
-//	errno_t err = fopen_s(&fpIn, "../MapToolDatas/Atlas.txt", "rt");
-//	if (!err) {
-//		int iAtlasNum = 0;
-//		fscanf_s(fpIn, "%d ", &iAtlasNum);			// 로드할 아틀라스 수
-//		_atlas_loader_info stAtlasInfo;
-//		for (int i = 0; i < iAtlasNum; i++) {
-//			// 문자열은 fgets로 하는게 안전한 것 같다.
-//			do {
-//				fgets(stAtlasInfo.szAtlasFileDirectory, sizeof(stAtlasInfo.szAtlasFileDirectory), fpIn);
-//			} while (strcmp(stAtlasInfo.szAtlasFileDirectory, "\n") == 0);	// 개행문자는 거른다.
-//			stAtlasInfo.szAtlasFileDirectory[strlen(stAtlasInfo.szAtlasFileDirectory) - 1] = '\0';	// 개행문자 제거
-//			int size = strlen(stAtlasInfo.szAtlasFileDirectory);
-//			fscanf_s(fpIn, " %d %d %d %d %f %d %d",
-//				&stAtlasInfo.iID,
-//				&stAtlasInfo.eLoaderType,
-//				&stAtlasInfo.iAtlasWidth,
-//				&stAtlasInfo.iAtlasHeight,
-//				&stAtlasInfo.fAtlasRatio,
-//				&stAtlasInfo.iTileWidth,
-//				&stAtlasInfo.iTileHeight);
-//			// i를 아틀라스 로더의 아이디로 삼는다.
-//			m_stMapRenderInfo.vecAtlasLoaders.emplace_back(new CAtlasLoader(i, stAtlasInfo));
-//		}
-//	}
-//	if (fpIn) fclose(fpIn);
-//}
 
 void CMapEditor::Update(float _fDeltaTime)
 {
@@ -149,12 +138,15 @@ void CMapEditor::Update(float _fDeltaTime)
 					switch (m_eTool)
 					{
 					case MAP_EDITOR::TOOL_PAINT:
-						if(!pPickedObj) 
+						if(!pPickedObj && m_stDetectedAtlasObj.iAtlasID >= 0) 
 							m_listAtlasObjs[m_iDrawLayerIndex].emplace_back(new CAtlasObj(m_stMapRenderInfo, iRow, iCol, m_stDetectedAtlasObj));
 						break;
 					case MAP_EDITOR::TOOL_ERASE:
-						if (pPickedObj)
+						if (pPickedObj) {
 							m_listAtlasObjs[m_iDrawLayerIndex].erase(find(m_listAtlasObjs[m_iDrawLayerIndex].begin(), m_listAtlasObjs[m_iDrawLayerIndex].end(), pPickedObj));
+							DeleteSafe(pPickedObj);
+						}
+							
 						break;
 					default:
 						break;
@@ -177,8 +169,11 @@ void CMapEditor::Update(float _fDeltaTime)
 							m_listColliders.emplace_back(new CCollider(m_stMapRenderInfo, iRow, iCol));
 						break;
 					case MAP_EDITOR::TOOL_ERASE:
-						if (pPickedObj)
+						if (pPickedObj) {
 							m_listColliders.erase(find(m_listColliders.begin(), m_listColliders.end(), pPickedObj));
+							DeleteSafe(pPickedObj);
+						}
+							
 						break;
 					default:
 						break;
@@ -188,8 +183,6 @@ void CMapEditor::Update(float _fDeltaTime)
 				default:
 					break;
 				}
-
-				
 			}
 		}
 	}
@@ -271,7 +264,7 @@ void CMapEditor::RenderDetectedTile(HDC & _hdc, CCamera2D * _pCamera)
 
 	// 검출된 타일이 속한 아틀라스 비트맵을 가져온다.
 	HDC memdc = CreateCompatibleDC(_hdc);
-	HBITMAP m_bitmapOldAtlas = (HBITMAP)SelectObject(memdc, m_stMapRenderInfo.vecAtlasLoaders[m_stDetectedAtlasObj.iAtlasID]->GetBitmap());
+	//HBITMAP m_bitmapOldAtlas = (HBITMAP)SelectObject(memdc, m_stMapRenderInfo.vecAtlasLoaders[m_stDetectedAtlasObj.iAtlasID]->GetBitmap());
 
 	// 검출된 타일의 너비와 높이
 	_atlas_loader_info stAtlasInfo = m_stMapRenderInfo.vecAtlasLoaders[m_stDetectedAtlasObj.iAtlasID]->GetAtlasInfo();
@@ -285,7 +278,7 @@ void CMapEditor::RenderDetectedTile(HDC & _hdc, CCamera2D * _pCamera)
 		fY,			// 출력 시작좌표 Y
 		GetTileWidth(),					// 출력 크기
 		GetTileHeight(),				// 출력 크기
-		memdc, 
+		m_stMapRenderInfo.vecAtlasLoaders[m_stDetectedAtlasObj.iAtlasID]->GetMemDC(),
 		m_stDetectedAtlasObj.rcOutputArea.left,
 		m_stDetectedAtlasObj.rcOutputArea.top,
 		m_stDetectedAtlasObj.rcOutputArea.right - m_stDetectedAtlasObj.rcOutputArea.left,
@@ -296,12 +289,18 @@ void CMapEditor::RenderDetectedTile(HDC & _hdc, CCamera2D * _pCamera)
 
 void CMapEditor::RenderMode(HDC & _hdc, CCamera2D * _pCamera)
 {
-	const static TCHAR* szLayer[2] = { TEXT("Draw Layer"), TEXT("Col Layer") };
-	const static TCHAR* szTool[2] = { TEXT("Paint"), TEXT("Erase") };
+	const static TCHAR* szLayer[MAP_EDITOR::LAYER_END] = { TEXT("Draw Layer"), TEXT("Col Layer"), TEXT("Trig Layer"), TEXT("Door Layer") };
+	const static TCHAR* szTool[MAP_EDITOR::TOOL_END] = { TEXT("Paint"), TEXT("Erase") };
 
-	TCHAR szMode[128];
-	swprintf_s(szMode, TEXT("(Draw Layer Index : %d) [%s_%s Mode]"), m_iDrawLayerIndex, szLayer[m_eLayerType], szTool[m_eTool]);
-	TextOut(_hdc, 600, WINCY - 30, szMode, lstrlen(szMode));
+	TCHAR szMode[256];
+	swprintf_s(szMode, TEXT("[%s_%s Mode]"), szTool[m_eTool], szLayer[m_eLayerType]);
+	TextOut(_hdc, 30, WINCY >> 1 , szMode, lstrlen(szMode));
+	swprintf_s(szMode, TEXT("MapID : %d"), m_iMapID);
+	TextOut(_hdc, 30, (WINCY >> 1) + 30, szMode, lstrlen(szMode));
+	swprintf_s(szMode, TEXT("DrawLayerIdx : %d"), m_iDrawLayerIndex);
+	TextOut(_hdc, 30, (WINCY >> 1) + 60, szMode, lstrlen(szMode));
+	swprintf_s(szMode, TEXT("TriggerGroup : %d"), m_iTriggerID);
+	TextOut(_hdc, 30, (WINCY >> 1) + 90, szMode, lstrlen(szMode));
 }
 
 void CMapEditor::ChangeMapWidth(void* _pDeltaWidth)
@@ -354,4 +353,24 @@ void CMapEditor::ChangeDrawLayerIndex(void * _pDrawLayerIndex)
 void CMapEditor::ChangeTool(void * _pTool)
 {
 	m_eTool = *static_cast<MAP_EDITOR::E_TOOL*>(_pTool);
+}
+
+void CMapEditor::ChangeTriggerID(void * _pTriggerID)
+{
+	m_iTriggerID = *static_cast<int*>(_pTriggerID);
+}
+
+void CMapEditor::ChangeMapID(void * _pMapID)
+{
+	m_iMapID = *static_cast<int*>(_pMapID);
+}
+
+void CMapEditor::LoadMap(void *)
+{
+
+}
+
+void CMapEditor::SaveMap(void *)
+{
+
 }

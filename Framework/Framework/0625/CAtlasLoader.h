@@ -1,4 +1,7 @@
 #pragma once
+
+class CBitmapObj;
+
 class CAtlasLoader
 {
 public:
@@ -13,7 +16,7 @@ public:
 	void RenderAtlas(HDC& _hdc, CCamera2D* _pCamera);
 	void RenderGrid(HDC& _hdc, CCamera2D* _pCamera);
 	
-	HBITMAP& GetBitmap(void) { return m_bitmapAtlas; }
+	const HDC& GetMemDC(void);
 	
 	LONG GetStretchedLeft(void) const { return 0; }
 	LONG GetStretchedTop(void) const { return 0; }
@@ -30,8 +33,9 @@ public:
 private:
 	int m_iID;
 
-	HBITMAP m_bitmapAtlas;
-	HBITMAP m_bitmapOldAtlas;
+	//HBITMAP m_bitmapAtlas;
+	//HBITMAP m_bitmapOldAtlas;
+	CBitmapObj* m_pBitmapObj;
 	_atlas_loader_info m_stAtlasInfo;
 	
 	// 개편된 데이터
