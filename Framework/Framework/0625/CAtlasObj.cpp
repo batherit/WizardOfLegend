@@ -4,9 +4,9 @@
 #include "CCamera2D.h"
 
 
-CAtlasObj::CAtlasObj(const _obj_render_info & _rObjRenderInfo, int _iPivotRow, int _iPivotCol, const _atlas_obj_info& _rAtlasObjInfo)
+CAtlasObj::CAtlasObj(const _map_render_info & _rMapRenderInfo, int _iPivotRow, int _iPivotCol, const _atlas_obj_info& _rAtlasObjInfo)
 	:
-	CTileMapObj(_rObjRenderInfo, _iPivotRow, _iPivotCol, MAP_OBJ::TYPE_ATLAS_OBJ),
+	CTileMapObj(_rMapRenderInfo, _iPivotRow, _iPivotCol, MAP_OBJ::TYPE_ATLAS_OBJ),
 	m_stAtlasObjInfo(_rAtlasObjInfo)
 {
 }
@@ -19,10 +19,10 @@ CAtlasObj::~CAtlasObj()
 RECT CAtlasObj::GetRect(void) const
 {
 	RECT rc;
-	rc.left = m_stPivotPoint.iCol * m_rObjRenderInfo.iTileWidth;
-	rc.top = m_stPivotPoint.iRow * m_rObjRenderInfo.iTileHeight;
-	rc.right = (m_stPivotPoint.iCol + m_stAtlasObjInfo.iCoveredWidthTiles) * m_rObjRenderInfo.iTileWidth;
-	rc.bottom = (m_stPivotPoint.iRow + m_stAtlasObjInfo.iCoveredHeightTiles) * m_rObjRenderInfo.iTileHeight;
+	rc.left = m_stPivotPoint.iCol * m_rMapRenderInfo.stMapStructureInfo.iTileWidth;
+	rc.top = m_stPivotPoint.iRow * m_rMapRenderInfo.stMapStructureInfo.iTileHeight;
+	rc.right = (m_stPivotPoint.iCol + m_stAtlasObjInfo.iCoveredWidthTiles) * m_rMapRenderInfo.stMapStructureInfo.iTileWidth;
+	rc.bottom = (m_stPivotPoint.iRow + m_stAtlasObjInfo.iCoveredHeightTiles) * m_rMapRenderInfo.stMapStructureInfo.iTileHeight;
 	return rc;
 }
 
@@ -42,7 +42,7 @@ void CAtlasObj::Render(HDC & _hdc, CCamera2D * _pCamera)
 	// 검출된 타일이 속한 아틀라스 비트맵을 가져온다.
 	HDC memdc = CreateCompatibleDC(_hdc);
 
-	HBITMAP m_bitmapOldAtlas = (HBITMAP)SelectObject(memdc, m_rObjRenderInfo.vecAtlasLoaders[m_stAtlasObjInfo.iAtlasID]->GetBitmap());
+	HBITMAP m_bitmapOldAtlas = (HBITMAP)SelectObject(memdc, m_rMapRenderInfo.vecAtlasLoaders[m_stAtlasObjInfo.iAtlasID]->GetBitmap());
 
 	// 그릴 영역을 가져온다.
 	RECT rcDrawArea = GetRect();

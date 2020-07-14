@@ -109,7 +109,7 @@ void CAtlasLoader::RenderGrid(HDC & _hdc, CCamera2D * _pCamera)
 
 _atlas_obj_info CAtlasLoader::GetDetectedTileRowCol(const POINT& _ptClicked)
 {
-	_atlas_obj_info stTileInfo = { -1, 0, 0, 0, 0, 1, 1};
+	_atlas_obj_info stTileInfo;
 	RECT rcStretched;
 
 	if (IsVisible()) {

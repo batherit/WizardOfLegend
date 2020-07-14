@@ -4,7 +4,7 @@ class CAtlasObj :
 	public CTileMapObj
 {
 public:
-	CAtlasObj(const _obj_render_info & _rObjRenderInfo, int _iPivotRow, int _iPivotCol, const _atlas_obj_info& _rAtlasObjInfo);
+	CAtlasObj(const _map_render_info & _rMapRenderInfo, int _iPivotRow, int _iPivotCol, const _atlas_obj_info& _rAtlasObjInfo);
 	~CAtlasObj();
 
 public:

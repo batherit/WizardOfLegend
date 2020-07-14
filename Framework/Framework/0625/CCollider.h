@@ -4,7 +4,7 @@ class CCollider :
 	public CTileMapObj
 {
 public:
-	CCollider(const _obj_render_info & _rObjRenderInfo, int _iPivotRow, int _iPivotCol);
+	CCollider(const _map_render_info & _rMapRenderInfo, int _iPivotRow, int _iPivotCol);
 	~CCollider();
 
 public:

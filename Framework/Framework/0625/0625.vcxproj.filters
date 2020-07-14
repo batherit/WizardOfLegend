@@ -69,6 +69,9 @@
     <Filter Include="소스 파일\03.Obj\TileMapObj">
       <UniqueIdentifier>{5482cfee-3f29-4dcb-9497-55a36f4f63ee}</UniqueIdentifier>
     </Filter>
+    <Filter Include="소스 파일\97.MapEditor\MapFileMgr">
+      <UniqueIdentifier>{80e0ed4c-0538-4df0-823d-4440f3c9b064}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CLayer.h">
@@ -173,6 +176,9 @@
     <ClInclude Include="CCollider.h">
       <Filter>소스 파일\03.Obj\TileMapObj</Filter>
     </ClInclude>
+    <ClInclude Include="CMapFileMgr.h">
+      <Filter>소스 파일\97.MapEditor\MapFileMgr</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CLayer.cpp">
@@ -264,6 +270,9 @@
     </ClCompile>
     <ClCompile Include="CCollider.cpp">
       <Filter>소스 파일\03.Obj\TileMapObj</Filter>
+    </ClCompile>
+    <ClCompile Include="CMapFileMgr.cpp">
+      <Filter>소스 파일\97.MapEditor\MapFileMgr</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -154,6 +154,7 @@
     <ClInclude Include="CCamera2D.h" />
     <ClInclude Include="CCollider.h" />
     <ClInclude Include="CMapEditor.h" />
+    <ClInclude Include="CMapFileMgr.h" />
     <ClInclude Include="CMapTool.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
     </ClInclude>
@@ -211,6 +212,7 @@
     <ClCompile Include="CCamera2D.cpp" />
     <ClCompile Include="CCollider.cpp" />
     <ClCompile Include="CMapEditor.cpp" />
+    <ClCompile Include="CMapFileMgr.cpp" />
     <ClCompile Include="CMapTool.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
     </ClCompile>

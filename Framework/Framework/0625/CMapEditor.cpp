@@ -12,8 +12,11 @@ CMapEditor::CMapEditor(CGameWorld& _rGameWorld)
 	:
 	m_rGameWorld(_rGameWorld)
 {
-	// 파일로부터 맵툴 데이터 로드
-	GenerateAtlasFromFile();
+	// 파일로부터 아틀라스 로더 생성 (맵 렌더 인포 구조체의 한 변수)
+	CMapFileMgr::GetInstance()->GenerateAtlasLoadersFromFile("../MapDatas/AtlasLoaders.txt", m_stMapRenderInfo.vecAtlasLoaders);
+
+	// 맵 구조 정보를 생성
+	CMapFileMgr::GetInstance()->GenerateMapStructureFromFile("../MapDatas/MapStructure.txt", m_stMapRenderInfo.stMapStructureInfo);
 
 	// 맵 제어 버튼
 	m_vecEditorButtons.emplace_back(new CUI_Button<CMapEditor>(m_rGameWorld, 50 * 1, WINCY - 55, 40, 25, TEXT("W--"), this, &CMapEditor::ChangeMapWidth, new int(-5)));
@@ -56,35 +59,35 @@ CMapEditor::~CMapEditor()
 	Release();
 }
 
-void CMapEditor::GenerateAtlasFromFile(void)
-{
-	FILE* fpIn = nullptr;
-	errno_t err = fopen_s(&fpIn, "../MapToolDatas/Atlas.txt", "rt");
-	if (!err) {
-		int iAtlasNum = 0;
-		fscanf_s(fpIn, "%d ", &iAtlasNum);			// 로드할 아틀라스 수
-		_atlas_loader_info stAtlasInfo;
-		for (int i = 0; i < iAtlasNum; i++) {
-			// 문자열은 fgets로 하는게 안전한 것 같다.
-			do {
-				fgets(stAtlasInfo.szAtlasFileDirectory, sizeof(stAtlasInfo.szAtlasFileDirectory), fpIn);
-			} while (strcmp(stAtlasInfo.szAtlasFileDirectory, "\n") == 0);	// 개행문자는 거른다.
-			stAtlasInfo.szAtlasFileDirectory[strlen(stAtlasInfo.szAtlasFileDirectory) - 1] = '\0';	// 개행문자 제거
-			int size = strlen(stAtlasInfo.szAtlasFileDirectory);
-			fscanf_s(fpIn, " %d %d %d %d %f %d %d",
-				&stAtlasInfo.iID,
-				&stAtlasInfo.eLoaderType,
-				&stAtlasInfo.iAtlasWidth,
-				&stAtlasInfo.iAtlasHeight,
-				&stAtlasInfo.fAtlasRatio,
-				&stAtlasInfo.iTileWidth,
-				&stAtlasInfo.iTileHeight);
-			// i를 아틀라스 로더의 아이디로 삼는다.
-			m_stMapRenderInfo.vecAtlasLoaders.emplace_back(new CAtlasLoader(i, stAtlasInfo));
-		}
-	}
-	if (fpIn) fclose(fpIn);
-}
+//void CMapEditor::GenerateAtlasFromFile(void)
+//{
+//	FILE* fpIn = nullptr;
+//	errno_t err = fopen_s(&fpIn, "../MapToolDatas/Atlas.txt", "rt");
+//	if (!err) {
+//		int iAtlasNum = 0;
+//		fscanf_s(fpIn, "%d ", &iAtlasNum);			// 로드할 아틀라스 수
+//		_atlas_loader_info stAtlasInfo;
+//		for (int i = 0; i < iAtlasNum; i++) {
+//			// 문자열은 fgets로 하는게 안전한 것 같다.
+//			do {
+//				fgets(stAtlasInfo.szAtlasFileDirectory, sizeof(stAtlasInfo.szAtlasFileDirectory), fpIn);
+//			} while (strcmp(stAtlasInfo.szAtlasFileDirectory, "\n") == 0);	// 개행문자는 거른다.
+//			stAtlasInfo.szAtlasFileDirectory[strlen(stAtlasInfo.szAtlasFileDirectory) - 1] = '\0';	// 개행문자 제거
+//			int size = strlen(stAtlasInfo.szAtlasFileDirectory);
+//			fscanf_s(fpIn, " %d %d %d %d %f %d %d",
+//				&stAtlasInfo.iID,
+//				&stAtlasInfo.eLoaderType,
+//				&stAtlasInfo.iAtlasWidth,
+//				&stAtlasInfo.iAtlasHeight,
+//				&stAtlasInfo.fAtlasRatio,
+//				&stAtlasInfo.iTileWidth,
+//				&stAtlasInfo.iTileHeight);
+//			// i를 아틀라스 로더의 아이디로 삼는다.
+//			m_stMapRenderInfo.vecAtlasLoaders.emplace_back(new CAtlasLoader(i, stAtlasInfo));
+//		}
+//	}
+//	if (fpIn) fclose(fpIn);
+//}
 
 void CMapEditor::Update(float _fDeltaTime)
 {
@@ -232,7 +235,7 @@ void CMapEditor::RenderTileBoard(HDC & _hdc, CCamera2D * _pCamera)
 {
 	pair<float, float> pairConvPoint;
 	// 가로줄 그리기
-	for (int i = 0; i < m_stMapRenderInfo.iMapHeight + 1; i++) {
+	for (int i = 0; i < m_stMapRenderInfo.stMapStructureInfo.iMapHeight + 1; i++) {
 		pairConvPoint = _pCamera->GetScreenPoint(GetMapLeft(), GetMapTop() + GetTileHeight() * i);
 		MoveToEx(_hdc, pairConvPoint.first, pairConvPoint.second, nullptr);
 
@@ -241,7 +244,7 @@ void CMapEditor::RenderTileBoard(HDC & _hdc, CCamera2D * _pCamera)
 	}
 
 	// 세로줄 그리기
-	for (int i = 0; i < m_stMapRenderInfo.iMapWidth + 1; i++) {
+	for (int i = 0; i < m_stMapRenderInfo.stMapStructureInfo.iMapWidth + 1; i++) {
 		pairConvPoint = _pCamera->GetScreenPoint(GetMapLeft() + GetTileWidth() * i, GetMapTop());
 		MoveToEx(_hdc, pairConvPoint.first, pairConvPoint.second, nullptr);
 
