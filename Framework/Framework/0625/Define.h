@@ -66,3 +66,8 @@
 #define KM_S		0x00000400
 #define KM_D		0x00000800
 
+// 파일 입출력 관련
+#define FB_WRITE_DATA(_valueName, _fpOut) fwrite(&(_valueName), sizeof(_valueName), 1, _fpOut)
+#define FB_READ_DATA(_valueName, _fpIn) fread(&(_valueName), sizeof(_valueName), 1, _fpIn)
+#define FB_WRITE_HEAD(_valueName, _fpOut) fwrite(&(_valueName), sizeof(_valueName), 1, _fpOut)
+#define FB_READ_HEAD(_valueName, _fpIn) fread(&(_valueName), sizeof(_valueName), 1, _fpIn)

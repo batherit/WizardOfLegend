@@ -1,40 +1,20 @@
 #include "stdafx.h"
 #include "CAtlasObj.h"
-#include "CAtlasLoader.h"
 #include "CCamera2D.h"
+#include "CMap.h"
+#include "CAtlasLoader.h"
 
 
-CAtlasObj::CAtlasObj(const _map_render_info & _rMapRenderInfo, int _iPivotRow, int _iPivotCol, const _atlas_obj_info& _rAtlasObjInfo)
-	:
-	CTileMapObj(_rMapRenderInfo, _iPivotRow, _iPivotCol, MAP_OBJ::TYPE_ATLAS_OBJ),
+CAtlasObj::CAtlasObj(CGameWorld & _rGameWorld, CMap & _rMap, const _atlas_obj_info & _rAtlasObjInfo, float _fX, float _fY, size_t _iWidth, size_t _iHeight)
+	:	
+	CObj(_rGameWorld, _fX, _fY, _iWidth, _iHeight),
+	m_rMap(_rMap),
 	m_stAtlasObjInfo(_rAtlasObjInfo)
 {
 }
 
-
 CAtlasObj::~CAtlasObj()
 {
-}
-
-RECT CAtlasObj::GetRect(void) const
-{
-	RECT rc;
-	rc.left = m_stPivotPoint.iCol * m_rMapRenderInfo.stMapStructureInfo.iTileWidth;
-	rc.top = m_stPivotPoint.iRow * m_rMapRenderInfo.stMapStructureInfo.iTileHeight;
-	rc.right = (m_stPivotPoint.iCol + m_stAtlasObjInfo.iCoveredWidthTiles) * m_rMapRenderInfo.stMapStructureInfo.iTileWidth;
-	rc.bottom = (m_stPivotPoint.iRow + m_stAtlasObjInfo.iCoveredHeightTiles) * m_rMapRenderInfo.stMapStructureInfo.iTileHeight;
-	return rc;
-}
-
-RECT CAtlasObj::GetRowColRect(void) const
-{
-	RECT rc;
-	rc.left = m_stPivotPoint.iCol;
-	rc.top = m_stPivotPoint.iRow;
-	rc.right = m_stPivotPoint.iCol + m_stAtlasObjInfo.iCoveredWidthTiles - 1;
-	rc.bottom = m_stPivotPoint.iRow + m_stAtlasObjInfo.iCoveredHeightTiles - 1;
-
-	return rc;
 }
 
 void CAtlasObj::Render(HDC & _hdc, CCamera2D * _pCamera)
@@ -51,12 +31,14 @@ void CAtlasObj::Render(HDC & _hdc, CCamera2D * _pCamera)
 	pair<float, float> pairLeftTop = _pCamera->GetScreenPoint(rcDrawArea.left, rcDrawArea.top);
 	pair<float, float> pairRightBottom = _pCamera->GetScreenPoint(rcDrawArea.right, rcDrawArea.bottom);
 
+	const vector<CAtlasLoader*>& vecAtloasLoaders = m_rMap.GetAtlasLoaders();
+
 	StretchBlt(_hdc,
 		pairLeftTop.first,			// 출력 시작좌표 X
 		pairLeftTop.second,			// 출력 시작좌표 Y
 		pairRightBottom.first - pairLeftTop.first + 1,					// 출력 크기 (1은 빈여백을 없애기 위한 추가 픽셀이다.)
 		pairRightBottom.second - pairLeftTop.second + 1,				// 출력 크기 (1은 빈여백을 없애기 위한 추가 픽셀이다.)
-		m_rMapRenderInfo.vecAtlasLoaders[m_stAtlasObjInfo.iAtlasID]->GetMemDC(),
+		vecAtloasLoaders[m_stAtlasObjInfo.iAtlasID]->GetMemDC(),
 		m_stAtlasObjInfo.rcOutputArea.left,
 		m_stAtlasObjInfo.rcOutputArea.top,
 		m_stAtlasObjInfo.rcOutputArea.right - m_stAtlasObjInfo.rcOutputArea.left,

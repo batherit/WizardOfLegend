@@ -1,7 +1,7 @@
 #pragma once
 
 class CGameWorld;
-class CTileMapObj;
+class CEditor_Obj;
 template<typename T> class CUI_Button;
 class CCamera2D;
 class CAtlasLoader;
@@ -28,6 +28,7 @@ public:
 	void RenderMode(HDC& _hdc, CCamera2D* _pCamera);
 
 public:
+	void ClearObjs(void);
 	LONG GetMapLeft(void) const { return m_stMapRenderInfo.stMapStructureInfo.lMapLeft; }
 	LONG GetMapTop(void) const { return m_stMapRenderInfo.stMapStructureInfo.lMapTop; }
 	LONG GetMapRight(void) const { return m_stMapRenderInfo.stMapStructureInfo.lMapLeft + m_stMapRenderInfo.stMapStructureInfo.iMapWidth * m_stMapRenderInfo.stMapStructureInfo.iTileWidth; }
@@ -65,8 +66,10 @@ public:
 	void ChangeTool(void* _pTool);
 	void ChangeTriggerID(void* _pTriggerID);
 	void ChangeMapID(void* _pMapID);
-	void LoadMap(void*);
 	void SaveMap(void*);
+	void LoadMap(void*);
+
+public:
 
 private:
 	CGameWorld& m_rGameWorld;
@@ -75,11 +78,11 @@ private:
 	bool m_bIsLayerVisible[MAP_EDITOR::LAYER_END];				// TODO : 기능 구현해야함.
 	MAP_EDITOR::E_LAYER m_eLayerType = MAP_EDITOR::LAYER_DRAW; 
 	MAP_EDITOR::E_TOOL m_eTool = MAP_EDITOR::TOOL_PAINT;
-	list<CTileMapObj*> m_listAtlasObjs[3];						// 아틀라스 오브젝트
+	list<CEditor_Obj*> m_listAtlasObjs[ciMaxDrawLayerNum];						// 아틀라스 오브젝트
 	int m_iDrawLayerIndex = 0;									// 아틀라스 오브젝트 드로우 레이어 인덱스
 	int m_iTriggerID = 0;										// 할당할 트리거 아이디 최대 9개를 할당 할 수 있다. (예정)
 	int m_iMapID = 0;											// 하나의 맵에 부여되는 ID 맵에디터는 최대 5개의 아이디를 부여할 수 있다. (예정)
-	list<CTileMapObj*> m_listColliders;							// 콜라이더
+	list<CEditor_Obj*> m_listColliders;							// 콜라이더
 	int m_iVisibleAtlasID = -1;									// 현재 보이는 아틀라스 ID; 
 	_atlas_obj_info m_stDetectedAtlasObj;						// 검출된 타일
 	_map_render_info m_stMapRenderInfo;							// 맵 렌더에 공유해서 쓰는 정보 맵 오브젝트들은 이를 공유한다.

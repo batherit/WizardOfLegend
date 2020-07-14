@@ -3,9 +3,9 @@
 #include "UI_Button.h"
 #include "CCamera2D.h"
 #include "CAtlasLoader.h"
-#include "CTileMapObj.h"
-#include "CAtlasObj.h"
-#include "CCollider.h"
+#include "CEditor_Obj.h"
+#include "CEditor_AtlasObj.h"
+#include "CEditor_Collider.h"
 
 
 CMapEditor::CMapEditor(CGameWorld& _rGameWorld)
@@ -39,7 +39,7 @@ CMapEditor::CMapEditor(CGameWorld& _rGameWorld)
 	}
 
 	// Layer 변경
-	for (int i = 0; i < 3; i++) {
+	for (int i = 0; i < ciMaxDrawLayerNum; i++) {
 		swprintf_s(szBuf, TEXT("Layer_%d"), i);
 		m_vecEditorButtons.emplace_back(new CUI_Button<CMapEditor>(m_rGameWorld, 330, WINCY - 25 - 30 * i, 60, 25, szBuf, this, &CMapEditor::ChangeDrawLayerIndex, new int(i)));
 	}
@@ -50,8 +50,8 @@ CMapEditor::CMapEditor(CGameWorld& _rGameWorld)
 
 	// TriggerID 변경
 	int iNewTriggerID = -1;
-	for (int i = 0; i < 3; i++) {
-		for (int j = 0; j < 3; j++) {
+	for (int i = 0; i < ciMaxTriggerGroupRow; i++) {
+		for (int j = 0; j < ciMaxTirggerGroupCol; j++) {
 			iNewTriggerID = 3 * i + j;
 			swprintf_s(szBuf, TEXT("TrigID_%d"), iNewTriggerID);
 			m_vecEditorButtons.emplace_back(new CUI_Button<CMapEditor>(m_rGameWorld, 620 + 90 * j, WINCY - 25 - 30 * i, 80, 25, szBuf, this, &CMapEditor::ChangeTriggerID, new int(iNewTriggerID)));
@@ -59,15 +59,18 @@ CMapEditor::CMapEditor(CGameWorld& _rGameWorld)
 	}
 
 	// MapID 변경
-	for (int i = 0; i < 5; i++) {
+	for (int i = 0; i < ciMaxMapNum; i++) {
 		swprintf_s(szBuf, TEXT("MapID_%d"), i);
 		m_vecEditorButtons.emplace_back(new CUI_Button<CMapEditor>(m_rGameWorld, WINCX - 100, (WINCY >> 1) + i * 30, 80, 25, szBuf, this, &CMapEditor::ChangeMapID, new int(i)));
 	}
 
-
 	// Tool 변경
 	m_vecEditorButtons.emplace_back(new CUI_Button<CMapEditor>(m_rGameWorld, 410, WINCY - 25, 60, 25, TEXT("Paint"), this, &CMapEditor::ChangeTool, new MAP_EDITOR::E_TOOL(MAP_EDITOR::TOOL_PAINT)));
 	m_vecEditorButtons.emplace_back(new CUI_Button<CMapEditor>(m_rGameWorld, 480, WINCY - 25, 60, 25, TEXT("Erase"), this, &CMapEditor::ChangeTool, new MAP_EDITOR::E_TOOL(MAP_EDITOR::TOOL_ERASE)));
+
+	// Save&Load
+	m_vecEditorButtons.emplace_back(new CUI_Button<CMapEditor>(m_rGameWorld, WINCX - 100, (WINCY >> 1) + 170, 80, 25, TEXT("Save"), this, &CMapEditor::SaveMap, nullptr));
+	m_vecEditorButtons.emplace_back(new CUI_Button<CMapEditor>(m_rGameWorld, WINCX - 100, (WINCY >> 1) + 200, 80, 25, TEXT("Load"), this, &CMapEditor::LoadMap, nullptr));
 
 	TO_GAMEWORLD(m_rGameWorld).GetCamera()->SetXY(GetMapMiddleX(), GetMapMiddleY());
 }
@@ -128,7 +131,7 @@ void CMapEditor::Update(float _fDeltaTime)
 				{
 				case MAP_EDITOR::LAYER_DRAW:
 				{
-					CTileMapObj* pPickedObj = nullptr;
+					CEditor_Obj* pPickedObj = nullptr;
 					for (auto& obj : m_listAtlasObjs[m_iDrawLayerIndex]) {
 						if (IsPointInRect(obj->GetRowColRect(), POINT{ iCol, iRow })) {
 							pPickedObj = obj;
@@ -139,7 +142,7 @@ void CMapEditor::Update(float _fDeltaTime)
 					{
 					case MAP_EDITOR::TOOL_PAINT:
 						if(!pPickedObj && m_stDetectedAtlasObj.iAtlasID >= 0) 
-							m_listAtlasObjs[m_iDrawLayerIndex].emplace_back(new CAtlasObj(m_stMapRenderInfo, iRow, iCol, m_stDetectedAtlasObj));
+							m_listAtlasObjs[m_iDrawLayerIndex].emplace_back(new CEditor_AtlasObj(m_stMapRenderInfo, iRow, iCol, m_stDetectedAtlasObj));
 						break;
 					case MAP_EDITOR::TOOL_ERASE:
 						if (pPickedObj) {
@@ -155,7 +158,7 @@ void CMapEditor::Update(float _fDeltaTime)
 				}
 				case MAP_EDITOR::LAYER_COLLISION:
 				{
-					CTileMapObj* pPickedObj = nullptr;
+					CEditor_Obj* pPickedObj = nullptr;
 					for (auto& obj : m_listColliders) {
 						if (IsPointInRect(obj->GetRowColRect(), POINT{ iCol, iRow })) {
 							pPickedObj = obj;
@@ -166,7 +169,7 @@ void CMapEditor::Update(float _fDeltaTime)
 					{
 					case MAP_EDITOR::TOOL_PAINT:
 						if (!pPickedObj)
-							m_listColliders.emplace_back(new CCollider(m_stMapRenderInfo, iRow, iCol));
+							m_listColliders.emplace_back(new CEditor_Collider(m_stMapRenderInfo, iRow, iCol));
 						break;
 					case MAP_EDITOR::TOOL_ERASE:
 						if (pPickedObj) {
@@ -262,10 +265,6 @@ void CMapEditor::RenderDetectedTile(HDC & _hdc, CCamera2D * _pCamera)
 	// 검출된 타일이 없다면 그리지 않는다.
 	if (m_stDetectedAtlasObj.iAtlasID < 0) return;
 
-	// 검출된 타일이 속한 아틀라스 비트맵을 가져온다.
-	HDC memdc = CreateCompatibleDC(_hdc);
-	//HBITMAP m_bitmapOldAtlas = (HBITMAP)SelectObject(memdc, m_stMapRenderInfo.vecAtlasLoaders[m_stDetectedAtlasObj.iAtlasID]->GetBitmap());
-
 	// 검출된 타일의 너비와 높이
 	_atlas_loader_info stAtlasInfo = m_stMapRenderInfo.vecAtlasLoaders[m_stDetectedAtlasObj.iAtlasID]->GetAtlasInfo();
 
@@ -276,15 +275,14 @@ void CMapEditor::RenderDetectedTile(HDC & _hdc, CCamera2D * _pCamera)
 	StretchBlt(_hdc,
 		fX,			// 출력 시작좌표 X
 		fY,			// 출력 시작좌표 Y
-		GetTileWidth(),					// 출력 크기
-		GetTileHeight(),				// 출력 크기
+		m_stMapRenderInfo.stMapStructureInfo.iTileWidth,					
+		m_stMapRenderInfo.stMapStructureInfo.iTileHeight,				
 		m_stMapRenderInfo.vecAtlasLoaders[m_stDetectedAtlasObj.iAtlasID]->GetMemDC(),
 		m_stDetectedAtlasObj.rcOutputArea.left,
 		m_stDetectedAtlasObj.rcOutputArea.top,
 		m_stDetectedAtlasObj.rcOutputArea.right - m_stDetectedAtlasObj.rcOutputArea.left,
 		m_stDetectedAtlasObj.rcOutputArea.bottom - m_stDetectedAtlasObj.rcOutputArea.top,
 		SRCCOPY);
-	DeleteDC(memdc);
 }
 
 void CMapEditor::RenderMode(HDC & _hdc, CCamera2D * _pCamera)
@@ -301,6 +299,14 @@ void CMapEditor::RenderMode(HDC & _hdc, CCamera2D * _pCamera)
 	TextOut(_hdc, 30, (WINCY >> 1) + 60, szMode, lstrlen(szMode));
 	swprintf_s(szMode, TEXT("TriggerGroup : %d"), m_iTriggerID);
 	TextOut(_hdc, 30, (WINCY >> 1) + 90, szMode, lstrlen(szMode));
+}
+
+void CMapEditor::ClearObjs(void)
+{
+	for (int i = 0; i < ciMaxDrawLayerNum; i++) {
+		DeleteListSafe(m_listAtlasObjs[i]);
+	}
+	DeleteListSafe(m_listColliders);
 }
 
 void CMapEditor::ChangeMapWidth(void* _pDeltaWidth)
@@ -365,12 +371,53 @@ void CMapEditor::ChangeMapID(void * _pMapID)
 	m_iMapID = *static_cast<int*>(_pMapID);
 }
 
-void CMapEditor::LoadMap(void *)
-{
-
-}
-
 void CMapEditor::SaveMap(void *)
 {
-
+	FILE* fpOut = nullptr;
+	errno_t err = fopen_s(&fpOut, "../MapDatas/Maps/0/Objs.txt", "wt");
+	if (!err) {
+		int iSize = 0;
+		for (int i = 0; i < ciMaxDrawLayerNum; i++) {
+			iSize = m_listAtlasObjs[i].size();
+			fprintf_s(fpOut, "%d \n", iSize);
+			for (auto& obj : m_listAtlasObjs[i]) {
+				obj->SaveInfo(fpOut);
+			}
+		}
+		iSize = m_listColliders.size();
+		fprintf_s(fpOut, "%d \n", iSize);
+		for (auto& obj : m_listColliders) {
+			obj->SaveInfo(fpOut);
+		}
+	}
+	if (fpOut) fclose(fpOut);
 }
+
+void CMapEditor::LoadMap(void *)
+{
+	ClearObjs();
+
+	FILE* fpIn = nullptr;
+	errno_t err = fopen_s(&fpIn, "../MapDatas/Maps/0/Objs.txt", "rt");
+	if (!err) {
+		int iSize = 0;
+		CEditor_Obj* pObj = nullptr;
+		for (int i = 0; i < ciMaxDrawLayerNum; i++) {
+			fscanf_s(fpIn, " %d", &iSize);
+			for (int j = 0; j < iSize; j++) {
+				pObj = new CEditor_AtlasObj(m_stMapRenderInfo);
+				pObj->LoadInfo(fpIn);
+				m_listAtlasObjs[i].emplace_back(pObj);
+			}
+		}
+		fscanf_s(fpIn, " %d", &iSize);
+		for (int i = 0; i < iSize; i++) {
+			pObj = new CEditor_Collider(m_stMapRenderInfo);
+			pObj->LoadInfo(fpIn);
+			m_listColliders.emplace_back(pObj);
+		}
+	}
+	if (fpIn) fclose(fpIn);
+}
+
+

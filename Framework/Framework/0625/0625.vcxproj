@@ -151,10 +151,13 @@
     </ClInclude>
     <ClInclude Include="CAtlasLoader.h" />
     <ClInclude Include="CAtlasObj.h" />
+    <ClInclude Include="CCollider.h" />
+    <ClInclude Include="CEditor_AtlasObj.h" />
     <ClInclude Include="CBitmapManager.h" />
     <ClInclude Include="CBitmapObj.h" />
     <ClInclude Include="CCamera2D.h" />
-    <ClInclude Include="CCollider.h" />
+    <ClInclude Include="CEditor_Collider.h" />
+    <ClInclude Include="CMap.h" />
     <ClInclude Include="CMapEditor.h" />
     <ClInclude Include="CMapFileMgr.h" />
     <ClInclude Include="CMapTool.h">
@@ -165,7 +168,7 @@
     <ClInclude Include="CLayer.h" />
     <ClInclude Include="CObj.h" />
     <ClInclude Include="Const.h" />
-    <ClInclude Include="CTileMapObj.h" />
+    <ClInclude Include="CEditor_Obj.h" />
     <ClInclude Include="CTimer.h" />
     <ClInclude Include="Define.h" />
     <ClInclude Include="Enum.h" />
@@ -211,10 +214,13 @@
     </ClCompile>
     <ClCompile Include="CAtlasLoader.cpp" />
     <ClCompile Include="CAtlasObj.cpp" />
+    <ClCompile Include="CCollider.cpp" />
+    <ClCompile Include="CEditor_AtlasObj.cpp" />
     <ClCompile Include="CBitmapManager.cpp" />
     <ClCompile Include="CBitmapObj.cpp" />
     <ClCompile Include="CCamera2D.cpp" />
-    <ClCompile Include="CCollider.cpp" />
+    <ClCompile Include="CEditor_Collider.cpp" />
+    <ClCompile Include="CMap.cpp" />
     <ClCompile Include="CMapEditor.cpp" />
     <ClCompile Include="CMapFileMgr.cpp" />
     <ClCompile Include="CMapTool.cpp">
@@ -223,7 +229,7 @@
     <ClCompile Include="CSpace.cpp" />
     <ClCompile Include="CGameWorld.cpp" />
     <ClCompile Include="CLayer.cpp" />
-    <ClCompile Include="CTileMapObj.cpp" />
+    <ClCompile Include="CEditor_Obj.cpp" />
     <ClCompile Include="CTimer.cpp" />
     <ClCompile Include="Function.cpp" />
     <ClCompile Include="GuidedBullet.cpp">

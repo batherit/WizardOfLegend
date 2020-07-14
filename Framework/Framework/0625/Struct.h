@@ -33,8 +33,8 @@ struct _atlas_loader_info {
 struct _atlas_obj_info {
 	int iAtlasID = -1;					// 아틀라스 오브젝트가 속해있는 아틀라스의 아이디 (무효는 -1로 초기화된다.)
 	RECT rcOutputArea = {0,0,0,0};				// 아틀라스의 어느 부분의 이미지를 커버하는지
-	size_t iCoveredWidthTiles = -1;		// 해당 이미지가 타일맵에서 너비를 얼마나 차지하는지 (타일 단위) => 타일같은 경우 1이 될 것이다.
-	size_t iCoveredHeightTiles = -1;		// 해당 이미지가 타일맵에서 높이를 얼마나 차지하는지 (타일 단위) => 타일같은 경우 1이 될 것이다.
+	int iCoveredWidthTiles = -1;		// 해당 이미지가 타일맵에서 너비를 얼마나 차지하는지 (타일 단위) => 타일같은 경우 1이 될 것이다.
+	int iCoveredHeightTiles = -1;		// 해당 이미지가 타일맵에서 높이를 얼마나 차지하는지 (타일 단위) => 타일같은 경우 1이 될 것이다.
 };
 
 // 타일맵에서 차지하는 시작 지점 (타일이 위치한 행과 열을 반환한다. EditorObj는 모두 이를 갖는다.)
@@ -42,12 +42,3 @@ struct _pivot_point {
 	int iRow;
 	int iCol;
 };
-//// 타일맵에 오브젝트를 그릴때 쓰이는 구조체
-//struct _tile_obj_info {
-//	_pivot_point stPivotPoint;
-//	_atlas_obj_info stAtlasObjInfo;		// 아틀라스 
-//};
-
-
-
-

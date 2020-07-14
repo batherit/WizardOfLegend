@@ -2,37 +2,14 @@
 #include "CCollider.h"
 #include "CCamera2D.h"
 
-
-CCollider::CCollider(const _map_render_info & _rMapRenderInfo, int _iPivotRow, int _iPivotCol)
+CCollider::CCollider(CGameWorld & _rGameWorld, float _fX, float _fY, size_t _iWidth, size_t _iHeight, COLLIDER::E_TYPE _eType)
 	:
-	CTileMapObj(_rMapRenderInfo, _iPivotRow, _iPivotCol, MAP_OBJ::TYPE_COLLIDER)
+	CObj(_rGameWorld, _fX, _fY, _iWidth, _iHeight)
 {
 }
-
 
 CCollider::~CCollider()
 {
-}
-
-RECT CCollider::GetRect(void) const
-{
-	RECT rc;
-	rc.left = m_stPivotPoint.iCol * m_rMapRenderInfo.stMapStructureInfo.iTileWidth;
-	rc.top = m_stPivotPoint.iRow * m_rMapRenderInfo.stMapStructureInfo.iTileHeight;
-	rc.right = (m_stPivotPoint.iCol + 1) * m_rMapRenderInfo.stMapStructureInfo.iTileWidth;
-	rc.bottom = (m_stPivotPoint.iRow + 1) * m_rMapRenderInfo.stMapStructureInfo.iTileHeight;
-	return rc;
-}
-
-RECT CCollider::GetRowColRect(void) const
-{
-	RECT rc;
-	rc.left = m_stPivotPoint.iCol;
-	rc.top = m_stPivotPoint.iRow;
-	rc.right = m_stPivotPoint.iCol;
-	rc.bottom = m_stPivotPoint.iRow;
-
-	return rc;
 }
 
 void CCollider::Render(HDC & _hdc, CCamera2D * _pCamera)

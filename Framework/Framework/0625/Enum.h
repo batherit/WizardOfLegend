@@ -31,3 +31,7 @@ namespace ATLAS_LOADER {
 	// NON_UNIFORM : 타일 이외 가로 세로 길이가 일정하지 않은 오브젝트를 지닌 아틀라스의 경우
 	enum E_TYPE { TYPE_UNIFORM, TYPE_NON_UNIFORM, TYPE_END};
 }
+
+namespace COLLIDER {
+	enum E_TYPE { TYPE_RECT, TYPE_CIRCLE, TYPE_END};
+}

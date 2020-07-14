@@ -1,21 +1,20 @@
 #pragma once
-#include "CTileMapObj.h"
+#include "CObj.h"
+
+class CMap;
+
 class CAtlasObj :
-	public CTileMapObj
+	public CObj
 {
 public:
-	CAtlasObj(const _map_render_info & _rMapRenderInfo, int _iPivotRow, int _iPivotCol, const _atlas_obj_info& _rAtlasObjInfo);
+	CAtlasObj(CGameWorld& _rGameWorld, CMap& _rMap, const _atlas_obj_info& _rAtlasObjInfo, float _fX, float _fY, size_t _iWidth, size_t _iHeight);
 	~CAtlasObj();
 
 public:
-	// CTileMapObj을(를) 통해 상속됨
-	virtual RECT GetRect(void) const override;
-	virtual RECT GetRowColRect(void) const override;
 	virtual void Render(HDC & _hdc, CCamera2D * _pCamera) override;
 
 private:
+	CMap& m_rMap;
 	const _atlas_obj_info m_stAtlasObjInfo;
-
-	
 };
 
