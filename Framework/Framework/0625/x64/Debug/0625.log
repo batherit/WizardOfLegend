@@ -1,41 +1,8 @@
-﻿  CMapEditor.cpp
-d:\mylab\gamelab\algorithm\wizardoflegend\framework\framework\0625\cmapeditor.h(34): warning C4267: 'return': 'size_t'에서 'LONG'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-d:\mylab\gamelab\algorithm\wizardoflegend\framework\framework\0625\cmapeditor.h(35): warning C4267: 'return': 'size_t'에서 'LONG'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-d:\mylab\gamelab\algorithm\wizardoflegend\framework\framework\0625\catlasloader.h(23): warning C4267: 'return': 'size_t'에서 'LONG'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-d:\mylab\gamelab\algorithm\wizardoflegend\framework\framework\0625\catlasloader.h(24): warning C4267: 'return': 'size_t'에서 'LONG'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-d:\mylab\gamelab\algorithm\wizardoflegend\framework\framework\0625\cmapeditor.cpp(38): warning C4244: '인수': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-d:\mylab\gamelab\algorithm\wizardoflegend\framework\framework\0625\cmapeditor.cpp(44): warning C4244: '인수': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-d:\mylab\gamelab\algorithm\wizardoflegend\framework\framework\0625\cmapeditor.cpp(57): warning C4244: '인수': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-d:\mylab\gamelab\algorithm\wizardoflegend\framework\framework\0625\cmapeditor.cpp(64): warning C4244: '인수': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-d:\mylab\gamelab\algorithm\wizardoflegend\framework\framework\0625\cmapeditor.cpp(75): warning C4244: '인수': 'LONG'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-d:\mylab\gamelab\algorithm\wizardoflegend\framework\framework\0625\cmapeditor.cpp(99): warning C4838: 'float'에서 'LONG'(으)로의 변환에는 축소 변환이 필요합니다.
-d:\mylab\gamelab\algorithm\wizardoflegend\framework\framework\0625\cmapeditor.cpp(99): warning C4244: '초기화 중': 'float'에서 'LONG'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-d:\mylab\gamelab\algorithm\wizardoflegend\framework\framework\0625\cmapeditor.cpp(100): warning C4244: '인수': 'LONG'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-d:\mylab\gamelab\algorithm\wizardoflegend\framework\framework\0625\cmapeditor.cpp(120): warning C4244: '인수': 'LONG'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-d:\mylab\gamelab\algorithm\wizardoflegend\framework\framework\0625\cmapeditor.cpp(122): warning C4244: '=': 'float'에서 'LONG'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-d:\mylab\gamelab\algorithm\wizardoflegend\framework\framework\0625\cmapeditor.cpp(123): warning C4244: '=': 'float'에서 'LONG'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-d:\mylab\gamelab\algorithm\wizardoflegend\framework\framework\0625\cmapeditor.cpp(127): warning C4244: '초기화 중': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-d:\mylab\gamelab\algorithm\wizardoflegend\framework\framework\0625\cmapeditor.cpp(128): warning C4244: '초기화 중': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-d:\mylab\gamelab\algorithm\wizardoflegend\framework\framework\0625\cmapeditor.cpp(235): warning C4244: '인수': 'std::size_t'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-d:\mylab\gamelab\algorithm\wizardoflegend\framework\framework\0625\cmapeditor.cpp(235): warning C4244: '인수': 'LONG'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-d:\mylab\gamelab\algorithm\wizardoflegend\framework\framework\0625\cmapeditor.cpp(236): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-d:\mylab\gamelab\algorithm\wizardoflegend\framework\framework\0625\cmapeditor.cpp(238): warning C4244: '인수': 'std::size_t'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-d:\mylab\gamelab\algorithm\wizardoflegend\framework\framework\0625\cmapeditor.cpp(238): warning C4244: '인수': 'LONG'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-d:\mylab\gamelab\algorithm\wizardoflegend\framework\framework\0625\cmapeditor.cpp(239): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-d:\mylab\gamelab\algorithm\wizardoflegend\framework\framework\0625\cmapeditor.cpp(244): warning C4244: '인수': 'LONG'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-d:\mylab\gamelab\algorithm\wizardoflegend\framework\framework\0625\cmapeditor.cpp(244): warning C4244: '인수': 'std::size_t'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-d:\mylab\gamelab\algorithm\wizardoflegend\framework\framework\0625\cmapeditor.cpp(245): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-d:\mylab\gamelab\algorithm\wizardoflegend\framework\framework\0625\cmapeditor.cpp(247): warning C4244: '인수': 'LONG'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-d:\mylab\gamelab\algorithm\wizardoflegend\framework\framework\0625\cmapeditor.cpp(247): warning C4244: '인수': 'std::size_t'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-d:\mylab\gamelab\algorithm\wizardoflegend\framework\framework\0625\cmapeditor.cpp(248): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-d:\mylab\gamelab\algorithm\wizardoflegend\framework\framework\0625\cmapeditor.cpp(260): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-d:\mylab\gamelab\algorithm\wizardoflegend\framework\framework\0625\cmapeditor.cpp(272): warning C4267: '초기화 중': 'size_t'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-d:\mylab\gamelab\algorithm\wizardoflegend\framework\framework\0625\cmapeditor.cpp(273): warning C4267: '초기화 중': 'size_t'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-d:\mylab\gamelab\algorithm\wizardoflegend\framework\framework\0625\cmapeditor.cpp(285): warning C4267: '인수': 'size_t'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-d:\mylab\gamelab\algorithm\wizardoflegend\framework\framework\0625\cmapeditor.cpp(314): warning C4267: '초기화 중': 'size_t'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-d:\mylab\gamelab\algorithm\wizardoflegend\framework\framework\0625\cmapeditor.cpp(320): warning C4267: '초기화 중': 'size_t'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-d:\mylab\gamelab\algorithm\wizardoflegend\framework\framework\0625\cmapeditor.cpp(326): warning C4244: '인수': 'LONG'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-d:\mylab\gamelab\algorithm\wizardoflegend\framework\framework\0625\cmapeditor.cpp(381): warning C4267: '=': 'size_t'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-d:\mylab\gamelab\algorithm\wizardoflegend\framework\framework\0625\cmapeditor.cpp(387): warning C4267: '=': 'size_t'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+﻿  Function.cpp
+d:\mylab\gamelab\algorithm\wizardoflegend\framework\framework\0625\function.cpp(26): warning C4800: 'BOOL': 'true' 또는 'false'로 bool 값을 강제하고 있습니다(성능 경고).
+d:\mylab\gamelab\algorithm\wizardoflegend\framework\framework\0625\function.cpp(64): warning C4244: '인수': 'std::size_t'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\mylab\gamelab\algorithm\wizardoflegend\framework\framework\0625\function.cpp(65): warning C4244: '인수': 'std::size_t'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\mylab\gamelab\algorithm\wizardoflegend\framework\framework\0625\function.cpp(66): warning C4244: '인수': 'std::size_t'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\mylab\gamelab\algorithm\wizardoflegend\framework\framework\0625\function.cpp(67): warning C4244: '인수': 'std::size_t'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
   0625.vcxproj -> D:\MyLab\GameLab\Algorithm\WizardOfLegend\Framework\Framework\x64\Debug\0625.exe
   0625.vcxproj -> D:\MyLab\GameLab\Algorithm\WizardOfLegend\Framework\Framework\x64\Debug\0625.pdb (Full PDB)

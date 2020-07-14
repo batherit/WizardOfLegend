@@ -1,6 +1,7 @@
 #pragma once
 
 class CBitmapObj;
+class CCamera2D;
 
 class CAtlasLoader
 {

@@ -11,6 +11,7 @@ public:
 	~CMainApp();
 
 public:
+	virtual LRESULT CALLBACK OnProcessingWindowMessage(HWND hWnd, UINT nMessageID, WPARAM wParam, LPARAM lParam);
 	void Ready(void);
 	void Update(void);
 	void LateUpdate(void);

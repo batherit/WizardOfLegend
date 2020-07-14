@@ -1,6 +1,7 @@
 #pragma once
 
 class CGameWorld;
+class CCamera2D;
 
 class CMap final
 {

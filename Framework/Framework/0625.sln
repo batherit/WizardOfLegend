@@ -1,9 +1,20 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.572
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "0625", "0625\0625.vcxproj", "{1D412CBE-C6D6-41BB-8690-8881574333AA}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MapEditor", "MapEditor\MapEditor.vcxproj", "{2C84B63B-744D-446C-AAD0-08D75FFEFF3B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Common", "Common", "{9838541D-E03F-44C6-8E14-032E50276922}"
+	ProjectSection(SolutionItems) = preProject
+		Common\Const.h = Common\Const.h
+		Common\Define.h = Common\Define.h
+		Common\Enum.h = Common\Enum.h
+		Common\Extern.h = Common\Extern.h
+		Common\Struct.h = Common\Struct.h
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,8 +32,19 @@ Global
 		{1D412CBE-C6D6-41BB-8690-8881574333AA}.Release|x64.Build.0 = Release|x64
 		{1D412CBE-C6D6-41BB-8690-8881574333AA}.Release|x86.ActiveCfg = Release|Win32
 		{1D412CBE-C6D6-41BB-8690-8881574333AA}.Release|x86.Build.0 = Release|Win32
+		{2C84B63B-744D-446C-AAD0-08D75FFEFF3B}.Debug|x64.ActiveCfg = Debug|x64
+		{2C84B63B-744D-446C-AAD0-08D75FFEFF3B}.Debug|x64.Build.0 = Debug|x64
+		{2C84B63B-744D-446C-AAD0-08D75FFEFF3B}.Debug|x86.ActiveCfg = Debug|Win32
+		{2C84B63B-744D-446C-AAD0-08D75FFEFF3B}.Debug|x86.Build.0 = Debug|Win32
+		{2C84B63B-744D-446C-AAD0-08D75FFEFF3B}.Release|x64.ActiveCfg = Release|x64
+		{2C84B63B-744D-446C-AAD0-08D75FFEFF3B}.Release|x64.Build.0 = Release|x64
+		{2C84B63B-744D-446C-AAD0-08D75FFEFF3B}.Release|x86.ActiveCfg = Release|Win32
+		{2C84B63B-744D-446C-AAD0-08D75FFEFF3B}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {861DBF1C-6C4A-414C-B8D4-E0EC031253D4}
 	EndGlobalSection
 EndGlobal

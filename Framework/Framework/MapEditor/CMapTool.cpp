@@ -1,8 +1,5 @@
 #include "stdafx.h"
 #include "CMapTool.h"
-#include "Player.h"
-#include "Monster.h"
-#include "CSpace.h"
 #include "CTimer.h"
 #include "CCamera2D.h"
 #include "CMapEditor.h"

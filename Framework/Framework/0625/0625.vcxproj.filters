@@ -12,9 +12,6 @@
     <Filter Include="소스 파일\99.Default">
       <UniqueIdentifier>{ce7e1dc7-37ec-480c-bf62-8572ca08b7c1}</UniqueIdentifier>
     </Filter>
-    <Filter Include="소스 파일\98.Headers">
-      <UniqueIdentifier>{a8ccd129-c10e-492d-a6fe-26186d7972ae}</UniqueIdentifier>
-    </Filter>
     <Filter Include="소스 파일\00.MainProcess">
       <UniqueIdentifier>{27fa68eb-72eb-4aff-b97f-13b3a5c993d1}</UniqueIdentifier>
     </Filter>
@@ -72,9 +69,6 @@
     <Filter Include="소스 파일\05.Bitmap">
       <UniqueIdentifier>{fb3a5d37-fe5b-4c04-a69c-13cf4d88bafe}</UniqueIdentifier>
     </Filter>
-    <Filter Include="소스 파일\97.MapEditor\090.Editor_Obj">
-      <UniqueIdentifier>{5482cfee-3f29-4dcb-9497-55a36f4f63ee}</UniqueIdentifier>
-    </Filter>
     <Filter Include="소스 파일\04.Map">
       <UniqueIdentifier>{80200254-11ba-4525-9c2c-23e4c9d1f338}</UniqueIdentifier>
     </Filter>
@@ -101,29 +95,11 @@
     <ClInclude Include="0625.h">
       <Filter>소스 파일\99.Default</Filter>
     </ClInclude>
-    <ClInclude Include="Extern.h">
-      <Filter>소스 파일\98.Headers</Filter>
-    </ClInclude>
-    <ClInclude Include="Define.h">
-      <Filter>소스 파일\98.Headers</Filter>
-    </ClInclude>
-    <ClInclude Include="Function.h">
-      <Filter>소스 파일\98.Headers</Filter>
-    </ClInclude>
-    <ClInclude Include="Struct.h">
-      <Filter>소스 파일\98.Headers</Filter>
-    </ClInclude>
     <ClInclude Include="Player.h">
       <Filter>소스 파일\03.Obj\020.Player</Filter>
     </ClInclude>
     <ClInclude Include="Bullet.h">
       <Filter>소스 파일\03.Obj\021.Bullet</Filter>
-    </ClInclude>
-    <ClInclude Include="Enum.h">
-      <Filter>소스 파일\98.Headers</Filter>
-    </ClInclude>
-    <ClInclude Include="Const.h">
-      <Filter>소스 파일\98.Headers</Filter>
     </ClInclude>
     <ClInclude Include="Monster.h">
       <Filter>소스 파일\03.Obj\023.Monster</Filter>
@@ -167,9 +143,6 @@
     <ClInclude Include="CMapTool.h">
       <Filter>소스 파일\01.MainApp</Filter>
     </ClInclude>
-    <ClInclude Include="CMapEditor.h">
-      <Filter>소스 파일\97.MapEditor</Filter>
-    </ClInclude>
     <ClInclude Include="UI_Button.h">
       <Filter>소스 파일\03.Obj\040.UI</Filter>
     </ClInclude>
@@ -185,15 +158,6 @@
     <ClInclude Include="CBitmapManager.h">
       <Filter>소스 파일\04.Manager</Filter>
     </ClInclude>
-    <ClInclude Include="CEditor_AtlasObj.h">
-      <Filter>소스 파일\97.MapEditor\090.Editor_Obj</Filter>
-    </ClInclude>
-    <ClInclude Include="CEditor_Collider.h">
-      <Filter>소스 파일\97.MapEditor\090.Editor_Obj</Filter>
-    </ClInclude>
-    <ClInclude Include="CEditor_Obj.h">
-      <Filter>소스 파일\97.MapEditor\090.Editor_Obj</Filter>
-    </ClInclude>
     <ClInclude Include="CMap.h">
       <Filter>소스 파일\04.Map</Filter>
     </ClInclude>
@@ -201,6 +165,9 @@
       <Filter>소스 파일\03.Obj\01.MapObj</Filter>
     </ClInclude>
     <ClInclude Include="CCollider.h" />
+    <ClInclude Include="Function.h">
+      <Filter>소스 파일</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CLayer.cpp">
@@ -229,9 +196,6 @@
     </ClCompile>
     <ClCompile Include="Bullet.cpp">
       <Filter>소스 파일\03.Obj\021.Bullet</Filter>
-    </ClCompile>
-    <ClCompile Include="Function.cpp">
-      <Filter>소스 파일\98.Headers</Filter>
     </ClCompile>
     <ClCompile Include="Monster.cpp">
       <Filter>소스 파일\03.Obj\023.Monster</Filter>
@@ -266,15 +230,6 @@
     <ClCompile Include="CCamera2D.cpp">
       <Filter>소스 파일\03.Obj\01.Camera</Filter>
     </ClCompile>
-    <ClCompile Include="CMapTool.cpp">
-      <Filter>소스 파일\01.MainApp</Filter>
-    </ClCompile>
-    <ClCompile Include="MapTool_WOL.cpp">
-      <Filter>소스 파일\00.MainProcess</Filter>
-    </ClCompile>
-    <ClCompile Include="CMapEditor.cpp">
-      <Filter>소스 파일\97.MapEditor</Filter>
-    </ClCompile>
     <ClCompile Include="UI_Button.cpp">
       <Filter>소스 파일\03.Obj\040.UI</Filter>
     </ClCompile>
@@ -284,23 +239,11 @@
     <ClCompile Include="CGameWorld.cpp">
       <Filter>소스 파일\01.MainApp</Filter>
     </ClCompile>
-    <ClCompile Include="CMapFileMgr.cpp">
-      <Filter>소스 파일\97.MapEditor\MapFileMgr</Filter>
-    </ClCompile>
     <ClCompile Include="CBitmapObj.cpp">
       <Filter>소스 파일\05.Bitmap</Filter>
     </ClCompile>
     <ClCompile Include="CBitmapManager.cpp">
       <Filter>소스 파일\04.Manager</Filter>
-    </ClCompile>
-    <ClCompile Include="CEditor_AtlasObj.cpp">
-      <Filter>소스 파일\97.MapEditor\090.Editor_Obj</Filter>
-    </ClCompile>
-    <ClCompile Include="CEditor_Collider.cpp">
-      <Filter>소스 파일\97.MapEditor\090.Editor_Obj</Filter>
-    </ClCompile>
-    <ClCompile Include="CEditor_Obj.cpp">
-      <Filter>소스 파일\97.MapEditor\090.Editor_Obj</Filter>
     </ClCompile>
     <ClCompile Include="CMap.cpp">
       <Filter>소스 파일\04.Map</Filter>
@@ -309,6 +252,9 @@
       <Filter>소스 파일\03.Obj\01.MapObj</Filter>
     </ClCompile>
     <ClCompile Include="CCollider.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="Function.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>

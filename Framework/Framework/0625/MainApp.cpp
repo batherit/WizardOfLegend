@@ -20,6 +20,11 @@ CMainApp::~CMainApp()
 	Release();
 }
 
+LRESULT CMainApp::OnProcessingWindowMessage(HWND hWnd, UINT nMessageID, WPARAM wParam, LPARAM lParam)
+{
+	return LRESULT();
+}
+
 void CMainApp::Ready(void)
 {
 	// 얻어왔으면 반드시 지워주기!
@@ -108,8 +113,8 @@ void CMainApp::RenderLine(const HDC& _hdc, CCamera2D* _pCamera)
 		pairFrom = m_vecLines[i];
 		pairTo = m_vecLines[i + 1];
 
-		pairFrom = _pCamera->TransformPoint(pairFrom.first, pairFrom.second);
-		pairTo = _pCamera->TransformPoint(pairTo.first, pairTo.second);
+		pairFrom = _pCamera->GetScreenPoint(pairFrom.first, pairFrom.second);
+		pairTo = _pCamera->GetScreenPoint(pairTo.first, pairTo.second);
 
 		MoveToEx(_hdc, pairFrom.first, pairFrom.second, nullptr);
 		LineTo(_hdc, pairTo.first, pairTo.second);
