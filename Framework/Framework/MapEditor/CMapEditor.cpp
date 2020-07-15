@@ -16,6 +16,7 @@ CMapEditor::CMapEditor(CGameWorld& _rGameWorld)
 {
 	CBitmapMgr::GetInstance()->InsertBitmap(TEXT("../Textures/WOL_TILE_DUNGEON.bmp"), TEXT("WOL_TILE_DUNGEON"));
 	CBitmapMgr::GetInstance()->InsertBitmap(TEXT("../Textures/WOL_TILE_HOMETOWN.bmp"), TEXT("WOL_TILE_HOMETOWN"));
+	CBitmapMgr::GetInstance()->InsertBitmap(TEXT("../Textures/WOL_OBJECT.bmp"), TEXT("WOL_OBJECT"));
 
 		
 	// 파일로부터 아틀라스 로더 생성 (맵 렌더 인포 구조체의 한 변수)

@@ -54,7 +54,7 @@ void CEditor_AtlasObj::Render(HDC & _hdc, CCamera2D * _pCamera)
 	pair<float, float> pairLeftTop = _pCamera->GetScreenPoint(rcDrawArea.left, rcDrawArea.top);
 	pair<float, float> pairRightBottom = _pCamera->GetScreenPoint(rcDrawArea.right, rcDrawArea.bottom);
 
-	StretchBlt(_hdc,
+	GdiTransparentBlt(_hdc,
 		pairLeftTop.first,			// 출력 시작좌표 X
 		pairLeftTop.second,			// 출력 시작좌표 Y
 		pairRightBottom.first - pairLeftTop.first + 1,					// 출력 크기 (1은 빈여백을 없애기 위한 추가 픽셀이다.)
@@ -64,7 +64,7 @@ void CEditor_AtlasObj::Render(HDC & _hdc, CCamera2D * _pCamera)
 		m_stAtlasObjInfo.rcOutputArea.top,
 		m_stAtlasObjInfo.rcOutputArea.right - m_stAtlasObjInfo.rcOutputArea.left,
 		m_stAtlasObjInfo.rcOutputArea.bottom - m_stAtlasObjInfo.rcOutputArea.top,
-		SRCCOPY);
+		RGB(255, 0, 255));
 }
 
 void CEditor_AtlasObj::SaveInfo(FILE * _fpOut)

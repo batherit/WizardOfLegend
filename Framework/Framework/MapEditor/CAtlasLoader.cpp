@@ -38,7 +38,18 @@ CAtlasLoader::CAtlasLoader(int _iID, _atlas_loader_info& _stAtlasInfo)
 	}
 		break;
 	case ATLAS_LOADER::TYPE_NON_UNIFORM:
-		// TODO : 
+	{
+		_atlas_obj_info stAtlasObjInfo;
+
+		int iSize = _stAtlasInfo.vecOutputArea.size();
+		for (int i = 0; i < iSize; i++) {
+			stAtlasObjInfo.iAtlasID = _iID;
+			stAtlasObjInfo.rcOutputArea = _stAtlasInfo.vecOutputArea[i];
+			stAtlasObjInfo.iCoveredHeightTiles = (stAtlasObjInfo.rcOutputArea.bottom - stAtlasObjInfo.rcOutputArea.top + 1)/ _stAtlasInfo.iTileHeight;
+			stAtlasObjInfo.iCoveredWidthTiles = (stAtlasObjInfo.rcOutputArea.right - stAtlasObjInfo.rcOutputArea.left + 1) / _stAtlasInfo.iTileWidth;
+			m_vecAtlasObjInfos.emplace_back(stAtlasObjInfo);
+		}
+	}
 		break;
 	default:
 		break;
@@ -55,7 +66,7 @@ CAtlasLoader::~CAtlasLoader()
 void CAtlasLoader::Update(float _fDeltaTime)
 {
 	if (IsVisible()) {
-		// TODO : 블록 선택 기능을 추가합니다.
+		// TODO : 블록 선택 기능을 추가합니다.x
 	}
 }
 

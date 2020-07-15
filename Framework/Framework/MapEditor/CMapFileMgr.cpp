@@ -37,6 +37,17 @@ void CMapFileMgr::GenerateAtlasLoadersFromFile(const char* _szDirectory, vector<
 				&stAtlasInfo.fAtlasRatio,
 				&stAtlasInfo.iTileWidth,
 				&stAtlasInfo.iTileHeight);
+
+			if (stAtlasInfo.eLoaderType == ATLAS_LOADER::TYPE_NON_UNIFORM) {
+				int iOutputAreaSize = 0;
+				fscanf_s(fpIn, " %d", &iOutputAreaSize);
+				RECT rc;
+				for (int i = 0; i < iOutputAreaSize; i++) {
+					fscanf_s(fpIn, " %d %d %d %d", &rc.left, &rc.top, &rc.right, &rc.bottom);
+					stAtlasInfo.vecOutputArea.emplace_back(rc);
+				}
+			}
+
 			// i를 아틀라스 로더의 아이디로 삼는다.
 			_rAtlasLoaders.emplace_back(new CAtlasLoader(i, stAtlasInfo));
 		}
