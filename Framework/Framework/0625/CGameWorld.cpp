@@ -1,10 +1,13 @@
 #include "stdafx.h"
 #include "CGameWorld.h"
 #include "CTimer.h"
+#include "CSceneMgr.h"
+
 
 CGameWorld::CGameWorld()
 	:
-	m_pTimer(new CTimer(TIMER::TIMER_TYPE_WINDOWS))
+	m_pTimer(new CTimer(TIMER::TIMER_TYPE_WINDOWS)),
+	m_pSceneManager(new CSceneMgr(*this))
 {
 	if (m_pTimer) m_pTimer->Reset();
 	m_hDC = GetDC(g_hWND);
@@ -22,6 +25,12 @@ CGameWorld::~CGameWorld()
 	DeleteObject(m_hBackbuffer);
 	ReleaseDC(g_hWND, m_hDC);
 	DeleteSafe(m_pTimer);
+	DeleteSafe(m_pSceneManager);
+}
+
+bool CGameWorld::ConfirmValidScene(void)
+{
+	return m_pSceneManager->ConfirmValidScene();
 }
 
 void CGameWorld::RunTick(void)

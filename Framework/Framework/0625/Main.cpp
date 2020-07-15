@@ -53,7 +53,6 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 	//DWORD dwOldTime = GetTickCount();
 	while (WM_QUIT != msg.message)
 	{
-		gGameWorld->RunTick();
 		if (PeekMessage(&msg, nullptr, 0, 0, PM_REMOVE)) {
 
 			if (!TranslateAccelerator(msg.hwnd, hAccelTable, &msg))
@@ -64,7 +63,8 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 		}
 		//if (dwOldTime + 10 < GetTickCount())
 		//{
-
+		if (!gGameWorld->ConfirmValidScene()) break;
+		gGameWorld->RunTick();
 		CKeyMgr::GetInstance()->Update();
 		gGameWorld->Update();
 		gGameWorld->LateUpdate();

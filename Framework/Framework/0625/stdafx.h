@@ -35,4 +35,5 @@ using namespace std;
 #include "Function.h"
 #include "KeyMgr.h"
 #include "MainApp.h"
+#include "CSceneMgr.h"
 #include "CWOL_World.h"

@@ -158,6 +158,8 @@
     <ClInclude Include="CCamera2D.h" />
     <ClInclude Include="CMapLoader.h" />
     <ClInclude Include="CMapFileMgr.h" />
+    <ClInclude Include="CScene.h" />
+    <ClInclude Include="CSceneMgr.h" />
     <ClInclude Include="CSpace.h" />
     <ClInclude Include="CGameWorld.h" />
     <ClInclude Include="CLayer.h" />
@@ -210,6 +212,8 @@
     <ClCompile Include="CCamera2D.cpp" />
     <ClCompile Include="CMapLoader.cpp" />
     <ClCompile Include="CMapFileMgr.cpp" />
+    <ClCompile Include="CScene.cpp" />
+    <ClCompile Include="CSceneMgr.cpp" />
     <ClCompile Include="CSpace.cpp" />
     <ClCompile Include="CGameWorld.cpp" />
     <ClCompile Include="CLayer.cpp" />
