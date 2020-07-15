@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "CAtlasLoader.h"
 #include "CBitmapObj.h"
+#include "CBitmapMgr.h"
 
 
 CAtlasLoader::CAtlasLoader(int _iID, _atlas_loader_info& _stAtlasInfo)
@@ -8,22 +9,16 @@ CAtlasLoader::CAtlasLoader(int _iID, _atlas_loader_info& _stAtlasInfo)
 	m_iID = _iID;
 	m_stAtlasInfo = _stAtlasInfo;
 
-	TCHAR szConvDir[256] = TEXT(""); // 초기화 안해주면 변환이 제대로 안됨.
-	MultiByteToWideChar(CP_ACP, MB_PRECOMPOSED, 
-		_stAtlasInfo.szAtlasFileDirectory, strlen(_stAtlasInfo.szAtlasFileDirectory), szConvDir, 256);
-
-	m_pBitmapObj = new CBitmapObj;
-	m_pBitmapObj->LoadBmp(szConvDir);
-
-	m_iStretchedAtlasWidth = _stAtlasInfo.fAtlasRatio * _stAtlasInfo.iAtlasWidth;
-	m_iStretchedAtlasHeight = _stAtlasInfo.fAtlasRatio * _stAtlasInfo.iAtlasHeight;
+	const CBitmapObj* pBitmapObj = CBitmapMgr::GetInstance()->GetBitmapObj(ctBitmapKey[_stAtlasInfo.iAtlasID]);
+	m_iStretchedAtlasWidth = _stAtlasInfo.fAtlasRatio * pBitmapObj->GetWitdh();
+	m_iStretchedAtlasHeight = _stAtlasInfo.fAtlasRatio * pBitmapObj->GetHeight();
 
 	switch (_stAtlasInfo.eLoaderType)
 	{
 	case ATLAS_LOADER::TYPE_UNIFORM:
 	{
-		int iRow = _stAtlasInfo.iAtlasHeight / _stAtlasInfo.iTileHeight;
-		int iCol = _stAtlasInfo.iAtlasWidth / _stAtlasInfo.iTileWidth;
+		int iRow = pBitmapObj->GetHeight() / _stAtlasInfo.iTileHeight;
+		int iCol = pBitmapObj->GetWitdh() / _stAtlasInfo.iTileWidth;
 
 		// 출력 영역 설정.
 		_atlas_obj_info stAtlasObjInfo;
@@ -41,7 +36,7 @@ CAtlasLoader::CAtlasLoader(int _iID, _atlas_loader_info& _stAtlasInfo)
 			}
 		}
 	}
-		break;
+	break;
 	case ATLAS_LOADER::TYPE_NON_UNIFORM:
 		// TODO : 
 		break;
@@ -53,7 +48,8 @@ CAtlasLoader::CAtlasLoader(int _iID, _atlas_loader_info& _stAtlasInfo)
 
 CAtlasLoader::~CAtlasLoader()
 {
-	DeleteSafe(m_pBitmapObj);
+	m_stAtlasInfo.vecOutputArea.clear();
+
 }
 
 void CAtlasLoader::Update(float _fDeltaTime)
@@ -73,16 +69,18 @@ void CAtlasLoader::Render(HDC & _hdc, CCamera2D * _pCamera)
 
 void CAtlasLoader::RenderAtlas(HDC & _hdc, CCamera2D * _pCamera)
 {
+	const CBitmapObj* pBitmapObj = CBitmapMgr::GetInstance()->GetBitmapObj(ctBitmapKey[m_stAtlasInfo.iAtlasID]);
+
 	StretchBlt(_hdc,
 		0,
 		0,
 		m_iStretchedAtlasWidth,
 		m_iStretchedAtlasHeight,
-		GetMemDC(), 
-		0, 
-		0, 
-		m_stAtlasInfo.iAtlasWidth, 
-		m_stAtlasInfo.iAtlasHeight, SRCCOPY);
+		GetMemDC(),
+		0,
+		0,
+		pBitmapObj->GetWitdh(),
+		pBitmapObj->GetHeight(), SRCCOPY);
 }
 
 void CAtlasLoader::RenderGrid(HDC & _hdc, CCamera2D * _pCamera)
@@ -97,7 +95,7 @@ void CAtlasLoader::RenderGrid(HDC & _hdc, CCamera2D * _pCamera)
 		lStartY = info.rcOutputArea.top * m_stAtlasInfo.fAtlasRatio;
 		lWidth = (info.rcOutputArea.right - info.rcOutputArea.left) * m_stAtlasInfo.fAtlasRatio;
 		lHeight = (info.rcOutputArea.bottom - info.rcOutputArea.top) * m_stAtlasInfo.fAtlasRatio;
-		
+
 		// 시계방향으로 네모를 그린다.
 		MoveToEx(_hdc, lStartX, lStartY, nullptr);
 		LineTo(_hdc, lStartX + lWidth, lStartY);
@@ -109,7 +107,8 @@ void CAtlasLoader::RenderGrid(HDC & _hdc, CCamera2D * _pCamera)
 
 const HDC & CAtlasLoader::GetMemDC(void)
 {
-	return m_pBitmapObj->GetMemDC();
+	// TODO: 여기에 반환 구문을 삽입합니다.
+	return CBitmapMgr::GetInstance()->FindBitmapMemDC(ctBitmapKey[m_stAtlasInfo.iAtlasID]);
 }
 
 _atlas_obj_info CAtlasLoader::GetDetectedTileRowCol(const POINT& _ptClicked)
@@ -128,6 +127,6 @@ _atlas_obj_info CAtlasLoader::GetDetectedTileRowCol(const POINT& _ptClicked)
 			}
 		}
 	}
-	
+
 	return stTileInfo;
 }

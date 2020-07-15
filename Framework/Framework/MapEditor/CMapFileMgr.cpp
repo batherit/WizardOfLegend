@@ -21,18 +21,19 @@ void CMapFileMgr::GenerateAtlasLoadersFromFile(const char* _szDirectory, vector<
 		int iAtlasNum = 0;
 		fscanf_s(fpIn, "%d ", &iAtlasNum);			// 로드할 아틀라스 수
 		_atlas_loader_info stAtlasInfo;
+		char szBuf[128];
 		for (int i = 0; i < iAtlasNum; i++) {
-			// 문자열은 fgets로 하는게 안전한 것 같다.
-			do {
-				fgets(stAtlasInfo.szAtlasFileDirectory, sizeof(stAtlasInfo.szAtlasFileDirectory), fpIn);
-			} while (strcmp(stAtlasInfo.szAtlasFileDirectory, "\n") == 0);	// 개행문자는 거른다.
-			stAtlasInfo.szAtlasFileDirectory[strlen(stAtlasInfo.szAtlasFileDirectory) - 1] = '\0';	// 개행문자 제거
-			int size = strlen(stAtlasInfo.szAtlasFileDirectory);
-			fscanf_s(fpIn, " %d %d %d %d %f %d %d",
-				&stAtlasInfo.iID,
+			////// 문자열은 fgets로 하는게 안전한 것 같다.
+			//do {
+			//	fgets(szBuf, sizeof(szBuf), fpIn);
+			//} while (strcmp(szBuf, "\n") == 0);	// 개행문자는 거른다.
+			//szBuf[strlen(szBuf) - 1] = '\0';	// 개행문자 제거
+
+			//MultiByteToWideChar(CP_ACP, MB_PRECOMPOSED, szBuf, strlen(szBuf), stAtlasInfo.szAtlasKey, 128);
+
+			fscanf_s(fpIn, " %d %d %f %d %d",
+				&stAtlasInfo.iAtlasID,
 				&stAtlasInfo.eLoaderType,
-				&stAtlasInfo.iAtlasWidth,
-				&stAtlasInfo.iAtlasHeight,
 				&stAtlasInfo.fAtlasRatio,
 				&stAtlasInfo.iTileWidth,
 				&stAtlasInfo.iTileHeight);

@@ -7,12 +7,17 @@
 #include "CEditor_AtlasObj.h"
 #include "CEditor_Collider.h"
 #include "CEditor_Trigger.h"
+#include "CBitmapMgr.h"
 
 
 CMapEditor::CMapEditor(CGameWorld& _rGameWorld)
 	:
 	m_rGameWorld(_rGameWorld)
 {
+	CBitmapMgr::GetInstance()->InsertBitmap(TEXT("../Textures/WOL_TILE_DUNGEON.bmp"), TEXT("WOL_TILE_DUNGEON"));
+	CBitmapMgr::GetInstance()->InsertBitmap(TEXT("../Textures/WOL_TILE_HOMETOWN.bmp"), TEXT("WOL_TILE_HOMETOWN"));
+
+		
 	// 파일로부터 아틀라스 로더 생성 (맵 렌더 인포 구조체의 한 변수)
 	CMapFileMgr::GetInstance()->GenerateAtlasLoadersFromFile("../MapDatas/AtlasLoaders.txt", m_stMapRenderInfo.vecAtlasLoaders);
 

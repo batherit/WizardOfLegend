@@ -5,7 +5,7 @@ class CBitmapObj;
 class CBitmapMgr
 {
 public:
-	static CBitmapMgr* Get_Instance()
+	static CBitmapMgr* GetInstance()
 	{
 		if (nullptr == m_pInstance)
 			m_pInstance = new CBitmapMgr;
@@ -23,7 +23,8 @@ private:
 	CBitmapMgr();
 	~CBitmapMgr();
 public:
-	HDC FindBitmapMemDC(const TCHAR* _pImageKey);
+	const HDC FindBitmapMemDC(const TCHAR* _szImageKey) const;
+	const CBitmapObj* GetBitmapObj(const TCHAR* _szImageKey) const;
 	void InsertBitmap(const TCHAR* _pFilePath, const TCHAR* _pImageKey);
 	void Release(void);
 private:

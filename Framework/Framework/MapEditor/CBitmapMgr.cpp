@@ -14,13 +14,22 @@ CBitmapMgr::~CBitmapMgr()
 	Release();
 }
 
-HDC CBitmapMgr::FindBitmapMemDC(const TCHAR * _pImageKey)
+const HDC CBitmapMgr::FindBitmapMemDC(const TCHAR * _szImageKey) const
 {
-	auto iter_find = m_mapBitmapObjs.find(_pImageKey);
+	auto iter_find = m_mapBitmapObjs.find(_szImageKey);
 	if (iter_find == m_mapBitmapObjs.end())
 		return nullptr;
 
 	return iter_find->second->GetMemDC();
+}
+
+const CBitmapObj * CBitmapMgr::GetBitmapObj(const TCHAR * _szImageKey) const
+{
+	auto iter_find = m_mapBitmapObjs.find(_szImageKey);
+	if (iter_find == m_mapBitmapObjs.end())
+		return nullptr;
+
+	return iter_find->second;
 }
 
 void CBitmapMgr::InsertBitmap(const TCHAR * _pFilePath, const TCHAR * _pImageKey) // pImageKey Ex. L"Player"

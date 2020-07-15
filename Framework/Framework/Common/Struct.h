@@ -18,11 +18,8 @@ struct _map_render_info {
 
 // 아틀라스를 로드하는데 쓰이는 구조체
 struct _atlas_loader_info {
-	char szAtlasFileDirectory[256] = "";
-	int iID = -1;
+	int iAtlasID = -1;
 	ATLAS_LOADER::E_TYPE eLoaderType = ATLAS_LOADER::TYPE_UNIFORM;
-	int iAtlasWidth = 100;
-	int iAtlasHeight = 100;
 	float fAtlasRatio = 1.f;
 	int iTileWidth = 73;
 	int iTileHeight = 73;

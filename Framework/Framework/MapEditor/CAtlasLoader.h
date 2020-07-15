@@ -35,7 +35,7 @@ private:
 
 	//HBITMAP m_bitmapAtlas;
 	//HBITMAP m_bitmapOldAtlas;
-	CBitmapObj* m_pBitmapObj;
+	//CBitmapObj* m_pBitmapObj;
 	_atlas_loader_info m_stAtlasInfo;
 	
 	// 개편된 데이터
@@ -46,5 +46,6 @@ private:
 	size_t m_iStretchedAtlasHeight;
 
 	bool m_bIsVisible = false;
+	const TCHAR* ctBitmapKey[3] = { L"WOL_TILE_DUNGEON", L"WOL_TILE_HOMETOWN" };
 };
 
