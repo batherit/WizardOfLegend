@@ -6,6 +6,7 @@
 #include "CEditor_Obj.h"
 #include "CEditor_AtlasObj.h"
 #include "CEditor_Collider.h"
+#include "CEditor_Trigger.h"
 
 
 CMapEditor::CMapEditor(CGameWorld& _rGameWorld)
@@ -48,15 +49,18 @@ CMapEditor::CMapEditor(CGameWorld& _rGameWorld)
 	m_vecEditorButtons.emplace_back(new CUI_Button<CMapEditor>(m_rGameWorld, 500, WINCY - 55, 40, 25, TEXT("Trig"), this, &CMapEditor::ChangeLayer, new MAP_EDITOR::E_LAYER(MAP_EDITOR::LAYER_TRIGGER)));
 	m_vecEditorButtons.emplace_back(new CUI_Button<CMapEditor>(m_rGameWorld, 550, WINCY - 55, 40, 25, TEXT("Door"), this, &CMapEditor::ChangeLayer, new MAP_EDITOR::E_LAYER(MAP_EDITOR::LAYER_DOOR)));
 
+	m_vecEditorButtons.emplace_back(new CUI_Button<CMapEditor>(m_rGameWorld, 40, (WINCY >> 1) + 130, 25, 25, TEXT("<"), this, &CMapEditor::ChangeGroupID, new int(-1)));
+	m_vecEditorButtons.emplace_back(new CUI_Button<CMapEditor>(m_rGameWorld, 80, (WINCY >> 1) + 130, 25, 25, TEXT(">"), this, &CMapEditor::ChangeGroupID, new int(1)));
+
 	// TriggerID 변경
-	int iNewTriggerID = -1;
+	/*int iNewTriggerID = -1;
 	for (int i = 0; i < ciMaxTriggerGroupRow; i++) {
 		for (int j = 0; j < ciMaxTirggerGroupCol; j++) {
 			iNewTriggerID = 3 * i + j;
 			swprintf_s(szBuf, TEXT("TrigID_%d"), iNewTriggerID);
-			m_vecEditorButtons.emplace_back(new CUI_Button<CMapEditor>(m_rGameWorld, 620 + 90 * j, WINCY - 25 - 30 * i, 80, 25, szBuf, this, &CMapEditor::ChangeTriggerID, new int(iNewTriggerID)));
+			m_vecEditorButtons.emplace_back(new CUI_Button<CMapEditor>(m_rGameWorld, 620 + 90 * j, WINCY - 25 - 30 * i, 80, 25, szBuf, this, &CMapEditor::ChangeGroupID, new int(iNewTriggerID)));
 		}
-	}
+	}*/
 
 	// MapID 변경
 	for (int i = 0; i < ciMaxMapNum; i++) {
@@ -149,7 +153,6 @@ void CMapEditor::Update(float _fDeltaTime)
 							m_listAtlasObjs[m_iDrawLayerIndex].erase(find(m_listAtlasObjs[m_iDrawLayerIndex].begin(), m_listAtlasObjs[m_iDrawLayerIndex].end(), pPickedObj));
 							DeleteSafe(pPickedObj);
 						}
-							
 						break;
 					default:
 						break;
@@ -175,13 +178,52 @@ void CMapEditor::Update(float _fDeltaTime)
 						if (pPickedObj) {
 							m_listColliders.erase(find(m_listColliders.begin(), m_listColliders.end(), pPickedObj));
 							DeleteSafe(pPickedObj);
-						}
-							
+						}	
 						break;
 					default:
 						break;
 					}
 				break;
+				}
+				case MAP_EDITOR::LAYER_TRIGGER:
+				{
+					CEditor_Obj* pPickedObj = nullptr;
+					for (auto& obj : m_listTriggers) {
+						if (IsPointInRect(obj->GetRowColRect(), POINT{ iCol, iRow })) {
+							pPickedObj = obj;
+							break;
+						}
+					}
+					switch (m_eTool)
+					{
+					case MAP_EDITOR::TOOL_PAINT:
+						if (!pPickedObj) {
+							bool bOk = false;
+							for (auto& obj : m_listTriggers) {
+								if (obj->GetGroupID() == m_iGroupID) {
+									RECT rc = obj->GetRowColRect();
+									dynamic_cast<CEditor_Trigger*>(obj)->SetPivotPoint(min(rc.top, iRow), min(rc.left, iCol));
+									dynamic_cast<CEditor_Trigger*>(obj)->SetEndPoint(max(rc.bottom, iRow), max(rc.right, iCol));
+									bOk = true;
+									break;
+								}
+							}
+							if (!bOk) {
+								CEditor_Obj* pObj = new CEditor_Trigger(m_stMapRenderInfo, iRow, iCol);
+								pObj->SetGroupID(m_iGroupID);
+								m_listTriggers.emplace_back(pObj);
+							}
+						}
+						break;
+					case MAP_EDITOR::TOOL_ERASE:
+						if (pPickedObj) {
+							m_listTriggers.erase(find(m_listTriggers.begin(), m_listTriggers.end(), pPickedObj));
+							DeleteSafe(pPickedObj);
+						}
+						break;
+					default:
+						break;
+					}
 				}
 				default:
 					break;
@@ -204,6 +246,9 @@ void CMapEditor::Render(HDC & _hdc, CCamera2D* _pCamera)
 		}
 	}
 	for (auto& pObj : m_listColliders) {
+		pObj->Render(_hdc, _pCamera);
+	}
+	for (auto& pObj : m_listTriggers) {
 		pObj->Render(_hdc, _pCamera);
 	}
 
@@ -297,7 +342,7 @@ void CMapEditor::RenderMode(HDC & _hdc, CCamera2D * _pCamera)
 	TextOut(_hdc, 30, (WINCY >> 1) + 30, szMode, lstrlen(szMode));
 	swprintf_s(szMode, TEXT("DrawLayerIdx : %d"), m_iDrawLayerIndex);
 	TextOut(_hdc, 30, (WINCY >> 1) + 60, szMode, lstrlen(szMode));
-	swprintf_s(szMode, TEXT("TriggerGroup : %d"), m_iTriggerID);
+	swprintf_s(szMode, TEXT("Group : %d"), m_iGroupID);
 	TextOut(_hdc, 30, (WINCY >> 1) + 90, szMode, lstrlen(szMode));
 }
 
@@ -361,9 +406,12 @@ void CMapEditor::ChangeTool(void * _pTool)
 	m_eTool = *static_cast<MAP_EDITOR::E_TOOL*>(_pTool);
 }
 
-void CMapEditor::ChangeTriggerID(void * _pTriggerID)
+void CMapEditor::ChangeGroupID(void * _pDeltaGroupID)
 {
-	m_iTriggerID = *static_cast<int*>(_pTriggerID);
+	m_iGroupID += *static_cast<int*>(_pDeltaGroupID);
+	if (m_iGroupID < 0) {
+		m_iGroupID = 0;
+	}
 }
 
 void CMapEditor::ChangeMapID(void * _pMapID)
@@ -387,6 +435,11 @@ void CMapEditor::SaveMap(void *)
 		iSize = m_listColliders.size();
 		fprintf_s(fpOut, "%d \n", iSize);
 		for (auto& obj : m_listColliders) {
+			obj->SaveInfo(fpOut);
+		}
+		iSize = m_listTriggers.size();
+		fprintf_s(fpOut, "%d \n", iSize);
+		for (auto& obj : m_listTriggers) {
 			obj->SaveInfo(fpOut);
 		}
 	}
@@ -415,6 +468,12 @@ void CMapEditor::LoadMap(void *)
 			pObj = new CEditor_Collider(m_stMapRenderInfo);
 			pObj->LoadInfo(fpIn);
 			m_listColliders.emplace_back(pObj);
+		}
+		fscanf_s(fpIn, " %d", &iSize);
+		for (int i = 0; i < iSize; i++) {
+			pObj = new CEditor_Trigger(m_stMapRenderInfo);
+			pObj->LoadInfo(fpIn);
+			m_listTriggers.emplace_back(pObj);
 		}
 	}
 	if (fpIn) fclose(fpIn);

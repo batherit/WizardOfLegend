@@ -2,6 +2,7 @@
 #include "CTitleScene.h"
 #include "CBitmapMgr.h"
 #include "CBitmapObj.h"
+#include "CPlayScene.h"
 
 
 CTitleScene::CTitleScene(CGameWorld& _rGameWorld)
@@ -22,7 +23,7 @@ void CTitleScene::Ready(void)
 int CTitleScene::Update(float _fDeltaTime)
 {
 	if (CKeyMgr::GetInstance()->IsKeyDown(KEY::KEY_LBUTTON)) {
-		m_rGameWorld.GetSceneManager()->SetNextScene(new CTitleScene(m_rGameWorld));
+		m_rGameWorld.GetSceneManager()->SetNextScene(new CPlayScene(m_rGameWorld, "../MapDatas/Maps/0/Objs.txt"));
 	}
 
 	return 0;

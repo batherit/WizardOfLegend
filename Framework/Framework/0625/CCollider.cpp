@@ -8,9 +8,10 @@ CCollider::CCollider(FILE* _fpIn, CGameWorld & _rGameWorld, CMapLoader & _rMap, 
 	CObj(_rGameWorld, 0.f, 0.f, 0, 0),
 	m_rMap(_rMap)
 {
-	int iDummy;
+	int iObjType;
+	int iGroupID;
 	_pivot_point stPivotPoint;
-	fscanf_s(_fpIn, " %d %d %d", &iDummy, &stPivotPoint.iRow, &stPivotPoint.iCol);
+	fscanf_s(_fpIn, " %d %d %d %d", &iObjType, &iGroupID, &stPivotPoint.iRow, &stPivotPoint.iCol);
 	const _map_structure_info& rMapStructureInfo = _rMap.GetMapStructureInfo();
 	RECT rc = {
 		stPivotPoint.iCol * rMapStructureInfo.iTileWidth,

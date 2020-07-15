@@ -158,6 +158,7 @@
     <ClInclude Include="CCamera2D.h" />
     <ClInclude Include="CMapLoader.h" />
     <ClInclude Include="CMapFileMgr.h" />
+    <ClInclude Include="CPlayScene.h" />
     <ClInclude Include="CScene.h" />
     <ClInclude Include="CSceneMgr.h" />
     <ClInclude Include="CSpace.h" />
@@ -166,6 +167,7 @@
     <ClInclude Include="CObj.h" />
     <ClInclude Include="CTimer.h" />
     <ClInclude Include="CTitleScene.h" />
+    <ClInclude Include="CTrigger.h" />
     <ClInclude Include="CWOL_World.h" />
     <ClInclude Include="Function.h" />
     <ClInclude Include="GuidedBullet.h">
@@ -213,6 +215,7 @@
     <ClCompile Include="CCamera2D.cpp" />
     <ClCompile Include="CMapLoader.cpp" />
     <ClCompile Include="CMapFileMgr.cpp" />
+    <ClCompile Include="CPlayScene.cpp" />
     <ClCompile Include="CScene.cpp" />
     <ClCompile Include="CSceneMgr.cpp" />
     <ClCompile Include="CSpace.cpp" />
@@ -220,6 +223,7 @@
     <ClCompile Include="CLayer.cpp" />
     <ClCompile Include="CTimer.cpp" />
     <ClCompile Include="CTitleScene.cpp" />
+    <ClCompile Include="CTrigger.cpp" />
     <ClCompile Include="CWOL_World.cpp" />
     <ClCompile Include="Function.cpp" />
     <ClCompile Include="GuidedBullet.cpp">

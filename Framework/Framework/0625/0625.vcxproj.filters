@@ -182,6 +182,12 @@
     <ClInclude Include="CTitleScene.h">
       <Filter>소스 파일\04.Scene</Filter>
     </ClInclude>
+    <ClInclude Include="CTrigger.h">
+      <Filter>소스 파일\03.Obj\01.MapObj</Filter>
+    </ClInclude>
+    <ClInclude Include="CPlayScene.h">
+      <Filter>소스 파일\04.Scene</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CLayer.cpp">
@@ -288,6 +294,12 @@
     </ClCompile>
     <ClCompile Include="CTitleScene.cpp">
       <Filter>소스 파일\04.Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="CPlayScene.cpp">
+      <Filter>소스 파일\04.Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="CTrigger.cpp">
+      <Filter>소스 파일\03.Obj\01.MapObj</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

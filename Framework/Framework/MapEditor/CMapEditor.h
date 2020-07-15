@@ -64,7 +64,7 @@ public:
 	void ChangeLayer(void* _pLayerType);
 	void ChangeDrawLayerIndex(void* _pDrawLayerIndex);
 	void ChangeTool(void* _pTool);
-	void ChangeTriggerID(void* _pTriggerID);
+	void ChangeGroupID(void* _pGroupID);
 	void ChangeMapID(void* _pMapID);
 	void SaveMap(void*);
 	void LoadMap(void*);
@@ -80,9 +80,10 @@ private:
 	MAP_EDITOR::E_TOOL m_eTool = MAP_EDITOR::TOOL_PAINT;
 	list<CEditor_Obj*> m_listAtlasObjs[ciMaxDrawLayerNum];						// 아틀라스 오브젝트
 	int m_iDrawLayerIndex = 0;									// 아틀라스 오브젝트 드로우 레이어 인덱스
-	int m_iTriggerID = 0;										// 할당할 트리거 아이디 최대 9개를 할당 할 수 있다. (예정)
+	int m_iGroupID = 0;											// 할당할 트리거 아이디 최대 9개를 할당 할 수 있다. (예정)
 	int m_iMapID = 0;											// 하나의 맵에 부여되는 ID 맵에디터는 최대 5개의 아이디를 부여할 수 있다. (예정)
 	list<CEditor_Obj*> m_listColliders;							// 콜라이더
+	list<CEditor_Obj*> m_listTriggers;							// 트리거들
 	int m_iVisibleAtlasID = -1;									// 현재 보이는 아틀라스 ID; 
 	_atlas_obj_info m_stDetectedAtlasObj;						// 검출된 타일
 	_map_render_info m_stMapRenderInfo;							// 맵 렌더에 공유해서 쓰는 정보 맵 오브젝트들은 이를 공유한다.

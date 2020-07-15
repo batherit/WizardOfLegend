@@ -21,10 +21,10 @@ CEditor_Obj::~CEditor_Obj()
 }
 
 void CEditor_Obj::SaveInfo(FILE * _fpOut) {
-	fprintf_s(_fpOut, "%d %d %d \n", m_eObjType, m_stPivotPoint.iRow, m_stPivotPoint.iCol);
+	fprintf_s(_fpOut, "%d %d %d %d \n", m_eObjType, m_iGroupID, m_stPivotPoint.iRow, m_stPivotPoint.iCol);
 }
 
 void CEditor_Obj::LoadInfo(FILE * _fpIn)
 {
-	fscanf_s(_fpIn, " %d %d %d", &m_eObjType, &m_stPivotPoint.iRow, &m_stPivotPoint.iCol);
+	fscanf_s(_fpIn, " %d %d %d %d", &m_eObjType, &m_iGroupID, &m_stPivotPoint.iRow, &m_stPivotPoint.iCol);
 }

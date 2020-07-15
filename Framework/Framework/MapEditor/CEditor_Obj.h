@@ -8,15 +8,19 @@ public:
 
 public:
 	void SetPivotPoint(int _iRow, int _iCol) { m_stPivotPoint.iRow = _iRow; m_stPivotPoint.iCol = _iCol; }
+	_pivot_point GetPivotPoint(void) const { return m_stPivotPoint; }
 	virtual RECT GetRect(void) const = 0;
 	virtual RECT GetRowColRect(void) const = 0;
 	virtual void Render(HDC& _hdc, CCamera2D* _pCamera) = 0;
 	virtual void SaveInfo(FILE * _fpOut);
 	virtual void LoadInfo(FILE * _fpIn);
+	void SetGroupID(int _iGroupID) { m_iGroupID = _iGroupID; }
+	int GetGroupID(void) const { return m_iGroupID; }
 
 protected:
 	MAP_OBJ::E_TYPE m_eObjType = MAP_OBJ::TYPE_END;
 	const _map_render_info& m_rMapRenderInfo;
 	_pivot_point m_stPivotPoint;
+	int m_iGroupID = -1;
 };
 

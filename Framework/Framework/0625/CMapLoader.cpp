@@ -3,6 +3,7 @@
 #include "CObj.h"
 #include "CAtlasObj.h"
 #include "CCollider.h"
+#include "CTrigger.h"
 #include "CMapFileMgr.h"
 
 
@@ -36,12 +37,18 @@ CMapLoader::CMapLoader(CGameWorld & _rGameWorld, const char* szMapDirectory)
 			pObj = new CCollider(fpIn, _rGameWorld, *this);
 			m_listColliders.emplace_back(pObj);
 		}
+		fscanf_s(fpIn, " %d", &iSize);
+		for (int i = 0; i < iSize; i++) {
+			pObj = new CTrigger(fpIn, _rGameWorld, *this);
+			m_listTriggers.emplace_back(pObj);
+		}
 	}
 	if (fpIn) fclose(fpIn);
 }
 
 CMapLoader::~CMapLoader()
 {
+	Release();
 }
 
 void CMapLoader::Update(float _fDeltaTime)
@@ -59,10 +66,19 @@ void CMapLoader::Render(HDC & _hdc, CCamera2D * _pCamera)
 			pObj->Render(_hdc, _pCamera);
 		}
 	}
+
+	for (auto& pObj : m_listColliders) {
+		pObj->Render(_hdc, _pCamera);
+	}
+
+	for (auto& pObj : m_listTriggers) {
+		pObj->Render(_hdc, _pCamera);
+	}
 }
 
 void CMapLoader::Release(void)
 {
+	ClearObjs();
 }
 
 void CMapLoader::ClearObjs(void)
@@ -71,4 +87,5 @@ void CMapLoader::ClearObjs(void)
 		DeleteListSafe(m_listAtlasObjs[i]);
 	}
 	DeleteListSafe(m_listColliders);
+	DeleteListSafe(m_listTriggers);
 }
