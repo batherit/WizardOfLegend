@@ -153,7 +153,7 @@
     <ClInclude Include="CAtlasLoader.h" />
     <ClInclude Include="CAtlasObj.h" />
     <ClInclude Include="CCollider.h" />
-    <ClInclude Include="CBitmapManager.h" />
+    <ClInclude Include="CBitmapMgr.h" />
     <ClInclude Include="CBitmapObj.h" />
     <ClInclude Include="CCamera2D.h" />
     <ClInclude Include="CMapLoader.h" />
@@ -165,6 +165,7 @@
     <ClInclude Include="CLayer.h" />
     <ClInclude Include="CObj.h" />
     <ClInclude Include="CTimer.h" />
+    <ClInclude Include="CTitleScene.h" />
     <ClInclude Include="CWOL_World.h" />
     <ClInclude Include="Function.h" />
     <ClInclude Include="GuidedBullet.h">
@@ -207,7 +208,7 @@
     <ClCompile Include="CAtlasLoader.cpp" />
     <ClCompile Include="CAtlasObj.cpp" />
     <ClCompile Include="CCollider.cpp" />
-    <ClCompile Include="CBitmapManager.cpp" />
+    <ClCompile Include="CBitmapMgr.cpp" />
     <ClCompile Include="CBitmapObj.cpp" />
     <ClCompile Include="CCamera2D.cpp" />
     <ClCompile Include="CMapLoader.cpp" />
@@ -218,6 +219,7 @@
     <ClCompile Include="CGameWorld.cpp" />
     <ClCompile Include="CLayer.cpp" />
     <ClCompile Include="CTimer.cpp" />
+    <ClCompile Include="CTitleScene.cpp" />
     <ClCompile Include="CWOL_World.cpp" />
     <ClCompile Include="Function.cpp" />
     <ClCompile Include="GuidedBullet.cpp">

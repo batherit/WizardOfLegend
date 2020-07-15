@@ -152,9 +152,6 @@
     <ClInclude Include="CBitmapObj.h">
       <Filter>소스 파일\05.Bitmap</Filter>
     </ClInclude>
-    <ClInclude Include="CBitmapManager.h">
-      <Filter>소스 파일\98.Manager</Filter>
-    </ClInclude>
     <ClInclude Include="CAtlasObj.h">
       <Filter>소스 파일\03.Obj\01.MapObj</Filter>
     </ClInclude>
@@ -178,6 +175,12 @@
     </ClInclude>
     <ClInclude Include="CSceneMgr.h">
       <Filter>소스 파일\98.Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="CBitmapMgr.h">
+      <Filter>소스 파일\98.Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="CTitleScene.h">
+      <Filter>소스 파일\04.Scene</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -253,9 +256,6 @@
     <ClCompile Include="CBitmapObj.cpp">
       <Filter>소스 파일\05.Bitmap</Filter>
     </ClCompile>
-    <ClCompile Include="CBitmapManager.cpp">
-      <Filter>소스 파일\98.Manager</Filter>
-    </ClCompile>
     <ClCompile Include="CAtlasObj.cpp">
       <Filter>소스 파일\03.Obj\01.MapObj</Filter>
     </ClCompile>
@@ -282,6 +282,12 @@
     </ClCompile>
     <ClCompile Include="CSceneMgr.cpp">
       <Filter>소스 파일\98.Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="CBitmapMgr.cpp">
+      <Filter>소스 파일\98.Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="CTitleScene.cpp">
+      <Filter>소스 파일\04.Scene</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

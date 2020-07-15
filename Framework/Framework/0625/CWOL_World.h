@@ -20,6 +20,9 @@ public:
 	virtual void Release(void) override;
 
 private:
+	void LoadResources(void);
+
+private:
 	CCamera2D* m_pCamera;
 	CMapLoader* m_pMap;
 };

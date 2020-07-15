@@ -145,7 +145,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="CAtlasLoader.h" />
-    <ClInclude Include="CBitmapManager.h" />
+    <ClInclude Include="CBitmapMgr.h" />
     <ClInclude Include="CBitmapObj.h" />
     <ClInclude Include="CCamera2D.h" />
     <ClInclude Include="CEditor_AtlasObj.h" />
@@ -167,7 +167,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CAtlasLoader.cpp" />
-    <ClCompile Include="CBitmapManager.cpp" />
+    <ClCompile Include="CBitmapMgr.cpp" />
     <ClCompile Include="CBitmapObj.cpp" />
     <ClCompile Include="CCamera2D.cpp" />
     <ClCompile Include="CEditor_AtlasObj.cpp" />

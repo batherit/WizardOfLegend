@@ -62,9 +62,6 @@
     <ClInclude Include="CCamera2D.h">
       <Filter>소스 파일\Camera</Filter>
     </ClInclude>
-    <ClInclude Include="CBitmapManager.h">
-      <Filter>소스 파일\Manager</Filter>
-    </ClInclude>
     <ClInclude Include="CObj.h">
       <Filter>소스 파일\Obj</Filter>
     </ClInclude>
@@ -104,6 +101,9 @@
     <ClInclude Include="Function.h">
       <Filter>소스 파일\Helper</Filter>
     </ClInclude>
+    <ClInclude Include="CBitmapMgr.h">
+      <Filter>소스 파일\Manager</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -117,9 +117,6 @@
     </ClCompile>
     <ClCompile Include="CCamera2D.cpp">
       <Filter>소스 파일\Camera</Filter>
-    </ClCompile>
-    <ClCompile Include="CBitmapManager.cpp">
-      <Filter>소스 파일\Manager</Filter>
     </ClCompile>
     <ClCompile Include="CMapFileMgr.cpp">
       <Filter>소스 파일\Manager</Filter>
@@ -159,6 +156,9 @@
     </ClCompile>
     <ClCompile Include="Function.cpp">
       <Filter>소스 파일\Helper</Filter>
+    </ClCompile>
+    <ClCompile Include="CBitmapMgr.cpp">
+      <Filter>소스 파일\Manager</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

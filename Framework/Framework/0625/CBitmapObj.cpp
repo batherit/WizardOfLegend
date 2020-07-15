@@ -23,6 +23,14 @@ void CBitmapObj::LoadBmp(const TCHAR * pFilePath)
 
 	// 여기가 그림을 그림. 
 	m_OldBitmap = (HBITMAP)SelectObject(m_hMemDC, m_hBitmap);
+
+	// Bitmap의 속성을 얻는다.
+	BITMAP bmp;
+	HBITMAP  hBitmap;
+
+	::GetObject(m_hBitmap, sizeof(BITMAP), (LPVOID)&bmp);
+	m_lWidth = bmp.bmWidth;  // 그림의 폭
+	m_lHeight = bmp.bmHeight; // 그림의 넓이
 }
 
 void CBitmapObj::Release()
