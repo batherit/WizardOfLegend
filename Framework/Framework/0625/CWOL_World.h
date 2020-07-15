@@ -1,5 +1,9 @@
 #pragma once
 #include "CGameWorld.h"
+
+class CCamera2D;
+class CMapLoader;
+
 class CWOL_World :
 	public CGameWorld
 {
@@ -14,5 +18,9 @@ public:
 	virtual void LateUpdate(void) override;
 	virtual void Render(void) override;
 	virtual void Release(void) override;
+
+private:
+	CCamera2D* m_pCamera;
+	CMapLoader* m_pMap;
 };
 

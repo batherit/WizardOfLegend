@@ -19,6 +19,7 @@
 #define TO_MONSTER(_pObj)			dynamic_cast<CMonster*>(_pObj)
 #define TO_CAMERA2D(_pObj)			dynamic_cast<CCamera2D*>(_pObj)
 #define TO_GAMEWORLD(_pGameWorld)	dynamic_cast<CMainApp&>(_pGameWorld)
+#define TO_MAPTOOL(_pGameWorld)		dynamic_cast<CMapTool&>(_pGameWorld)
 
 // 수학 관련
 #define PI acos(-1.f) //== acos(cos(pi)) == pi

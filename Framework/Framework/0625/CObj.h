@@ -3,7 +3,7 @@
 class CGameWorld;
 class CCamera2D;
 
-class CObj //abstract
+class CObj abstract
 {
 public:
 	CObj(CGameWorld& _rGameWorld);
@@ -14,6 +14,8 @@ public:
 	virtual ~CObj();
 
 public: 
+	virtual void LoadInfo(FILE* fpIn) {};
+	virtual void SaveInfo(FILE* fpOut) {};
 	virtual void Ready(void) {};
 	virtual int Update(float _fDeltaTime) { return 0; };
 	virtual void LateUpdate(void) {};

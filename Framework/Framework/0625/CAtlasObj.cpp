@@ -1,16 +1,39 @@
 #include "stdafx.h"
 #include "CAtlasObj.h"
 #include "CCamera2D.h"
-#include "CMap.h"
+#include "CMapLoader.h"
 #include "CAtlasLoader.h"
 
 
-CAtlasObj::CAtlasObj(CGameWorld & _rGameWorld, CMap & _rMap, const _atlas_obj_info & _rAtlasObjInfo, float _fX, float _fY, size_t _iWidth, size_t _iHeight)
+CAtlasObj::CAtlasObj(FILE* _fpIn, CGameWorld & _rGameWorld, CMapLoader & _rMap)
 	:	
-	CObj(_rGameWorld, _fX, _fY, _iWidth, _iHeight),
-	m_rMap(_rMap),
-	m_stAtlasObjInfo(_rAtlasObjInfo)
+	CObj(_rGameWorld, 0.f, 0.f),
+	m_rMap(_rMap)
 {
+	int iDummy;
+	_pivot_point stPivotPoint;
+	fscanf_s(_fpIn, " %d %d %d", &iDummy, &stPivotPoint.iRow, &stPivotPoint.iCol);
+	fscanf_s(_fpIn, " %d %d %d %d %d %d %d",
+		&m_stAtlasObjInfo.iAtlasID,
+		&m_stAtlasObjInfo.rcOutputArea.left,
+		&m_stAtlasObjInfo.rcOutputArea.top,
+		&m_stAtlasObjInfo.rcOutputArea.right,
+		&m_stAtlasObjInfo.rcOutputArea.bottom,
+		&m_stAtlasObjInfo.iCoveredWidthTiles,
+		&m_stAtlasObjInfo.iCoveredHeightTiles
+	);
+
+	const _map_structure_info& rMapStructureInfo = _rMap.GetMapStructureInfo();
+	RECT rc = {
+		stPivotPoint.iCol * rMapStructureInfo.iTileWidth,
+		stPivotPoint.iRow * rMapStructureInfo.iTileHeight,
+		(stPivotPoint.iCol + m_stAtlasObjInfo.iCoveredWidthTiles) * rMapStructureInfo.iTileWidth,
+		(stPivotPoint.iRow + m_stAtlasObjInfo.iCoveredHeightTiles) * rMapStructureInfo.iTileHeight
+	};
+	SetX((rc.right + rc.left) >> 1);
+	SetY((rc.bottom + rc.top) >> 1);
+	SetWidth(rc.right - rc.left);
+	SetHeight(rc.bottom - rc.top);
 }
 
 CAtlasObj::~CAtlasObj()
@@ -20,7 +43,7 @@ CAtlasObj::~CAtlasObj()
 void CAtlasObj::Render(HDC & _hdc, CCamera2D * _pCamera)
 {
 	// 검출된 타일이 속한 아틀라스 비트맵을 가져온다.
-	HDC memdc = CreateCompatibleDC(_hdc);
+	//HDC memdc = CreateCompatibleDC(_hdc);
 
 	//HBITMAP m_bitmapOldAtlas = (HBITMAP)SelectObject(memdc, m_rMapRenderInfo.vecAtlasLoaders[m_stAtlasObjInfo.iAtlasID]->GetBitmap());
 
@@ -44,5 +67,5 @@ void CAtlasObj::Render(HDC & _hdc, CCamera2D * _pCamera)
 		m_stAtlasObjInfo.rcOutputArea.right - m_stAtlasObjInfo.rcOutputArea.left,
 		m_stAtlasObjInfo.rcOutputArea.bottom - m_stAtlasObjInfo.rcOutputArea.top,
 		SRCCOPY);
-	DeleteDC(memdc);
+	//DeleteDC(memdc);
 }

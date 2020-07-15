@@ -72,7 +72,7 @@ CMapEditor::CMapEditor(CGameWorld& _rGameWorld)
 	m_vecEditorButtons.emplace_back(new CUI_Button<CMapEditor>(m_rGameWorld, WINCX - 100, (WINCY >> 1) + 170, 80, 25, TEXT("Save"), this, &CMapEditor::SaveMap, nullptr));
 	m_vecEditorButtons.emplace_back(new CUI_Button<CMapEditor>(m_rGameWorld, WINCX - 100, (WINCY >> 1) + 200, 80, 25, TEXT("Load"), this, &CMapEditor::LoadMap, nullptr));
 
-	TO_GAMEWORLD(m_rGameWorld).GetCamera()->SetXY(GetMapMiddleX(), GetMapMiddleY());
+	TO_MAPTOOL(m_rGameWorld).GetCamera()->SetXY(GetMapMiddleX(), GetMapMiddleY());
 }
 
 
@@ -92,7 +92,7 @@ void CMapEditor::Update(float _fDeltaTime)
 	if (pKeyMgrInst->IsKeyPressing(KEY::KEY_RBUTTON)) {
 		POINT ptOldClickedPoint = pKeyMgrInst->GetOldClickedPoint();
 		POINT ptCurClickedPoint = GetClientCursorPoint();
-		CObj* pCamera = TO_GAMEWORLD(m_rGameWorld).GetCamera();
+		CObj* pCamera = TO_MAPTOOL(m_rGameWorld).GetCamera();
 		POINT ptDeltaMove = {
 			(ptOldClickedPoint.x - ptCurClickedPoint.x) / TO_CAMERA2D(pCamera)->GetZoomMultiple(),
 			(ptOldClickedPoint.y - ptCurClickedPoint.y) / TO_CAMERA2D(pCamera)->GetZoomMultiple()
@@ -114,7 +114,7 @@ void CMapEditor::Update(float _fDeltaTime)
 		}
 		else {
 			// 타일맵에 타일을 칠한다. (Paint Tile)
-			CObj* pCamera = TO_GAMEWORLD(m_rGameWorld).GetCamera();
+			CObj* pCamera = TO_MAPTOOL(m_rGameWorld).GetCamera();
 			POINT ptScreenPoint = GetClientCursorPoint();
 			// 스크린 커서 좌표 -> 월드 커서 좌표 변환
 			pair<float, float> pairWorldPoint = TO_CAMERA2D(pCamera)->GetWorldPoint(ptScreenPoint.x, ptScreenPoint.y);
@@ -198,7 +198,7 @@ void CMapEditor::Update(float _fDeltaTime)
 void CMapEditor::Render(HDC & _hdc, CCamera2D* _pCamera)
 {
 	RenderTileBoard(_hdc, _pCamera);
-	for (int i = 0; i < 3; i++) {
+	for (int i = 0; i < ciMaxDrawLayerNum; i++) {
 		for (auto& pObj : m_listAtlasObjs[i]) {
 			pObj->Render(_hdc, _pCamera);
 		}
@@ -323,7 +323,7 @@ void CMapEditor::ChangeMapHeight(void* _pDeltaHeight)
 
 void CMapEditor::MoveCameraToMapCenter(void *)
 {
-	TO_GAMEWORLD(m_rGameWorld).GetCamera()->SetXY(GetMapMiddleX(), GetMapMiddleY());
+	TO_MAPTOOL(m_rGameWorld).GetCamera()->SetXY(GetMapMiddleX(), GetMapMiddleY());
 }
 
 void CMapEditor::ToggleAtlas(void * _pID)

@@ -1,11 +1,27 @@
 #include "stdafx.h"
 #include "CCollider.h"
 #include "CCamera2D.h"
+#include "CMapLoader.h"
 
-CCollider::CCollider(CGameWorld & _rGameWorld, float _fX, float _fY, size_t _iWidth, size_t _iHeight, COLLIDER::E_TYPE _eType)
+CCollider::CCollider(FILE* _fpIn, CGameWorld & _rGameWorld, CMapLoader & _rMap, COLLIDER::E_TYPE _eType)
 	:
-	CObj(_rGameWorld, _fX, _fY, _iWidth, _iHeight)
+	CObj(_rGameWorld, 0.f, 0.f, 0, 0),
+	m_rMap(_rMap)
 {
+	int iDummy;
+	_pivot_point stPivotPoint;
+	fscanf_s(_fpIn, " %d %d %d", &iDummy, &stPivotPoint.iRow, &stPivotPoint.iCol);
+	const _map_structure_info& rMapStructureInfo = _rMap.GetMapStructureInfo();
+	RECT rc = {
+		stPivotPoint.iCol * rMapStructureInfo.iTileWidth,
+		stPivotPoint.iRow * rMapStructureInfo.iTileHeight,
+		(stPivotPoint.iCol + 1) * rMapStructureInfo.iTileWidth,
+		(stPivotPoint.iRow + 1) * rMapStructureInfo.iTileHeight
+	};
+	SetX((rc.right + rc.left) >> 1);
+	SetY((rc.bottom + rc.top) >> 1);
+	SetWidth(rc.right - rc.left);
+	SetHeight(rc.bottom - rc.top);
 }
 
 CCollider::~CCollider()

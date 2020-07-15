@@ -146,26 +146,30 @@
     <ClInclude Include="CAtlasLoader.h">
       <Filter>소스 파일\97.MapEditor\AtlasLoader</Filter>
     </ClInclude>
-    <ClInclude Include="CMapFileMgr.h">
-      <Filter>소스 파일\97.MapEditor\MapFileMgr</Filter>
-    </ClInclude>
     <ClInclude Include="CBitmapObj.h">
       <Filter>소스 파일\05.Bitmap</Filter>
     </ClInclude>
     <ClInclude Include="CBitmapManager.h">
       <Filter>소스 파일\04.Manager</Filter>
     </ClInclude>
-    <ClInclude Include="CMap.h">
-      <Filter>소스 파일\04.Map</Filter>
-    </ClInclude>
     <ClInclude Include="CAtlasObj.h">
       <Filter>소스 파일\03.Obj\01.MapObj</Filter>
     </ClInclude>
-    <ClInclude Include="CCollider.h" />
     <ClInclude Include="Function.h">
       <Filter>소스 파일</Filter>
     </ClInclude>
-    <ClInclude Include="CWOL_World.h" />
+    <ClInclude Include="CCollider.h">
+      <Filter>소스 파일\03.Obj\01.MapObj</Filter>
+    </ClInclude>
+    <ClInclude Include="CWOL_World.h">
+      <Filter>소스 파일\01.MainApp</Filter>
+    </ClInclude>
+    <ClInclude Include="CMapFileMgr.h">
+      <Filter>소스 파일\04.Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="CMapLoader.h">
+      <Filter>소스 파일\04.Map</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CLayer.cpp">
@@ -243,14 +247,8 @@
     <ClCompile Include="CBitmapManager.cpp">
       <Filter>소스 파일\04.Manager</Filter>
     </ClCompile>
-    <ClCompile Include="CMap.cpp">
-      <Filter>소스 파일\04.Map</Filter>
-    </ClCompile>
     <ClCompile Include="CAtlasObj.cpp">
       <Filter>소스 파일\03.Obj\01.MapObj</Filter>
-    </ClCompile>
-    <ClCompile Include="CCollider.cpp">
-      <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="Function.cpp">
       <Filter>소스 파일</Filter>
@@ -258,8 +256,17 @@
     <ClCompile Include="Main.cpp">
       <Filter>소스 파일\00.MainProcess</Filter>
     </ClCompile>
+    <ClCompile Include="CCollider.cpp">
+      <Filter>소스 파일\03.Obj\01.MapObj</Filter>
+    </ClCompile>
     <ClCompile Include="CWOL_World.cpp">
-      <Filter>소스 파일</Filter>
+      <Filter>소스 파일\01.MainApp</Filter>
+    </ClCompile>
+    <ClCompile Include="CMapFileMgr.cpp">
+      <Filter>소스 파일\04.Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="CMapLoader.cpp">
+      <Filter>소스 파일\04.Map</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
