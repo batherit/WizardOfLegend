@@ -150,6 +150,7 @@
     <ClInclude Include="CCamera2D.h" />
     <ClInclude Include="CEditor_AtlasObj.h" />
     <ClInclude Include="CEditor_Collider.h" />
+    <ClInclude Include="CEditor_Door.h" />
     <ClInclude Include="CEditor_Obj.h" />
     <ClInclude Include="CEditor_Trigger.h" />
     <ClInclude Include="CGameWorld.h" />
@@ -173,6 +174,7 @@
     <ClCompile Include="CCamera2D.cpp" />
     <ClCompile Include="CEditor_AtlasObj.cpp" />
     <ClCompile Include="CEditor_Collider.cpp" />
+    <ClCompile Include="CEditor_Door.cpp" />
     <ClCompile Include="CEditor_Obj.cpp" />
     <ClCompile Include="CEditor_Trigger.cpp" />
     <ClCompile Include="CGameWorld.cpp" />

@@ -7,6 +7,7 @@
 #include "CEditor_AtlasObj.h"
 #include "CEditor_Collider.h"
 #include "CEditor_Trigger.h"
+#include "CEditor_Door.h"
 #include "CBitmapMgr.h"
 
 
@@ -17,6 +18,8 @@ CMapEditor::CMapEditor(CGameWorld& _rGameWorld)
 	CBitmapMgr::GetInstance()->InsertBitmap(TEXT("../Textures/WOL_TILE_DUNGEON.bmp"), TEXT("WOL_TILE_DUNGEON"));
 	CBitmapMgr::GetInstance()->InsertBitmap(TEXT("../Textures/WOL_TILE_HOMETOWN.bmp"), TEXT("WOL_TILE_HOMETOWN"));
 	CBitmapMgr::GetInstance()->InsertBitmap(TEXT("../Textures/WOL_OBJECT.bmp"), TEXT("WOL_OBJECT"));
+	CBitmapMgr::GetInstance()->InsertBitmap(TEXT("../Textures/PRISON_HOR.bmp"), TEXT("PRISON_HOR"));
+	CBitmapMgr::GetInstance()->InsertBitmap(TEXT("../Textures/PRISON_VER.bmp"), TEXT("PRISON_VER"));
 
 		
 	// 파일로부터 아틀라스 로더 생성 (맵 렌더 인포 구조체의 한 변수)
@@ -54,9 +57,11 @@ CMapEditor::CMapEditor(CGameWorld& _rGameWorld)
 	m_vecEditorButtons.emplace_back(new CUI_Button<CMapEditor>(m_rGameWorld, 450, WINCY - 55, 40, 25, TEXT("Col"), this, &CMapEditor::ChangeLayer, new MAP_EDITOR::E_LAYER(MAP_EDITOR::LAYER_COLLISION)));
 	m_vecEditorButtons.emplace_back(new CUI_Button<CMapEditor>(m_rGameWorld, 500, WINCY - 55, 40, 25, TEXT("Trig"), this, &CMapEditor::ChangeLayer, new MAP_EDITOR::E_LAYER(MAP_EDITOR::LAYER_TRIGGER)));
 	m_vecEditorButtons.emplace_back(new CUI_Button<CMapEditor>(m_rGameWorld, 550, WINCY - 55, 40, 25, TEXT("Door"), this, &CMapEditor::ChangeLayer, new MAP_EDITOR::E_LAYER(MAP_EDITOR::LAYER_DOOR)));
+	m_vecEditorButtons.emplace_back(new CUI_Button<CMapEditor>(m_rGameWorld, 650, WINCY - 55, 70, 25, TEXT("Door_H"), this, &CMapEditor::ChangeDoorType, new MAP_OBJ::E_TYPE(MAP_OBJ::LAYER_DOOR_HOR)));
+	m_vecEditorButtons.emplace_back(new CUI_Button<CMapEditor>(m_rGameWorld, 650, WINCY - 25, 70, 25, TEXT("Door_V"), this, &CMapEditor::ChangeDoorType, new MAP_OBJ::E_TYPE(MAP_OBJ::LAYER_DOOR_VER)));
 
-	m_vecEditorButtons.emplace_back(new CUI_Button<CMapEditor>(m_rGameWorld, 40, (WINCY >> 1) + 130, 25, 25, TEXT("<"), this, &CMapEditor::ChangeGroupID, new int(-1)));
-	m_vecEditorButtons.emplace_back(new CUI_Button<CMapEditor>(m_rGameWorld, 80, (WINCY >> 1) + 130, 25, 25, TEXT(">"), this, &CMapEditor::ChangeGroupID, new int(1)));
+	m_vecEditorButtons.emplace_back(new CUI_Button<CMapEditor>(m_rGameWorld, 120, (WINCY >> 1) + 95, 25, 25, TEXT("<"), this, &CMapEditor::ChangeGroupID, new int(-1)));
+	m_vecEditorButtons.emplace_back(new CUI_Button<CMapEditor>(m_rGameWorld, 160, (WINCY >> 1) + 95, 25, 25, TEXT(">"), this, &CMapEditor::ChangeGroupID, new int(1)));
 
 	// TriggerID 변경
 	/*int iNewTriggerID = -1;
@@ -151,8 +156,11 @@ void CMapEditor::Update(float _fDeltaTime)
 					switch (m_eTool)
 					{
 					case MAP_EDITOR::TOOL_PAINT:
-						if(!pPickedObj && m_stDetectedAtlasObj.iAtlasID >= 0) 
-							m_listAtlasObjs[m_iDrawLayerIndex].emplace_back(new CEditor_AtlasObj(m_stMapRenderInfo, iRow, iCol, m_stDetectedAtlasObj));
+						if (!pPickedObj && m_stDetectedAtlasObj.iAtlasID >= 0) {
+							CEditor_Obj* pObj = new CEditor_AtlasObj(m_stMapRenderInfo, iRow, iCol, m_stDetectedAtlasObj);
+							pObj->SetGroupID(m_iGroupID);
+							m_listAtlasObjs[m_iDrawLayerIndex].emplace_back(pObj);
+						}
 						break;
 					case MAP_EDITOR::TOOL_ERASE:
 						if (pPickedObj) {
@@ -178,7 +186,11 @@ void CMapEditor::Update(float _fDeltaTime)
 					{
 					case MAP_EDITOR::TOOL_PAINT:
 						if (!pPickedObj)
-							m_listColliders.emplace_back(new CEditor_Collider(m_stMapRenderInfo, iRow, iCol));
+						{
+							CEditor_Obj* pObj = new CEditor_Collider(m_stMapRenderInfo, iRow, iCol);
+							pObj->SetGroupID(m_iGroupID);
+							m_listColliders.emplace_back(pObj);
+						}
 						break;
 					case MAP_EDITOR::TOOL_ERASE:
 						if (pPickedObj) {
@@ -230,6 +242,37 @@ void CMapEditor::Update(float _fDeltaTime)
 					default:
 						break;
 					}
+					break;
+				}
+				case MAP_EDITOR::LAYER_DOOR:
+				{
+					CEditor_Obj* pPickedObj = nullptr;
+					for (auto& obj : m_listDoors) {
+						if (IsPointInRect(obj->GetRowColRect(), POINT{ iCol, iRow })) {
+							pPickedObj = obj;
+							break;
+						}
+					}
+					switch (m_eTool)
+					{
+					case MAP_EDITOR::TOOL_PAINT:
+						if (!pPickedObj)
+						{
+							CEditor_Obj* pObj = new CEditor_Door(m_stMapRenderInfo, iRow, iCol, m_eDoorType);
+							pObj->SetGroupID(m_iGroupID);
+							m_listDoors.emplace_back(pObj);
+						}
+						break;
+					case MAP_EDITOR::TOOL_ERASE:
+						if (pPickedObj) {
+							m_listDoors.erase(find(m_listDoors.begin(), m_listDoors.end(), pPickedObj));
+							DeleteSafe(pPickedObj);
+						}
+						break;
+					default:
+						break;
+					}
+					break;
 				}
 				default:
 					break;
@@ -255,6 +298,9 @@ void CMapEditor::Render(HDC & _hdc, CCamera2D* _pCamera)
 		pObj->Render(_hdc, _pCamera);
 	}
 	for (auto& pObj : m_listTriggers) {
+		pObj->Render(_hdc, _pCamera);
+	}
+	for (auto& pObj : m_listDoors) {
 		pObj->Render(_hdc, _pCamera);
 	}
 
@@ -350,6 +396,8 @@ void CMapEditor::RenderMode(HDC & _hdc, CCamera2D * _pCamera)
 	TextOut(_hdc, 30, (WINCY >> 1) + 60, szMode, lstrlen(szMode));
 	swprintf_s(szMode, TEXT("Group : %d"), m_iGroupID);
 	TextOut(_hdc, 30, (WINCY >> 1) + 90, szMode, lstrlen(szMode));
+	swprintf_s(szMode, TEXT("Door : %c"), (m_eDoorType == MAP_OBJ::LAYER_DOOR_HOR ? 'H' : 'V'));
+	TextOut(_hdc, 30, (WINCY >> 1) + 120, szMode, lstrlen(szMode));
 }
 
 void CMapEditor::ClearObjs(void)
@@ -448,6 +496,11 @@ void CMapEditor::SaveMap(void *)
 		for (auto& obj : m_listTriggers) {
 			obj->SaveInfo(fpOut);
 		}
+		iSize = m_listDoors.size();
+		fprintf_s(fpOut, "%d \n", iSize);
+		for (auto& obj : m_listDoors) {
+			obj->SaveInfo(fpOut);
+		}
 	}
 	if (fpOut) fclose(fpOut);
 }
@@ -481,8 +534,19 @@ void CMapEditor::LoadMap(void *)
 			pObj->LoadInfo(fpIn);
 			m_listTriggers.emplace_back(pObj);
 		}
+		fscanf_s(fpIn, " %d", &iSize);
+		for (int i = 0; i < iSize; i++) {
+			pObj = new CEditor_Door(m_stMapRenderInfo);
+			pObj->LoadInfo(fpIn);
+			m_listDoors.emplace_back(pObj);
+		}
 	}
 	if (fpIn) fclose(fpIn);
+}
+
+void CMapEditor::ChangeDoorType(void * _pDoorType)
+{
+	m_eDoorType = *static_cast<MAP_OBJ::E_TYPE*>(_pDoorType);
 }
 
 

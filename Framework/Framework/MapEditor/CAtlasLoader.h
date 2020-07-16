@@ -46,6 +46,6 @@ private:
 	size_t m_iStretchedAtlasHeight;
 
 	bool m_bIsVisible = false;
-	const TCHAR* ctBitmapKey[3] = { L"WOL_TILE_DUNGEON", L"WOL_TILE_HOMETOWN", L"WOL_OBJECT"};
+	const TCHAR* ctBitmapKey[3] = { L"WOL_TILE_DUNGEON", L"WOL_TILE_HOMETOWN", L"WOL_OBJECT", };
 };
 

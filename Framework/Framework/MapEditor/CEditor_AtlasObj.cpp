@@ -65,6 +65,10 @@ void CEditor_AtlasObj::Render(HDC & _hdc, CCamera2D * _pCamera)
 		m_stAtlasObjInfo.rcOutputArea.right - m_stAtlasObjInfo.rcOutputArea.left,
 		m_stAtlasObjInfo.rcOutputArea.bottom - m_stAtlasObjInfo.rcOutputArea.top,
 		RGB(255, 0, 255));
+
+	TCHAR szMode[32];
+	swprintf_s(szMode, TEXT("GN : %d"), m_iGroupID);
+	TextOut(_hdc, pairLeftTop.first, pairLeftTop.second, szMode, lstrlen(szMode));
 }
 
 void CEditor_AtlasObj::SaveInfo(FILE * _fpOut)

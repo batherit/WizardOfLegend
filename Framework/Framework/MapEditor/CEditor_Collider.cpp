@@ -65,6 +65,10 @@ void CEditor_Collider::Render(HDC & _hdc, CCamera2D * _pCamera)
 	SelectObject(_hdc, hOldPen);
 	DeleteObject(hBrush);
 	DeleteObject(hPen);
+
+	TCHAR szMode[32];
+	swprintf_s(szMode, TEXT("GN : %d"), m_iGroupID);
+	TextOut(_hdc, pairLeftTop.first, pairLeftTop.second, szMode, lstrlen(szMode));
 }
 
 void CEditor_Collider::SaveInfo(FILE * _fpOut)

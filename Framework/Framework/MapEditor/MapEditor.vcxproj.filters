@@ -71,9 +71,6 @@
     <ClInclude Include="KeyMgr.h">
       <Filter>소스 파일\Manager</Filter>
     </ClInclude>
-    <ClInclude Include="CEditor_AtlasObj.h">
-      <Filter>소스 파일\Obj</Filter>
-    </ClInclude>
     <ClInclude Include="CEditor_Collider.h">
       <Filter>소스 파일\Obj</Filter>
     </ClInclude>
@@ -105,6 +102,12 @@
       <Filter>소스 파일\Manager</Filter>
     </ClInclude>
     <ClInclude Include="CEditor_Trigger.h">
+      <Filter>소스 파일\Obj</Filter>
+    </ClInclude>
+    <ClInclude Include="CEditor_AtlasObj.h">
+      <Filter>소스 파일\Obj</Filter>
+    </ClInclude>
+    <ClInclude Include="CEditor_Door.h">
       <Filter>소스 파일\Obj</Filter>
     </ClInclude>
   </ItemGroup>
@@ -164,6 +167,9 @@
       <Filter>소스 파일\Manager</Filter>
     </ClCompile>
     <ClCompile Include="CEditor_Trigger.cpp">
+      <Filter>소스 파일\Obj</Filter>
+    </ClCompile>
+    <ClCompile Include="CEditor_Door.cpp">
       <Filter>소스 파일\Obj</Filter>
     </ClCompile>
   </ItemGroup>
