@@ -519,6 +519,8 @@ void CMapEditor::ChangeMapID(void * _pMapID)
 
 void CMapEditor::SaveMap(void *)
 {
+	if (MessageBox(g_hWND, TEXT("맵을 저장합니까?"), TEXT("경고!"), MB_YESNO) == IDNO) return;
+
 	FILE* fpOut = nullptr;
 	errno_t err = fopen_s(&fpOut, "../MapDatas/Maps/0/Editor_Map.txt", "wt");
 	if (!err) {
@@ -552,6 +554,8 @@ void CMapEditor::SaveMap(void *)
 
 void CMapEditor::LoadMap(void *)
 {
+	if (MessageBox(g_hWND, TEXT("맵을 불러옵니까?"), TEXT("경고!"), MB_YESNO) == IDNO) return;
+
 	ClearObjs();
 
 	FILE* fpIn = nullptr;
@@ -597,6 +601,8 @@ void CMapEditor::ChangeDoorType(void * _pDoorType)
 
 void CMapEditor::MakeMapData(void *)
 {
+	if (MessageBox(g_hWND, TEXT("맵 데이터를 생성합니까?"), TEXT("경고!"), MB_YESNO) == IDNO) return;
+
 	FILE* fpOut = nullptr;
 	errno_t err = fopen_s(&fpOut, "../MapDatas/Maps/0/Game_Map.txt", "wt");
 	if (!err) {
