@@ -74,18 +74,21 @@ CMapEditor::CMapEditor(CGameWorld& _rGameWorld)
 	}*/
 
 	// MapID 변경
-	for (int i = 0; i < ciMaxMapNum; i++) {
+	/*for (int i = 0; i < ciMaxMapNum; i++) {
 		swprintf_s(szBuf, TEXT("MapID_%d"), i);
 		m_vecEditorButtons.emplace_back(new CUI_Button<CMapEditor>(m_rGameWorld, WINCX - 100, (WINCY >> 1) + i * 30, 80, 25, szBuf, this, &CMapEditor::ChangeMapID, new int(i)));
-	}
+	}*/
 
 	// Tool 변경
 	m_vecEditorButtons.emplace_back(new CUI_Button<CMapEditor>(m_rGameWorld, 410, WINCY - 25, 60, 25, TEXT("Paint"), this, &CMapEditor::ChangeTool, new MAP_EDITOR::E_TOOL(MAP_EDITOR::TOOL_PAINT)));
 	m_vecEditorButtons.emplace_back(new CUI_Button<CMapEditor>(m_rGameWorld, 480, WINCY - 25, 60, 25, TEXT("Erase"), this, &CMapEditor::ChangeTool, new MAP_EDITOR::E_TOOL(MAP_EDITOR::TOOL_ERASE)));
 
 	// Save&Load
-	m_vecEditorButtons.emplace_back(new CUI_Button<CMapEditor>(m_rGameWorld, WINCX - 100, (WINCY >> 1) + 170, 80, 25, TEXT("Save"), this, &CMapEditor::SaveMap, nullptr));
-	m_vecEditorButtons.emplace_back(new CUI_Button<CMapEditor>(m_rGameWorld, WINCX - 100, (WINCY >> 1) + 200, 80, 25, TEXT("Load"), this, &CMapEditor::LoadMap, nullptr));
+	m_vecEditorButtons.emplace_back(new CUI_Button<CMapEditor>(m_rGameWorld, WINCX - 65, (WINCY >> 1) + 170, 50, 25, TEXT("Save"), this, &CMapEditor::SaveMap, nullptr));
+	m_vecEditorButtons.emplace_back(new CUI_Button<CMapEditor>(m_rGameWorld, WINCX - 135, (WINCY >> 1) + 170, 50, 25, TEXT("Load"), this, &CMapEditor::LoadMap, nullptr));
+
+	// 맵 데이터 생성
+	m_vecEditorButtons.emplace_back(new CUI_Button<CMapEditor>(m_rGameWorld, WINCX - 100, (WINCY >> 1) + 200, 120, 25, TEXT("Make Map Data"), this, &CMapEditor::MakeMapData, nullptr));
 
 	TO_MAPTOOL(m_rGameWorld).GetCamera()->SetXY(GetMapMiddleX(), GetMapMiddleY());
 }
@@ -476,7 +479,7 @@ void CMapEditor::ChangeMapID(void * _pMapID)
 void CMapEditor::SaveMap(void *)
 {
 	FILE* fpOut = nullptr;
-	errno_t err = fopen_s(&fpOut, "../MapDatas/Maps/0/Objs.txt", "wt");
+	errno_t err = fopen_s(&fpOut, "../MapDatas/Maps/0/Editor_Map.txt", "wt");
 	if (!err) {
 		int iSize = 0;
 		for (int i = 0; i < ciMaxDrawLayerNum; i++) {
@@ -510,7 +513,7 @@ void CMapEditor::LoadMap(void *)
 	ClearObjs();
 
 	FILE* fpIn = nullptr;
-	errno_t err = fopen_s(&fpIn, "../MapDatas/Maps/0/Objs.txt", "rt");
+	errno_t err = fopen_s(&fpIn, "../MapDatas/Maps/0/Editor_Map.txt", "rt");
 	if (!err) {
 		int iSize = 0;
 		CEditor_Obj* pObj = nullptr;
@@ -547,6 +550,38 @@ void CMapEditor::LoadMap(void *)
 void CMapEditor::ChangeDoorType(void * _pDoorType)
 {
 	m_eDoorType = *static_cast<MAP_OBJ::E_TYPE*>(_pDoorType);
+}
+
+void CMapEditor::MakeMapData(void *)
+{
+	FILE* fpOut = nullptr;
+	errno_t err = fopen_s(&fpOut, "../MapDatas/Maps/0/Game_Map.txt", "wt");
+	if (!err) {
+		int iSize = 0;
+		for (int i = 0; i < ciMaxDrawLayerNum; i++) {
+			iSize = m_listAtlasObjs[i].size();
+			fprintf_s(fpOut, "%d \n", iSize);
+			for (auto& obj : m_listAtlasObjs[i]) {
+				obj->MakeMapData(fpOut);
+			}
+		}
+		iSize = m_listColliders.size();
+		fprintf_s(fpOut, "%d \n", iSize);
+		for (auto& obj : m_listColliders) {
+			obj->MakeMapData(fpOut);
+		}
+		iSize = m_listTriggers.size();
+		fprintf_s(fpOut, "%d \n", iSize);
+		for (auto& obj : m_listTriggers) {
+			obj->MakeMapData(fpOut);
+		}
+		iSize = m_listDoors.size();
+		fprintf_s(fpOut, "%d \n", iSize);
+		for (auto& obj : m_listDoors) {
+			obj->MakeMapData(fpOut);
+		}
+	}
+	if (fpOut) fclose(fpOut);
 }
 
 

@@ -28,3 +28,8 @@ void CEditor_Obj::LoadInfo(FILE * _fpIn)
 {
 	fscanf_s(_fpIn, " %d %d %d %d", &m_eObjType, &m_iGroupID, &m_stPivotPoint.iRow, &m_stPivotPoint.iCol);
 }
+
+void CEditor_Obj::MakeMapData(FILE * _fpOut)
+{
+	fprintf_s(_fpOut, "%d %d \n", m_eObjType, m_iGroupID);
+}

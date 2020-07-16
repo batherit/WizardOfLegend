@@ -84,3 +84,16 @@ void CEditor_Trigger::LoadInfo(FILE * _fpIn)
 	CEditor_Obj::LoadInfo(_fpIn);
 	fscanf_s(_fpIn, " %d %d", &m_stEndPoint.iRow, &m_stEndPoint.iCol);
 }
+
+void CEditor_Trigger::MakeMapData(FILE * _fpOut)
+{
+	CEditor_Obj::MakeMapData(_fpOut);
+
+	// 1) 오브젝트가 타일맵에서 차지하는 면적 정보
+	RECT rcRect = GetRect();
+	fprintf_s(_fpOut, "%d %d %d %d \n\n",
+		rcRect.left,
+		rcRect.top,
+		rcRect.right,
+		rcRect.bottom);
+}

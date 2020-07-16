@@ -98,3 +98,26 @@ void CEditor_AtlasObj::LoadInfo(FILE * _fpIn)
 		&m_stAtlasObjInfo.iCoveredHeightTiles
 	);
 }
+
+void CEditor_AtlasObj::MakeMapData(FILE * _fpOut)
+{
+	CEditor_Obj::MakeMapData(_fpOut);
+
+	// 1) 아틀라스 로더 아이디
+	fprintf_s(_fpOut, "%d \n", m_stAtlasObjInfo.iAtlasID);
+
+	// 2) 오브젝트가 타일맵에서 차지하는 면적 정보
+	RECT rcRect = GetRect();
+	fprintf_s(_fpOut, "%d %d %d %d \n",
+		rcRect.left,
+		rcRect.top,
+		rcRect.right,
+		rcRect.bottom);
+
+	// 3) 오브젝트에 대응하는 아틀라스 이미지 면적 정보
+	fprintf_s(_fpOut, "%d %d %d %d \n\n",
+		m_stAtlasObjInfo.rcOutputArea.left,
+		m_stAtlasObjInfo.rcOutputArea.top,
+		m_stAtlasObjInfo.rcOutputArea.right,
+		m_stAtlasObjInfo.rcOutputArea.bottom);
+}

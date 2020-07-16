@@ -80,3 +80,16 @@ void CEditor_Collider::LoadInfo(FILE * _fpIn)
 {
 	CEditor_Obj::LoadInfo(_fpIn);
 }
+
+void CEditor_Collider::MakeMapData(FILE * _fpOut)
+{
+	CEditor_Obj::MakeMapData(_fpOut);
+
+	// 1) 오브젝트가 타일맵에서 차지하는 면적 정보
+	RECT rcRect = GetRect();
+	fprintf_s(_fpOut, "%d %d %d %d \n\n",
+		rcRect.left,
+		rcRect.top,
+		rcRect.right,
+		rcRect.bottom);
+}

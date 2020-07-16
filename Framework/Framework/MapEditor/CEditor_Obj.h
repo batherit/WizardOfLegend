@@ -14,6 +14,7 @@ public:
 	virtual void Render(HDC& _hdc, CCamera2D* _pCamera) = 0;
 	virtual void SaveInfo(FILE * _fpOut);
 	virtual void LoadInfo(FILE * _fpIn);
+	virtual void MakeMapData(FILE* _fpOut);
 	void SetGroupID(int _iGroupID) { m_iGroupID = _iGroupID; }
 	int GetGroupID(void) const { return m_iGroupID; }
 

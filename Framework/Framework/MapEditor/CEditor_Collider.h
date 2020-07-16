@@ -15,5 +15,6 @@ public:
 	virtual void Render(HDC & _hdc, CCamera2D * _pCamera) override;
 	virtual void SaveInfo(FILE * _fpOut);
 	virtual void LoadInfo(FILE * _fpIn);
+	virtual void MakeMapData(FILE * _fpOut);
 };
 

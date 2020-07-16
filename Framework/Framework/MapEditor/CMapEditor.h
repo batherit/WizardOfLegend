@@ -69,6 +69,7 @@ public:
 	void SaveMap(void*);
 	void LoadMap(void*);
 	void ChangeDoorType(void* _pDoorType);
+	void MakeMapData(void*);
 
 public:
 
