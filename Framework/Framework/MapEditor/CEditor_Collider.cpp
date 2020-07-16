@@ -58,8 +58,12 @@ void CEditor_Collider::Render(HDC & _hdc, CCamera2D * _pCamera)
 	HPEN hPen = CreatePen(PS_SOLID, 2, RGB(235, 120, 100));
 	HPEN hOldPen = (HPEN)SelectObject(_hdc, hPen);
 
-	// 직사각형을 그린다.
+	// 엑스가 그려진 직사각형을 그린다.
 	Rectangle(_hdc, pairLeftTop.first, pairLeftTop.second, pairRightBottom.first + 1, pairRightBottom.second + 1);
+	MoveToEx(_hdc, pairLeftTop.first, pairLeftTop.second, nullptr);
+	LineTo(_hdc, pairRightBottom.first, pairRightBottom.second);
+	MoveToEx(_hdc, pairRightBottom.first, pairLeftTop.second, nullptr);
+	LineTo(_hdc, pairLeftTop.first, pairRightBottom.second);
 
 	SelectObject(_hdc, hOldBrush);
 	SelectObject(_hdc, hOldPen);

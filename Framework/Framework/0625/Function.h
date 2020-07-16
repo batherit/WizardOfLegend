@@ -15,6 +15,13 @@ void DeleteListSafe(list<T>& _list) {
 	_list.clear();
 }
 
+template<typename T>
+void DeleteVectorSafe(vector<T>& _vector) {
+	for (auto& pObj : _vector) { DeleteSafe(pObj); }
+	_vector.clear();
+	_vector.shrink_to_fit();
+}
+
 bool IsCollided(const RECT& _rRect1, const RECT& _rRect2);
 bool IsCollided(const CObj* _pObj1, const CObj* _pObj2);
 bool IsCollided(const CObj* _pObj1, const CObj* _pObj2, RECT& _rCollidedPoint);

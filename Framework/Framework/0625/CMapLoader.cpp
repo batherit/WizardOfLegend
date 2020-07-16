@@ -6,6 +6,7 @@
 #include "CTrigger.h"
 #include "CDoor.h"
 #include "CMapFileMgr.h"
+#include "CMapObjsGroup.h"
 
 
 CMapLoader::CMapLoader(CGameWorld & _rGameWorld, const char* szMapDirectory)
@@ -20,28 +21,66 @@ CMapLoader::CMapLoader(CGameWorld & _rGameWorld, const char* szMapDirectory)
 
 		int iSize = 0;
 		CObj* pObj = nullptr;
+		bool bIsRegistered = false;
 		for (int i = 0; i < ciMaxDrawLayerNum; i++) {
-			fscanf_s(fpIn, " %d", &iSize);
+			fscanf_s(fpIn, " %d", &iSize);	
 			for (int j = 0; j < iSize; j++) {
+				bIsRegistered = false;
 				pObj = new CAtlasObj(fpIn, _rGameWorld);
-				m_listAtlasObjs[i].emplace_back(pObj);
+				for (auto& pGroup : m_vecAtlasObjsGroups[i]) {
+					if (pGroup->GetGroupID() == pObj->GetGroupID()) {
+						pGroup->RegisterMapObj(pObj);
+						bIsRegistered = true;
+						break;
+					}
+				}
+				if (!bIsRegistered) {
+					CMapObjsGroup* pMapObjsGroup = new CMapObjsGroup(_rGameWorld, pObj->GetGroupID());
+					pMapObjsGroup->RegisterMapObj(pObj);
+					m_vecAtlasObjsGroups[i].emplace_back(pMapObjsGroup);
+					
+				}
 			}
 		}
 		fscanf_s(fpIn, " %d", &iSize);
 		for (int i = 0; i < iSize; i++) {
+			bIsRegistered = false;
 			pObj = new CCollider(fpIn, _rGameWorld);
-			m_listColliders.emplace_back(pObj);
+			for (auto& pGroup : m_vecCollidersGroups) {
+				if (pGroup->GetGroupID() == pObj->GetGroupID()) {
+					pGroup->RegisterMapObj(pObj);
+					bIsRegistered = true;
+					break;
+				}
+			}
+			if (!bIsRegistered) {
+				CMapObjsGroup* pMapObjsGroup = new CMapObjsGroup(_rGameWorld, pObj->GetGroupID());
+				pMapObjsGroup->RegisterMapObj(pObj);
+				m_vecCollidersGroups.emplace_back(pMapObjsGroup);
+			}
 		}
 		fscanf_s(fpIn, " %d", &iSize);
 		for (int i = 0; i < iSize; i++) {
+			bIsRegistered = false;
 			pObj = new CTrigger(fpIn, _rGameWorld);
-			m_listTriggers.emplace_back(pObj);
+			for (auto& pGroup : m_vecTriggersGroups) {
+				if (pGroup->GetGroupID() == pObj->GetGroupID()) {
+					pGroup->RegisterMapObj(pObj);
+					bIsRegistered = true;
+					break;
+				}
+			}
+			if (!bIsRegistered) {
+				CMapObjsGroup* pMapObjsGroup = new CMapObjsGroup(_rGameWorld, pObj->GetGroupID());
+				pMapObjsGroup->RegisterMapObj(pObj);
+				m_vecTriggersGroups.emplace_back(pMapObjsGroup);
+			}
 		}
 
 		fscanf_s(fpIn, " %d", &iSize);
 		for (int i = 0; i < iSize; i++) {
 			pObj = new CDoor(fpIn, _rGameWorld);
-			m_listUnactiveDoors.emplace_back(pObj);
+			m_vecUnactiveDoors.emplace_back(pObj);
 		}
 	}
 	if (fpIn) fclose(fpIn);
@@ -63,17 +102,17 @@ void CMapLoader::LateUpdate(void)
 void CMapLoader::Render(HDC & _hdc, CCamera2D * _pCamera)
 {
 	for (int i = 0; i < ciMaxDrawLayerNum; i++) {
-		for (auto& pObj : m_listAtlasObjs[i]) {
-			pObj->Render(_hdc, _pCamera);
+		for (auto& pGroup : m_vecAtlasObjsGroups[i]) {
+			pGroup->Render(_hdc, _pCamera);
 		}
 	}
-	for (auto& pObj : m_listColliders) {
-		pObj->Render(_hdc, _pCamera);
+	for (auto& pGroup : m_vecCollidersGroups) {
+		pGroup->Render(_hdc, _pCamera);
 	}
-	for (auto& pObj : m_listTriggers) {
-		pObj->Render(_hdc, _pCamera);
+	for (auto& pGroup : m_vecTriggersGroups) {
+		pGroup->Render(_hdc, _pCamera);
 	}
-	for (auto& pObj : m_listUnactiveDoors) {
+	for (auto& pObj : m_vecUnactiveDoors) {
 		pObj->Render(_hdc, _pCamera);
 	}
 }
@@ -86,10 +125,10 @@ void CMapLoader::Release(void)
 void CMapLoader::ClearObjs(void)
 {
 	for (int i = 0; i < ciMaxDrawLayerNum; i++) {
-		DeleteListSafe(m_listAtlasObjs[i]);
+		DeleteVectorSafe(m_vecAtlasObjsGroups[i]);
 	}
-	DeleteListSafe(m_listColliders);
-	DeleteListSafe(m_listTriggers);
-	DeleteListSafe(m_listUnactiveDoors);
-	DeleteListSafe(m_listActiveDoors);
+	DeleteVectorSafe(m_vecCollidersGroups);
+	DeleteVectorSafe(m_vecTriggersGroups);
+	DeleteVectorSafe(m_vecUnactiveDoors);
+	DeleteVectorSafe(m_vecActiveDoors);
 }

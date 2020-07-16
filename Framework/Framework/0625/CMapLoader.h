@@ -2,6 +2,7 @@
 
 class CGameWorld;
 class CCamera2D;
+class CMapObjsGroup;
 
 class CMapLoader final
 {
@@ -17,23 +18,22 @@ public:
 	void Release(void);
 
 public:
-	//const vector<CAtlasLoader*>& GetAtlasLoaders(void) const { return m_stMapRenderInfo.vecAtlasLoaders; }
-	//const _map_structure_info& GetMapStructureInfo(void) const { return m_stMapRenderInfo.stMapStructureInfo; }
-
-public:
-	list<CObj*>& GetColliders(void) { return m_listColliders; }
-	list<CObj*>& GetTriggers(void) { return m_listTriggers; }
+	// 플레이어와 충돌을 확인하기 위해 데이터 접근 함수를 만들어줌.
+	const vector<CMapObjsGroup*>& GetCollidersGroups(void) const { return m_vecCollidersGroups; }
+	const vector<CMapObjsGroup*>& GetTriggersGroups(void) const { return m_vecTriggersGroups; }
+	const vector<CObj*>& GetDoors(void) const { return m_vecActiveDoors; }
 
 private:
 	void ClearObjs(void);
 
 private:
 	CGameWorld& m_rGameWorld;
-	//_map_render_info m_stMapRenderInfo;
-	list<CObj*> m_listAtlasObjs[ciMaxDrawLayerNum];
-	list<CObj*> m_listColliders;
-	list<CObj*> m_listTriggers;
-	list<CObj*> m_listUnactiveDoors;
-	list<CObj*> m_listActiveDoors;
+
+	vector<CMapObjsGroup*> m_vecAtlasObjsGroups[ciMaxDrawLayerNum];
+	vector<CMapObjsGroup*> m_vecCollidersGroups;
+	vector<CMapObjsGroup*> m_vecTriggersGroups;
+
+	vector<CObj*> m_vecUnactiveDoors;
+	vector<CObj*> m_vecActiveDoors;
 };
 

@@ -2,6 +2,7 @@
 
 class CTimer;
 class CSceneMgr;
+class CSpace;
 
 class CGameWorld abstract
 {
@@ -24,14 +25,16 @@ public:
 	void RenderWindow(void);
 	HDC& GetHDC(void) { return m_hDC; }
 	HDC& GetBackbufferDC(void) { return m_hBackbufferDC; }
-	CTimer* GetTimer(void) { return m_pTimer; }
-	CSceneMgr* GetSceneManager(void) { return m_pSceneManager; }
+	CTimer* GetTimer(void) const { return m_pTimer; }
+	CSceneMgr* GetSceneManager(void) const { return m_pSceneManager; }
+	CSpace* GetViewSpace(void) const { return m_pViewSpace; }
 
 private:
 	HDC m_hDC;
 	HBITMAP m_hBackbuffer;
 	HDC m_hBackbufferDC;
 	CTimer* m_pTimer;
+	CSpace* m_pViewSpace;
 	CSceneMgr* m_pSceneManager;
 };
 

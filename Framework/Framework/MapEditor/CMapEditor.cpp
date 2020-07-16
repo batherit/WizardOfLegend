@@ -218,22 +218,11 @@ void CMapEditor::Update(float _fDeltaTime)
 					switch (m_eTool)
 					{
 					case MAP_EDITOR::TOOL_PAINT:
-						if (!pPickedObj) {
-							bool bOk = false;
-							for (auto& obj : m_listTriggers) {
-								if (obj->GetGroupID() == m_iGroupID) {
-									RECT rc = obj->GetRowColRect();
-									dynamic_cast<CEditor_Trigger*>(obj)->SetPivotPoint(min(rc.top, iRow), min(rc.left, iCol));
-									dynamic_cast<CEditor_Trigger*>(obj)->SetEndPoint(max(rc.bottom, iRow), max(rc.right, iCol));
-									bOk = true;
-									break;
-								}
-							}
-							if (!bOk) {
-								CEditor_Obj* pObj = new CEditor_Trigger(m_stMapRenderInfo, iRow, iCol);
-								pObj->SetGroupID(m_iGroupID);
-								m_listTriggers.emplace_back(pObj);
-							}
+						if (!pPickedObj)
+						{
+							CEditor_Obj* pObj = new CEditor_Trigger(m_stMapRenderInfo, iRow, iCol);
+							pObj->SetGroupID(m_iGroupID);
+							m_listTriggers.emplace_back(pObj);
 						}
 						break;
 					case MAP_EDITOR::TOOL_ERASE:

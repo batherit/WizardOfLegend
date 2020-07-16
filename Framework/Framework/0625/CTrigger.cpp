@@ -55,6 +55,6 @@ void CTrigger::Render(HDC & _hdc, CCamera2D * _pCamera)
 	DeleteObject(hPen);
 
 	TCHAR szMode[32];
-	swprintf_s(szMode, TEXT("Group : %d"), m_iGroupID);
+	swprintf_s(szMode, TEXT("GN : %d"), m_iGroupID);
 	TextOut(_hdc, pairLeftTop.first, pairLeftTop.second, szMode, lstrlen(szMode));
 }

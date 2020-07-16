@@ -7,8 +7,8 @@ CEditor_Trigger::CEditor_Trigger(const _map_render_info & _rMapRenderInfo, int _
 	:
 	CEditor_Obj(_rMapRenderInfo, _iPivotRow, _iPivotCol, MAP_OBJ::TYPE_TRIGGER)
 {
-	m_stEndPoint.iRow = _iPivotRow;
-	m_stEndPoint.iCol = _iPivotCol;
+	//m_stEndPoint.iRow = _iPivotRow;
+	//m_stEndPoint.iCol = _iPivotCol;
 }
 
 
@@ -24,21 +24,36 @@ CEditor_Trigger::~CEditor_Trigger()
 
 RECT CEditor_Trigger::GetRect(void) const
 {
-	RECT rc;
+	/*RECT rc;
 	rc.left = m_stPivotPoint.iCol * m_rMapRenderInfo.stMapStructureInfo.iTileWidth;
 	rc.top = m_stPivotPoint.iRow * m_rMapRenderInfo.stMapStructureInfo.iTileHeight;
 	rc.right = (m_stEndPoint.iCol + 1) * m_rMapRenderInfo.stMapStructureInfo.iTileWidth;
 	rc.bottom = (m_stEndPoint.iRow + 1) * m_rMapRenderInfo.stMapStructureInfo.iTileHeight;
+	return rc;*/
+
+	RECT rc;
+	rc.left = m_stPivotPoint.iCol * m_rMapRenderInfo.stMapStructureInfo.iTileWidth;
+	rc.top = m_stPivotPoint.iRow * m_rMapRenderInfo.stMapStructureInfo.iTileHeight;
+	rc.right = (m_stPivotPoint.iCol + 1) * m_rMapRenderInfo.stMapStructureInfo.iTileWidth;
+	rc.bottom = (m_stPivotPoint.iRow + 1) * m_rMapRenderInfo.stMapStructureInfo.iTileHeight;
 	return rc;
 }
 
 RECT CEditor_Trigger::GetRowColRect(void) const
 {
-	RECT rc;
+	/*RECT rc;
 	rc.left = m_stPivotPoint.iCol;
 	rc.top = m_stPivotPoint.iRow;
 	rc.right = m_stEndPoint.iCol;
 	rc.bottom = m_stEndPoint.iRow;
+
+	return rc;*/
+
+	RECT rc;
+	rc.left = m_stPivotPoint.iCol;
+	rc.top = m_stPivotPoint.iRow;
+	rc.right = m_stPivotPoint.iCol;
+	rc.bottom = m_stPivotPoint.iRow;
 
 	return rc;
 }
@@ -76,13 +91,13 @@ void CEditor_Trigger::Render(HDC & _hdc, CCamera2D * _pCamera)
 void CEditor_Trigger::SaveInfo(FILE * _fpOut)
 {
 	CEditor_Obj::SaveInfo(_fpOut);
-	fprintf_s(_fpOut, "%d %d \n", m_stEndPoint.iRow, m_stEndPoint.iCol);
+	//fprintf_s(_fpOut, "%d %d \n", m_stEndPoint.iRow, m_stEndPoint.iCol);
 }
 
 void CEditor_Trigger::LoadInfo(FILE * _fpIn)
 {
 	CEditor_Obj::LoadInfo(_fpIn);
-	fscanf_s(_fpIn, " %d %d", &m_stEndPoint.iRow, &m_stEndPoint.iCol);
+	//fscanf_s(_fpIn, " %d %d", &m_stEndPoint.iRow, &m_stEndPoint.iCol);
 }
 
 void CEditor_Trigger::MakeMapData(FILE * _fpOut)

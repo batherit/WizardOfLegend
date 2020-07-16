@@ -16,12 +16,12 @@ public:
 	virtual void SaveInfo(FILE * _fpOut);
 	virtual void LoadInfo(FILE * _fpIn);
 	virtual void MakeMapData(FILE* _fpOut);
-
-public:
-	_pivot_point GetEndPoint(void) const { return m_stEndPoint; }
-	void SetEndPoint(int _iRow, int _iCol) { m_stEndPoint.iRow = _iRow; m_stEndPoint.iCol = _iCol; }
-
-private:
-	_pivot_point m_stEndPoint;
+//
+//public:
+//	_pivot_point GetEndPoint(void) const { return m_stEndPoint; }
+//	void SetEndPoint(int _iRow, int _iCol) { m_stEndPoint.iRow = _iRow; m_stEndPoint.iCol = _iCol; }
+//
+//private:
+//	_pivot_point m_stEndPoint;
 };
 

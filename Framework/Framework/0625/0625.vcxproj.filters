@@ -66,9 +66,6 @@
     <Filter Include="소스 파일\05.Bitmap">
       <UniqueIdentifier>{fb3a5d37-fe5b-4c04-a69c-13cf4d88bafe}</UniqueIdentifier>
     </Filter>
-    <Filter Include="소스 파일\04.Map">
-      <UniqueIdentifier>{80200254-11ba-4525-9c2c-23e4c9d1f338}</UniqueIdentifier>
-    </Filter>
     <Filter Include="소스 파일\03.Obj\01.MapObj">
       <UniqueIdentifier>{2d20c727-cdaf-429d-ba3b-5f722eac73f2}</UniqueIdentifier>
     </Filter>
@@ -77,6 +74,9 @@
     </Filter>
     <Filter Include="소스 파일\04.Scene">
       <UniqueIdentifier>{d25592dd-e09a-43f2-8ce6-45947a46ddcc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\04.MapLoader">
+      <UniqueIdentifier>{80200254-11ba-4525-9c2c-23e4c9d1f338}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -168,7 +168,7 @@
       <Filter>소스 파일\98.Manager</Filter>
     </ClInclude>
     <ClInclude Include="CMapLoader.h">
-      <Filter>소스 파일\04.Map</Filter>
+      <Filter>소스 파일\04.MapLoader</Filter>
     </ClInclude>
     <ClInclude Include="CScene.h">
       <Filter>소스 파일\04.Scene</Filter>
@@ -189,6 +189,9 @@
       <Filter>소스 파일\04.Scene</Filter>
     </ClInclude>
     <ClInclude Include="CDoor.h">
+      <Filter>소스 파일\03.Obj\01.MapObj</Filter>
+    </ClInclude>
+    <ClInclude Include="CMapObjsGroup.h">
       <Filter>소스 파일\03.Obj\01.MapObj</Filter>
     </ClInclude>
   </ItemGroup>
@@ -284,7 +287,7 @@
       <Filter>소스 파일\98.Manager</Filter>
     </ClCompile>
     <ClCompile Include="CMapLoader.cpp">
-      <Filter>소스 파일\04.Map</Filter>
+      <Filter>소스 파일\04.MapLoader</Filter>
     </ClCompile>
     <ClCompile Include="CScene.cpp">
       <Filter>소스 파일\04.Scene</Filter>
@@ -305,6 +308,9 @@
       <Filter>소스 파일\03.Obj\01.MapObj</Filter>
     </ClCompile>
     <ClCompile Include="CDoor.cpp">
+      <Filter>소스 파일\03.Obj\01.MapObj</Filter>
+    </ClCompile>
+    <ClCompile Include="CMapObjsGroup.cpp">
       <Filter>소스 파일\03.Obj\01.MapObj</Filter>
     </ClCompile>
   </ItemGroup>

@@ -47,6 +47,10 @@ void CCollider::Render(HDC & _hdc, CCamera2D * _pCamera)
 
 	// 직사각형을 그린다.
 	Rectangle(_hdc, pairLeftTop.first, pairLeftTop.second, pairRightBottom.first + 1, pairRightBottom.second + 1);
+	MoveToEx(_hdc, pairLeftTop.first, pairLeftTop.second, nullptr);
+	LineTo(_hdc, pairRightBottom.first, pairRightBottom.second);
+	MoveToEx(_hdc, pairRightBottom.first, pairLeftTop.second, nullptr);
+	LineTo(_hdc, pairLeftTop.first, pairRightBottom.second);
 
 	SelectObject(_hdc, hOldBrush);
 	SelectObject(_hdc, hOldPen);
