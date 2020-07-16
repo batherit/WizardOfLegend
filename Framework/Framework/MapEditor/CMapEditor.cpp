@@ -8,6 +8,7 @@
 #include "CEditor_Collider.h"
 #include "CEditor_Trigger.h"
 #include "CEditor_Door.h"
+#include "CEditor_SpawnPoint.h"
 #include "CBitmapMgr.h"
 
 
@@ -28,7 +29,7 @@ CMapEditor::CMapEditor(CGameWorld& _rGameWorld)
 	// 맵 구조 정보를 생성
 	CMapFileMgr::GetInstance()->GenerateMapStructureFromFile("../MapDatas/MapStructure.txt", m_stMapRenderInfo.stMapStructureInfo);
 
-	// 맵 제어 버튼
+	// 편집 영역 확장/축소 버튼
 	m_vecEditorButtons.emplace_back(new CUI_Button<CMapEditor>(m_rGameWorld, 50 * 1, WINCY - 55, 40, 25, TEXT("W--"), this, &CMapEditor::ChangeMapWidth, new int(-5)));
 	m_vecEditorButtons.emplace_back(new CUI_Button<CMapEditor>(m_rGameWorld, 50 * 2, WINCY - 55, 40, 25, TEXT("W-"), this, &CMapEditor::ChangeMapWidth, new int(-1)));
 	m_vecEditorButtons.emplace_back(new CUI_Button<CMapEditor>(m_rGameWorld, 50 * 3, WINCY - 55, 40, 25, TEXT("W+"), this, &CMapEditor::ChangeMapWidth, new int(1)));
@@ -37,6 +38,12 @@ CMapEditor::CMapEditor(CGameWorld& _rGameWorld)
 	m_vecEditorButtons.emplace_back(new CUI_Button<CMapEditor>(m_rGameWorld, 50 * 2, WINCY - 25, 40, 25, TEXT("H-"), this, &CMapEditor::ChangeMapHeight, new int(-1)));
 	m_vecEditorButtons.emplace_back(new CUI_Button<CMapEditor>(m_rGameWorld, 50 * 3, WINCY - 25, 40, 25, TEXT("H+"), this, &CMapEditor::ChangeMapHeight, new int(1)));
 	m_vecEditorButtons.emplace_back(new CUI_Button<CMapEditor>(m_rGameWorld, 50 * 4, WINCY - 25, 40, 25, TEXT("H++"), this, &CMapEditor::ChangeMapHeight, new int(5)));
+
+	// 맵 오브젝트 이동 버튼
+	m_vecEditorButtons.emplace_back(new CUI_Button<CMapEditor>(m_rGameWorld, 50 * 1, WINCY - 115, 40, 25, TEXT("◀"), this, &CMapEditor::MoveMapObjs, new POINT({ 0, -1 })));
+	m_vecEditorButtons.emplace_back(new CUI_Button<CMapEditor>(m_rGameWorld, 50 * 2, WINCY - 115, 40, 25, TEXT("▶"), this, &CMapEditor::MoveMapObjs, new POINT({ 0, 1 })));
+	m_vecEditorButtons.emplace_back(new CUI_Button<CMapEditor>(m_rGameWorld, 50 * 3, WINCY - 115, 40, 25, TEXT("▲"), this, &CMapEditor::MoveMapObjs, new POINT({ -1, 0 })));
+	m_vecEditorButtons.emplace_back(new CUI_Button<CMapEditor>(m_rGameWorld, 50 * 4, WINCY - 115, 40, 25, TEXT("▼"), this, &CMapEditor::MoveMapObjs, new POINT({ 1, 0 })));
 
 	// 카메라 제어 버튼
 	m_vecEditorButtons.emplace_back(new CUI_Button<CMapEditor>(m_rGameWorld, 50 * 1, WINCY - 85, 40, 25, TEXT("Cent"), this, &CMapEditor::MoveCameraToMapCenter, nullptr));
@@ -57,8 +64,9 @@ CMapEditor::CMapEditor(CGameWorld& _rGameWorld)
 	m_vecEditorButtons.emplace_back(new CUI_Button<CMapEditor>(m_rGameWorld, 450, WINCY - 55, 40, 25, TEXT("Col"), this, &CMapEditor::ChangeLayer, new MAP_EDITOR::E_LAYER(MAP_EDITOR::LAYER_COLLISION)));
 	m_vecEditorButtons.emplace_back(new CUI_Button<CMapEditor>(m_rGameWorld, 500, WINCY - 55, 40, 25, TEXT("Trig"), this, &CMapEditor::ChangeLayer, new MAP_EDITOR::E_LAYER(MAP_EDITOR::LAYER_TRIGGER)));
 	m_vecEditorButtons.emplace_back(new CUI_Button<CMapEditor>(m_rGameWorld, 550, WINCY - 55, 40, 25, TEXT("Door"), this, &CMapEditor::ChangeLayer, new MAP_EDITOR::E_LAYER(MAP_EDITOR::LAYER_DOOR)));
-	m_vecEditorButtons.emplace_back(new CUI_Button<CMapEditor>(m_rGameWorld, 650, WINCY - 55, 70, 25, TEXT("Door_H"), this, &CMapEditor::ChangeDoorType, new MAP_OBJ::E_TYPE(MAP_OBJ::LAYER_DOOR_HOR)));
-	m_vecEditorButtons.emplace_back(new CUI_Button<CMapEditor>(m_rGameWorld, 650, WINCY - 25, 70, 25, TEXT("Door_V"), this, &CMapEditor::ChangeDoorType, new MAP_OBJ::E_TYPE(MAP_OBJ::LAYER_DOOR_VER)));
+	m_vecEditorButtons.emplace_back(new CUI_Button<CMapEditor>(m_rGameWorld, 610, WINCY - 55, 70, 25, TEXT("Door_H"), this, &CMapEditor::ChangeDoorType, new MAP_OBJ::E_TYPE(MAP_OBJ::TYPE_DOOR_HOR)));
+	m_vecEditorButtons.emplace_back(new CUI_Button<CMapEditor>(m_rGameWorld, 610, WINCY - 25, 70, 25, TEXT("Door_V"), this, &CMapEditor::ChangeDoorType, new MAP_OBJ::E_TYPE(MAP_OBJ::TYPE_DOOR_VER)));
+	m_vecEditorButtons.emplace_back(new CUI_Button<CMapEditor>(m_rGameWorld, 690, WINCY - 55, 70, 25, TEXT("Spawn"), this, &CMapEditor::ChangeLayer, new MAP_EDITOR::E_LAYER(MAP_EDITOR::LAYER_SPAWN_POINT)));
 
 	m_vecEditorButtons.emplace_back(new CUI_Button<CMapEditor>(m_rGameWorld, 120, (WINCY >> 1) + 95, 25, 25, TEXT("<"), this, &CMapEditor::ChangeGroupID, new int(-1)));
 	m_vecEditorButtons.emplace_back(new CUI_Button<CMapEditor>(m_rGameWorld, 160, (WINCY >> 1) + 95, 25, 25, TEXT(">"), this, &CMapEditor::ChangeGroupID, new int(1)));
@@ -89,6 +97,9 @@ CMapEditor::CMapEditor(CGameWorld& _rGameWorld)
 
 	// 맵 데이터 생성
 	m_vecEditorButtons.emplace_back(new CUI_Button<CMapEditor>(m_rGameWorld, WINCX - 100, (WINCY >> 1) + 200, 120, 25, TEXT("Make Map Data"), this, &CMapEditor::MakeMapData, nullptr));
+
+	// 디폴트 스폰포인트 생성
+	m_pSpawnPoint = new CEditor_SpawnPoint(m_stMapRenderInfo, -1, -1);
 
 	TO_MAPTOOL(m_rGameWorld).GetCamera()->SetXY(GetMapMiddleX(), GetMapMiddleY());
 }
@@ -266,6 +277,22 @@ void CMapEditor::Update(float _fDeltaTime)
 					}
 					break;
 				}
+				case MAP_EDITOR::LAYER_SPAWN_POINT:
+				{
+					switch (m_eTool)
+					{
+					case MAP_EDITOR::TOOL_PAINT:
+						// 스폰포인트는 무조건 존재한다. 하지만 혹시 모르므로 체크해줌. ^_^V
+						if (m_pSpawnPoint) m_pSpawnPoint->SetPivotPoint(iRow, iCol);
+						break;
+					case MAP_EDITOR::TOOL_ERASE:
+						// 지우지 않는다, 지우지 못한다!!
+						break;
+					default:
+						break;
+					}
+					break;
+				}
 				default:
 					break;
 				}
@@ -295,6 +322,7 @@ void CMapEditor::Render(HDC & _hdc, CCamera2D* _pCamera)
 	for (auto& pObj : m_listDoors) {
 		pObj->Render(_hdc, _pCamera);
 	}
+	m_pSpawnPoint->Render(_hdc, _pCamera);
 
 	RenderZeroPoint(_hdc, _pCamera);
 	for (auto& pButton : m_vecEditorButtons) {
@@ -315,6 +343,7 @@ void CMapEditor::Release(void)
 	}
 	m_vecEditorButtons.clear();
 	m_vecEditorButtons.shrink_to_fit();
+	DeleteSafe(m_pSpawnPoint);
 }
 
 void CMapEditor::RenderTileBoard(HDC & _hdc, CCamera2D * _pCamera)
@@ -389,7 +418,7 @@ void CMapEditor::RenderMode(HDC & _hdc, CCamera2D * _pCamera)
 	TextOut(_hdc, 30, (WINCY >> 1) + 60, szMode, lstrlen(szMode));
 	swprintf_s(szMode, TEXT("Group : %d"), m_iGroupID);
 	TextOut(_hdc, 30, (WINCY >> 1) + 90, szMode, lstrlen(szMode));
-	swprintf_s(szMode, TEXT("Door : %c"), (m_eDoorType == MAP_OBJ::LAYER_DOOR_HOR ? 'H' : 'V'));
+	swprintf_s(szMode, TEXT("Door : %c"), (m_eDoorType == MAP_OBJ::TYPE_DOOR_HOR ? 'H' : 'V'));
 	TextOut(_hdc, 30, (WINCY >> 1) + 120, szMode, lstrlen(szMode));
 }
 
@@ -413,6 +442,26 @@ void CMapEditor::ChangeMapHeight(void* _pDeltaHeight)
 {
 	int iDeltaHeight = GetMapHeight() + *static_cast<int*>(_pDeltaHeight);
 	SetMapHeight(Clamp(iDeltaHeight, 1, 1000));
+}
+
+void CMapEditor::MoveMapObjs(void * _pDeltaRowCol)
+{
+	POINT ptDeltaRowCol = *static_cast<POINT*>(_pDeltaRowCol);
+
+	for (int i = 0; i < ciMaxDrawLayerNum; i++) {
+		for (auto& pObj : m_listAtlasObjs[i]) {
+			pObj->MovePivotPoint(ptDeltaRowCol.x, ptDeltaRowCol.y);
+		}
+	}
+	for (auto& pObj : m_listColliders) {
+		pObj->MovePivotPoint(ptDeltaRowCol.x, ptDeltaRowCol.y);
+	}
+	for (auto& pObj : m_listTriggers) {
+		pObj->MovePivotPoint(ptDeltaRowCol.x, ptDeltaRowCol.y);
+	}
+	for (auto& pObj : m_listDoors) {
+		pObj->MovePivotPoint(ptDeltaRowCol.x, ptDeltaRowCol.y);
+	}
 }
 
 void CMapEditor::MoveCameraToMapCenter(void *)
@@ -496,6 +545,7 @@ void CMapEditor::SaveMap(void *)
 		for (auto& obj : m_listDoors) {
 			obj->SaveInfo(fpOut);
 		}
+		m_pSpawnPoint->SaveInfo(fpOut);
 	}
 	if (fpOut) fclose(fpOut);
 }
@@ -535,6 +585,7 @@ void CMapEditor::LoadMap(void *)
 			pObj->LoadInfo(fpIn);
 			m_listDoors.emplace_back(pObj);
 		}
+		m_pSpawnPoint->LoadInfo(fpIn);
 	}
 	if (fpIn) fclose(fpIn);
 }
@@ -572,6 +623,7 @@ void CMapEditor::MakeMapData(void *)
 		for (auto& obj : m_listDoors) {
 			obj->MakeMapData(fpOut);
 		}
+		m_pSpawnPoint->MakeMapData(fpOut);
 	}
 	if (fpOut) fclose(fpOut);
 }

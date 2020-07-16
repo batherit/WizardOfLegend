@@ -5,6 +5,7 @@
 #include "CCollider.h"
 #include "CTrigger.h"
 #include "CDoor.h"
+#include "CSpawnPoint.h"
 #include "CMapFileMgr.h"
 #include "CMapObjsGroup.h"
 
@@ -82,6 +83,8 @@ CMapLoader::CMapLoader(CGameWorld & _rGameWorld, const char* szMapDirectory)
 			pObj = new CDoor(fpIn, _rGameWorld);
 			m_vecUnactiveDoors.emplace_back(pObj);
 		}
+
+		m_pSpawnPoint = new CSpawnPoint(fpIn, m_rGameWorld);
 	}
 	if (fpIn) fclose(fpIn);
 }
@@ -115,6 +118,7 @@ void CMapLoader::Render(HDC & _hdc, CCamera2D * _pCamera)
 	for (auto& pObj : m_vecUnactiveDoors) {
 		pObj->Render(_hdc, _pCamera);
 	}
+	m_pSpawnPoint->Render(_hdc, _pCamera);
 }
 
 void CMapLoader::Release(void)
@@ -131,4 +135,5 @@ void CMapLoader::ClearObjs(void)
 	DeleteVectorSafe(m_vecTriggersGroups);
 	DeleteVectorSafe(m_vecUnactiveDoors);
 	DeleteVectorSafe(m_vecActiveDoors);
+	DeleteSafe(m_pSpawnPoint);
 }

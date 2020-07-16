@@ -26,10 +26,10 @@ CDoor::CDoor(FILE * _fpIn, CGameWorld & _rGameWorld)
 	SetHeight(rcRect.bottom - rcRect.top);
 
 	switch (m_eObjType) {
-	case MAP_OBJ::LAYER_DOOR_HOR:
+	case MAP_OBJ::TYPE_DOOR_HOR:
 		m_tDoorBitmapKey = TEXT("PRISON_HOR");
 		break;
-	case MAP_OBJ::LAYER_DOOR_VER:
+	case MAP_OBJ::TYPE_DOOR_VER:
 		m_tDoorBitmapKey = TEXT("PRISON_VER");
 		break;
 	}

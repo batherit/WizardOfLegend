@@ -152,6 +152,7 @@
     <ClInclude Include="CEditor_Collider.h" />
     <ClInclude Include="CEditor_Door.h" />
     <ClInclude Include="CEditor_Obj.h" />
+    <ClInclude Include="CEditor_SpawnPoint.h" />
     <ClInclude Include="CEditor_Trigger.h" />
     <ClInclude Include="CGameWorld.h" />
     <ClInclude Include="CMapEditor.h" />
@@ -176,6 +177,7 @@
     <ClCompile Include="CEditor_Collider.cpp" />
     <ClCompile Include="CEditor_Door.cpp" />
     <ClCompile Include="CEditor_Obj.cpp" />
+    <ClCompile Include="CEditor_SpawnPoint.cpp" />
     <ClCompile Include="CEditor_Trigger.cpp" />
     <ClCompile Include="CGameWorld.cpp" />
     <ClCompile Include="CMapEditor.cpp" />

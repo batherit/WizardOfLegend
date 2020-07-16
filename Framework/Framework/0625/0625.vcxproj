@@ -167,6 +167,7 @@
     <ClInclude Include="CGameWorld.h" />
     <ClInclude Include="CLayer.h" />
     <ClInclude Include="CObj.h" />
+    <ClInclude Include="CSpawnPoint.h" />
     <ClInclude Include="CTimer.h" />
     <ClInclude Include="CTitleScene.h" />
     <ClInclude Include="CTrigger.h" />
@@ -225,6 +226,7 @@
     <ClCompile Include="CSpace.cpp" />
     <ClCompile Include="CGameWorld.cpp" />
     <ClCompile Include="CLayer.cpp" />
+    <ClCompile Include="CSpawnPoint.cpp" />
     <ClCompile Include="CTimer.cpp" />
     <ClCompile Include="CTitleScene.cpp" />
     <ClCompile Include="CTrigger.cpp" />

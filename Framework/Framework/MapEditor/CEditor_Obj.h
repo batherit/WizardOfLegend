@@ -8,6 +8,7 @@ public:
 
 public:
 	void SetPivotPoint(int _iRow, int _iCol) { m_stPivotPoint.iRow = _iRow; m_stPivotPoint.iCol = _iCol; }
+	void MovePivotPoint(int _iDeltaRow, int _iDeltaCol) { m_stPivotPoint.iRow += _iDeltaRow; m_stPivotPoint.iCol += _iDeltaCol; }
 	_pivot_point GetPivotPoint(void) const { return m_stPivotPoint; }
 	virtual RECT GetRect(void) const = 0;
 	virtual RECT GetRowColRect(void) const = 0;

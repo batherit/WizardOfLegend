@@ -70,10 +70,10 @@ LRESULT CMapTool::OnProcessingWindowMessage(HWND hWnd, UINT nMessageID, WPARAM w
 		int zDelta = GET_WHEEL_DELTA_WPARAM(wParam);
 
 		if (zDelta > 0) {
-			m_pCamera->ZoomIn(0.2f);
+			m_pCamera->ZoomIn(0.05f);
 		}
 		else {
-			m_pCamera->ZoomOut(0.2f);
+			m_pCamera->ZoomOut(0.05f);
 		}
 		break;
 	}

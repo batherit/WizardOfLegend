@@ -194,6 +194,9 @@
     <ClInclude Include="CMapObjsGroup.h">
       <Filter>소스 파일\03.Obj\01.MapObj</Filter>
     </ClInclude>
+    <ClInclude Include="CSpawnPoint.h">
+      <Filter>소스 파일\03.Obj\01.MapObj</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CLayer.cpp">
@@ -311,6 +314,9 @@
       <Filter>소스 파일\03.Obj\01.MapObj</Filter>
     </ClCompile>
     <ClCompile Include="CMapObjsGroup.cpp">
+      <Filter>소스 파일\03.Obj\01.MapObj</Filter>
+    </ClCompile>
+    <ClCompile Include="CSpawnPoint.cpp">
       <Filter>소스 파일\03.Obj\01.MapObj</Filter>
     </ClCompile>
   </ItemGroup>

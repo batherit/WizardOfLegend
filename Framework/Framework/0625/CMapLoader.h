@@ -35,5 +35,6 @@ private:
 
 	vector<CObj*> m_vecUnactiveDoors;
 	vector<CObj*> m_vecActiveDoors;
+	CObj* m_pSpawnPoint = nullptr;
 };
 

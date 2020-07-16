@@ -10,10 +10,10 @@ CEditor_Door::CEditor_Door(const _map_render_info & _rMapRenderInfo, int _iPivot
 	CEditor_Obj(_rMapRenderInfo, _iPivotRow, _iPivotCol, _eDoorType)
 {
 	switch (m_eObjType) {
-	case MAP_OBJ::LAYER_DOOR_HOR:
+	case MAP_OBJ::TYPE_DOOR_HOR:
 		m_tDoorBitmapKey = TEXT("PRISON_HOR");
 		break;
-	case MAP_OBJ::LAYER_DOOR_VER:
+	case MAP_OBJ::TYPE_DOOR_VER:
 		m_tDoorBitmapKey = TEXT("PRISON_VER");
 		break;
 	}
@@ -102,10 +102,10 @@ void CEditor_Door::LoadInfo(FILE * _fpIn)
 		&m_iCoveredHeightTiles
 	);
 	switch (m_eObjType) {
-	case MAP_OBJ::LAYER_DOOR_HOR:
+	case MAP_OBJ::TYPE_DOOR_HOR:
 		m_tDoorBitmapKey = TEXT("PRISON_HOR");
 		break;
-	case MAP_OBJ::LAYER_DOOR_VER:
+	case MAP_OBJ::TYPE_DOOR_VER:
 		m_tDoorBitmapKey = TEXT("PRISON_VER");
 		break;
 	}
