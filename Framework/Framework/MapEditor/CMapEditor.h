@@ -71,8 +71,6 @@ public:
 	void ChangeDoorType(void* _pDoorType);
 	void MakeMapData(void*);
 
-public:
-
 private:
 	CGameWorld& m_rGameWorld;
 

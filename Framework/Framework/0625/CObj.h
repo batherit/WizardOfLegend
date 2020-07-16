@@ -21,6 +21,7 @@ public:
 	virtual void LateUpdate(void) {};
 	virtual void Render(HDC& _hdc, CCamera2D* _pCamera = nullptr);
 	virtual void Release(void) {};
+	virtual void LoadMapData(FILE* _fpIn);
 
 public:
 	CGameWorld& GetGameWorld(void) const { return m_rGameWorld; }
@@ -62,8 +63,13 @@ public:
 	bool IsValid(void) const { return m_bIsValid; }
 	/*void SetActive(bool _bIsActive) { m_bIsActive = _bIsActive; }
 	bool IsActive(void) { return m_bIsActive; }*/
+	const int GetGroupID(void) const { return m_iGroupID; }
+	
 
 protected:
+	int m_iGroupID = -1;
+	MAP_OBJ::E_TYPE m_eObjType = MAP_OBJ::TYPE_COLLIDER;
+
 	bool m_bIsValid = true;
 	float m_fX = 0.f;
 	float m_fY = 0.f;

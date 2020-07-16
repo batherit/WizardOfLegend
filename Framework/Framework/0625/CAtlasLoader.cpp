@@ -36,9 +36,20 @@ CAtlasLoader::CAtlasLoader(int _iID, _atlas_loader_info& _stAtlasInfo)
 			}
 		}
 	}
-	break;
+		break;
 	case ATLAS_LOADER::TYPE_NON_UNIFORM:
-		// TODO : 
+	{
+		_atlas_obj_info stAtlasObjInfo;
+
+		int iSize = _stAtlasInfo.vecOutputArea.size();
+		for (int i = 0; i < iSize; i++) {
+			stAtlasObjInfo.iAtlasID = _iID;
+			stAtlasObjInfo.rcOutputArea = _stAtlasInfo.vecOutputArea[i];
+			stAtlasObjInfo.iCoveredHeightTiles = (stAtlasObjInfo.rcOutputArea.bottom - stAtlasObjInfo.rcOutputArea.top + 1)/ _stAtlasInfo.iTileHeight;
+			stAtlasObjInfo.iCoveredWidthTiles = (stAtlasObjInfo.rcOutputArea.right - stAtlasObjInfo.rcOutputArea.left + 1) / _stAtlasInfo.iTileWidth;
+			m_vecAtlasObjInfos.emplace_back(stAtlasObjInfo);
+		}
+	}
 		break;
 	default:
 		break;
@@ -55,7 +66,7 @@ CAtlasLoader::~CAtlasLoader()
 void CAtlasLoader::Update(float _fDeltaTime)
 {
 	if (IsVisible()) {
-		// TODO : 블록 선택 기능을 추가합니다.
+		// TODO : 블록 선택 기능을 추가합니다.x
 	}
 }
 
@@ -76,9 +87,9 @@ void CAtlasLoader::RenderAtlas(HDC & _hdc, CCamera2D * _pCamera)
 		0,
 		m_iStretchedAtlasWidth,
 		m_iStretchedAtlasHeight,
-		GetMemDC(),
-		0,
-		0,
+		GetMemDC(), 
+		0, 
+		0, 
 		pBitmapObj->GetWitdh(),
 		pBitmapObj->GetHeight(), SRCCOPY);
 }
@@ -95,7 +106,7 @@ void CAtlasLoader::RenderGrid(HDC & _hdc, CCamera2D * _pCamera)
 		lStartY = info.rcOutputArea.top * m_stAtlasInfo.fAtlasRatio;
 		lWidth = (info.rcOutputArea.right - info.rcOutputArea.left) * m_stAtlasInfo.fAtlasRatio;
 		lHeight = (info.rcOutputArea.bottom - info.rcOutputArea.top) * m_stAtlasInfo.fAtlasRatio;
-
+		
 		// 시계방향으로 네모를 그린다.
 		MoveToEx(_hdc, lStartX, lStartY, nullptr);
 		LineTo(_hdc, lStartX + lWidth, lStartY);
@@ -127,6 +138,6 @@ _atlas_obj_info CAtlasLoader::GetDetectedTileRowCol(const POINT& _ptClicked)
 			}
 		}
 	}
-
+	
 	return stTileInfo;
 }

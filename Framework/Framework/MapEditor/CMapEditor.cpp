@@ -320,6 +320,7 @@ void CMapEditor::Render(HDC & _hdc, CCamera2D* _pCamera)
 
 void CMapEditor::Release(void)
 {
+	ClearObjs();
 	for (auto& pButton : m_vecEditorButtons) {
 		DeleteSafe(pButton);
 	}
@@ -409,6 +410,8 @@ void CMapEditor::ClearObjs(void)
 		DeleteListSafe(m_listAtlasObjs[i]);
 	}
 	DeleteListSafe(m_listColliders);
+	DeleteListSafe(m_listTriggers);
+	DeleteListSafe(m_listDoors);
 }
 
 void CMapEditor::ChangeMapWidth(void* _pDeltaWidth)

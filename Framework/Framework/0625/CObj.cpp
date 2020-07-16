@@ -46,3 +46,8 @@ void CObj::Render(HDC & _hdc, CCamera2D * _pCamera)
 		if (m_pDrawFunc) m_pDrawFunc(_hdc, GetLeft(), GetTop(), GetRight(), GetBottom());
 	}
 }
+
+void CObj::LoadMapData(FILE * _fpIn)
+{
+	fscanf_s(_fpIn, " %d %d", &m_eObjType, &m_iGroupID);
+}

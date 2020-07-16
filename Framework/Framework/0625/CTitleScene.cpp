@@ -23,7 +23,7 @@ void CTitleScene::Ready(void)
 int CTitleScene::Update(float _fDeltaTime)
 {
 	if (CKeyMgr::GetInstance()->IsKeyDown(KEY::KEY_LBUTTON)) {
-		m_rGameWorld.GetSceneManager()->SetNextScene(new CPlayScene(m_rGameWorld, "../MapDatas/Maps/0/Objs.txt"));
+		m_rGameWorld.GetSceneManager()->SetNextScene(new CPlayScene(m_rGameWorld, "../MapDatas/Maps/0/Game_Map.txt"));
 	}
 
 	return 0;

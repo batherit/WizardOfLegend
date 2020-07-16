@@ -156,6 +156,7 @@
     <ClInclude Include="CBitmapMgr.h" />
     <ClInclude Include="CBitmapObj.h" />
     <ClInclude Include="CCamera2D.h" />
+    <ClInclude Include="CDoor.h" />
     <ClInclude Include="CMapLoader.h" />
     <ClInclude Include="CMapFileMgr.h" />
     <ClInclude Include="CPlayScene.h" />
@@ -213,6 +214,7 @@
     <ClCompile Include="CBitmapMgr.cpp" />
     <ClCompile Include="CBitmapObj.cpp" />
     <ClCompile Include="CCamera2D.cpp" />
+    <ClCompile Include="CDoor.cpp" />
     <ClCompile Include="CMapLoader.cpp" />
     <ClCompile Include="CMapFileMgr.cpp" />
     <ClCompile Include="CPlayScene.cpp" />

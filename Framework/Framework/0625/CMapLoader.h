@@ -17,8 +17,8 @@ public:
 	void Release(void);
 
 public:
-	const vector<CAtlasLoader*>& GetAtlasLoaders(void) const { return m_stMapRenderInfo.vecAtlasLoaders; }
-	const _map_structure_info& GetMapStructureInfo(void) const { return m_stMapRenderInfo.stMapStructureInfo; }
+	//const vector<CAtlasLoader*>& GetAtlasLoaders(void) const { return m_stMapRenderInfo.vecAtlasLoaders; }
+	//const _map_structure_info& GetMapStructureInfo(void) const { return m_stMapRenderInfo.stMapStructureInfo; }
 
 public:
 	list<CObj*>& GetColliders(void) { return m_listColliders; }
@@ -29,11 +29,11 @@ private:
 
 private:
 	CGameWorld& m_rGameWorld;
-	_map_render_info m_stMapRenderInfo;
+	//_map_render_info m_stMapRenderInfo;
 	list<CObj*> m_listAtlasObjs[ciMaxDrawLayerNum];
 	list<CObj*> m_listColliders;
 	list<CObj*> m_listTriggers;
-	//list<CObj*> m_listTriggers;
-	//list<CObj*> 
+	list<CObj*> m_listUnactiveDoors;
+	list<CObj*> m_listActiveDoors;
 };
 

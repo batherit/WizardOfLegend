@@ -3,26 +3,25 @@
 #include "CCamera2D.h"
 #include "CMapLoader.h"
 
-CCollider::CCollider(FILE* _fpIn, CGameWorld & _rGameWorld, CMapLoader & _rMap, COLLIDER::E_TYPE _eType)
+CCollider::CCollider(FILE* _fpIn, CGameWorld & _rGameWorld, COLLIDER::E_TYPE _eType)
 	:
-	CObj(_rGameWorld, 0.f, 0.f, 0, 0),
-	m_rMap(_rMap)
+	CObj(_rGameWorld, 0.f, 0.f, 0, 0)
 {
-	int iObjType;
-	int iGroupID;
-	_pivot_point stPivotPoint;
-	fscanf_s(_fpIn, " %d %d %d %d", &iObjType, &iGroupID, &stPivotPoint.iRow, &stPivotPoint.iCol);
-	const _map_structure_info& rMapStructureInfo = _rMap.GetMapStructureInfo();
-	RECT rc = {
-		stPivotPoint.iCol * rMapStructureInfo.iTileWidth,
-		stPivotPoint.iRow * rMapStructureInfo.iTileHeight,
-		(stPivotPoint.iCol + 1) * rMapStructureInfo.iTileWidth,
-		(stPivotPoint.iRow + 1) * rMapStructureInfo.iTileHeight
-	};
-	SetX((rc.right + rc.left) >> 1);
-	SetY((rc.bottom + rc.top) >> 1);
-	SetWidth(rc.right - rc.left);
-	SetHeight(rc.bottom - rc.top);
+	// 0) 오브젝트 타입과 그룹 아이디
+	CObj::LoadMapData(_fpIn);
+
+	// 2) 오브젝트가 타일맵에서 차지하는 면적 정보
+	RECT rcRect;
+	fscanf_s(_fpIn, " %d %d %d %d",
+		&rcRect.left,
+		&rcRect.top,
+		&rcRect.right,
+		&rcRect.bottom);
+
+	SetX((rcRect.right + rcRect.left) >> 1);
+	SetY((rcRect.bottom + rcRect.top) >> 1);
+	SetWidth(rcRect.right - rcRect.left);
+	SetHeight(rcRect.bottom - rcRect.top);
 }
 
 CCollider::~CCollider()
@@ -53,4 +52,8 @@ void CCollider::Render(HDC & _hdc, CCamera2D * _pCamera)
 	SelectObject(_hdc, hOldPen);
 	DeleteObject(hBrush);
 	DeleteObject(hPen);
+
+	TCHAR szMode[32];
+	swprintf_s(szMode, TEXT("GN : %d"), m_iGroupID);
+	TextOut(_hdc, pairLeftTop.first, pairLeftTop.second, szMode, lstrlen(szMode));
 }
