@@ -10,7 +10,7 @@
 
 CPlayer::CPlayer(CGameWorld& _rGameWorld)
 	:
-	CObj(_rGameWorld, 0, 0, ciPlayerSize, ciPlayerSize, 0.f, 0.f, cfPlayerSpeed, Rectangle)
+	CObj(_rGameWorld, 0, 0, ciPlayerSize, ciPlayerSize, 0.f, 0.f, cfPlayerRunSpeed, Rectangle)
 {
 }
 

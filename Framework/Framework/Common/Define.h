@@ -73,6 +73,7 @@
 #define KM_LSHIFT	0x00001000
 #define KM_P		0x00002000
 #define KM_G		0x00004000
+#define KM_SPACE	0x00008000
 
 // 파일 입출력 관련
 #define FB_WRITE_DATA(_valueName, _fpOut) fwrite(&(_valueName), sizeof(_valueName), 1, _fpOut)
@@ -83,12 +84,9 @@
 
 
 
-
-
-
-
-
-
+// 마우스 커서 사이즈
+#define MOUSE_CURSOR_WITDH	60
+#define MOUSE_CURSOR_HEIGHT 60
 
 // 플레이어 비트맵 출력 사이즈
 #define PLAYER_OUTPUT_WITDH			180

@@ -78,6 +78,12 @@
     <Filter Include="소스 파일\04.MapLoader">
       <UniqueIdentifier>{80200254-11ba-4525-9c2c-23e4c9d1f338}</UniqueIdentifier>
     </Filter>
+    <Filter Include="소스 파일\03.State">
+      <UniqueIdentifier>{cebc097e-aec6-48ff-a713-759be235f622}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\03.State\031.Player">
+      <UniqueIdentifier>{f383deb9-60fc-484a-903f-e53c0fdbcb2a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CLayer.h">
@@ -200,6 +206,31 @@
     <ClInclude Include="CPlayerWOL.h">
       <Filter>소스 파일\03.Obj\020.Player</Filter>
     </ClInclude>
+    <ClInclude Include="CUI_Cursor.h">
+      <Filter>소스 파일\03.Obj\040.UI</Filter>
+    </ClInclude>
+    <ClInclude Include="CStateMgr.h">
+      <Filter>소스 파일\98.Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="CState.h">
+      <Filter>소스 파일\03.State</Filter>
+    </ClInclude>
+    <ClInclude Include="CPlayerState_Idle.h">
+      <Filter>소스 파일\03.State\031.Player</Filter>
+    </ClInclude>
+    <ClInclude Include="CPlayerState_Run.h">
+      <Filter>소스 파일\03.State\031.Player</Filter>
+    </ClInclude>
+    <ClInclude Include="CPlayerState_Dash.h">
+      <Filter>소스 파일\03.State\031.Player</Filter>
+    </ClInclude>
+    <ClInclude Include="CPlayerState_Attack.h">
+      <Filter>소스 파일\03.State\031.Player</Filter>
+    </ClInclude>
+    <ClInclude Include="CPlayerState_Damage.h">
+      <Filter>소스 파일\03.State\031.Player</Filter>
+    </ClInclude>
+    <ClInclude Include="CPlayerState_Death.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CLayer.cpp">
@@ -324,6 +355,33 @@
     </ClCompile>
     <ClCompile Include="CPlayerWOL.cpp">
       <Filter>소스 파일\03.Obj\020.Player</Filter>
+    </ClCompile>
+    <ClCompile Include="CUI_Cursor.cpp">
+      <Filter>소스 파일\03.Obj\040.UI</Filter>
+    </ClCompile>
+    <ClCompile Include="CStateMgr.cpp">
+      <Filter>소스 파일\98.Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="CState.cpp">
+      <Filter>소스 파일\03.State</Filter>
+    </ClCompile>
+    <ClCompile Include="CPlayerState_Idle.cpp">
+      <Filter>소스 파일\03.State\031.Player</Filter>
+    </ClCompile>
+    <ClCompile Include="CPlayerState_Run.cpp">
+      <Filter>소스 파일\03.State\031.Player</Filter>
+    </ClCompile>
+    <ClCompile Include="CPlayerState_Dash.cpp">
+      <Filter>소스 파일\03.State\031.Player</Filter>
+    </ClCompile>
+    <ClCompile Include="CPlayerState_Attack.cpp">
+      <Filter>소스 파일\03.State\031.Player</Filter>
+    </ClCompile>
+    <ClCompile Include="CPlayerState_Damage.cpp">
+      <Filter>소스 파일\03.State\031.Player</Filter>
+    </ClCompile>
+    <ClCompile Include="CPlayerState_Death.cpp">
+      <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

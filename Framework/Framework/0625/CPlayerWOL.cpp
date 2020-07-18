@@ -3,6 +3,9 @@
 #include "CBitmapMgr.h"
 #include "CCamera2D.h"
 #include "CSpace.h"
+#include "CStateMgr.h"
+#include "CPlayerState_Idle.h"
+#include "CPlayerState_Damage.h"
 
 
 CPlayerWOL::CPlayerWOL(CGameWorld & _rGameWorld)
@@ -21,6 +24,7 @@ CPlayerWOL::CPlayerWOL(CGameWorld & _rGameWorld, float _fX, float _fY, size_t _i
 
 CPlayerWOL::~CPlayerWOL()
 {
+	Release();
 }
 
 void CPlayerWOL::Ready(void)
@@ -29,44 +33,15 @@ void CPlayerWOL::Ready(void)
 
 int CPlayerWOL::Update(float _fDeltaTime)
 {
-	CKeyMgr::GetInstance()->Update();
-	float fNewToX = 0.f;
-	float fNewToY = 0.f;
-
-	if (CKeyMgr::GetInstance()->IsKeyPressing(KEY::KEY_W)) {
-		m_eDir = OBJ::DIR_UP;
-		fNewToX += cfDeltaX[m_eDir];
-		fNewToY += cfDeltaY[m_eDir];
-	}
-
-	if (CKeyMgr::GetInstance()->IsKeyPressing(KEY::KEY_S)) {
-		m_eDir = OBJ::DIR_DOWN;
-		fNewToX += cfDeltaX[m_eDir];
-		fNewToY += cfDeltaY[m_eDir];
-	}
-
-	if (CKeyMgr::GetInstance()->IsKeyPressing(KEY::KEY_A)) {
-		m_eDir = OBJ::DIR_LEFT;
-		fNewToX += cfDeltaX[m_eDir];
-		fNewToY += cfDeltaY[m_eDir];
-	}
-
-	if (CKeyMgr::GetInstance()->IsKeyPressing(KEY::KEY_D)) {
-		m_eDir = OBJ::DIR_RIGHT;
-		fNewToX += cfDeltaX[m_eDir];
-		fNewToY += cfDeltaY[m_eDir];
-	}
-	SetToXY(fNewToX, fNewToY);
-	if (GetToX() == 0.f && GetToY() == 0.f) SetNewState(PLAYER::STATE_IDLE);
-	else SetNewState(PLAYER::STATE_RUN);
-	MoveByDeltaTime(_fDeltaTime);
-
-	UpdateAnim(_fDeltaTime);
+	// 유효하지 않은 상태로 컨펌되면 false를 반환한다.
+	if (!m_pStateMgr->ConfirmValidState()) return 1;
+	m_pStateMgr->Update(_fDeltaTime);
 	return 0;
 }
 
 void CPlayerWOL::LateUpdate(void)
 {
+	m_pStateMgr->LateUpdate();
 }
 
 void CPlayerWOL::Render(HDC & _hdc, CCamera2D * _pCamera)
@@ -96,11 +71,16 @@ void CPlayerWOL::Render(HDC & _hdc, CCamera2D * _pCamera)
 
 void CPlayerWOL::Release(void)
 {
+	DeleteSafe(m_pStateMgr);
 }
 
 void CPlayerWOL::SetInitInfo(void)
 {
-	SetNewState(PLAYER::STATE_IDLE);
+	DeleteSafe(m_pStateMgr);
+	m_pStateMgr = new CStateMgr<CPlayerWOL>(GetGameWorld(), *this);
+	m_pStateMgr->SetNextState(new CPlayerState_Idle(*this));
+	m_fMaxHp = cfPlayerMaxHp;
+	m_fHp = m_fMaxHp;
 	SetSpeed(cfPlayerRunSpeed);
 	SetWidth(PLAYER_OUTPUT_WITDH);
 	SetHeight(PLAYER_OUTPUT_HEIGHT);
@@ -134,25 +114,27 @@ void CPlayerWOL::SetNewState(PLAYER::E_STATE _eNewState)
 		break;
 	case PLAYER::STATE_DASH:
 		stAnimInfo.iCountToRepeat = 1;
-		stAnimInfo.fTotalTime = 0.7;
+		stAnimInfo.fTotalTime = 0.32;
 		stAnimInfo.iStartFrameIndex = 0;
 		stAnimInfo.iFrameCount = 8;
 		break;
 	case PLAYER::STATE_ATTACK1:
 		stAnimInfo.iCountToRepeat = 1;
-		stAnimInfo.fTotalTime = 0.35;
+		stAnimInfo.fTotalTime = 0.4;
 		stAnimInfo.iStartFrameIndex = 0;
 		stAnimInfo.iFrameCount = 8;
+		m_eLastAttackState = PLAYER::STATE_ATTACK1;
 		break;
 	case PLAYER::STATE_ATTACK2:
 		stAnimInfo.iCountToRepeat = 1;
-		stAnimInfo.fTotalTime = 0.35;
+		stAnimInfo.fTotalTime = 0.4;
 		stAnimInfo.iStartFrameIndex = 0;
 		stAnimInfo.iFrameCount = 8;
+		m_eLastAttackState = PLAYER::STATE_ATTACK2;
 		break;
 	case PLAYER::STATE_DAMAGE:
-		stAnimInfo.iCountToRepeat = 3;
-		stAnimInfo.fTotalTime = 0.35;
+		stAnimInfo.iCountToRepeat = 1;
+		stAnimInfo.fTotalTime = 0.12;
 		stAnimInfo.iStartFrameIndex = 0;
 		stAnimInfo.iFrameCount = 2;
 		break;
@@ -168,4 +150,50 @@ void CPlayerWOL::SetNewState(PLAYER::E_STATE _eNewState)
 	}
 
 	SetNewAnimInfo(stAnimInfo);
+}
+
+bool CPlayerWOL::IsMoveKeyPressed(float & _fToX, float & _fToY)
+{
+	_fToX = 0.f;
+	_fToY = 0.f;
+
+	if (CKeyMgr::GetInstance()->IsKeyDown(KEY::KEY_W) ||
+		CKeyMgr::GetInstance()->IsKeyPressing(KEY::KEY_W)) {
+		_fToX += cfDeltaX[OBJ::DIR_UP];
+		_fToY += cfDeltaY[OBJ::DIR_UP];
+	}
+
+	if (CKeyMgr::GetInstance()->IsKeyDown(KEY::KEY_S) ||
+		CKeyMgr::GetInstance()->IsKeyPressing(KEY::KEY_S)) {
+		_fToX += cfDeltaX[OBJ::DIR_DOWN];
+		_fToY += cfDeltaY[OBJ::DIR_DOWN];
+	}
+
+	if (CKeyMgr::GetInstance()->IsKeyDown(KEY::KEY_A) ||
+		CKeyMgr::GetInstance()->IsKeyPressing(KEY::KEY_A)) {
+		_fToX += cfDeltaX[OBJ::DIR_LEFT];
+		_fToY += cfDeltaY[OBJ::DIR_LEFT];
+	}
+
+	if (CKeyMgr::GetInstance()->IsKeyDown(KEY::KEY_D) ||
+		CKeyMgr::GetInstance()->IsKeyPressing(KEY::KEY_D)) {
+		_fToX += cfDeltaX[OBJ::DIR_RIGHT];
+		_fToY += cfDeltaY[OBJ::DIR_RIGHT];
+	}
+
+	if (CKeyMgr::GetInstance()->IsKeyDown(KEY::KEY_RBUTTON)) {
+		Attacked(100.f);
+	}
+
+	if (_fToX == 0.f && _fToY == 0.f) return false;
+	return true;
+}
+
+void CPlayerWOL::Attacked(float _fDamageAmount)
+{
+	// TODO : 받은 데미지를 보여주는 UI를 띄우셈!
+	if (!IsDead()) {
+		CObj::Attacked(_fDamageAmount);
+		GetStateMgr()->SetNextState(new CPlayerState_Damage(*this));
+	}
 }

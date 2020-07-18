@@ -32,7 +32,10 @@ void CSceneMgr::SetNextScene(CScene * _pNextScene)
 	// 다음 씬이 이미 세팅된 경우, 해당 함수를 무시한다.
 	// => 다음 상태 변경까지 새로운 상태로 세팅할 수 없다.
 	// for 상태를 동기화해주기 위함.
-	if (!m_bIsConfirmed) return;	// 이전에 상태 변경이 요청이 들어왔지만 아직 변경되지 않은 경우
+	if (!m_bIsConfirmed) {
+		DeleteSafe(_pNextScene);	// 해당 요청은 삭제한다.
+		return;	// 이전에 상태 변경이 요청이 들어왔지만 아직 변경되지 않은 경우
+	}
 
 	m_pNextScene = _pNextScene;		// 새로이 상태 변경 요청이 들어온 경우.
 	m_bIsConfirmed = false;			// 변경 요청이 들어옴.

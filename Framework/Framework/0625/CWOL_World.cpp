@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "CWOL_World.h"
+#include "CUI_Cursor.h"
 #include "CMapLoader.h"
 #include "CCamera2D.h"
 #include "CTimer.h"
@@ -9,8 +10,6 @@
 
 
 CWOL_World::CWOL_World()
-	:
-	m_pCamera(nullptr)
 {
 }
 
@@ -28,6 +27,8 @@ LRESULT CWOL_World::OnProcessingWindowMessage(HWND hWnd, UINT nMessageID, WPARAM
 void CWOL_World::Ready(void)
 {
 	LoadResources();
+
+	m_pCursor = new CUI_Cursor(*this, CBitmapMgr::GetInstance()->GetBitmapMemDC(TEXT("UI_MOUSE_CURSOR")));
 	GetSceneManager()->SetNextScene(new CTitleScene(*this));
 	m_pPlayer = new CPlayerWOL(*this, 0.f, 0.f);
 	m_pCamera = new CCamera2D(*this, m_pPlayer, WINCX >> 1, WINCY >> 1);
@@ -37,6 +38,8 @@ void CWOL_World::Ready(void)
 void CWOL_World::Update(void)
 {
 	float fDeltaTime = GetTimer()->GetElapsedTimePerFrame();
+	m_pCursor->Update(fDeltaTime);
+
 	GetSceneManager()->Update(fDeltaTime);
 	m_pCamera->Update(fDeltaTime);
 
@@ -68,11 +71,14 @@ void CWOL_World::Render(void)
 		m_iFrameCount = 0;
 	}
 
+	m_pCursor->Render(GetBackbufferDC(), m_pCamera);
+
 	RenderWindow();
 }
 
 void CWOL_World::Release(void)
 {
+	DeleteSafe(m_pCursor);
 	DeleteSafe(m_pCamera);
 	CBitmapMgr::DestroyInstance();
 	CKeyMgr::DestroyInstance();
@@ -80,6 +86,9 @@ void CWOL_World::Release(void)
 
 void CWOL_World::LoadResources(void)
 {
+	// 마우스 커서 세팅
+	CBitmapMgr::GetInstance()->InsertBitmap(TEXT("../Textures/UI_MOUSE_CURSOR.bmp"), TEXT("UI_MOUSE_CURSOR"));
+
 	// 타이틀 화면
 	CBitmapMgr::GetInstance()->InsertBitmap(TEXT("../Textures/READY_MENU.bmp"), TEXT("READY_MENU"));					// 타이틀 화면
 

@@ -71,6 +71,7 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
+    <IncludePath>../Common;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
@@ -160,6 +161,12 @@
     <ClInclude Include="CMapLoader.h" />
     <ClInclude Include="CMapFileMgr.h" />
     <ClInclude Include="CMapObjsGroup.h" />
+    <ClInclude Include="CPlayerState_Attack.h" />
+    <ClInclude Include="CPlayerState_Damage.h" />
+    <ClInclude Include="CPlayerState_Dash.h" />
+    <ClInclude Include="CPlayerState_Death.h" />
+    <ClInclude Include="CPlayerState_Idle.h" />
+    <ClInclude Include="CPlayerState_Run.h" />
     <ClInclude Include="CPlayerWOL.h" />
     <ClInclude Include="CPlayScene.h" />
     <ClInclude Include="CScene.h" />
@@ -169,9 +176,12 @@
     <ClInclude Include="CLayer.h" />
     <ClInclude Include="CObj.h" />
     <ClInclude Include="CSpawnPoint.h" />
+    <ClInclude Include="CState.h" />
+    <ClInclude Include="CStateMgr.h" />
     <ClInclude Include="CTimer.h" />
     <ClInclude Include="CTitleScene.h" />
     <ClInclude Include="CTrigger.h" />
+    <ClInclude Include="CUI_Cursor.h" />
     <ClInclude Include="CWOL_World.h" />
     <ClInclude Include="Function.h" />
     <ClInclude Include="GuidedBullet.h">
@@ -183,6 +193,7 @@
     <ClInclude Include="KeyMgr.h" />
     <ClInclude Include="MainApp.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
     </ClInclude>
     <ClInclude Include="Monster.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
@@ -221,6 +232,12 @@
     <ClCompile Include="CMapLoader.cpp" />
     <ClCompile Include="CMapFileMgr.cpp" />
     <ClCompile Include="CMapObjsGroup.cpp" />
+    <ClCompile Include="CPlayerState_Attack.cpp" />
+    <ClCompile Include="CPlayerState_Damage.cpp" />
+    <ClCompile Include="CPlayerState_Dash.cpp" />
+    <ClCompile Include="CPlayerState_Death.cpp" />
+    <ClCompile Include="CPlayerState_Idle.cpp" />
+    <ClCompile Include="CPlayerState_Run.cpp" />
     <ClCompile Include="CPlayerWOL.cpp" />
     <ClCompile Include="CPlayScene.cpp" />
     <ClCompile Include="CScene.cpp" />
@@ -229,9 +246,12 @@
     <ClCompile Include="CGameWorld.cpp" />
     <ClCompile Include="CLayer.cpp" />
     <ClCompile Include="CSpawnPoint.cpp" />
+    <ClCompile Include="CState.cpp" />
+    <ClCompile Include="CStateMgr.cpp" />
     <ClCompile Include="CTimer.cpp" />
     <ClCompile Include="CTitleScene.cpp" />
     <ClCompile Include="CTrigger.cpp" />
+    <ClCompile Include="CUI_Cursor.cpp" />
     <ClCompile Include="CWOL_World.cpp" />
     <ClCompile Include="Function.cpp" />
     <ClCompile Include="GuidedBullet.cpp">
@@ -243,6 +263,7 @@
     <ClCompile Include="KeyMgr.cpp" />
     <ClCompile Include="MainApp.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Monster.cpp">
@@ -279,6 +300,7 @@
     </ClCompile>
     <ClCompile Include="총알상자2.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

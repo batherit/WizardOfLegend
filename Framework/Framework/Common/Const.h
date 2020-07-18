@@ -8,6 +8,8 @@ const float cfDeltaY[OBJ::DIR_END] = { 0.f, 0.f, -1.f, 1.f };
 // 플레이어 변수
 const size_t ciPlayerSize = 50;
 const float cfPlayerRunSpeed = 610.f; // 1.55초에 13개의 타일(73*73)을 지나가는 것에 근거. 
+const float cfPlayerDashSpeed = 1750.f;	// 0.25초에 6개의 타일을 지나가는 것에 근거
+const float cfPlayerMaxHp = 500.f;
 
 // 총알 변수
 const size_t ciBulletSize = 8;
@@ -20,8 +22,8 @@ const float cfMonsterSpeed = 1.f;
 const float cfMonsterHp = 200.f;
 
 // 키보드 변수 (const 키워드 빼면 재정의 버그가 나는데 왜 그런지 모르겠다.)
-const DWORD cdwKey[KEY::KEY_END] = { VK_LEFT, VK_RIGHT, VK_UP, VK_DOWN, VK_LBUTTON, VK_RBUTTON, 'Q', 'E', 'W', 'A', 'S', 'D', VK_LSHIFT, 'P', 'G' };
-const DWORD cdwKeyMask[KEY::KEY_END] = { KM_LEFT, KM_RIGHT, KM_UP, KM_DOWN, KM_LBUTTON, KM_RBUTTON, KM_Q, KM_E, KM_W, KM_A, KM_S, KM_D, KM_LSHIFT, KM_P, KM_G };
+const DWORD cdwKey[KEY::KEY_END] = { VK_LEFT, VK_RIGHT, VK_UP, VK_DOWN, VK_LBUTTON, VK_RBUTTON, 'Q', 'E', 'W', 'A', 'S', 'D', VK_LSHIFT, 'P', 'G', VK_SPACE };
+const DWORD cdwKeyMask[KEY::KEY_END] = { KM_LEFT, KM_RIGHT, KM_UP, KM_DOWN, KM_LBUTTON, KM_RBUTTON, KM_Q, KM_E, KM_W, KM_A, KM_S, KM_D, KM_LSHIFT, KM_P, KM_G, KM_SPACE };
 
 // 맵에디터 변수
 const size_t ciMaxDrawLayerNum = 3;

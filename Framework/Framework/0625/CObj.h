@@ -70,16 +70,23 @@ public:
 		ZeroMemory(&m_stAnimProcessingInfo, sizeof(m_stAnimProcessingInfo));
 	}
 	int UpdateAnim(float _fDeltaTime);
+	float GetAnimProgress(void) const { return m_stAnimProcessingInfo.fAnimElapsedTime / m_stAnimInfo.fTotalTime;  }
 	int GetAnimX(void) const { return m_stAnimProcessingInfo.iCurrentIndex * m_iWidth; }
 	int GetAnimY(void) const { return m_stAnimInfo.iState * m_iHeight; }
-
+	const OBJ::E_DIRECTION GetDirType(void) const { return m_eDir; }
+	void SetDirType(const OBJ::E_DIRECTION& _eDir) { m_eDir = _eDir; }
+	virtual void Attacked(float _fDamageAmount) { Clamp(&(m_fHp -= _fDamageAmount), 0.f, cfPlayerMaxHp); }
+	const bool IsDead(void) const { return m_fHp == 0.f; }
 
 protected:
 	int m_iGroupID = -1;
 	MAP_OBJ::E_TYPE m_eObjType = MAP_OBJ::TYPE_END;
+	OBJ::E_DIRECTION m_eDir = OBJ::DIR_DOWN;
 	_anim_info m_stAnimInfo;
 	_anim_processing_info m_stAnimProcessingInfo;
 	bool m_bIsValid = true;
+	float m_fMaxHp = 0.f;
+	float m_fHp = 0.f;
 	float m_fX = 0.f;
 	float m_fY = 0.f;
 	float m_fToX = 0.f;

@@ -8,7 +8,7 @@ class CPlayer final : public CObj
 {
 public:
 	CPlayer(CGameWorld& _rGameWorld);
-	CPlayer(CGameWorld& _rGameWorld, float _fX, float _fY, size_t _iWidth = ciPlayerSize, size_t _iHeight = ciPlayerSize, float _fSpeed = cfPlayerSpeed);
+	CPlayer(CGameWorld& _rGameWorld, float _fX, float _fY, size_t _iWidth = ciPlayerSize, size_t _iHeight = ciPlayerSize, float _fSpeed = cfPlayerRunSpeed);
 	virtual ~CPlayer();
 
 public:

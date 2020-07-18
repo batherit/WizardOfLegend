@@ -69,8 +69,8 @@ int CObj::UpdateAnim(float _fDeltaTime)
 
 		if(0 != m_stAnimInfo.iCountToRepeat) {
 			m_stAnimProcessingInfo.iRepeatedCount++;
-			if (m_stAnimInfo.iCountToRepeat >= m_stAnimProcessingInfo.iRepeatedCount) {
-				SetNewAnimInfo(_anim_info()); // 무효화 상태를 집어넣는다.
+			if (m_stAnimInfo.iCountToRepeat <= m_stAnimProcessingInfo.iRepeatedCount) {
+				//SetNewAnimInfo(_anim_info()); // 무효화 상태를 집어넣는다.
 				return 1;
 			}
 		}
