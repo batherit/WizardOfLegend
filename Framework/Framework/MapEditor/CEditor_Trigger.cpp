@@ -1,20 +1,21 @@
 #include "stdafx.h"
 #include "CEditor_Trigger.h"
 #include "CCamera2D.h"
+#include "CSpace.h"
 
 
-CEditor_Trigger::CEditor_Trigger(const _map_render_info & _rMapRenderInfo, int _iPivotRow, int _iPivotCol)
+CEditor_Trigger::CEditor_Trigger(CGameWorld& _rGameWorld, const _map_render_info & _rMapRenderInfo, int _iPivotRow, int _iPivotCol)
 	:
-	CEditor_Obj(_rMapRenderInfo, _iPivotRow, _iPivotCol, MAP_OBJ::TYPE_TRIGGER)
+	CEditor_Obj(_rGameWorld, _rMapRenderInfo, _iPivotRow, _iPivotCol, MAP_OBJ::TYPE_TRIGGER)
 {
 	//m_stEndPoint.iRow = _iPivotRow;
 	//m_stEndPoint.iCol = _iPivotCol;
 }
 
 
-CEditor_Trigger::CEditor_Trigger(const _map_render_info & _rMapRenderInfo)
+CEditor_Trigger::CEditor_Trigger(CGameWorld& _rGameWorld, const _map_render_info & _rMapRenderInfo)
 	:
-	CEditor_Obj(_rMapRenderInfo)
+	CEditor_Obj(_rGameWorld, _rMapRenderInfo)
 {
 }
 
@@ -67,6 +68,9 @@ void CEditor_Trigger::Render(HDC & _hdc, CCamera2D * _pCamera)
 	pair<float, float> pairLeftTop = _pCamera->GetScreenPoint(rcDrawArea.left, rcDrawArea.top);
 	pair<float, float> pairRightBottom = _pCamera->GetScreenPoint(rcDrawArea.right, rcDrawArea.bottom);
 
+	RECT rcCollider = { pairLeftTop.first, pairLeftTop.second, pairRightBottom.first, pairRightBottom.second };
+	if (!IsCollided(m_rGameWorld.GetViewSpace()->GetRect(), rcCollider)) return;
+
 	// ³»ºÎ°¡ ºó
 	HBRUSH hBrush = (HBRUSH)GetStockObject(NULL_BRUSH);
 	HBRUSH hOldBrush = (HBRUSH)SelectObject(_hdc, hBrush);
@@ -83,9 +87,11 @@ void CEditor_Trigger::Render(HDC & _hdc, CCamera2D * _pCamera)
 	DeleteObject(hBrush);
 	DeleteObject(hPen);
 
-	TCHAR szMode[32];
-	swprintf_s(szMode, TEXT("GN : %d"), m_iGroupID);
-	TextOut(_hdc, pairLeftTop.first, pairLeftTop.second, szMode, lstrlen(szMode));
+	if (g_bDebugShowGroup) {
+		TCHAR szMode[32];
+		swprintf_s(szMode, TEXT("G%d"), m_iGroupID);
+		TextOut(_hdc, pairLeftTop.first, pairLeftTop.second, szMode, lstrlen(szMode));
+	}
 }
 
 void CEditor_Trigger::SaveInfo(FILE * _fpOut)

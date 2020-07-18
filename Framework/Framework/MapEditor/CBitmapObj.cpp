@@ -26,7 +26,6 @@ void CBitmapObj::LoadBmp(const TCHAR * pFilePath)
 
 	// Bitmap의 속성을 얻는다.
 	BITMAP bmp;
-	HBITMAP  hBitmap;
 
 	::GetObject(m_hBitmap, sizeof(BITMAP), (LPVOID)&bmp);
 	m_lWidth = bmp.bmWidth;  // 그림의 폭

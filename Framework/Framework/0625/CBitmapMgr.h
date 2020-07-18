@@ -11,7 +11,7 @@ public:
 			m_pInstance = new CBitmapMgr;
 		return m_pInstance;
 	}
-	static void Destroy_Instance()
+	static void DestroyInstance()
 	{
 		if (m_pInstance)
 		{
@@ -23,7 +23,7 @@ private:
 	CBitmapMgr();
 	~CBitmapMgr();
 public:
-	const HDC FindBitmapMemDC(const TCHAR* _szImageKey) const;
+	const HDC GetBitmapMemDC(const TCHAR* _szImageKey) const;
 	const CBitmapObj* GetBitmapObj(const TCHAR* _szImageKey) const;
 	void InsertBitmap(const TCHAR* _pFilePath, const TCHAR* _pImageKey);
 	void Release(void);

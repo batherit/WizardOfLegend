@@ -2,8 +2,8 @@
 class CEditor_Obj
 {
 public:
-	CEditor_Obj(const _map_render_info& _rMapRenderInfo, int _iPivotRow, int _iPivotCol, MAP_OBJ::E_TYPE _eObjType); // 외부 생성용
-	CEditor_Obj(const _map_render_info& _rMapRenderInfo); // 저장 파일 로드용
+	CEditor_Obj(CGameWorld& _rGameWorld, const _map_render_info& _rMapRenderInfo, int _iPivotRow, int _iPivotCol, MAP_OBJ::E_TYPE _eObjType); // 외부 생성용
+	CEditor_Obj(CGameWorld& _rGameWorld, const _map_render_info& _rMapRenderInfo); // 저장 파일 로드용
 	virtual ~CEditor_Obj();
 
 public:
@@ -18,11 +18,15 @@ public:
 	virtual void MakeMapData(FILE* _fpOut);
 	void SetGroupID(int _iGroupID) { m_iGroupID = _iGroupID; }
 	int GetGroupID(void) const { return m_iGroupID; }
+	void SetDrawLayer(int _iDrawLayer) { m_iDrawLayer = _iDrawLayer; }
+	int GetDrawLayer(void) const { return m_iDrawLayer; }
 
 protected:
+	CGameWorld& m_rGameWorld;
 	MAP_OBJ::E_TYPE m_eObjType = MAP_OBJ::TYPE_END;
 	const _map_render_info& m_rMapRenderInfo;
 	_pivot_point m_stPivotPoint;
 	int m_iGroupID = -1;
+	int m_iDrawLayer = 0;
 };
 

@@ -28,12 +28,13 @@ public:
 
 public:
 	void MoveTo(float _fDeltaX, float _fDeltaY) { m_fX += _fDeltaX; m_fY += _fDeltaY; }
+	void MoveByDeltaTime(float _fDeltaTime) { m_fX += (m_fToX * m_fSpeed * _fDeltaTime); m_fY += (m_fToY * m_fSpeed * _fDeltaTime); }
 	void SetX(float _fX) { m_fX = _fX; }
 	void SetY(float _fY) { m_fY = _fY; }
 	void SetXY(float _fX, float _fY) { SetX(_fX); SetY(_fY); }
 	void SetToX(float _fToX) { m_fToX = _fToX; }
 	void SetToY(float _fToY) { m_fToY = _fToY; }
-	void SetToXY(float _fToX, float _fToY) { SetToX(_fToX); SetToY(_fToY); }
+	void SetToXY(float _fToX, float _fToY) { NormalizeVector(_fToX, _fToY); SetToX(_fToX); SetToY(_fToY); }
 	float GetX(void) const { return m_fX; }
 	float GetY(void) const { return m_fY; }
 	pair<float, float> GetXY(void) const { return make_pair(GetX(), GetY()); }
@@ -61,15 +62,15 @@ public:
 	void SetSpeed(float _fSpeed) { m_fSpeed = _fSpeed; }
 	void SetValid(bool _bIsValid) { m_bIsValid = _bIsValid; }
 	bool IsValid(void) const { return m_bIsValid; }
-	/*void SetActive(bool _bIsActive) { m_bIsActive = _bIsActive; }
-	bool IsActive(void) { return m_bIsActive; }*/
 	const int GetGroupID(void) const { return m_iGroupID; }
-	
+	//void UpdateAnimation(float _fDeltaTime);
+	//void ChangeAnimation(int )
+
 
 protected:
 	int m_iGroupID = -1;
-	MAP_OBJ::E_TYPE m_eObjType = MAP_OBJ::TYPE_COLLIDER;
-
+	MAP_OBJ::E_TYPE m_eObjType = MAP_OBJ::TYPE_END;
+	_anim_processing_info m_stAnimProcessingInfo;
 	bool m_bIsValid = true;
 	float m_fX = 0.f;
 	float m_fY = 0.f;

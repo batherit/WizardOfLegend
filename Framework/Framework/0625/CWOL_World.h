@@ -19,11 +19,16 @@ public:
 	virtual void Render(void) override;
 	virtual void Release(void) override;
 
+public:
+	CObj* GetPlayer(void) { return m_pPlayer; }
+
 private:
 	void LoadResources(void);
 
 private:
-	CCamera2D* m_pCamera;
-	CMapLoader* m_pMap;
+	CCamera2D* m_pCamera = nullptr;
+	CObj* m_pPlayer = nullptr;
+	float m_fElapsedTime = 0.f;
+	int m_iFrameCount = 0;
 };
 

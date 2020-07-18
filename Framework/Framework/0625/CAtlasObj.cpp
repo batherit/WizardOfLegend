@@ -4,6 +4,7 @@
 #include "CMapLoader.h"
 #include "CAtlasLoader.h"
 #include "CBitmapMgr.h"
+#include "CSpace.h"
 
 const TCHAR* CAtlasObj::ctBitmapKey[3] = { L"WOL_TILE_DUNGEON", L"WOL_TILE_HOMETOWN", L"WOL_OBJECT", };
 
@@ -39,7 +40,7 @@ CAtlasObj::CAtlasObj(FILE* _fpIn, CGameWorld & _rGameWorld)
 	SetHeight(rcRect.bottom - rcRect.top);
 
 	// 그릴 비트맵 정보를 저장
-	m_hMemdc = CBitmapMgr::GetInstance()->FindBitmapMemDC(ctBitmapKey[m_iAtlasID]);
+	m_hMemdc = CBitmapMgr::GetInstance()->GetBitmapMemDC(ctBitmapKey[m_iAtlasID]);
 }
 
 CAtlasObj::~CAtlasObj()
@@ -49,11 +50,14 @@ CAtlasObj::~CAtlasObj()
 void CAtlasObj::Render(HDC & _hdc, CCamera2D * _pCamera)
 {
 	// 그릴 영역을 가져온다.
-	RECT rcDrawArea = GetRect();
+	RECT& rcDrawArea = GetRect();
 
 	// 그릴 영역을 스크린 좌표로 변환한다.
-	pair<float, float> pairLeftTop = _pCamera->GetScreenPoint(rcDrawArea.left, rcDrawArea.top);
-	pair<float, float> pairRightBottom = _pCamera->GetScreenPoint(rcDrawArea.right, rcDrawArea.bottom);
+	pair<float, float>& pairLeftTop = _pCamera->GetScreenPoint(rcDrawArea.left, rcDrawArea.top);
+	pair<float, float>& pairRightBottom = _pCamera->GetScreenPoint(rcDrawArea.right, rcDrawArea.bottom);
+
+	RECT rcCollider = { pairLeftTop.first, pairLeftTop.second, pairRightBottom.first, pairRightBottom.second };
+	if (!IsCollided(GetGameWorld().GetViewSpace()->GetRect(), rcCollider)) return;
 
 	GdiTransparentBlt(_hdc,
 		pairLeftTop.first,			// 출력 시작좌표 X
@@ -66,8 +70,8 @@ void CAtlasObj::Render(HDC & _hdc, CCamera2D * _pCamera)
 		m_rcOutputArea.right - m_rcOutputArea.left,
 		m_rcOutputArea.bottom - m_rcOutputArea.top,
 		RGB(255, 0, 255));
-
-	TCHAR szMode[32];
+	g_iRenderCount++;
+	/*TCHAR szMode[32];
 	swprintf_s(szMode, TEXT("GN : %d"), m_iGroupID);
-	TextOut(_hdc, pairLeftTop.first, pairLeftTop.second, szMode, lstrlen(szMode));
+	TextOut(_hdc, pairLeftTop.first, pairLeftTop.second, szMode, lstrlen(szMode));*/
 }

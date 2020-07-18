@@ -39,3 +39,22 @@ struct _pivot_point {
 	int iRow;
 	int iCol;
 };
+
+// 오브젝트를 나타내는 비트맵 이미지 사이즈 (가로 세로)
+//struct _bitmap_output_size {
+//	int iWidth = 0;
+//	int iHeight = 0;
+//};
+
+// 해당 상태의 시작과 끝 인덱스와 이 애니메이션이 지속될 총 시간
+struct _anim_info {
+	int iStartIndex = 0;		// 애니메이션 시작 인덱스
+	int iEndIndex = 0;			// 애니메이션 끝 인덱스
+	float fTotalTime = 0.f;		// 한 애니메이션 총 진행 시간
+	int iCountToRepeat = 0;		// 한 애니메이션을 몇 번 진행? (0 - 무한, 1 - 1회하고 끝(별 일 없으면 IDLE로 전환))
+};
+// => CObj는 float fAnimElapsedTime과 int iRepeatedCount를 지닌다. 
+struct _anim_processing_info {
+	float fAnimElapsedTime = 0.f;
+	int iRepeatedCount = 0;
+};

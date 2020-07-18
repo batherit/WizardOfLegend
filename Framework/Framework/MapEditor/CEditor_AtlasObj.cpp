@@ -2,18 +2,19 @@
 #include "CEditor_AtlasObj.h"
 #include "CAtlasLoader.h"
 #include "CCamera2D.h"
+#include "CSpace.h"
 
 
-CEditor_AtlasObj::CEditor_AtlasObj(const _map_render_info & _rMapRenderInfo, int _iPivotRow, int _iPivotCol, const _atlas_obj_info& _rAtlasObjInfo)
+CEditor_AtlasObj::CEditor_AtlasObj(CGameWorld& _rGameWorld, const _map_render_info & _rMapRenderInfo, int _iPivotRow, int _iPivotCol, const _atlas_obj_info& _rAtlasObjInfo)
 	:
-	CEditor_Obj(_rMapRenderInfo, _iPivotRow, _iPivotCol, MAP_OBJ::TYPE_ATLAS_OBJ),
+	CEditor_Obj(_rGameWorld, _rMapRenderInfo, _iPivotRow, _iPivotCol, MAP_OBJ::TYPE_ATLAS_OBJ),
 	m_stAtlasObjInfo(_rAtlasObjInfo)
 {
 }
 
-CEditor_AtlasObj::CEditor_AtlasObj(const _map_render_info & _rMapRenderInfo)
+CEditor_AtlasObj::CEditor_AtlasObj(CGameWorld& _rGameWorld, const _map_render_info & _rMapRenderInfo)
 	:
-	CEditor_Obj(_rMapRenderInfo)
+	CEditor_Obj(_rGameWorld, _rMapRenderInfo)
 {
 }
 
@@ -54,6 +55,9 @@ void CEditor_AtlasObj::Render(HDC & _hdc, CCamera2D * _pCamera)
 	pair<float, float> pairLeftTop = _pCamera->GetScreenPoint(rcDrawArea.left, rcDrawArea.top);
 	pair<float, float> pairRightBottom = _pCamera->GetScreenPoint(rcDrawArea.right, rcDrawArea.bottom);
 
+	RECT rcCollider = { pairLeftTop.first, pairLeftTop.second, pairRightBottom.first, pairRightBottom.second };
+	if (!IsCollided(m_rGameWorld.GetViewSpace()->GetRect(), rcCollider)) return;
+
 	GdiTransparentBlt(_hdc,
 		pairLeftTop.first,			// 출력 시작좌표 X
 		pairLeftTop.second,			// 출력 시작좌표 Y
@@ -65,10 +69,14 @@ void CEditor_AtlasObj::Render(HDC & _hdc, CCamera2D * _pCamera)
 		m_stAtlasObjInfo.rcOutputArea.right - m_stAtlasObjInfo.rcOutputArea.left,
 		m_stAtlasObjInfo.rcOutputArea.bottom - m_stAtlasObjInfo.rcOutputArea.top,
 		RGB(255, 0, 255));
-
-	TCHAR szMode[32];
-	swprintf_s(szMode, TEXT("GN : %d"), m_iGroupID);
-	TextOut(_hdc, pairLeftTop.first, pairLeftTop.second, szMode, lstrlen(szMode));
+	
+	if (g_bDebugShowGroup) {
+		TCHAR szMode[32];
+		swprintf_s(szMode, TEXT("G%d"), m_iGroupID);
+		TextOut(_hdc, pairLeftTop.first, pairLeftTop.second, szMode, lstrlen(szMode));
+		swprintf_s(szMode, TEXT("L%d"), m_iDrawLayer);
+		TextOut(_hdc, pairLeftTop.first + 20, pairLeftTop.second, szMode, lstrlen(szMode));
+	}
 }
 
 void CEditor_AtlasObj::SaveInfo(FILE * _fpOut)

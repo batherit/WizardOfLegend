@@ -1,7 +1,8 @@
 #pragma once
 
-#define WINCX 1536// 1400 1920 
-#define WINCY 864// 800 1080
+// 윈도우 사이즈
+#define WINCX 1700// 1400 1920 
+#define WINCY 1000// 800 1080
 
 // 타이머 관련
 #define WORLD_TIMER	CGameWorldTimer::Instance()
@@ -14,12 +15,14 @@
 // 형 변환 관련
 #define TO_SPACE(_pObj)				dynamic_cast<const CSpace*>(_pObj)
 #define TO_PLAYER(_pObj)			dynamic_cast<CPlayer*>(_pObj)
+#define TO_PLAYER_WOL(_pObj)		dynamic_cast<CPlayerWOL*>(_pObj)
 #define TO_BULLET(_pObj)			dynamic_cast<CBullet*>(_pObj)
 #define TO_SCREW_BULLET(_pObj)		dynamic_cast<CScrewBullet*> (_pObj)
 #define TO_MONSTER(_pObj)			dynamic_cast<CMonster*>(_pObj)
 #define TO_CAMERA2D(_pObj)			dynamic_cast<CCamera2D*>(_pObj)
 #define TO_GAMEWORLD(_pGameWorld)	dynamic_cast<CMainApp&>(_pGameWorld)
 #define TO_MAPTOOL(_pGameWorld)		dynamic_cast<CMapTool&>(_pGameWorld)
+#define TO_WOL(_pGameWorld)			dynamic_cast<CWOL_World&>(_pGameWorld)
 
 // 수학 관련
 #define PI acos(-1.f) //== acos(cos(pi)) == pi
@@ -67,8 +70,26 @@
 #define KM_S		0x00000400
 #define KM_D		0x00000800
 
+#define KM_LSHIFT	0x00001000
+#define KM_P		0x00002000
+#define KM_G		0x00004000
+
 // 파일 입출력 관련
 #define FB_WRITE_DATA(_valueName, _fpOut) fwrite(&(_valueName), sizeof(_valueName), 1, _fpOut)
 #define FB_READ_DATA(_valueName, _fpIn) fread(&(_valueName), sizeof(_valueName), 1, _fpIn)
 #define FB_WRITE_HEAD(_valueName, _fpOut) fwrite(&(_valueName), sizeof(_valueName), 1, _fpOut)
 #define FB_READ_HEAD(_valueName, _fpIn) fread(&(_valueName), sizeof(_valueName), 1, _fpIn)
+
+
+
+
+
+
+
+
+
+
+
+// 플레이어 비트맵 출력 사이즈
+#define PLAYER_OUTPUT_WITDH			181
+#define PLAYER_OUTPUT_HEIGHT		182

@@ -5,8 +5,8 @@ class CEditor_AtlasObj :
 	public CEditor_Obj
 {
 public:
-	CEditor_AtlasObj(const _map_render_info & _rMapRenderInfo, int _iPivotRow, int _iPivotCol, const _atlas_obj_info& _rAtlasObjInfo); // 외부 생성용
-	CEditor_AtlasObj(const _map_render_info & _rMapRenderInfo);		// 파일 로드용
+	CEditor_AtlasObj(CGameWorld& _rGameWorld, const _map_render_info & _rMapRenderInfo, int _iPivotRow, int _iPivotCol, const _atlas_obj_info& _rAtlasObjInfo); // 외부 생성용
+	CEditor_AtlasObj(CGameWorld& _rGameWorld, const _map_render_info & _rMapRenderInfo);		// 파일 로드용
 	~CEditor_AtlasObj();
 
 public:

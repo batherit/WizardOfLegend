@@ -34,7 +34,7 @@ CDoor::CDoor(FILE * _fpIn, CGameWorld & _rGameWorld)
 		break;
 	}
 
-	m_hMemdc = CBitmapMgr::GetInstance()->FindBitmapMemDC(m_tDoorBitmapKey);
+	m_hMemdc = CBitmapMgr::GetInstance()->GetBitmapMemDC(m_tDoorBitmapKey);
 	m_pBitmapObj = CBitmapMgr::GetInstance()->GetBitmapObj(m_tDoorBitmapKey);
 }
 
@@ -64,7 +64,7 @@ void CDoor::Render(HDC & _hdc, CCamera2D * _pCamera)
 		m_pBitmapObj->GetHeight(),
 		RGB(255, 0, 255));
 
-	TCHAR szMode[32];
+	/*TCHAR szMode[32];
 	swprintf_s(szMode, TEXT("GN : %d"), m_iGroupID);
-	TextOut(_hdc, pairLeftTop.first, pairLeftTop.second, szMode, lstrlen(szMode));
+	TextOut(_hdc, pairLeftTop.first, pairLeftTop.second, szMode, lstrlen(szMode));*/
 }

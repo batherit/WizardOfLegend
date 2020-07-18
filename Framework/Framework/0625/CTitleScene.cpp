@@ -9,14 +9,14 @@ CTitleScene::CTitleScene(CGameWorld& _rGameWorld)
 	:
 	CScene(_rGameWorld)
 {
+	m_hMemdc = CBitmapMgr::GetInstance()->GetBitmapMemDC(TEXT("READY_MENU"));
+	const CBitmapObj* pBitmapObj = CBitmapMgr::GetInstance()->GetBitmapObj(TEXT("READY_MENU"));
+	m_iWidth = pBitmapObj->GetWitdh();
+	m_iHeight = pBitmapObj->GetHeight();
 }
 
 
 CTitleScene::~CTitleScene()
-{
-}
-
-void CTitleScene::Ready(void)
 {
 }
 
@@ -35,10 +35,7 @@ void CTitleScene::LateUpdate(void)
 
 void CTitleScene::Render(HDC & _hdc, CCamera2D * _pCamera)
 {
-	HDC memdc = CBitmapMgr::GetInstance()->FindBitmapMemDC(TEXT("READY_MENU"));
-	const CBitmapObj* pBitmapObj = CBitmapMgr::GetInstance()->GetBitmapObj(TEXT("READY_MENU"));
-
-	StretchBlt(_hdc, 0, 0, WINCX, WINCY, memdc, 0, 0, pBitmapObj->GetWitdh(), pBitmapObj->GetHeight(), SRCCOPY);
+	StretchBlt(_hdc, 0, 0, WINCX, WINCY, m_hMemdc, 0, 0, m_iWidth, m_iHeight, SRCCOPY);
 }
 
 void CTitleScene::Release(void)

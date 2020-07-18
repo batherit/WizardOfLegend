@@ -4,8 +4,8 @@ class CEditor_Door :
 	public CEditor_Obj
 {
 public:
-	CEditor_Door(const _map_render_info & _rMapRenderInfo, int _iPivotRow, int _iPivotCol, MAP_OBJ::E_TYPE _eDoorType); // 외부 생성용
-	CEditor_Door(const _map_render_info & _rMapRenderInfo);		// 파일 로드용
+	CEditor_Door(CGameWorld& _rGameWorld, const _map_render_info & _rMapRenderInfo, int _iPivotRow, int _iPivotCol, MAP_OBJ::E_TYPE _eDoorType); // 외부 생성용
+	CEditor_Door(CGameWorld& _rGameWorld, const _map_render_info & _rMapRenderInfo);		// 파일 로드용
 	~CEditor_Door();
 
 public:

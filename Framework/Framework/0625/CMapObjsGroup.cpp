@@ -34,7 +34,7 @@ void CMapObjsGroup::LateUpdate(void)
 void CMapObjsGroup::Render(HDC & _hdc, CCamera2D * _pCamera)
 {	
 	for (auto& pObj : m_vecMapObjs) { pObj->Render(_hdc, _pCamera); }
-	RenderGroupArea(_hdc, _pCamera);
+	//RenderGroupArea(_hdc, _pCamera);
 }
 
 void CMapObjsGroup::Release(void)

@@ -159,6 +159,7 @@
     <ClInclude Include="CMapFileMgr.h" />
     <ClInclude Include="CMapTool.h" />
     <ClInclude Include="CObj.h" />
+    <ClInclude Include="CSpace.h" />
     <ClInclude Include="CTimer.h" />
     <ClInclude Include="Function.h" />
     <ClInclude Include="KeyMgr.h" />
@@ -184,6 +185,7 @@
     <ClCompile Include="CMapFileMgr.cpp" />
     <ClCompile Include="CMapTool.cpp" />
     <ClCompile Include="CObj.cpp" />
+    <ClCompile Include="CSpace.cpp" />
     <ClCompile Include="CTimer.cpp" />
     <ClCompile Include="Function.cpp" />
     <ClCompile Include="KeyMgr.cpp" />

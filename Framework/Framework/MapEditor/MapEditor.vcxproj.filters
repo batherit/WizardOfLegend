@@ -113,6 +113,9 @@
     <ClInclude Include="CEditor_SpawnPoint.h">
       <Filter>소스 파일\Obj</Filter>
     </ClInclude>
+    <ClInclude Include="CSpace.h">
+      <Filter>소스 파일\Obj</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -176,6 +179,9 @@
       <Filter>소스 파일\Obj</Filter>
     </ClCompile>
     <ClCompile Include="CEditor_SpawnPoint.cpp">
+      <Filter>소스 파일\Obj</Filter>
+    </ClCompile>
+    <ClCompile Include="CSpace.cpp">
       <Filter>소스 파일\Obj</Filter>
     </ClCompile>
   </ItemGroup>

@@ -4,8 +4,8 @@ class CEditor_Collider :
 	public CEditor_Obj
 {
 public:
-	CEditor_Collider(const _map_render_info & _rMapRenderInfo, int _iPivotRow, int _iPivotCol);
-	CEditor_Collider(const _map_render_info& _rMapRenderInfo);
+	CEditor_Collider(CGameWorld& _rGameWorld, const _map_render_info & _rMapRenderInfo, int _iPivotRow, int _iPivotCol);
+	CEditor_Collider(CGameWorld& _rGameWorld, const _map_render_info& _rMapRenderInfo);
 	~CEditor_Collider();
 
 public:

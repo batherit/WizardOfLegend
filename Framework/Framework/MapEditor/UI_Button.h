@@ -46,6 +46,7 @@ int CUI_Button<T>::Update(float _fDeltaTime)
 	{
 		if (CKeyMgr::GetInstance()->IsKeyDown(KEY::KEY_LBUTTON)) {
 			if (m_pOwner && m_pEvent) (m_pOwner->*m_pEvent)(m_pArgu);
+			return 1;
 		}
 	}
 	return 0;

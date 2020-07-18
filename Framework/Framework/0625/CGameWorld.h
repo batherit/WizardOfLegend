@@ -31,8 +31,8 @@ public:
 
 private:
 	HDC m_hDC;
-	HBITMAP m_hBackbuffer;
 	HDC m_hBackbufferDC;
+	HDC m_hBackbufferClearDC;
 	CTimer* m_pTimer;
 	CSpace* m_pViewSpace;
 	CSceneMgr* m_pSceneManager;

@@ -104,7 +104,7 @@ void CMapLoader::LateUpdate(void)
 
 void CMapLoader::Render(HDC & _hdc, CCamera2D * _pCamera)
 {
-	for (int i = 0; i < ciMaxDrawLayerNum; i++) {
+	/*for (int i = 0; i < ciMaxDrawLayerNum; i++) {
 		for (auto& pGroup : m_vecAtlasObjsGroups[i]) {
 			pGroup->Render(_hdc, _pCamera);
 		}
@@ -118,7 +118,7 @@ void CMapLoader::Render(HDC & _hdc, CCamera2D * _pCamera)
 	for (auto& pObj : m_vecUnactiveDoors) {
 		pObj->Render(_hdc, _pCamera);
 	}
-	m_pSpawnPoint->Render(_hdc, _pCamera);
+	m_pSpawnPoint->Render(_hdc, _pCamera);*/
 }
 
 void CMapLoader::Release(void)

@@ -1,6 +1,7 @@
 #pragma once
 
 class CTimer;
+class CSpace;
 
 class CGameWorld abstract
 {
@@ -23,11 +24,13 @@ public:
 	HDC& GetHDC(void) { return m_hDC; }
 	HDC& GetBackbufferDC(void) { return m_hBackbufferDC; }
 	CTimer* GetTimer(void) { return m_pTimer; }
+	CSpace* GetViewSpace(void) const { return m_pViewSpace; }
 
 private:
 	HDC m_hDC;
 	HBITMAP m_hBackbuffer;
 	HDC m_hBackbufferDC;
 	CTimer* m_pTimer;
+	CSpace* m_pViewSpace;
 };
 

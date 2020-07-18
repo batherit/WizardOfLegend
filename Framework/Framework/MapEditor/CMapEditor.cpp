@@ -12,6 +12,7 @@
 #include "CBitmapMgr.h"
 
 
+
 CMapEditor::CMapEditor(CGameWorld& _rGameWorld)
 	:
 	m_rGameWorld(_rGameWorld)
@@ -99,7 +100,7 @@ CMapEditor::CMapEditor(CGameWorld& _rGameWorld)
 	m_vecEditorButtons.emplace_back(new CUI_Button<CMapEditor>(m_rGameWorld, WINCX - 100, (WINCY >> 1) + 200, 120, 25, TEXT("Make Map Data"), this, &CMapEditor::MakeMapData, nullptr));
 
 	// 디폴트 스폰포인트 생성
-	m_pSpawnPoint = new CEditor_SpawnPoint(m_stMapRenderInfo, -1, -1);
+	m_pSpawnPoint = new CEditor_SpawnPoint(m_rGameWorld, m_stMapRenderInfo, -1, -1);
 
 	TO_MAPTOOL(m_rGameWorld).GetCamera()->SetXY(GetMapMiddleX(), GetMapMiddleY());
 }
@@ -112,7 +113,26 @@ CMapEditor::~CMapEditor()
 
 void CMapEditor::Update(float _fDeltaTime)
 {
+	int iUiReturnVal = 0;
+
+	// 쇼스펙
 	CKeyMgr* pKeyMgrInst = CKeyMgr::GetInstance();
+	if (pKeyMgrInst->IsKeyDown(KEY::KEY_P)) {
+		if (g_bDebugShowSpec) g_bDebugShowSpec = false;
+		else g_bDebugShowSpec = true;
+	}
+
+	if (pKeyMgrInst->IsKeyDown(KEY::KEY_G)) {
+		if (g_bDebugShowGroup) g_bDebugShowGroup = false;
+		else g_bDebugShowGroup = true;
+	}
+
+	for (auto& pButton : m_vecEditorButtons) {
+		iUiReturnVal = pButton->Update(_fDeltaTime);
+		if (iUiReturnVal == 1) return;
+	}
+
+	
 	
 	// 맵 드래그 관련(우클릭으로 맵을 드래그한다.)
 	if (pKeyMgrInst->IsKeyDown(KEY::KEY_RBUTTON)) {
@@ -133,6 +153,10 @@ void CMapEditor::Update(float _fDeltaTime)
 		pKeyMgrInst->SetOldClickedPoint(POINT{0, 0});
 	}
 
+	// 툴 변경
+	if (pKeyMgrInst->IsKeyDown(KEY::KEY_LSHIFT) || pKeyMgrInst->IsKeyUp(KEY::KEY_LSHIFT)) {
+		m_eTool = (m_eTool == MAP_EDITOR::TOOL_PAINT ? MAP_EDITOR::TOOL_ERASE : MAP_EDITOR::TOOL_PAINT);
+	}
 	
 	if (pKeyMgrInst->IsKeyDown(KEY::KEY_LBUTTON)) {
 		if (m_iVisibleAtlasID != -1) {
@@ -171,8 +195,9 @@ void CMapEditor::Update(float _fDeltaTime)
 					{
 					case MAP_EDITOR::TOOL_PAINT:
 						if (!pPickedObj && m_stDetectedAtlasObj.iAtlasID >= 0) {
-							CEditor_Obj* pObj = new CEditor_AtlasObj(m_stMapRenderInfo, iRow, iCol, m_stDetectedAtlasObj);
+							CEditor_Obj* pObj = new CEditor_AtlasObj(m_rGameWorld, m_stMapRenderInfo, iRow, iCol, m_stDetectedAtlasObj);
 							pObj->SetGroupID(m_iGroupID);
+							pObj->SetDrawLayer(m_iDrawLayerIndex);
 							m_listAtlasObjs[m_iDrawLayerIndex].emplace_back(pObj);
 						}
 						break;
@@ -201,7 +226,7 @@ void CMapEditor::Update(float _fDeltaTime)
 					case MAP_EDITOR::TOOL_PAINT:
 						if (!pPickedObj)
 						{
-							CEditor_Obj* pObj = new CEditor_Collider(m_stMapRenderInfo, iRow, iCol);
+							CEditor_Obj* pObj = new CEditor_Collider(m_rGameWorld, m_stMapRenderInfo, iRow, iCol);
 							pObj->SetGroupID(m_iGroupID);
 							m_listColliders.emplace_back(pObj);
 						}
@@ -231,7 +256,7 @@ void CMapEditor::Update(float _fDeltaTime)
 					case MAP_EDITOR::TOOL_PAINT:
 						if (!pPickedObj)
 						{
-							CEditor_Obj* pObj = new CEditor_Trigger(m_stMapRenderInfo, iRow, iCol);
+							CEditor_Obj* pObj = new CEditor_Trigger(m_rGameWorld, m_stMapRenderInfo, iRow, iCol);
 							pObj->SetGroupID(m_iGroupID);
 							m_listTriggers.emplace_back(pObj);
 						}
@@ -249,28 +274,36 @@ void CMapEditor::Update(float _fDeltaTime)
 				}
 				case MAP_EDITOR::LAYER_DOOR:
 				{
-					CEditor_Obj* pPickedObj = nullptr;
+					/*CEditor_Obj* pPickedObj = nullptr;
 					for (auto& obj : m_listDoors) {
 						if (IsPointInRect(obj->GetRowColRect(), POINT{ iCol, iRow })) {
 							pPickedObj = obj;
 							break;
 						}
-					}
+					}*/
 					switch (m_eTool)
 					{
 					case MAP_EDITOR::TOOL_PAINT:
-						if (!pPickedObj)
-						{
-							CEditor_Obj* pObj = new CEditor_Door(m_stMapRenderInfo, iRow, iCol, m_eDoorType);
-							pObj->SetGroupID(m_iGroupID);
-							m_listDoors.emplace_back(pObj);
-						}
+					{
+						CEditor_Obj* pObj = new CEditor_Door(m_rGameWorld, m_stMapRenderInfo, iRow, iCol, m_eDoorType);
+						pObj->SetGroupID(m_iGroupID);
+						m_listDoors.emplace_back(pObj);
+					}
 						break;
 					case MAP_EDITOR::TOOL_ERASE:
+					{
+						CEditor_Obj* pPickedObj = nullptr;
+						for (auto& obj : m_listDoors) {
+							if (IsPointInRect(obj->GetRowColRect(), POINT{ iCol, iRow })) {
+								pPickedObj = obj;
+								break;
+							}
+						}
 						if (pPickedObj) {
 							m_listDoors.erase(find(m_listDoors.begin(), m_listDoors.end(), pPickedObj));
 							DeleteSafe(pPickedObj);
 						}
+					}
 						break;
 					default:
 						break;
@@ -299,10 +332,6 @@ void CMapEditor::Update(float _fDeltaTime)
 			}
 		}
 	}
-
-	for (auto& pButton : m_vecEditorButtons) {
-		pButton->Update(_fDeltaTime);
-	}
 }
 
 void CMapEditor::Render(HDC & _hdc, CCamera2D* _pCamera)
@@ -313,12 +342,16 @@ void CMapEditor::Render(HDC & _hdc, CCamera2D* _pCamera)
 			pObj->Render(_hdc, _pCamera);
 		}
 	}
-	for (auto& pObj : m_listColliders) {
-		pObj->Render(_hdc, _pCamera);
+
+	if (g_bDebugShowSpec) {
+		for (auto& pObj : m_listColliders) {
+			pObj->Render(_hdc, _pCamera);
+		}
+		for (auto& pObj : m_listTriggers) {
+			pObj->Render(_hdc, _pCamera);
+		}
 	}
-	for (auto& pObj : m_listTriggers) {
-		pObj->Render(_hdc, _pCamera);
-	}
+	
 	for (auto& pObj : m_listDoors) {
 		pObj->Render(_hdc, _pCamera);
 	}
@@ -406,7 +439,7 @@ void CMapEditor::RenderDetectedTile(HDC & _hdc, CCamera2D * _pCamera)
 
 void CMapEditor::RenderMode(HDC & _hdc, CCamera2D * _pCamera)
 {
-	const static TCHAR* szLayer[MAP_EDITOR::LAYER_END] = { TEXT("Draw Layer"), TEXT("Col Layer"), TEXT("Trig Layer"), TEXT("Door Layer") };
+	const static TCHAR* szLayer[MAP_EDITOR::LAYER_END] = { TEXT("Draw Layer"), TEXT("Col Layer"), TEXT("Trig Layer"), TEXT("Door Layer"), TEXT("Spanw Layer") };
 	const static TCHAR* szTool[MAP_EDITOR::TOOL_END] = { TEXT("Paint"), TEXT("Erase") };
 
 	TCHAR szMode[256];
@@ -566,26 +599,26 @@ void CMapEditor::LoadMap(void *)
 		for (int i = 0; i < ciMaxDrawLayerNum; i++) {
 			fscanf_s(fpIn, " %d", &iSize);
 			for (int j = 0; j < iSize; j++) {
-				pObj = new CEditor_AtlasObj(m_stMapRenderInfo);
+				pObj = new CEditor_AtlasObj(m_rGameWorld, m_stMapRenderInfo);
 				pObj->LoadInfo(fpIn);
 				m_listAtlasObjs[i].emplace_back(pObj);
 			}
 		}
 		fscanf_s(fpIn, " %d", &iSize);
 		for (int i = 0; i < iSize; i++) {
-			pObj = new CEditor_Collider(m_stMapRenderInfo);
+			pObj = new CEditor_Collider(m_rGameWorld, m_stMapRenderInfo);
 			pObj->LoadInfo(fpIn);
 			m_listColliders.emplace_back(pObj);
 		}
 		fscanf_s(fpIn, " %d", &iSize);
 		for (int i = 0; i < iSize; i++) {
-			pObj = new CEditor_Trigger(m_stMapRenderInfo);
+			pObj = new CEditor_Trigger(m_rGameWorld, m_stMapRenderInfo);
 			pObj->LoadInfo(fpIn);
 			m_listTriggers.emplace_back(pObj);
 		}
 		fscanf_s(fpIn, " %d", &iSize);
 		for (int i = 0; i < iSize; i++) {
-			pObj = new CEditor_Door(m_stMapRenderInfo);
+			pObj = new CEditor_Door(m_rGameWorld, m_stMapRenderInfo);
 			pObj->LoadInfo(fpIn);
 			m_listDoors.emplace_back(pObj);
 		}

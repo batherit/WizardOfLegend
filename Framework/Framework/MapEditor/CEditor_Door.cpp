@@ -3,11 +3,12 @@
 #include "CBitmapMgr.h"
 #include "CBitmapObj.h"
 #include "CCamera2D.h"
+#include "CSpace.h"
 
 
-CEditor_Door::CEditor_Door(const _map_render_info & _rMapRenderInfo, int _iPivotRow, int _iPivotCol, MAP_OBJ::E_TYPE _eDoorType)
+CEditor_Door::CEditor_Door(CGameWorld& _rGameWorld, const _map_render_info & _rMapRenderInfo, int _iPivotRow, int _iPivotCol, MAP_OBJ::E_TYPE _eDoorType)
 	:
-	CEditor_Obj(_rMapRenderInfo, _iPivotRow, _iPivotCol, _eDoorType)
+	CEditor_Obj(_rGameWorld, _rMapRenderInfo, _iPivotRow, _iPivotCol, _eDoorType)
 {
 	switch (m_eObjType) {
 	case MAP_OBJ::TYPE_DOOR_HOR:
@@ -23,9 +24,9 @@ CEditor_Door::CEditor_Door(const _map_render_info & _rMapRenderInfo, int _iPivot
 	m_iCoveredHeightTiles = pBitmapObj->GetHeight() / _rMapRenderInfo.stMapStructureInfo.iTileHeight;
 }
 
-CEditor_Door::CEditor_Door(const _map_render_info & _rMapRenderInfo)
+CEditor_Door::CEditor_Door(CGameWorld& _rGameWorld, const _map_render_info & _rMapRenderInfo)
 	:
-	CEditor_Obj(_rMapRenderInfo)
+	CEditor_Obj(_rGameWorld, _rMapRenderInfo)
 {
 }
 
@@ -64,6 +65,8 @@ void CEditor_Door::Render(HDC & _hdc, CCamera2D * _pCamera)
 	pair<float, float> pairLeftTop = _pCamera->GetScreenPoint(rcDrawArea.left, rcDrawArea.top);
 	pair<float, float> pairRightBottom = _pCamera->GetScreenPoint(rcDrawArea.right, rcDrawArea.bottom);
 
+	RECT rcCollider = { pairLeftTop.first, pairLeftTop.second, pairRightBottom.first, pairRightBottom.second };
+	if (!IsCollided(m_rGameWorld.GetViewSpace()->GetRect(), rcCollider)) return;
 
 	const HDC memdc = CBitmapMgr::GetInstance()->FindBitmapMemDC(m_tDoorBitmapKey);
 	const CBitmapObj* pBitmapObj = CBitmapMgr::GetInstance()->GetBitmapObj(m_tDoorBitmapKey);
@@ -80,9 +83,11 @@ void CEditor_Door::Render(HDC & _hdc, CCamera2D * _pCamera)
 		pBitmapObj->GetHeight(),
 		RGB(255, 0, 255));
 
-	TCHAR szMode[32];
-	swprintf_s(szMode, TEXT("GN : %d"), m_iGroupID);
-	TextOut(_hdc, pairLeftTop.first, pairLeftTop.second, szMode, lstrlen(szMode));
+	if (g_bDebugShowGroup) {
+		TCHAR szMode[32];
+		swprintf_s(szMode, TEXT("G%d"), m_iGroupID);
+		TextOut(_hdc, pairLeftTop.first, pairLeftTop.second, szMode, lstrlen(szMode));
+	}
 }
 
 void CEditor_Door::SaveInfo(FILE * _fpOut)

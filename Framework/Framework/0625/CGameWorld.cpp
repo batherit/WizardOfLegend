@@ -3,6 +3,7 @@
 #include "CTimer.h"
 #include "CSceneMgr.h"
 #include "CSpace.h"
+#include "CBitmapMgr.h"
 
 
 CGameWorld::CGameWorld()
@@ -15,17 +16,17 @@ CGameWorld::CGameWorld()
 	if (m_pTimer) m_pTimer->Reset();
 	m_hDC = GetDC(g_hWND);
 
-	//Double Buffering
-	m_hBackbuffer = CreateCompatibleBitmap(m_hDC, WINCX, WINCY);
-	m_hBackbufferDC = CreateCompatibleDC(m_hDC);
-	SelectObject(m_hBackbufferDC, m_hBackbuffer);
+	// 더블 버퍼링을 위한 준비
+	CBitmapMgr::GetInstance()->InsertBitmap(TEXT("../Textures/BACK_BUFFER.bmp"), TEXT("BACK_BUFFER"));
+	CBitmapMgr::GetInstance()->InsertBitmap(TEXT("../Textures/BACK_BUFFER.bmp"), TEXT("BACK_CLEAR"));
+
+	m_hBackbufferDC = CBitmapMgr::GetInstance()->GetBitmapMemDC(TEXT("BACK_BUFFER"));
+	m_hBackbufferClearDC = CBitmapMgr::GetInstance()->GetBitmapMemDC(TEXT("BACK_CLEAR"));
 }
 
 
 CGameWorld::~CGameWorld()
 {
-	DeleteDC(m_hBackbufferDC);
-	DeleteObject(m_hBackbuffer);
 	ReleaseDC(g_hWND, m_hDC);
 	DeleteSafe(m_pTimer);
 	DeleteSafe(m_pSceneManager);
@@ -44,11 +45,10 @@ void CGameWorld::RunTick(void)
 
 void CGameWorld::ClearWindow(void)
 {
-	RECT rc{ 0,0, WINCX, WINCY };
-	FillRect(m_hBackbufferDC, &rc, (HBRUSH)GetStockObject(BLACK_BRUSH));
+	BitBlt(m_hBackbufferDC, 0, 0, WINCX, WINCY, m_hBackbufferClearDC, 0, 0, SRCCOPY);
 }
 
 void CGameWorld::RenderWindow(void)
 {
-	BitBlt(GetHDC(), 0, 0, WINCX, WINCY, GetBackbufferDC(), 0, 0, SRCCOPY);
+	BitBlt(m_hDC, 0, 0, WINCX, WINCY, m_hBackbufferDC, 0, 0, SRCCOPY);
 }

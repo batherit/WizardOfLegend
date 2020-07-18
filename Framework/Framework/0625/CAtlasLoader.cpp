@@ -119,7 +119,7 @@ void CAtlasLoader::RenderGrid(HDC & _hdc, CCamera2D * _pCamera)
 const HDC & CAtlasLoader::GetMemDC(void)
 {
 	// TODO: 여기에 반환 구문을 삽입합니다.
-	return CBitmapMgr::GetInstance()->FindBitmapMemDC(ctBitmapKey[m_stAtlasInfo.iAtlasID]);
+	return CBitmapMgr::GetInstance()->GetBitmapMemDC(ctBitmapKey[m_stAtlasInfo.iAtlasID]);
 }
 
 _atlas_obj_info CAtlasLoader::GetDetectedTileRowCol(const POINT& _ptClicked)

@@ -14,7 +14,7 @@ CBitmapMgr::~CBitmapMgr()
 	Release();
 }
 
-const HDC CBitmapMgr::FindBitmapMemDC(const TCHAR * _szImageKey) const
+const HDC CBitmapMgr::GetBitmapMemDC(const TCHAR * _szImageKey) const
 {
 	auto iter_find = m_mapBitmapObjs.find(_szImageKey);
 	if (iter_find == m_mapBitmapObjs.end())

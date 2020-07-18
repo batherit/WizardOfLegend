@@ -4,8 +4,8 @@ class CEditor_Trigger :
 	public CEditor_Obj
 {
 public:
-	CEditor_Trigger(const _map_render_info & _rMapRenderInfo, int _iPivotRow, int _iPivotCol); // 외부 생성용
-	CEditor_Trigger(const _map_render_info& _rMapRenderInfo); // 파일 로드용
+	CEditor_Trigger(CGameWorld& _rGameWorld, const _map_render_info & _rMapRenderInfo, int _iPivotRow, int _iPivotCol); // 외부 생성용
+	CEditor_Trigger(CGameWorld& _rGameWorld, const _map_render_info& _rMapRenderInfo); // 파일 로드용
 	~CEditor_Trigger();
 
 public:

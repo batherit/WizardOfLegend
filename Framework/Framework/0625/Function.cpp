@@ -118,6 +118,11 @@ bool MyIntersectRect(const RECT & _rRect1, const RECT & _rRect2, RECT* _pCollide
 void NormalizeVector(float & _fToX, float & _fToY)
 {
 	float fVectorLength = sqrtf(_fToX *_fToX + _fToY *_fToY);
+	if (fVectorLength == 0) {
+		_fToX = 0;
+		_fToY = 0;
+		return;
+	}
 	_fToX /= fVectorLength;
 	_fToY /= fVectorLength;
 }

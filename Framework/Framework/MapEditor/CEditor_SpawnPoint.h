@@ -4,8 +4,8 @@ class CEditor_SpawnPoint :
 	public CEditor_Obj
 {
 public:
-	CEditor_SpawnPoint(const _map_render_info & _rMapRenderInfo, int _iPivotRow, int _iPivotCol);
-	CEditor_SpawnPoint(const _map_render_info& _rMapRenderInfo);
+	CEditor_SpawnPoint(CGameWorld& _rGameWorld, const _map_render_info & _rMapRenderInfo, int _iPivotRow, int _iPivotCol);
+	CEditor_SpawnPoint(CGameWorld& _rGameWorld, const _map_render_info& _rMapRenderInfo);
 	~CEditor_SpawnPoint();
 
 public:
