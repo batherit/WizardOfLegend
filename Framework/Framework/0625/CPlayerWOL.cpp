@@ -57,7 +57,11 @@ int CPlayerWOL::Update(float _fDeltaTime)
 		fNewToY += cfDeltaY[m_eDir];
 	}
 	SetToXY(fNewToX, fNewToY);
+	if (GetToX() == 0.f && GetToY() == 0.f) SetNewState(PLAYER::STATE_IDLE);
+	else SetNewState(PLAYER::STATE_RUN);
 	MoveByDeltaTime(_fDeltaTime);
+
+	UpdateAnim(_fDeltaTime);
 	return 0;
 }
 
@@ -82,10 +86,10 @@ void CPlayerWOL::Render(HDC & _hdc, CCamera2D * _pCamera)
 		pairRightBottom.first - pairLeftTop.first + 1,					// 출력 크기 (1은 빈여백을 없애기 위한 추가 픽셀이다.)
 		pairRightBottom.second - pairLeftTop.second + 1,				// 출력 크기 (1은 빈여백을 없애기 위한 추가 픽셀이다.)
 		m_hDCKeyAtlas[m_eDir],
-		0,
-		0,
-		m_iWidth,									// 테스트용
-		m_iHeight,									// 테스트용
+		GetAnimX(),
+		GetAnimY(),
+		m_iWidth,									
+		m_iHeight,									
 		RGB(255, 0, 255));
 	g_iRenderCount++;
 }
@@ -96,6 +100,7 @@ void CPlayerWOL::Release(void)
 
 void CPlayerWOL::SetInitInfo(void)
 {
+	SetNewState(PLAYER::STATE_IDLE);
 	SetSpeed(cfPlayerRunSpeed);
 	SetWidth(PLAYER_OUTPUT_WITDH);
 	SetHeight(PLAYER_OUTPUT_HEIGHT);
@@ -104,4 +109,63 @@ void CPlayerWOL::SetInitInfo(void)
 	m_hDCKeyAtlas[OBJ::DIR_UP] = CBitmapMgr::GetInstance()->GetBitmapMemDC(TEXT("WIZARD_BACK"));
 	m_hDCKeyAtlas[OBJ::DIR_RIGHT] = CBitmapMgr::GetInstance()->GetBitmapMemDC(TEXT("WIZARD_RIGHT"));
 	m_hDCKeyAtlas[OBJ::DIR_LEFT] = CBitmapMgr::GetInstance()->GetBitmapMemDC(TEXT("WIZARD_LEFT"));
+}
+
+void CPlayerWOL::SetNewState(PLAYER::E_STATE _eNewState)
+{
+	if (_eNewState == m_eState) return;
+
+	_anim_info stAnimInfo;
+	m_eState = _eNewState;
+	stAnimInfo.iState = _eNewState;
+	switch (_eNewState)
+	{
+	case PLAYER::STATE_IDLE:
+		stAnimInfo.iCountToRepeat = 0;
+		stAnimInfo.fTotalTime = 0.f;
+		stAnimInfo.iStartFrameIndex = 0;
+		stAnimInfo.iFrameCount = 1;
+		break;
+	case PLAYER::STATE_RUN:
+		stAnimInfo.iCountToRepeat = 0;
+		stAnimInfo.fTotalTime = 0.6f;
+		stAnimInfo.iStartFrameIndex = 0;
+		stAnimInfo.iFrameCount = 10;
+		break;
+	case PLAYER::STATE_DASH:
+		stAnimInfo.iCountToRepeat = 1;
+		stAnimInfo.fTotalTime = 0.7;
+		stAnimInfo.iStartFrameIndex = 0;
+		stAnimInfo.iFrameCount = 8;
+		break;
+	case PLAYER::STATE_ATTACK1:
+		stAnimInfo.iCountToRepeat = 1;
+		stAnimInfo.fTotalTime = 0.35;
+		stAnimInfo.iStartFrameIndex = 0;
+		stAnimInfo.iFrameCount = 8;
+		break;
+	case PLAYER::STATE_ATTACK2:
+		stAnimInfo.iCountToRepeat = 1;
+		stAnimInfo.fTotalTime = 0.35;
+		stAnimInfo.iStartFrameIndex = 0;
+		stAnimInfo.iFrameCount = 8;
+		break;
+	case PLAYER::STATE_DAMAGE:
+		stAnimInfo.iCountToRepeat = 3;
+		stAnimInfo.fTotalTime = 0.35;
+		stAnimInfo.iStartFrameIndex = 0;
+		stAnimInfo.iFrameCount = 2;
+		break;
+	case PLAYER::STATE_DEATH:
+		m_eDir = OBJ::DIR_DOWN;
+		stAnimInfo.iCountToRepeat = 1;
+		stAnimInfo.fTotalTime = 0.35;
+		stAnimInfo.iStartFrameIndex = 0;
+		stAnimInfo.iFrameCount = 7;
+		break;
+	default:
+		break;
+	}
+
+	SetNewAnimInfo(stAnimInfo);
 }

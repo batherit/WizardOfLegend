@@ -48,13 +48,18 @@ struct _pivot_point {
 
 // 해당 상태의 시작과 끝 인덱스와 이 애니메이션이 지속될 총 시간
 struct _anim_info {
-	int iStartIndex = 0;		// 애니메이션 시작 인덱스
-	int iEndIndex = 0;			// 애니메이션 끝 인덱스
-	float fTotalTime = 0.f;		// 한 애니메이션 총 진행 시간
-	int iCountToRepeat = 0;		// 한 애니메이션을 몇 번 진행? (0 - 무한, 1 - 1회하고 끝(별 일 없으면 IDLE로 전환))
+	int iState = -1;				// 상태를 나타내는 열거형값 0은 기본적으로 Idle
+	int iStartFrameIndex = 0;			// 애니메이션 시작 인덱스
+	int iFrameCount = 0;				// 프레임 총 수
+	float fTotalTime = 0.f;			// 한 애니메이션 총 진행 시간
+	int iCountToRepeat = 0;			// 한 애니메이션을 몇 번 진행? (0 - 무한, 1 - 1회하고 끝(별 일 없으면 IDLE로 전환))
 };
 // => CObj는 float fAnimElapsedTime과 int iRepeatedCount를 지닌다. 
 struct _anim_processing_info {
 	float fAnimElapsedTime = 0.f;
+	int iCurrentIndex = 0;
 	int iRepeatedCount = 0;
 };
+
+// CurrentIndex =  fAnimElapsedTime / (fTotaltime / (iEndIndex - iStartIndex));
+// fAnimElapsedTime...

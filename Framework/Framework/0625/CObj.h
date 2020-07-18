@@ -65,11 +65,19 @@ public:
 	const int GetGroupID(void) const { return m_iGroupID; }
 	//void UpdateAnimation(float _fDeltaTime);
 	//void ChangeAnimation(int )
+	void SetNewAnimInfo(const _anim_info& _stAnimInfo) {
+		m_stAnimInfo = _stAnimInfo;
+		ZeroMemory(&m_stAnimProcessingInfo, sizeof(m_stAnimProcessingInfo));
+	}
+	int UpdateAnim(float _fDeltaTime);
+	int GetAnimX(void) const { return m_stAnimProcessingInfo.iCurrentIndex * m_iWidth; }
+	int GetAnimY(void) const { return m_stAnimInfo.iState * m_iHeight; }
 
 
 protected:
 	int m_iGroupID = -1;
 	MAP_OBJ::E_TYPE m_eObjType = MAP_OBJ::TYPE_END;
+	_anim_info m_stAnimInfo;
 	_anim_processing_info m_stAnimProcessingInfo;
 	bool m_bIsValid = true;
 	float m_fX = 0.f;

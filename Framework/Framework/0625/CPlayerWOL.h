@@ -17,10 +17,11 @@ public:
 
 private:
 	void SetInitInfo(void);
+	void SetNewState(PLAYER::E_STATE _eNewState);
 
 private:
 	OBJ::E_DIRECTION m_eDir = OBJ::DIR_DOWN;
 	HDC m_hDCKeyAtlas[OBJ::DIR_END];
-	PLAYER::E_STATE m_eState = PLAYER::STATE_IDLE;
+	PLAYER::E_STATE m_eState = PLAYER::STATE_END;
 };
 

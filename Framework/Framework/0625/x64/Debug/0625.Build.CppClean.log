@@ -6,13 +6,12 @@ d:\mylab\gamelab\algorithm\wizardoflegend\framework\framework\0625\x64\debug\bul
 d:\mylab\gamelab\algorithm\wizardoflegend\framework\framework\0625\x64\debug\guidedbullet.obj
 d:\mylab\gamelab\algorithm\wizardoflegend\framework\framework\0625\x64\debug\gunbarrel.obj
 d:\mylab\gamelab\algorithm\wizardoflegend\framework\framework\0625\x64\debug\monster.obj
-d:\mylab\gamelab\algorithm\wizardoflegend\framework\framework\0625\x64\debug\player.obj
 d:\mylab\gamelab\algorithm\wizardoflegend\framework\framework\0625\x64\debug\screwball.obj
 d:\mylab\gamelab\algorithm\wizardoflegend\framework\framework\0625\x64\debug\screwbullet.obj
 d:\mylab\gamelab\algorithm\wizardoflegend\framework\framework\0625\x64\debug\shield.obj
-d:\mylab\gamelab\algorithm\wizardoflegend\framework\framework\0625\x64\debug\cmaploader.obj
 d:\mylab\gamelab\algorithm\wizardoflegend\framework\framework\0625\x64\debug\cmapfilemgr.obj
 d:\mylab\gamelab\algorithm\wizardoflegend\framework\framework\0625\x64\debug\cmapobjsgroup.obj
+d:\mylab\gamelab\algorithm\wizardoflegend\framework\framework\0625\x64\debug\cplayerwol.obj
 d:\mylab\gamelab\algorithm\wizardoflegend\framework\framework\0625\x64\debug\cplayscene.obj
 d:\mylab\gamelab\algorithm\wizardoflegend\framework\framework\0625\x64\debug\cscene.obj
 d:\mylab\gamelab\algorithm\wizardoflegend\framework\framework\0625\x64\debug\cscenemgr.obj
@@ -37,7 +36,7 @@ d:\mylab\gamelab\algorithm\wizardoflegend\framework\framework\0625\x64\debug\cbi
 d:\mylab\gamelab\algorithm\wizardoflegend\framework\framework\0625\x64\debug\cbitmapobj.obj
 d:\mylab\gamelab\algorithm\wizardoflegend\framework\framework\0625\x64\debug\ccamera2d.obj
 d:\mylab\gamelab\algorithm\wizardoflegend\framework\framework\0625\x64\debug\cdoor.obj
-d:\mylab\gamelab\algorithm\wizardoflegend\framework\framework\0625\x64\debug\cplayerwol.obj
+d:\mylab\gamelab\algorithm\wizardoflegend\framework\framework\0625\x64\debug\cmaploader.obj
 d:\mylab\gamelab\algorithm\wizardoflegend\framework\framework\x64\debug\0625.ilk
 d:\mylab\gamelab\algorithm\wizardoflegend\framework\framework\x64\debug\0625.exe
 d:\mylab\gamelab\algorithm\wizardoflegend\framework\framework\x64\debug\0625.pdb

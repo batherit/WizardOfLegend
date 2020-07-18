@@ -51,3 +51,33 @@ void CObj::LoadMapData(FILE * _fpIn)
 {
 	fscanf_s(_fpIn, " %d %d", &m_eObjType, &m_iGroupID);
 }
+
+int CObj::UpdateAnim(float _fDeltaTime)
+{
+	// 반환값 내용
+	// 0 : Anim이 정상적으로 업데이트 되었음.
+	// 1 : 현재 Anim 상태가 무효화 상태이며 새로운 상태값 입력을 요구함.
+
+	if (m_stAnimInfo.iState < 0) return 1;
+	// _anim_processing_info를 갱신한다.
+	m_stAnimProcessingInfo.fAnimElapsedTime += _fDeltaTime;
+
+	if (m_stAnimProcessingInfo.fAnimElapsedTime > m_stAnimInfo.fTotalTime) {
+		// 애니메이션 한바퀴를 다 돌았다!
+		m_stAnimProcessingInfo.fAnimElapsedTime = 0.f;
+		m_stAnimProcessingInfo.iCurrentIndex = 0;
+
+		if(0 != m_stAnimInfo.iCountToRepeat) {
+			m_stAnimProcessingInfo.iRepeatedCount++;
+			if (m_stAnimInfo.iCountToRepeat >= m_stAnimProcessingInfo.iRepeatedCount) {
+				SetNewAnimInfo(_anim_info()); // 무효화 상태를 집어넣는다.
+				return 1;
+			}
+		}
+	}
+
+	float fCutTime = m_stAnimInfo.fTotalTime / (m_stAnimInfo.iFrameCount - m_stAnimInfo.iStartFrameIndex);
+	m_stAnimProcessingInfo.iCurrentIndex = m_stAnimProcessingInfo.fAnimElapsedTime / fCutTime;
+
+	return 0;
+}
