@@ -27,9 +27,6 @@
     <Filter Include="소스 파일\03.Obj\040.UI">
       <UniqueIdentifier>{f62bd796-09de-47d5-89e7-c76e562ea31a}</UniqueIdentifier>
     </Filter>
-    <Filter Include="소스 파일\03.Obj\030.Space">
-      <UniqueIdentifier>{9edab618-d9aa-4302-b51e-bb59cdb14b1c}</UniqueIdentifier>
-    </Filter>
     <Filter Include="소스 파일\03.Obj\020.Player">
       <UniqueIdentifier>{203cac16-3859-498a-a48e-fa9500dfe812}</UniqueIdentifier>
     </Filter>
@@ -86,6 +83,15 @@
     </Filter>
     <Filter Include="소스 파일\03.Obj\02. Effect">
       <UniqueIdentifier>{55247d11-900f-4e7f-a43a-cee99bdff74a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\99.Helper">
+      <UniqueIdentifier>{cc0cb586-3e05-4a7c-b86d-c2cdfba2e542}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\03.State\032.SwordMan">
+      <UniqueIdentifier>{509b8093-60fe-4c98-b94a-031684802344}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\03.Obj\030.Space">
+      <UniqueIdentifier>{9edab618-d9aa-4302-b51e-bb59cdb14b1c}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -164,9 +170,6 @@
     <ClInclude Include="CAtlasObj.h">
       <Filter>소스 파일\03.Obj\01.MapObj</Filter>
     </ClInclude>
-    <ClInclude Include="Function.h">
-      <Filter>소스 파일</Filter>
-    </ClInclude>
     <ClInclude Include="CCollider.h">
       <Filter>소스 파일\03.Obj\01.MapObj</Filter>
     </ClInclude>
@@ -227,20 +230,38 @@
     <ClInclude Include="CPlayerState_Dash.h">
       <Filter>소스 파일\03.State\031.Player</Filter>
     </ClInclude>
-    <ClInclude Include="CPlayerState_Attack.h">
-      <Filter>소스 파일\03.State\031.Player</Filter>
-    </ClInclude>
     <ClInclude Include="CPlayerState_Damage.h">
       <Filter>소스 파일\03.State\031.Player</Filter>
     </ClInclude>
     <ClInclude Include="CPlayerState_Death.h">
       <Filter>소스 파일\03.State\031.Player</Filter>
     </ClInclude>
+    <ClInclude Include="CEffect_Spawn.h">
+      <Filter>소스 파일\03.Obj\02. Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="CMonster_SwordMan.h">
+      <Filter>소스 파일\03.Obj\023.Monster</Filter>
+    </ClInclude>
+    <ClInclude Include="Function.h">
+      <Filter>소스 파일\99.Helper</Filter>
+    </ClInclude>
+    <ClInclude Include="CSwordManState_Spawn.h">
+      <Filter>소스 파일\03.State\032.SwordMan</Filter>
+    </ClInclude>
     <ClInclude Include="CPlayerState_Spawn.h">
       <Filter>소스 파일\03.State\031.Player</Filter>
     </ClInclude>
-    <ClInclude Include="CEffect_Spawn.h">
-      <Filter>소스 파일\03.Obj\02. Effect</Filter>
+    <ClInclude Include="CSwordManState_Idle.h">
+      <Filter>소스 파일\03.State\032.SwordMan</Filter>
+    </ClInclude>
+    <ClInclude Include="CSwordManState_Run.h">
+      <Filter>소스 파일\03.State\032.SwordMan</Filter>
+    </ClInclude>
+    <ClInclude Include="CSwordManState_Attack.h">
+      <Filter>소스 파일\03.State\032.SwordMan</Filter>
+    </ClInclude>
+    <ClInclude Include="CPlayerState_Attack.h">
+      <Filter>소스 파일\03.State\031.Player</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -319,9 +340,6 @@
     <ClCompile Include="CAtlasObj.cpp">
       <Filter>소스 파일\03.Obj\01.MapObj</Filter>
     </ClCompile>
-    <ClCompile Include="Function.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
     <ClCompile Include="Main.cpp">
       <Filter>소스 파일\00.MainProcess</Filter>
     </ClCompile>
@@ -399,6 +417,24 @@
     </ClCompile>
     <ClCompile Include="CEffect_Spawn.cpp">
       <Filter>소스 파일\03.Obj\02. Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="CMonster_SwordMan.cpp">
+      <Filter>소스 파일\03.Obj\023.Monster</Filter>
+    </ClCompile>
+    <ClCompile Include="Function.cpp">
+      <Filter>소스 파일\99.Helper</Filter>
+    </ClCompile>
+    <ClCompile Include="CSwordManState_Spawn.cpp">
+      <Filter>소스 파일\03.State\032.SwordMan</Filter>
+    </ClCompile>
+    <ClCompile Include="CSwordManState_Idle.cpp">
+      <Filter>소스 파일\03.State\032.SwordMan</Filter>
+    </ClCompile>
+    <ClCompile Include="CSwordManState_Run.cpp">
+      <Filter>소스 파일\03.State\032.SwordMan</Filter>
+    </ClCompile>
+    <ClCompile Include="CSwordManState_Attack.cpp">
+      <Filter>소스 파일\03.State\032.SwordMan</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

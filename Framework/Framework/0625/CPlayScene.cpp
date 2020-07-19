@@ -6,6 +6,7 @@
 #include "CSpace.h"
 #include "CStateMgr.h"
 #include "CPlayerState_Spawn.h"
+#include "CMonster_SwordMan.h"
 
 
 CPlayScene::CPlayScene(CGameWorld& _rGameWorld, const char* _szMapDirectory)
@@ -28,16 +29,24 @@ void CPlayScene::ResetScene(void)
 	Release();
 	m_pMapLoader = new CMapLoader(m_rGameWorld, m_szMapDirectory);
 	const pair<float, float> pairSpawnPoint = m_pMapLoader->GetSpawnPoint()->GetXY();
-	m_pPlayer->SetXY(pairSpawnPoint.first, pairSpawnPoint.second);
-	TO_PLAYER_WOL(m_pPlayer)->Respawn();
+	TO_PLAYER_WOL(m_pPlayer)->Respawn(pairSpawnPoint.first, pairSpawnPoint.second);
 	m_vecObjsToRender.reserve(100);
 	m_vecObjsToRender.clear();
 }
 
 int CPlayScene::Update(float _fDeltaTime)
 {
+	if(CKeyMgr::GetInstance()->IsKeyDown(KEY::KEY_RBUTTON)) {
+		CObj* pObj = new CMonster_SwordMan(m_rGameWorld, m_pPlayer);
+		m_listMonsters.emplace_back(pObj);
+		dynamic_cast<CMonster_SwordMan*>(pObj)->Spawn(m_pPlayer->GetX() + 150, m_pPlayer->GetY());
+	}
 	m_vecObjsToRender.emplace_back(m_pPlayer);
 	for (auto& pObj : m_pMapLoader->GetDoors()) {
+		m_vecObjsToRender.emplace_back(pObj);
+	}
+	for (auto& pObj : m_listMonsters) {
+		pObj->Update(_fDeltaTime);
 		m_vecObjsToRender.emplace_back(pObj);
 	}
 	m_pPlayer->Update(_fDeltaTime);

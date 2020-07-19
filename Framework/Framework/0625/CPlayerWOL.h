@@ -8,7 +8,7 @@ class CPlayerWOL :
 {
 public:
 	CPlayerWOL(CGameWorld& _rGameWorld);
-	CPlayerWOL(CGameWorld& _rGameWorld, float _fX, float _fY, size_t _iWidth = ciPlayerSize, size_t _iHeight = ciPlayerSize, float _fSpeed = cfPlayerRunSpeed);
+	CPlayerWOL(CGameWorld& _rGameWorld, float _fX, float _fY);
 	virtual ~CPlayerWOL();
 
 public:
@@ -24,9 +24,9 @@ public:
 	const PLAYER::E_STATE GetLastAttackState(void) const { return m_eLastAttackState; }
 	bool IsMoveKeyPressed(float& _fToX, float& _fToY);
 	virtual void Attacked(float _fDamageAmount);
-	void Spawn(void);
+	void Spawn(float _fX, float _fY);		// 데이터를 유지하며 스폰
 	bool IsSpawning(void) { return m_pSpawnEffect != nullptr; }
-	void Respawn(void);
+	void Respawn(float _fX, float _fY);		// 데이터를 초기 데이터로 리셋하고 스폰.
 
 private:
 	void SetInitInfo(void);

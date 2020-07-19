@@ -91,3 +91,7 @@
 // 플레이어 비트맵 출력 사이즈
 #define PLAYER_OUTPUT_WITDH			180
 #define PLAYER_OUTPUT_HEIGHT		182
+
+// 스워드맨 비트맵 출력 사이즈
+#define SWORDMAN_OUTPUT_WIDTH		200
+#define SWORDMAN_OUTPUT_HEIGHT		200

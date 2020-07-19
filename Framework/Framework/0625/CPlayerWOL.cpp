@@ -12,14 +12,14 @@
 
 CPlayerWOL::CPlayerWOL(CGameWorld & _rGameWorld)
 	:
-	CObj(_rGameWorld, 0, 0, ciPlayerSize, ciPlayerSize, 0.f, 0.f, cfPlayerRunSpeed, Rectangle)
+	CObj(_rGameWorld, 0, 0, PLAYER_OUTPUT_WITDH, PLAYER_OUTPUT_HEIGHT, 0.f, 0.f, 0.f, Rectangle)
 {
 	SetInitInfo();
 }
 
-CPlayerWOL::CPlayerWOL(CGameWorld & _rGameWorld, float _fX, float _fY, size_t _iWidth, size_t _iHeight, float _fSpeed)
+CPlayerWOL::CPlayerWOL(CGameWorld & _rGameWorld, float _fX, float _fY)
 	:
-	CObj(_rGameWorld, _fX, _fY, _iWidth, _iHeight, 0.f, 0.f, _fSpeed, Rectangle)
+	CObj(_rGameWorld, _fX, _fY, PLAYER_OUTPUT_WITDH, PLAYER_OUTPUT_HEIGHT, 0.f, 0.f, 0.f, Rectangle)
 {
 	SetInitInfo();
 }
@@ -80,6 +80,7 @@ void CPlayerWOL::Render(HDC & _hdc, CCamera2D * _pCamera)
 void CPlayerWOL::Release(void)
 {
 	DeleteSafe(m_pStateMgr);
+	DeleteSafe(m_pSpawnEffect);
 }
 
 void CPlayerWOL::SetInitInfo(void)
@@ -89,9 +90,6 @@ void CPlayerWOL::SetInitInfo(void)
 	m_pStateMgr->SetNextState(new CPlayerState_Spawn(*this));
 	m_fMaxHp = cfPlayerMaxHp;
 	m_fHp = m_fMaxHp;
-	SetSpeed(cfPlayerRunSpeed);
-	SetWidth(PLAYER_OUTPUT_WITDH);
-	SetHeight(PLAYER_OUTPUT_HEIGHT);
 	m_eDir = OBJ::DIR_DOWN;
 	m_hDCKeyAtlas[OBJ::DIR_DOWN] = CBitmapMgr::GetInstance()->GetBitmapMemDC(TEXT("PLAYER_FRONT"));
 	m_hDCKeyAtlas[OBJ::DIR_UP] = CBitmapMgr::GetInstance()->GetBitmapMemDC(TEXT("PLAYER_BACK"));
@@ -99,15 +97,11 @@ void CPlayerWOL::SetInitInfo(void)
 	m_hDCKeyAtlas[OBJ::DIR_LEFT] = CBitmapMgr::GetInstance()->GetBitmapMemDC(TEXT("PLAYER_LEFT"));
 }
 
-void CPlayerWOL::Respawn(void)
+void CPlayerWOL::Respawn(float _fX, float _fY)
 {
-	DeleteSafe(m_pSpawnEffect);
-	m_pSpawnEffect = new CEffect_Spawn(GetGameWorld(), this, EFFECT_SPAWN::EFFECT_SPAWN_PLAYER);
-	m_pStateMgr->SetNextState(new CPlayerState_Spawn(*this));
 	m_fMaxHp = cfPlayerMaxHp;
 	m_fHp = m_fMaxHp;
-	SetSpeed(cfPlayerRunSpeed);
-	m_eDir = OBJ::DIR_DOWN;
+	Spawn(_fX, _fY);
 }
 
 void CPlayerWOL::SetNewStateAnim(PLAYER::E_STATE _eNewState, bool _bReset /*= false*/)
@@ -214,7 +208,12 @@ void CPlayerWOL::Attacked(float _fDamageAmount)
 	}
 }
 
-void CPlayerWOL::Spawn(void)
+void CPlayerWOL::Spawn(float _fX, float _fY)
 {
-	// TODO : 다음 스테이지 넘어갈때 필요(0719 ㄷㄷ!)
+	SetXY(_fX, _fY);
+	DeleteSafe(m_pSpawnEffect);
+	m_pSpawnEffect = new CEffect_Spawn(GetGameWorld(), this, EFFECT_SPAWN::EFFECT_SPAWN_PLAYER);
+	m_pStateMgr->SetNextState(new CPlayerState_Spawn(*this));
+	SetSpeed(0.f);
+	m_eDir = OBJ::DIR_DOWN;
 }

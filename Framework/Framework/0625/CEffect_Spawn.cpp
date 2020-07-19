@@ -36,7 +36,7 @@ CEffect_Spawn::CEffect_Spawn(CGameWorld& _rGameWorld, CObj* _pOwner, EFFECT_SPAW
 	case EFFECT_SPAWN::EFFECT_SPAWN_SWORDMAN:
 		m_hDCSpawnSprite = CBitmapMgr::GetInstance()->GetBitmapMemDC(TEXT("SPAWN_CARD_SWORDMAN"));
 		stAnimInfo.iCountToRepeat = 1;
-		stAnimInfo.fTotalTime = 0.5f;
+		stAnimInfo.fTotalTime = 1.5f;
 		stAnimInfo.iStartFrameIndex = 0;
 		stAnimInfo.iFrameCount = 32;
 		SetWidth(150); SetHeight(230);

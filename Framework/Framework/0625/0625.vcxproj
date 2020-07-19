@@ -162,6 +162,7 @@
     <ClInclude Include="CMapLoader.h" />
     <ClInclude Include="CMapFileMgr.h" />
     <ClInclude Include="CMapObjsGroup.h" />
+    <ClInclude Include="CMonster_SwordMan.h" />
     <ClInclude Include="CPlayerState_Attack.h" />
     <ClInclude Include="CPlayerState_Damage.h" />
     <ClInclude Include="CPlayerState_Dash.h" />
@@ -180,6 +181,10 @@
     <ClInclude Include="CSpawnPoint.h" />
     <ClInclude Include="CState.h" />
     <ClInclude Include="CStateMgr.h" />
+    <ClInclude Include="CSwordManState_Attack.h" />
+    <ClInclude Include="CSwordManState_Idle.h" />
+    <ClInclude Include="CSwordManState_Run.h" />
+    <ClInclude Include="CSwordManState_Spawn.h" />
     <ClInclude Include="CTimer.h" />
     <ClInclude Include="CTitleScene.h" />
     <ClInclude Include="CTrigger.h" />
@@ -235,6 +240,7 @@
     <ClCompile Include="CMapLoader.cpp" />
     <ClCompile Include="CMapFileMgr.cpp" />
     <ClCompile Include="CMapObjsGroup.cpp" />
+    <ClCompile Include="CMonster_SwordMan.cpp" />
     <ClCompile Include="CPlayerState_Attack.cpp" />
     <ClCompile Include="CPlayerState_Damage.cpp" />
     <ClCompile Include="CPlayerState_Dash.cpp" />
@@ -252,6 +258,10 @@
     <ClCompile Include="CSpawnPoint.cpp" />
     <ClCompile Include="CState.cpp" />
     <ClCompile Include="CStateMgr.cpp" />
+    <ClCompile Include="CSwordManState_Attack.cpp" />
+    <ClCompile Include="CSwordManState_Idle.cpp" />
+    <ClCompile Include="CSwordManState_Run.cpp" />
+    <ClCompile Include="CSwordManState_Spawn.cpp" />
     <ClCompile Include="CTimer.cpp" />
     <ClCompile Include="CTitleScene.cpp" />
     <ClCompile Include="CTrigger.cpp" />

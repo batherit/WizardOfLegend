@@ -11,6 +11,11 @@ const float cfPlayerRunSpeed = 610.f; // 1.55초에 13개의 타일(73*73)을 지나가는 
 const float cfPlayerDashSpeed = 2350.f;	// 0.25초에 6개의 타일을 지나가는 것에 근거
 const float cfPlayerMaxHp = 500.f;
 
+// 스워드맨 변수
+const float cfSwordManRunSpeed = 300.f;
+const float cfSwordManMaxHp = 80.f;
+const float cfSwordManAttackableRange = 80.f;
+
 // 총알 변수
 const size_t ciBulletSize = 8;
 const float cfBulletSpeed = 5.f;

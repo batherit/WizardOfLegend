@@ -20,6 +20,7 @@ public:
 private:
 	CMapLoader* m_pMapLoader = nullptr;
 	CObj* m_pPlayer = nullptr;
+	list<CObj*> m_listMonsters;
 	vector<CObj*> m_vecObjsToRender;
 	const char* m_szMapDirectory = nullptr;
 };
