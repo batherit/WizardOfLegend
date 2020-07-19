@@ -6,6 +6,8 @@
 #include "CStateMgr.h"
 #include "CPlayerState_Idle.h"
 #include "CPlayerState_Damage.h"
+#include "CPlayerState_Spawn.h"
+#include "CEffect_Spawn.h"
 
 
 CPlayerWOL::CPlayerWOL(CGameWorld & _rGameWorld)
@@ -35,6 +37,10 @@ int CPlayerWOL::Update(float _fDeltaTime)
 {
 	// 유효하지 않은 상태로 컨펌되면 false를 반환한다.
 	if (!m_pStateMgr->ConfirmValidState()) return 1;
+	if (m_pSpawnEffect) {
+		if (1 == m_pSpawnEffect->Update(_fDeltaTime))
+			DeleteSafe(m_pSpawnEffect);
+	}
 	m_pStateMgr->Update(_fDeltaTime);
 	return 0;
 }
@@ -49,8 +55,8 @@ void CPlayerWOL::Render(HDC & _hdc, CCamera2D * _pCamera)
 	RECT& rcDrawArea = GetRect();
 
 	// 그릴 영역을 스크린 좌표로 변환한다.
-	pair<float, float>& pairLeftTop = _pCamera->GetScreenPoint(rcDrawArea.left, rcDrawArea.top);
-	pair<float, float>& pairRightBottom = _pCamera->GetScreenPoint(rcDrawArea.right, rcDrawArea.bottom);
+	const pair<int, int>& pairLeftTop = _pCamera->GetScreenPoint(rcDrawArea.left, rcDrawArea.top);
+	const pair<int, int>& pairRightBottom = _pCamera->GetScreenPoint(rcDrawArea.right, rcDrawArea.bottom);
 
 	//RECT rcCollider = { pairLeftTop.first, pairLeftTop.second, pairRightBottom.first, pairRightBottom.second };
 	//if (!IsCollided(GetGameWorld().GetViewSpace()->GetRect(), rcCollider)) return;
@@ -67,6 +73,8 @@ void CPlayerWOL::Render(HDC & _hdc, CCamera2D * _pCamera)
 		m_iHeight,									
 		RGB(255, 0, 255));
 	g_iRenderCount++;
+
+	if (m_pSpawnEffect) m_pSpawnEffect->Render(_hdc, _pCamera);
 }
 
 void CPlayerWOL::Release(void)
@@ -78,22 +86,34 @@ void CPlayerWOL::SetInitInfo(void)
 {
 	DeleteSafe(m_pStateMgr);
 	m_pStateMgr = new CStateMgr<CPlayerWOL>(GetGameWorld(), *this);
-	m_pStateMgr->SetNextState(new CPlayerState_Idle(*this));
+	m_pStateMgr->SetNextState(new CPlayerState_Spawn(*this));
 	m_fMaxHp = cfPlayerMaxHp;
 	m_fHp = m_fMaxHp;
 	SetSpeed(cfPlayerRunSpeed);
 	SetWidth(PLAYER_OUTPUT_WITDH);
 	SetHeight(PLAYER_OUTPUT_HEIGHT);
 	m_eDir = OBJ::DIR_DOWN;
-	m_hDCKeyAtlas[OBJ::DIR_DOWN] = CBitmapMgr::GetInstance()->GetBitmapMemDC(TEXT("WIZARD_FRONT"));
-	m_hDCKeyAtlas[OBJ::DIR_UP] = CBitmapMgr::GetInstance()->GetBitmapMemDC(TEXT("WIZARD_BACK"));
-	m_hDCKeyAtlas[OBJ::DIR_RIGHT] = CBitmapMgr::GetInstance()->GetBitmapMemDC(TEXT("WIZARD_RIGHT"));
-	m_hDCKeyAtlas[OBJ::DIR_LEFT] = CBitmapMgr::GetInstance()->GetBitmapMemDC(TEXT("WIZARD_LEFT"));
+	m_hDCKeyAtlas[OBJ::DIR_DOWN] = CBitmapMgr::GetInstance()->GetBitmapMemDC(TEXT("PLAYER_FRONT"));
+	m_hDCKeyAtlas[OBJ::DIR_UP] = CBitmapMgr::GetInstance()->GetBitmapMemDC(TEXT("PLAYER_BACK"));
+	m_hDCKeyAtlas[OBJ::DIR_RIGHT] = CBitmapMgr::GetInstance()->GetBitmapMemDC(TEXT("PLAYER_RIGHT"));
+	m_hDCKeyAtlas[OBJ::DIR_LEFT] = CBitmapMgr::GetInstance()->GetBitmapMemDC(TEXT("PLAYER_LEFT"));
 }
 
-void CPlayerWOL::SetNewState(PLAYER::E_STATE _eNewState)
+void CPlayerWOL::Respawn(void)
 {
-	if (_eNewState == m_eState) return;
+	DeleteSafe(m_pSpawnEffect);
+	m_pSpawnEffect = new CEffect_Spawn(GetGameWorld(), this, EFFECT_SPAWN::EFFECT_SPAWN_PLAYER);
+	m_pStateMgr->SetNextState(new CPlayerState_Spawn(*this));
+	m_fMaxHp = cfPlayerMaxHp;
+	m_fHp = m_fMaxHp;
+	SetSpeed(cfPlayerRunSpeed);
+	m_eDir = OBJ::DIR_DOWN;
+}
+
+void CPlayerWOL::SetNewStateAnim(PLAYER::E_STATE _eNewState, bool _bReset /*= false*/)
+{
+	// 같은 상태가 들어왔을 때, 리셋을 원하지 않는다면 해당 함수를 종료한다.
+	if (_eNewState == m_eState && !_bReset) return;
 
 	_anim_info stAnimInfo;
 	m_eState = _eNewState;
@@ -108,40 +128,40 @@ void CPlayerWOL::SetNewState(PLAYER::E_STATE _eNewState)
 		break;
 	case PLAYER::STATE_RUN:
 		stAnimInfo.iCountToRepeat = 0;
-		stAnimInfo.fTotalTime = 0.6f;
+		stAnimInfo.fTotalTime = 0.8f;
 		stAnimInfo.iStartFrameIndex = 0;
 		stAnimInfo.iFrameCount = 10;
 		break;
 	case PLAYER::STATE_DASH:
 		stAnimInfo.iCountToRepeat = 1;
-		stAnimInfo.fTotalTime = 0.32;
+		stAnimInfo.fTotalTime = 0.25f;
 		stAnimInfo.iStartFrameIndex = 0;
 		stAnimInfo.iFrameCount = 8;
 		break;
 	case PLAYER::STATE_ATTACK1:
 		stAnimInfo.iCountToRepeat = 1;
-		stAnimInfo.fTotalTime = 0.4;
+		stAnimInfo.fTotalTime = 0.4f;
 		stAnimInfo.iStartFrameIndex = 0;
 		stAnimInfo.iFrameCount = 8;
 		m_eLastAttackState = PLAYER::STATE_ATTACK1;
 		break;
 	case PLAYER::STATE_ATTACK2:
 		stAnimInfo.iCountToRepeat = 1;
-		stAnimInfo.fTotalTime = 0.4;
+		stAnimInfo.fTotalTime = 0.4f;
 		stAnimInfo.iStartFrameIndex = 0;
 		stAnimInfo.iFrameCount = 8;
 		m_eLastAttackState = PLAYER::STATE_ATTACK2;
 		break;
 	case PLAYER::STATE_DAMAGE:
 		stAnimInfo.iCountToRepeat = 1;
-		stAnimInfo.fTotalTime = 0.12;
+		stAnimInfo.fTotalTime = 0.25f;
 		stAnimInfo.iStartFrameIndex = 0;
 		stAnimInfo.iFrameCount = 2;
 		break;
 	case PLAYER::STATE_DEATH:
 		m_eDir = OBJ::DIR_DOWN;
 		stAnimInfo.iCountToRepeat = 1;
-		stAnimInfo.fTotalTime = 0.35;
+		stAnimInfo.fTotalTime = 1.f;
 		stAnimInfo.iStartFrameIndex = 0;
 		stAnimInfo.iFrameCount = 7;
 		break;
@@ -181,10 +201,6 @@ bool CPlayerWOL::IsMoveKeyPressed(float & _fToX, float & _fToY)
 		_fToY += cfDeltaY[OBJ::DIR_RIGHT];
 	}
 
-	if (CKeyMgr::GetInstance()->IsKeyDown(KEY::KEY_RBUTTON)) {
-		Attacked(100.f);
-	}
-
 	if (_fToX == 0.f && _fToY == 0.f) return false;
 	return true;
 }
@@ -196,4 +212,9 @@ void CPlayerWOL::Attacked(float _fDamageAmount)
 		CObj::Attacked(_fDamageAmount);
 		GetStateMgr()->SetNextState(new CPlayerState_Damage(*this));
 	}
+}
+
+void CPlayerWOL::Spawn(void)
+{
+	// TODO : 다음 스테이지 넘어갈때 필요(0719 ㄷㄷ!)
 }

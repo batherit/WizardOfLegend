@@ -21,7 +21,7 @@ CPlayerState_Run::~CPlayerState_Run()
 
 void CPlayerState_Run::OnLoaded(void)
 {
-	m_rOwner.SetNewState(PLAYER::STATE_RUN);
+	m_rOwner.SetNewStateAnim(PLAYER::STATE_RUN);
 	m_rOwner.SetSpeed(cfPlayerRunSpeed);
 }
 

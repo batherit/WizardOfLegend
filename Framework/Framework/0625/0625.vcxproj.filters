@@ -84,6 +84,9 @@
     <Filter Include="소스 파일\03.State\031.Player">
       <UniqueIdentifier>{f383deb9-60fc-484a-903f-e53c0fdbcb2a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="소스 파일\03.Obj\02. Effect">
+      <UniqueIdentifier>{55247d11-900f-4e7f-a43a-cee99bdff74a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CLayer.h">
@@ -230,7 +233,15 @@
     <ClInclude Include="CPlayerState_Damage.h">
       <Filter>소스 파일\03.State\031.Player</Filter>
     </ClInclude>
-    <ClInclude Include="CPlayerState_Death.h" />
+    <ClInclude Include="CPlayerState_Death.h">
+      <Filter>소스 파일\03.State\031.Player</Filter>
+    </ClInclude>
+    <ClInclude Include="CPlayerState_Spawn.h">
+      <Filter>소스 파일\03.State\031.Player</Filter>
+    </ClInclude>
+    <ClInclude Include="CEffect_Spawn.h">
+      <Filter>소스 파일\03.Obj\02. Effect</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CLayer.cpp">
@@ -374,14 +385,20 @@
     <ClCompile Include="CPlayerState_Dash.cpp">
       <Filter>소스 파일\03.State\031.Player</Filter>
     </ClCompile>
-    <ClCompile Include="CPlayerState_Attack.cpp">
-      <Filter>소스 파일\03.State\031.Player</Filter>
-    </ClCompile>
     <ClCompile Include="CPlayerState_Damage.cpp">
       <Filter>소스 파일\03.State\031.Player</Filter>
     </ClCompile>
     <ClCompile Include="CPlayerState_Death.cpp">
-      <Filter>소스 파일</Filter>
+      <Filter>소스 파일\03.State\031.Player</Filter>
+    </ClCompile>
+    <ClCompile Include="CPlayerState_Attack.cpp">
+      <Filter>소스 파일\03.State\031.Player</Filter>
+    </ClCompile>
+    <ClCompile Include="CPlayerState_Spawn.cpp">
+      <Filter>소스 파일\03.State\031.Player</Filter>
+    </ClCompile>
+    <ClCompile Include="CEffect_Spawn.cpp">
+      <Filter>소스 파일\03.Obj\02. Effect</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -8,7 +8,7 @@ const float cfDeltaY[OBJ::DIR_END] = { 0.f, 0.f, -1.f, 1.f };
 // 플레이어 변수
 const size_t ciPlayerSize = 50;
 const float cfPlayerRunSpeed = 610.f; // 1.55초에 13개의 타일(73*73)을 지나가는 것에 근거. 
-const float cfPlayerDashSpeed = 1750.f;	// 0.25초에 6개의 타일을 지나가는 것에 근거
+const float cfPlayerDashSpeed = 2350.f;	// 0.25초에 6개의 타일을 지나가는 것에 근거
 const float cfPlayerMaxHp = 500.f;
 
 // 총알 변수

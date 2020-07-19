@@ -18,7 +18,7 @@ CPlayerState_Dash::~CPlayerState_Dash()
 
 void CPlayerState_Dash::OnLoaded(void)
 {
-	m_rOwner.SetNewState(PLAYER::STATE_DASH);
+	m_rOwner.SetNewStateAnim(PLAYER::STATE_DASH);
 	m_rOwner.SetSpeed(cfPlayerDashSpeed);
 }
 
@@ -30,8 +30,8 @@ int CPlayerState_Dash::Update(float _fDeltaTime)
 	}
 
 	// 감속 조정
-	if (m_rOwner.GetAnimProgress() >= 0.5f) {
-		float fT = (m_rOwner.GetAnimProgress() - 0.5f) / 0.5f;
+	if (m_rOwner.GetAnimProgress() >= 0.4f) {
+		float fT = (m_rOwner.GetAnimProgress() - 0.4f) / 0.6f;
 		m_rOwner.SetSpeed(cfPlayerDashSpeed * (1.f - fT) + 0.f * fT);
 	}
 	m_rOwner.MoveByDeltaTime(_fDeltaTime);

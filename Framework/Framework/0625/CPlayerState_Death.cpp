@@ -16,7 +16,7 @@ CPlayerState_Death::~CPlayerState_Death()
 void CPlayerState_Death::OnLoaded(void)
 {
 	m_rOwner.SetSpeed(0.f);
-	m_rOwner.SetNewState(PLAYER::STATE_DEATH);
+	m_rOwner.SetNewStateAnim(PLAYER::STATE_DEATH);
 }
 
 int CPlayerState_Death::Update(float _fDeltaTime)

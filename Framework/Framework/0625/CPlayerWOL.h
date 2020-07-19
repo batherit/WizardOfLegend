@@ -20,10 +20,13 @@ public:
 
 public:
 	CStateMgr<CPlayerWOL>* GetStateMgr(void) const { return m_pStateMgr; }
-	void SetNewState(PLAYER::E_STATE _eNewState);
+	void SetNewStateAnim(PLAYER::E_STATE _eNewState, bool _bReset = false);
 	const PLAYER::E_STATE GetLastAttackState(void) const { return m_eLastAttackState; }
 	bool IsMoveKeyPressed(float& _fToX, float& _fToY);
 	virtual void Attacked(float _fDamageAmount);
+	void Spawn(void);
+	bool IsSpawning(void) { return m_pSpawnEffect != nullptr; }
+	void Respawn(void);
 
 private:
 	void SetInitInfo(void);
@@ -33,5 +36,6 @@ private:
 	HDC m_hDCKeyAtlas[OBJ::DIR_END];
 	PLAYER::E_STATE m_eState = PLAYER::STATE_END;
 	PLAYER::E_STATE m_eLastAttackState = PLAYER::STATE_ATTACK1;
+	CObj* m_pSpawnEffect = nullptr;
 };
 

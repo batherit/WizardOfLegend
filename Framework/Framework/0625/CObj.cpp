@@ -59,20 +59,24 @@ int CObj::UpdateAnim(float _fDeltaTime)
 	// 1 : 현재 Anim 상태가 무효화 상태이며 새로운 상태값 입력을 요구함.
 
 	if (m_stAnimInfo.iState < 0) return 1;
+	if (m_stAnimInfo.iCountToRepeat != 0 && m_stAnimInfo.iCountToRepeat <= m_stAnimProcessingInfo.iRepeatedCount) return 1;
 	// _anim_processing_info를 갱신한다.
+
 	m_stAnimProcessingInfo.fAnimElapsedTime += _fDeltaTime;
-
 	if (m_stAnimProcessingInfo.fAnimElapsedTime > m_stAnimInfo.fTotalTime) {
-		// 애니메이션 한바퀴를 다 돌았다!
-		m_stAnimProcessingInfo.fAnimElapsedTime = 0.f;
-		m_stAnimProcessingInfo.iCurrentIndex = 0;
-
+		// 애니메이션 한바퀴를 다 돎.
 		if(0 != m_stAnimInfo.iCountToRepeat) {
+			// 무한 애님이 아니라면.
 			m_stAnimProcessingInfo.iRepeatedCount++;
 			if (m_stAnimInfo.iCountToRepeat <= m_stAnimProcessingInfo.iRepeatedCount) {
-				//SetNewAnimInfo(_anim_info()); // 무효화 상태를 집어넣는다.
+				m_stAnimProcessingInfo.fAnimElapsedTime = m_stAnimInfo.fTotalTime;
 				return 1;
 			}
+		}
+		else {
+			// 무한 애님이라면.
+			m_stAnimProcessingInfo.fAnimElapsedTime = 0.f;
+			m_stAnimProcessingInfo.iCurrentIndex = 0;
 		}
 	}
 

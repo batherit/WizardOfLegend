@@ -4,18 +4,17 @@
 #include "CPlayerWOL.h"
 #include "CMapObjsGroup.h"
 #include "CSpace.h"
+#include "CStateMgr.h"
+#include "CPlayerState_Spawn.h"
 
 
 CPlayScene::CPlayScene(CGameWorld& _rGameWorld, const char* _szMapDirectory)
 	:
-	CScene(_rGameWorld)
+	CScene(_rGameWorld),
+	m_szMapDirectory(_szMapDirectory),
+	m_pPlayer(TO_WOL(_rGameWorld).GetPlayer())
 {
-	m_pMapLoader = new CMapLoader(_rGameWorld, _szMapDirectory);
-	m_pPlayer = TO_WOL(_rGameWorld).GetPlayer();
-	const pair<float, float> pairSpawnPoint = m_pMapLoader->GetSpawnPoint()->GetXY();
-	m_pPlayer->SetXY(pairSpawnPoint.first, pairSpawnPoint.second);
-	m_vecObjsToRender.reserve(100);
-	m_vecObjsToRender.clear();
+	ResetScene();
 }
 
 
@@ -24,24 +23,25 @@ CPlayScene::~CPlayScene()
 	Release();
 }
 
+void CPlayScene::ResetScene(void)
+{
+	Release();
+	m_pMapLoader = new CMapLoader(m_rGameWorld, m_szMapDirectory);
+	const pair<float, float> pairSpawnPoint = m_pMapLoader->GetSpawnPoint()->GetXY();
+	m_pPlayer->SetXY(pairSpawnPoint.first, pairSpawnPoint.second);
+	TO_PLAYER_WOL(m_pPlayer)->Respawn();
+	m_vecObjsToRender.reserve(100);
+	m_vecObjsToRender.clear();
+}
+
 int CPlayScene::Update(float _fDeltaTime)
 {
-	switch (m_eState) {
-	case PLAY_SCENE::STATE_PLAYER_SPAWN:
-	{
-		// TODO : 스폰 애니메이션 진행. => 애니메이션 완료 후 게임 플레이 상태로 전환
-		m_eState = PLAY_SCENE::STATE_PLAY;
+	m_vecObjsToRender.emplace_back(m_pPlayer);
+	for (auto& pObj : m_pMapLoader->GetDoors()) {
+		m_vecObjsToRender.emplace_back(pObj);
 	}
-		break;
-	case PLAY_SCENE::STATE_PLAY:
-		m_vecObjsToRender.emplace_back(m_pPlayer);
-		for (auto& pObj : m_pMapLoader->GetDoors()) {
-			m_vecObjsToRender.emplace_back(pObj);
-		}
-		m_pPlayer->Update(_fDeltaTime);
-		break;
-	}
-
+	m_pPlayer->Update(_fDeltaTime);
+	
 	return 0;
 }
 
@@ -52,16 +52,8 @@ void CPlayScene::LateUpdate(void)
 void CPlayScene::Render(HDC & _hdc, CCamera2D * _pCamera)
 {
 	g_iRenderCount = 0;
-	//rcDrawArea;
-	for (auto& pObj : m_pMapLoader->GetAtlasObjsGroups(0)) {
-		//// 그릴 영역을 가져온다.
-		//RECT rcDrawArea = GetRect();
 
-		//// 그릴 영역을 스크린 좌표로 변환한다.
-		//pair<float, float> pairLeftTop = _pCamera->GetScreenPoint(rcDrawArea.left, rcDrawArea.top);
-		//pair<float, float> pairRightBottom = _pCamera->GetScreenPoint(rcDrawArea.right, rcDrawArea.bottom);
-		//RECT rcCollider = { pairLeftTop.first, pairLeftTop.second, pairRightBottom.first, pairRightBottom.second };
-		//if (!IsCollided(GetGameWorld().GetViewSpace()->GetRect(), rcCollider)) return;
+	for (auto& pObj : m_pMapLoader->GetAtlasObjsGroups(0)) {
 		pObj->Render(_hdc, _pCamera);
 		break;
 	}

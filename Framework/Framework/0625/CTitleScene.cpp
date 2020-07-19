@@ -20,6 +20,10 @@ CTitleScene::~CTitleScene()
 {
 }
 
+void CTitleScene::ResetScene(void)
+{
+}
+
 int CTitleScene::Update(float _fDeltaTime)
 {
 	if (CKeyMgr::GetInstance()->IsKeyDown(KEY::KEY_LBUTTON)) {

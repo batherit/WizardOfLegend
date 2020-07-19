@@ -21,7 +21,7 @@ CPlayerState_Idle::~CPlayerState_Idle()
 
 void CPlayerState_Idle::OnLoaded(void)
 {
-	m_rOwner.SetNewState(PLAYER::STATE_IDLE);
+	m_rOwner.SetNewStateAnim(PLAYER::STATE_IDLE);
 	m_rOwner.SetSpeed(0.f);
 }
 

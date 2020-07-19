@@ -24,10 +24,10 @@ void CPlayerState_Attack::OnLoaded(void)
 	m_rOwner.SetSpeed(0.f);
 	switch (m_rOwner.GetLastAttackState()) {
 	case PLAYER::STATE_ATTACK1:
-		m_rOwner.SetNewState(PLAYER::STATE_ATTACK2);
+		m_rOwner.SetNewStateAnim(PLAYER::STATE_ATTACK2);
 		break;
 	case PLAYER::STATE_ATTACK2:
-		m_rOwner.SetNewState(PLAYER::STATE_ATTACK1);
+		m_rOwner.SetNewStateAnim(PLAYER::STATE_ATTACK1);
 		break;
 	}
 }
@@ -38,10 +38,10 @@ int CPlayerState_Attack::Update(float _fDeltaTime)
 		if (CKeyMgr::GetInstance()->IsKeyDown(KEY::KEY_LBUTTON)) {
 			switch (m_rOwner.GetLastAttackState()) {
 			case PLAYER::STATE_ATTACK1:
-				m_rOwner.SetNewState(PLAYER::STATE_ATTACK2);
+				m_rOwner.SetNewStateAnim(PLAYER::STATE_ATTACK2);
 				break;
 			case PLAYER::STATE_ATTACK2:
-				m_rOwner.SetNewState(PLAYER::STATE_ATTACK1);
+				m_rOwner.SetNewStateAnim(PLAYER::STATE_ATTACK1);
 				break;
 			}
 			m_iComboCount++;

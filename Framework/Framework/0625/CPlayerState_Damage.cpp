@@ -21,7 +21,7 @@ CPlayerState_Damage::~CPlayerState_Damage()
 void CPlayerState_Damage::OnLoaded(void)
 {
 	m_rOwner.SetSpeed(0.f);
-	m_rOwner.SetNewState(PLAYER::STATE_DAMAGE);
+	m_rOwner.SetNewStateAnim(PLAYER::STATE_DAMAGE, true);
 }
 
 int CPlayerState_Damage::Update(float _fDeltaTime)

@@ -73,6 +73,7 @@ public:
 	float GetAnimProgress(void) const { return m_stAnimProcessingInfo.fAnimElapsedTime / m_stAnimInfo.fTotalTime;  }
 	int GetAnimX(void) const { return m_stAnimProcessingInfo.iCurrentIndex * m_iWidth; }
 	int GetAnimY(void) const { return m_stAnimInfo.iState * m_iHeight; }
+	
 	const OBJ::E_DIRECTION GetDirType(void) const { return m_eDir; }
 	void SetDirType(const OBJ::E_DIRECTION& _eDir) { m_eDir = _eDir; }
 	virtual void Attacked(float _fDamageAmount) { Clamp(&(m_fHp -= _fDamageAmount), 0.f, cfPlayerMaxHp); }
