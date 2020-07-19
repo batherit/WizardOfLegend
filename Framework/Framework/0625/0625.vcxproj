@@ -227,6 +227,7 @@
     <ClInclude Include="Shield.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
     </ClInclude>
+    <ClInclude Include="CSpawnerGenerator.h" />
     <ClInclude Include="stdafx.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
     </ClInclude>
@@ -313,6 +314,7 @@
     <ClCompile Include="Shield.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
     </ClCompile>
+    <ClCompile Include="CSpawnerGenerator.cpp" />
     <ClCompile Include="UI_Button.cpp" />
     <ClCompile Include="UI_Gauge.cpp" />
     <ClCompile Include="그림출력.cpp">

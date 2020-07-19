@@ -102,6 +102,9 @@
     <Filter Include="소스 파일\03.Obj\026.Spawner\PlayerSpanwer">
       <UniqueIdentifier>{f6e1c407-ea37-4634-9e84-a1a1ce70a26a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="소스 파일\98.Generator">
+      <UniqueIdentifier>{99c955b2-5bfd-4fe1-9d1f-72ec8a51be50}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CLayer.h">
@@ -280,6 +283,9 @@
     </ClInclude>
     <ClInclude Include="CPlayerSpawner.h">
       <Filter>소스 파일\03.Obj\026.Spawner\PlayerSpanwer</Filter>
+    </ClInclude>
+    <ClInclude Include="CSpawnerGenerator.h">
+      <Filter>소스 파일\98.Generator</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -462,6 +468,9 @@
     </ClCompile>
     <ClCompile Include="CPlayerSpawner.cpp">
       <Filter>소스 파일\03.Obj\026.Spawner\PlayerSpanwer</Filter>
+    </ClCompile>
+    <ClCompile Include="CSpawnerGenerator.cpp">
+      <Filter>소스 파일\98.Generator</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

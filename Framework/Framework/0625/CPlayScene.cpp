@@ -9,6 +9,7 @@
 #include "CMonster_SwordMan.h"
 #include "CMonsterSpawner.h"
 #include "CPlayerSpawner.h"
+#include "CSpawnerGenerator.h"
 
 
 CPlayScene::CPlayScene(CGameWorld& _rGameWorld, const char* _szMapDirectory)
@@ -17,6 +18,7 @@ CPlayScene::CPlayScene(CGameWorld& _rGameWorld, const char* _szMapDirectory)
 	m_szMapDirectory(_szMapDirectory),
 	m_pPlayer(TO_WOL(_rGameWorld).GetPlayer())
 {
+	CSpawnerGenerator(_rGameWorld, m_listSpawners, m_listMonsters, 0);
 	ResetScene();
 }
 
