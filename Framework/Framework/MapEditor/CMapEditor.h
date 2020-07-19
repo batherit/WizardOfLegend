@@ -26,6 +26,7 @@ public:
 	void RenderZeroPoint(HDC& _hdc, CCamera2D* _pCamera);
 	void RenderDetectedTile(HDC& _hdc, CCamera2D* _pCamera);
 	void RenderMode(HDC& _hdc, CCamera2D* _pCamera);
+	void RenderCursorInfo(HDC& _hdc, CCamera2D* _pCamera);
 
 public:
 	void ClearObjs(void);

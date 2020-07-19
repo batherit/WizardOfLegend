@@ -55,7 +55,6 @@ void CPlayScene::Render(HDC & _hdc, CCamera2D * _pCamera)
 
 	for (auto& pObj : m_pMapLoader->GetAtlasObjsGroups(0)) {
 		pObj->Render(_hdc, _pCamera);
-		break;
 	}
 
 	// yÃà Á¤·Ä

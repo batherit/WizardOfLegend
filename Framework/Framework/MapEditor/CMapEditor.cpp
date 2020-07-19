@@ -100,7 +100,7 @@ CMapEditor::CMapEditor(CGameWorld& _rGameWorld)
 	m_vecEditorButtons.emplace_back(new CUI_Button<CMapEditor>(m_rGameWorld, WINCX - 100, (WINCY >> 1) + 200, 120, 25, TEXT("Make Map Data"), this, &CMapEditor::MakeMapData, nullptr));
 
 	// 디폴트 스폰포인트 생성
-	m_pSpawnPoint = new CEditor_SpawnPoint(m_rGameWorld, m_stMapRenderInfo, -1, -1);
+	m_pSpawnPoint = new CEditor_SpawnPoint(m_rGameWorld, m_stMapRenderInfo, 0, 0);
 
 	TO_MAPTOOL(m_rGameWorld).GetCamera()->SetXY(GetMapMiddleX(), GetMapMiddleY());
 }
@@ -316,7 +316,7 @@ void CMapEditor::Update(float _fDeltaTime)
 					{
 					case MAP_EDITOR::TOOL_PAINT:
 						// 스폰포인트는 무조건 존재한다. 하지만 혹시 모르므로 체크해줌. ^_^V
-						if (m_pSpawnPoint) m_pSpawnPoint->SetPivotPoint(iRow, iCol);
+						if (m_pSpawnPoint) dynamic_cast<CEditor_SpawnPoint*>(m_pSpawnPoint)->SetSpawnPoint(pairWorldPoint.first, pairWorldPoint.second);
 						break;
 					case MAP_EDITOR::TOOL_ERASE:
 						// 지우지 않는다, 지우지 못한다!!
@@ -366,6 +366,8 @@ void CMapEditor::Render(HDC & _hdc, CCamera2D* _pCamera)
 		pAtlas->Render(_hdc, _pCamera);
 	}
 	RenderDetectedTile(_hdc, _pCamera);
+	RenderCursorInfo(_hdc, _pCamera);
+	
 }
 
 void CMapEditor::Release(void)
@@ -453,6 +455,17 @@ void CMapEditor::RenderMode(HDC & _hdc, CCamera2D * _pCamera)
 	TextOut(_hdc, 30, (WINCY >> 1) + 90, szMode, lstrlen(szMode));
 	swprintf_s(szMode, TEXT("Door : %c"), (m_eDoorType == MAP_OBJ::TYPE_DOOR_HOR ? 'H' : 'V'));
 	TextOut(_hdc, 30, (WINCY >> 1) + 120, szMode, lstrlen(szMode));
+}
+
+void CMapEditor::RenderCursorInfo(HDC & _hdc, CCamera2D * _pCamera)
+{
+	POINT pt = GetClientCursorPoint();
+	pair<float, float> pairCursorPoint = _pCamera->GetWorldPoint(pt.x, pt.y);
+	int iRow = pairCursorPoint.second / m_stMapRenderInfo.stMapStructureInfo.iTileHeight;
+	int iCol = pairCursorPoint.first / m_stMapRenderInfo.stMapStructureInfo.iTileWidth;
+	TCHAR szBuf[64] = L"";
+	swprintf_s(szBuf, TEXT("R%d, C%d, x%f, y%f"), iRow, iCol, pairCursorPoint.first, pairCursorPoint.second);
+	TextOut(_hdc, pt.x + 10, pt.y - 10, szBuf, lstrlen(szBuf));
 }
 
 void CMapEditor::ClearObjs(void)

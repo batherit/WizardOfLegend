@@ -4,10 +4,12 @@
 #include "CSpace.h"
 
 
-CEditor_SpawnPoint::CEditor_SpawnPoint(CGameWorld& _rGameWorld, const _map_render_info & _rMapRenderInfo, int _iPivotRow, int _iPivotCol)
+CEditor_SpawnPoint::CEditor_SpawnPoint(CGameWorld& _rGameWorld, const _map_render_info & _rMapRenderInfo, int _iX, int _iY)
 	:
-	CEditor_Obj(_rGameWorld, _rMapRenderInfo, _iPivotRow, _iPivotCol, MAP_OBJ::TYPE_SPAWN_POINT)
+	CEditor_Obj(_rGameWorld, _rMapRenderInfo, _iX / _rMapRenderInfo.stMapStructureInfo.iTileWidth, _iY / _rMapRenderInfo.stMapStructureInfo.iTileHeight, MAP_OBJ::TYPE_SPAWN_POINT)
 {
+	m_ptSpawnPoint.x = _iX;
+	m_ptSpawnPoint.y = _iY;
 }
 
 CEditor_SpawnPoint::CEditor_SpawnPoint(CGameWorld& _rGameWorld, const _map_render_info & _rMapRenderInfo)
@@ -23,20 +25,24 @@ CEditor_SpawnPoint::~CEditor_SpawnPoint()
 RECT CEditor_SpawnPoint::GetRect(void) const
 {
 	RECT rc;
-	rc.left = m_stPivotPoint.iCol * m_rMapRenderInfo.stMapStructureInfo.iTileWidth;
+	/*rc.left = m_stPivotPoint.iCol * m_rMapRenderInfo.stMapStructureInfo.iTileWidth;
 	rc.top = m_stPivotPoint.iRow * m_rMapRenderInfo.stMapStructureInfo.iTileHeight;
 	rc.right = (m_stPivotPoint.iCol + 1) * m_rMapRenderInfo.stMapStructureInfo.iTileWidth;
-	rc.bottom = (m_stPivotPoint.iRow + 1) * m_rMapRenderInfo.stMapStructureInfo.iTileHeight;
+	rc.bottom = (m_stPivotPoint.iRow + 1) * m_rMapRenderInfo.stMapStructureInfo.iTileHeight;*/
+	rc.left = m_ptSpawnPoint.x - (m_rMapRenderInfo.stMapStructureInfo.iTileWidth >> 1);
+	rc.top = m_ptSpawnPoint.y - (m_rMapRenderInfo.stMapStructureInfo.iTileHeight >> 1);
+	rc.right = m_ptSpawnPoint.x + (m_rMapRenderInfo.stMapStructureInfo.iTileWidth >> 1);
+	rc.bottom = m_ptSpawnPoint.y + (m_rMapRenderInfo.stMapStructureInfo.iTileHeight >> 1);
 	return rc;
 }
 
 RECT CEditor_SpawnPoint::GetRowColRect(void) const
 {
 	RECT rc;
-	rc.left = m_stPivotPoint.iCol;
-	rc.top = m_stPivotPoint.iRow;
-	rc.right = m_stPivotPoint.iCol;
-	rc.bottom = m_stPivotPoint.iRow;
+	rc.left = m_ptSpawnPoint.x / m_rMapRenderInfo.stMapStructureInfo.iTileWidth;
+	rc.top = m_ptSpawnPoint.y / m_rMapRenderInfo.stMapStructureInfo.iTileHeight;
+	rc.right = rc.left;
+	rc.bottom = rc.top;
 
 	return rc;
 }
@@ -80,11 +86,19 @@ void CEditor_SpawnPoint::Render(HDC & _hdc, CCamera2D * _pCamera)
 void CEditor_SpawnPoint::SaveInfo(FILE * _fpOut)
 {
 	CEditor_Obj::SaveInfo(_fpOut);
+	fprintf_s(_fpOut, "%d %d \n",
+		m_ptSpawnPoint.x,
+		m_ptSpawnPoint.y
+	);
 }
 
 void CEditor_SpawnPoint::LoadInfo(FILE * _fpIn)
 {
 	CEditor_Obj::LoadInfo(_fpIn);
+	fscanf_s(_fpIn, "%d %d",
+		&m_ptSpawnPoint.x,
+		&m_ptSpawnPoint.y
+	);
 }
 
 void CEditor_SpawnPoint::MakeMapData(FILE * _fpOut)

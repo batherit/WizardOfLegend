@@ -52,6 +52,7 @@ void CAtlasObj::Render(HDC & _hdc, CCamera2D * _pCamera)
 	// 그릴 영역을 가져온다.
 	RECT& rcDrawArea = GetRect();
 
+
 	// 그릴 영역을 스크린 좌표로 변환한다.
 	pair<float, float>& pairLeftTop = _pCamera->GetScreenPoint(rcDrawArea.left, rcDrawArea.top);
 	pair<float, float>& pairRightBottom = _pCamera->GetScreenPoint(rcDrawArea.right, rcDrawArea.bottom);
