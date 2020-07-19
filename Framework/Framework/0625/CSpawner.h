@@ -15,5 +15,8 @@ public:
 
 protected:
 	bool m_bIsSpawend = false;
+	HDC m_hDCSpawnSprite = nullptr;
+	float m_fOffsetX = 0.f;
+	float m_fOffsetY = 0.f;
 };
 

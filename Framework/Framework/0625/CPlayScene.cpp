@@ -8,6 +8,7 @@
 #include "CPlayerState_Spawn.h"
 #include "CMonster_SwordMan.h"
 #include "CMonsterSpawner.h"
+#include "CPlayerSpawner.h"
 
 
 CPlayScene::CPlayScene(CGameWorld& _rGameWorld, const char* _szMapDirectory)
@@ -30,7 +31,8 @@ void CPlayScene::ResetScene(void)
 	Release();
 	m_pMapLoader = new CMapLoader(m_rGameWorld, m_szMapDirectory);
 	const pair<float, float> pairSpawnPoint = m_pMapLoader->GetSpawnPoint()->GetXY();
-	TO_PLAYER_WOL(m_pPlayer)->Respawn(pairSpawnPoint.first, pairSpawnPoint.second);
+	m_listSpawners.emplace_back(new CPlayerSpawner(m_rGameWorld, m_pPlayer, pairSpawnPoint.first, pairSpawnPoint.second));
+	//TO_PLAYER_WOL(m_pPlayer)->Respawn(pairSpawnPoint.first, pairSpawnPoint.second);
 	m_vecObjsToRender.reserve(100);
 	m_vecObjsToRender.clear();
 }

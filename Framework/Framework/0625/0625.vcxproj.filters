@@ -99,6 +99,9 @@
     <Filter Include="소스 파일\03.Obj\026.Spawner\MonsterSpawner">
       <UniqueIdentifier>{0718b96c-8cee-49dd-9882-06cadad21175}</UniqueIdentifier>
     </Filter>
+    <Filter Include="소스 파일\03.Obj\026.Spawner\PlayerSpanwer">
+      <UniqueIdentifier>{f6e1c407-ea37-4634-9e84-a1a1ce70a26a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CLayer.h">
@@ -274,6 +277,9 @@
     </ClInclude>
     <ClInclude Include="CMonsterSpawner.h">
       <Filter>소스 파일\03.Obj\026.Spawner\MonsterSpawner</Filter>
+    </ClInclude>
+    <ClInclude Include="CPlayerSpawner.h">
+      <Filter>소스 파일\03.Obj\026.Spawner\PlayerSpanwer</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -453,6 +459,9 @@
     </ClCompile>
     <ClCompile Include="CMonsterSpawner.cpp">
       <Filter>소스 파일\03.Obj\026.Spawner\MonsterSpawner</Filter>
+    </ClCompile>
+    <ClCompile Include="CPlayerSpawner.cpp">
+      <Filter>소스 파일\03.Obj\026.Spawner\PlayerSpanwer</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

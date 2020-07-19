@@ -13,8 +13,5 @@ public:
 private:
 	list<CObj*>& m_listMonsters;
 	SPAWN::E_TYPE m_eType = SPAWN::TYPE_END;
-	HDC m_hDCSpawnSprite = nullptr;
-	float m_fOffsetX = 0.f;
-	float m_fOffsetY = 0.f;
 };
 

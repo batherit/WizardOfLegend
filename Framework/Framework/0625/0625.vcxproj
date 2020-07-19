@@ -164,13 +164,18 @@
     <ClInclude Include="CMapObjsGroup.h" />
     <ClInclude Include="CMonsterSpawner.h" />
     <ClInclude Include="CMonster_SwordMan.h" />
+    <ClInclude Include="CPlayerSpawner.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
+    </ClInclude>
     <ClInclude Include="CPlayerState_Attack.h" />
     <ClInclude Include="CPlayerState_Damage.h" />
     <ClInclude Include="CPlayerState_Dash.h" />
     <ClInclude Include="CPlayerState_Death.h" />
     <ClInclude Include="CPlayerState_Idle.h" />
     <ClInclude Include="CPlayerState_Run.h" />
-    <ClInclude Include="CPlayerState_Spawn.h" />
+    <ClInclude Include="CPlayerState_Spawn.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </ClInclude>
     <ClInclude Include="CPlayerWOL.h" />
     <ClInclude Include="CPlayScene.h" />
     <ClInclude Include="CScene.h" />
@@ -246,13 +251,18 @@
     <ClCompile Include="CMapObjsGroup.cpp" />
     <ClCompile Include="CMonsterSpawner.cpp" />
     <ClCompile Include="CMonster_SwordMan.cpp" />
+    <ClCompile Include="CPlayerSpawner.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="CPlayerState_Attack.cpp" />
     <ClCompile Include="CPlayerState_Damage.cpp" />
     <ClCompile Include="CPlayerState_Dash.cpp" />
     <ClCompile Include="CPlayerState_Death.cpp" />
     <ClCompile Include="CPlayerState_Idle.cpp" />
     <ClCompile Include="CPlayerState_Run.cpp" />
-    <ClCompile Include="CPlayerState_Spawn.cpp" />
+    <ClCompile Include="CPlayerState_Spawn.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="CPlayerWOL.cpp" />
     <ClCompile Include="CPlayScene.cpp" />
     <ClCompile Include="CScene.cpp" />

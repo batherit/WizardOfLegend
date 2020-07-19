@@ -26,9 +26,11 @@ void CPlayerState_Attack::OnLoaded(void)
 	m_iComboCount++;
 	m_pCamera = TO_WOL(m_rOwner.GetGameWorld()).GetCamera();
 
-	SetAttackDirection();
-		
-	m_rOwner.SetSpeed(0.f);
+	float fLength = 0;
+	SetAttackDirection(&fLength);
+	if (fLength >= 100) m_fPlayerAttackSpeed = cfPlayerAttackSpeed;
+	else m_fPlayerAttackSpeed = 0.f;
+
 	switch (m_rOwner.GetLastAttackState()) {
 	case PLAYER::STATE_ATTACK1:
 		m_rOwner.SetNewStateAnim(PLAYER::STATE_ATTACK2);
@@ -43,7 +45,11 @@ int CPlayerState_Attack::Update(float _fDeltaTime)
 {
 	if (m_iComboCount < 3) {
 		if (CKeyMgr::GetInstance()->IsKeyDown(KEY::KEY_LBUTTON)) {
-			SetAttackDirection();
+			float fLength = 0;
+			SetAttackDirection(&fLength);
+			if (fLength >= 100) m_fPlayerAttackSpeed = cfPlayerAttackSpeed;
+			else m_fPlayerAttackSpeed = 0.f;
+
 			switch (m_rOwner.GetLastAttackState()) {
 			case PLAYER::STATE_ATTACK1:
 				m_rOwner.SetNewStateAnim(PLAYER::STATE_ATTACK2);
@@ -55,6 +61,12 @@ int CPlayerState_Attack::Update(float _fDeltaTime)
 			m_iComboCount++;
 		}
 	}
+	// 감속 조정
+	if (m_rOwner.GetAnimProgress() >= 0.0f) {
+		float fT = (m_rOwner.GetAnimProgress() - 0.0f) / 1.0f;
+		m_rOwner.SetSpeed(m_fPlayerAttackSpeed * (1.f - fT) + 0.f * fT);
+	}
+	m_rOwner.MoveByDeltaTime(_fDeltaTime);
 
 	if (CKeyMgr::GetInstance()->IsKeyDown(KEY::KEY_SPACE)) {
 		m_rOwner.GetStateMgr()->SetNextState(new CPlayerState_Dash(m_rOwner));
@@ -80,13 +92,14 @@ void CPlayerState_Attack::LateUpdate(void)
 {
 }
 
-void CPlayerState_Attack::SetAttackDirection(void)
+void CPlayerState_Attack::SetAttackDirection(float* _pLength)
 {
 	POINT ptCursorPoint = GetClientCursorPoint();
 	pair<float, float> pairCursorPoint = m_pCamera->GetWorldPoint(ptCursorPoint.x, ptCursorPoint.y);
 
 	float fToX = pairCursorPoint.first - m_rOwner.GetX();
 	float fToY = pairCursorPoint.second - m_rOwner.GetY();
+	if (_pLength) *_pLength = GetVectorLength(fToX, fToY);
 	m_rOwner.SetToXY(fToX, fToY);
 
 	float fDegree = GetPositiveRadianByVector(m_rOwner.GetToX(), m_rOwner.GetToY());

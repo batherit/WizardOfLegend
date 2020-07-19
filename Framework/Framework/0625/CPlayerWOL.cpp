@@ -6,8 +6,8 @@
 #include "CStateMgr.h"
 #include "CPlayerState_Idle.h"
 #include "CPlayerState_Damage.h"
-#include "CPlayerState_Spawn.h"
-#include "CEffect_Spawn.h"
+//#include "CPlayerState_Spawn.h"
+//#include "CEffect_Spawn.h"
 
 
 CPlayerWOL::CPlayerWOL(CGameWorld & _rGameWorld)
@@ -37,10 +37,10 @@ int CPlayerWOL::Update(float _fDeltaTime)
 {
 	// 유효하지 않은 상태로 컨펌되면 false를 반환한다.
 	if (!m_pStateMgr->ConfirmValidState()) return 1;
-	if (m_pSpawnEffect) {
+	/*if (m_pSpawnEffect) {
 		if (1 == m_pSpawnEffect->Update(_fDeltaTime))
 			DeleteSafe(m_pSpawnEffect);
-	}
+	}*/
 	m_pStateMgr->Update(_fDeltaTime);
 	return 0;
 }
@@ -74,20 +74,20 @@ void CPlayerWOL::Render(HDC & _hdc, CCamera2D * _pCamera)
 		RGB(255, 0, 255));
 	g_iRenderCount++;
 
-	if (m_pSpawnEffect) m_pSpawnEffect->Render(_hdc, _pCamera);
+	//if (m_pSpawnEffect) m_pSpawnEffect->Render(_hdc, _pCamera);
 }
 
 void CPlayerWOL::Release(void)
 {
 	DeleteSafe(m_pStateMgr);
-	DeleteSafe(m_pSpawnEffect);
+	//DeleteSafe(m_pSpawnEffect);
 }
 
 void CPlayerWOL::SetInitInfo(void)
 {
 	DeleteSafe(m_pStateMgr);
 	m_pStateMgr = new CStateMgr<CPlayerWOL>(GetGameWorld(), *this);
-	m_pStateMgr->SetNextState(new CPlayerState_Spawn(*this));
+	m_pStateMgr->SetNextState(new CPlayerState_Idle(*this));
 	m_fMaxHp = cfPlayerMaxHp;
 	m_fHp = m_fMaxHp;
 	m_eDir = OBJ::DIR_DOWN;
@@ -97,12 +97,12 @@ void CPlayerWOL::SetInitInfo(void)
 	m_hDCKeyAtlas[OBJ::DIR_LEFT] = CBitmapMgr::GetInstance()->GetBitmapMemDC(TEXT("PLAYER_LEFT"));
 }
 
-void CPlayerWOL::Respawn(float _fX, float _fY)
-{
-	m_fMaxHp = cfPlayerMaxHp;
-	m_fHp = m_fMaxHp;
-	Spawn(_fX, _fY);
-}
+//void CPlayerWOL::Respawn(float _fX, float _fY)
+//{
+//	m_fMaxHp = cfPlayerMaxHp;
+//	m_fHp = m_fMaxHp;
+//	Spawn(_fX, _fY);
+//}
 
 void CPlayerWOL::SetNewStateAnim(PLAYER::E_STATE _eNewState, bool _bReset /*= false*/)
 {
@@ -208,12 +208,12 @@ void CPlayerWOL::Attacked(float _fDamageAmount)
 	}
 }
 
-void CPlayerWOL::Spawn(float _fX, float _fY)
-{
-	SetXY(_fX, _fY);
-	DeleteSafe(m_pSpawnEffect);
-	m_pSpawnEffect = new CEffect_Spawn(GetGameWorld(), this, EFFECT_SPAWN::EFFECT_SPAWN_PLAYER);
-	m_pStateMgr->SetNextState(new CPlayerState_Spawn(*this));
-	SetSpeed(0.f);
-	m_eDir = OBJ::DIR_DOWN;
-}
+//void CPlayerWOL::Spawn(float _fX, float _fY)
+//{
+//	SetXY(_fX, _fY);
+//	DeleteSafe(m_pSpawnEffect);
+//	m_pSpawnEffect = new CEffect_Spawn(GetGameWorld(), this, EFFECT_SPAWN::EFFECT_SPAWN_PLAYER);
+//	m_pStateMgr->SetNextState(new CPlayerState_Spawn(*this));
+//	SetSpeed(0.f);
+//	m_eDir = OBJ::DIR_DOWN;
+//}

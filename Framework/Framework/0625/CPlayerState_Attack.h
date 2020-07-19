@@ -16,10 +16,11 @@ public:
 	virtual void LateUpdate(void) override;
 
 private:
-	void SetAttackDirection(void);
+	void SetAttackDirection(float* _pLength = nullptr);
 
 private:
 	int m_iComboCount = 0;
 	CCamera2D* m_pCamera;
+	float m_fPlayerAttackSpeed = 0.f;
 };
 

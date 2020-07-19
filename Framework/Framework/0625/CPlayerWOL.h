@@ -24,9 +24,9 @@ public:
 	const PLAYER::E_STATE GetLastAttackState(void) const { return m_eLastAttackState; }
 	bool IsMoveKeyPressed(float& _fToX, float& _fToY);
 	virtual void Attacked(float _fDamageAmount);
-	void Spawn(float _fX, float _fY);		// 데이터를 유지하며 스폰
-	bool IsSpawning(void) { return m_pSpawnEffect != nullptr; }
-	void Respawn(float _fX, float _fY);		// 데이터를 초기 데이터로 리셋하고 스폰.
+	//void Spawn(float _fX, float _fY);		// 데이터를 유지하며 스폰
+	//bool IsSpawning(void) { return m_pSpawnEffect != nullptr; }
+	//void Respawn(float _fX, float _fY);		// 데이터를 초기 데이터로 리셋하고 스폰.
 
 private:
 	void SetInitInfo(void);
@@ -36,6 +36,6 @@ private:
 	HDC m_hDCKeyAtlas[OBJ::DIR_END];
 	PLAYER::E_STATE m_eState = PLAYER::STATE_END;
 	PLAYER::E_STATE m_eLastAttackState = PLAYER::STATE_ATTACK1;
-	CObj* m_pSpawnEffect = nullptr;
+	//CObj* m_pSpawnEffect = nullptr;
 };
 
