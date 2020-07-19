@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "CObj.h"
 
+
 bool IsCollided(const RECT & _rRect1, const RECT & _rRect2)
 {
 	if (_rRect1.left > _rRect2.right) return false;
@@ -43,6 +44,33 @@ POINT GetClientCursorPoint(void)
 float GetRandomFloat(void)
 {
 	return static_cast <float> (rand()) / static_cast <float> (RAND_MAX);
+}
+
+float GetRadianByVector(float _fToX, float _fToY)
+{
+	float fRadian = acosf(_fToX / GetVectorLength(_fToX, _fToY));
+	if (_fToY < 0) fRadian *= -1.f;
+
+	return fRadian;
+}
+
+float GetPositiveRadianByVector(float _fX, float _fY) {
+	float fDegree = TO_DEGREE(GetRadianByVector(_fX, _fY));
+	if (fDegree < 0.f) fDegree += 360.f;
+	return fDegree;
+}
+
+OBJ::E_DIRECTION GetDirByDegree(float _fDegree) {
+	if (45.f <= _fDegree && _fDegree < 135.f) {
+		return OBJ::DIR_DOWN;
+	}
+	else if (135.f <= _fDegree && _fDegree < 225.f) {
+		return OBJ::DIR_LEFT;
+	}
+	else if (225.f <= _fDegree && _fDegree < 315.f) {
+		return OBJ::DIR_UP;
+	}
+	else return OBJ::DIR_RIGHT;
 }
 
 int GetNumberMinBetweenMax(int _iMin, int _iMax) {

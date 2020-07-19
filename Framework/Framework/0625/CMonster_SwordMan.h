@@ -8,7 +8,7 @@ class CMonster_SwordMan :
 {
 public:
 	CMonster_SwordMan(CGameWorld& _rGameWorld);
-	CMonster_SwordMan(CGameWorld& _rGameWorld, CObj* _pTarget = nullptr);
+	CMonster_SwordMan(CGameWorld& _rGameWorld, float _fX, float _fY, CObj* _pTarget = nullptr);
 	virtual ~CMonster_SwordMan();
 
 public:
@@ -23,8 +23,8 @@ public:
 	CStateMgr<CMonster_SwordMan>* GetStateMgr(void) const { return m_pStateMgr; }
 	void SetNewStateAnim(SWORDMAN::E_STATE _eNewState, bool _bReset = false);
 	virtual void Attacked(float _fDamageAmount);
-	void Spawn(float _fX, float _fY);
-	bool IsSpawning(void) { return m_pSpawnEffect != nullptr; }
+	//void Spawn(float _fX, float _fY);
+	//bool IsSpawning(void) { return m_pSpawnEffect != nullptr; }
 	bool GoToTarget(float _fDeltaTime);
 	bool IsAttackable(void);
 	bool DirectDirectionToTarget(void);
@@ -39,6 +39,6 @@ private:
 	HDC  m_hDCKeyAtlas[SWORDMAN::DIR_END];
 	SWORDMAN::E_STATE m_eState = SWORDMAN::STATE_END;
 	SWORDMAN::E_DIRECTION m_eSwordManDir = SWORDMAN::DIR_END;
-	CObj* m_pSpawnEffect = nullptr;
+	//CObj* m_pSpawnEffect = nullptr;
 };
 

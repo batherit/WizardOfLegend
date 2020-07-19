@@ -5,6 +5,7 @@
 #include "CCamera2D.h"
 #include "CEffect_Spawn.h"
 #include "CSwordManState_Spawn.h"
+#include "CSwordManState_Idle.h"
 
 
 CMonster_SwordMan::CMonster_SwordMan(CGameWorld & _rGameWorld)
@@ -14,8 +15,8 @@ CMonster_SwordMan::CMonster_SwordMan(CGameWorld & _rGameWorld)
 	SetInitInfo();
 }
 
-CMonster_SwordMan::CMonster_SwordMan(CGameWorld& _rGameWorld, CObj* _pTarget /*= nullptr*/)
-	:CObj(_rGameWorld, 0.f, 0.f, SWORDMAN_OUTPUT_WIDTH, SWORDMAN_OUTPUT_HEIGHT),
+CMonster_SwordMan::CMonster_SwordMan(CGameWorld& _rGameWorld, float _fX, float _fY, CObj* _pTarget /*= nullptr*/)
+	:CObj(_rGameWorld, _fX, _fY, SWORDMAN_OUTPUT_WIDTH, SWORDMAN_OUTPUT_HEIGHT),
 	m_pTarget(_pTarget)
 {
 	SetInitInfo();
@@ -30,10 +31,6 @@ int CMonster_SwordMan::Update(float _fDeltaTime)
 {
 	// 유효하지 않은 상태로 컨펌되면 false를 반환한다.
 	if (!m_pStateMgr->ConfirmValidState()) return 1;
-	if (m_pSpawnEffect) {
-		if (1 == m_pSpawnEffect->Update(_fDeltaTime))
-			DeleteSafe(m_pSpawnEffect);
-	}
 
 	if (GetToX() > 0.f) m_eSwordManDir = SWORDMAN::DIR_RIGHT;
 	else m_eSwordManDir = SWORDMAN::DIR_LEFT;
@@ -69,15 +66,12 @@ void CMonster_SwordMan::Render(HDC & _hdc, CCamera2D * _pCamera)
 		m_iHeight + (m_eState == SWORDMAN::STATE_DEATH ? 80 : 0),
 		RGB(255, 0, 255));
 	g_iRenderCount++;
-
-	if (m_pSpawnEffect) m_pSpawnEffect->Render(_hdc, _pCamera);
 }
 
 void CMonster_SwordMan::Release(void)
 {
 	m_pTarget = nullptr;
 	DeleteSafe(m_pStateMgr);
-	DeleteSafe(m_pSpawnEffect);
 }
 
 void CMonster_SwordMan::SetNewStateAnim(SWORDMAN::E_STATE _eNewState, bool _bReset)
@@ -131,15 +125,15 @@ void CMonster_SwordMan::Attacked(float _fDamageAmount)
 	}
 }
 
-void CMonster_SwordMan::Spawn(float _fX, float _fY)
-{
-	SetXY(_fX, _fY);
-	DeleteSafe(m_pSpawnEffect);
-	m_pSpawnEffect = new CEffect_Spawn(GetGameWorld(), this, EFFECT_SPAWN::EFFECT_SPAWN_SWORDMAN);
-	m_pStateMgr->SetNextState(new CSwordManState_Spawn(*this));
-	SetSpeed(0.f);
-	m_eDir = OBJ::DIR_DOWN;
-}
+//void CMonster_SwordMan::Spawn(float _fX, float _fY)
+//{
+//	SetXY(_fX, _fY);
+//	DeleteSafe(m_pSpawnEffect);
+//	m_pSpawnEffect = new CEffect_Spawn(GetGameWorld(), this, EFFECT_SPAWN::EFFECT_SPAWN_SWORDMAN);
+//	m_pStateMgr->SetNextState(new CSwordManState_Spawn(*this));
+//	SetSpeed(0.f);
+//	m_eDir = OBJ::DIR_DOWN;
+//}
 
 bool CMonster_SwordMan::IsAttackable(void)
 {
@@ -183,7 +177,7 @@ void CMonster_SwordMan::SetInitInfo(void)
 {
 	DeleteSafe(m_pStateMgr);
 	m_pStateMgr = new CStateMgr<CMonster_SwordMan>(GetGameWorld(), *this);
-	m_pStateMgr->SetNextState(new CSwordManState_Spawn(*this));
+	m_pStateMgr->SetNextState(new CSwordManState_Idle(*this));
 	m_fMaxHp = cfSwordManMaxHp;
 	m_fHp = m_fMaxHp;
 	m_eSwordManDir = SWORDMAN::DIR_RIGHT;

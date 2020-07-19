@@ -21,7 +21,8 @@ public:
 	virtual void Release(void) override;
 
 public:
-	CObj* GetPlayer(void) { return m_pPlayer; }
+	CObj* GetPlayer(void) const { return m_pPlayer; }
+	CCamera2D* GetCamera(void) const { return m_pCamera; }
 
 private:
 	void LoadResources(void);

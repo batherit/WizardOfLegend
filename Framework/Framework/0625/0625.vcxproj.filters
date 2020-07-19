@@ -93,6 +93,12 @@
     <Filter Include="소스 파일\03.Obj\030.Space">
       <UniqueIdentifier>{9edab618-d9aa-4302-b51e-bb59cdb14b1c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="소스 파일\03.Obj\026.Spawner">
+      <UniqueIdentifier>{034334ae-250a-4c18-b940-e3ca851cfb63}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\03.Obj\026.Spawner\MonsterSpawner">
+      <UniqueIdentifier>{0718b96c-8cee-49dd-9882-06cadad21175}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CLayer.h">
@@ -262,6 +268,12 @@
     </ClInclude>
     <ClInclude Include="CPlayerState_Attack.h">
       <Filter>소스 파일\03.State\031.Player</Filter>
+    </ClInclude>
+    <ClInclude Include="CSpawner.h">
+      <Filter>소스 파일\03.Obj\026.Spawner</Filter>
+    </ClInclude>
+    <ClInclude Include="CMonsterSpawner.h">
+      <Filter>소스 파일\03.Obj\026.Spawner\MonsterSpawner</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -435,6 +447,12 @@
     </ClCompile>
     <ClCompile Include="CSwordManState_Attack.cpp">
       <Filter>소스 파일\03.State\032.SwordMan</Filter>
+    </ClCompile>
+    <ClCompile Include="CSpawner.cpp">
+      <Filter>소스 파일\03.Obj\026.Spawner</Filter>
+    </ClCompile>
+    <ClCompile Include="CMonsterSpawner.cpp">
+      <Filter>소스 파일\03.Obj\026.Spawner\MonsterSpawner</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

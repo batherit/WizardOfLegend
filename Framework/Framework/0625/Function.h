@@ -28,6 +28,9 @@ bool IsCollided(const CObj* _pObj1, const CObj* _pObj2, RECT& _rCollidedPoint);
 bool IsPointInRect(const RECT& _rRect, const POINT& _rPoint);
 POINT GetClientCursorPoint(void);
 float GetRandomFloat(void);
+float GetRadianByVector(float _fToX, float _fToY);
+float GetPositiveRadianByVector(float _fX, float _fY);
+OBJ::E_DIRECTION GetDirByDegree(float _fDegree);
 int GetNumberMinBetweenMax(int _iMin, int _iMax);
 float GetNumberMinBetweenMax(float _fMin, float _fMax);
 template<typename T>

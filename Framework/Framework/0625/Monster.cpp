@@ -38,8 +38,7 @@ int CMonster::Update(float _fDeltaTime)
 	float fToX = pairPlayerXY.first - GetX();
 	float fToY = pairPlayerXY.second - GetY();
 	//NormalizeVector(fToX, fToY);
-	float fRadian = acosf(fToX / GetVectorLength(fToX, fToY));
-	if (fToY < 0) fRadian *= -1.f;
+	float fRadian = GetRadianByVector(fToX, fToY);
 	//float fLength = GetVectorLength(fToX, fToY);
 	
 	MoveTo(m_fSpeed * DIR_X_RADIAN(fRadian), m_fSpeed * DIR_Y_RADIAN(fRadian));

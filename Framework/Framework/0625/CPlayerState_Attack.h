@@ -16,6 +16,10 @@ public:
 	virtual void LateUpdate(void) override;
 
 private:
+	void SetAttackDirection(void);
+
+private:
 	int m_iComboCount = 0;
+	CCamera2D* m_pCamera;
 };
 

@@ -7,6 +7,7 @@
 #include "CStateMgr.h"
 #include "CPlayerState_Spawn.h"
 #include "CMonster_SwordMan.h"
+#include "CMonsterSpawner.h"
 
 
 CPlayScene::CPlayScene(CGameWorld& _rGameWorld, const char* _szMapDirectory)
@@ -37,9 +38,8 @@ void CPlayScene::ResetScene(void)
 int CPlayScene::Update(float _fDeltaTime)
 {
 	if(CKeyMgr::GetInstance()->IsKeyDown(KEY::KEY_RBUTTON)) {
-		CObj* pObj = new CMonster_SwordMan(m_rGameWorld, m_pPlayer);
-		m_listMonsters.emplace_back(pObj);
-		dynamic_cast<CMonster_SwordMan*>(pObj)->Spawn(m_pPlayer->GetX() + 150, m_pPlayer->GetY());
+		CObj* pObj = new CMonsterSpawner(m_rGameWorld, m_listMonsters, m_pPlayer->GetX() + 100, m_pPlayer->GetY(), SPAWN::TYPE_SWORDMAN);
+		m_listSpawners.emplace_back(pObj);
 	}
 	m_vecObjsToRender.emplace_back(m_pPlayer);
 	for (auto& pObj : m_pMapLoader->GetDoors()) {
@@ -49,6 +49,9 @@ int CPlayScene::Update(float _fDeltaTime)
 		pObj->Update(_fDeltaTime);
 		m_vecObjsToRender.emplace_back(pObj);
 	}
+	for (auto& pObj : m_listSpawners) {
+		pObj->Update(_fDeltaTime);
+	}
 	m_pPlayer->Update(_fDeltaTime);
 	
 	return 0;
@@ -56,6 +59,8 @@ int CPlayScene::Update(float _fDeltaTime)
 
 void CPlayScene::LateUpdate(void)
 {
+	CollectGarbageObjects(m_listMonsters);
+	CollectGarbageObjects(m_listSpawners);
 }
 
 void CPlayScene::Render(HDC & _hdc, CCamera2D * _pCamera)
@@ -75,6 +80,10 @@ void CPlayScene::Render(HDC & _hdc, CCamera2D * _pCamera)
 	}
 	m_vecObjsToRender.clear();
 
+	for (auto& pObj : m_listSpawners) {
+		pObj->Render(_hdc, _pCamera);
+	}
+
 	for (auto& pObj : m_pMapLoader->GetAtlasObjsGroups(1)) {
 		pObj->Render(_hdc, _pCamera);
 	}
@@ -83,4 +92,7 @@ void CPlayScene::Render(HDC & _hdc, CCamera2D * _pCamera)
 void CPlayScene::Release(void)
 {
 	DeleteSafe(m_pMapLoader);
+	DeleteListSafe(m_listMonsters);
+	DeleteListSafe(m_listSpawners);
+	m_vecObjsToRender.clear();
 }
