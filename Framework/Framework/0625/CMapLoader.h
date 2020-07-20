@@ -22,9 +22,10 @@ public:
 	const vector<CMapObjsGroup*>& GetAtlasObjsGroups(int _iLayerIndex) { return m_vecAtlasObjsGroups[_iLayerIndex]; }
 	const vector<CMapObjsGroup*>& GetCollidersGroups(void) const { return m_vecCollidersGroups; }
 	list<CMapObjsGroup*>& GetTriggersGroups(void) { return m_listTriggersGroups; }
-	const vector<CObj*>& GetDoors(void) const { return m_vecActiveDoors; }
+	const vector<CObj*>& GetDoors(void) { return m_vecActiveDoors; }
 	const CObj* GetSpawnPoint(void) const { return m_pSpawnPoint; }
 	void ActivateDoors(int _iGroupID);
+	void UnactivateDoors(int _iGroupID);
 
 private:
 	void ClearObjs(void);

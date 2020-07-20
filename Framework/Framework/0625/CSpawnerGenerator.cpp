@@ -29,7 +29,7 @@ CSpawnerGenerator::CSpawnerGenerator(CGameWorld & _rGameWorld, list<CObj*>& _lis
 				if (eType < 0) break;
 
 				m_vecUnactiveSpawnersPerPhase[i].emplace_back(
-					new CMonsterSpawner(m_rGameWorld, _listMonsters, iSpawnX, iSpawnY, eType, _iGroupID));
+					new CMonsterSpawner(m_rGameWorld, _listMonsters, iSpawnX, iSpawnY, eType, _iGroupID, this));
 			}
 		}
 	}
@@ -43,35 +43,18 @@ CSpawnerGenerator::~CSpawnerGenerator()
 
 int CSpawnerGenerator::Update(float _fDeltaTime)
 {
-	if (m_iCurPhase < m_iMaxPhase) {
-		bool bOk = true;
-		// 해당 그룹의 생성된 몬스터가 없고 
-		for (auto& pObj : m_listMonserts) {
-			if (pObj->GetGroupID() == m_iGroupID) {
-				bOk = false;
-				break;
-			}
-		}
-		// 해당 그룹의 생성할 몬스터 또한 없다면
-		for (auto& pObj : m_listSpawners) {
-			if (pObj->GetGroupID() == m_iGroupID) {
-				bOk = false;
-				break;
-			}
-		}
+	if (m_iSpawnedMonstersNum == 0) {
+		if (m_iCurPhase >= m_iMaxPhase) return 1;
 		// 스포너를 외부 리스트에 전달하고, 해당 페이즈의 스포너 리스트를 없앤다.
 		// 그리고 페이즈 포인트를 늘린다.
-		if (bOk) {
-			for (auto& pObj : m_vecUnactiveSpawnersPerPhase[m_iCurPhase]) {
-				m_listSpawners.emplace_back(pObj);
-			}
-			m_vecUnactiveSpawnersPerPhase[m_iCurPhase].clear();
-			m_iCurPhase++;
+		for (auto& pObj : m_vecUnactiveSpawnersPerPhase[m_iCurPhase]) {
+			m_listSpawners.emplace_back(pObj);
+			m_iSpawnedMonstersNum++;
 		}
+		m_vecUnactiveSpawnersPerPhase[m_iCurPhase].clear();
+		m_iCurPhase++;
 	}
-	
-	if(m_iCurPhase >= m_iMaxPhase) return 1;	// 마지막 페이즈까지 모두 소환한 경우, 삭제를 요청한다.
-	return 0;									// 아직 소환할 페이즈가 남아있으므로 업데이트를 계속 요청한다.
+	return 0;				// 아직 소환할 페이즈가 남아있으므로 업데이트를 계속 요청한다.
 }
 
 void CSpawnerGenerator::Release(void)

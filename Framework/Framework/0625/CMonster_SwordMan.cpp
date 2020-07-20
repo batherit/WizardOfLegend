@@ -7,18 +7,22 @@
 #include "CSwordManState_Spawn.h"
 #include "CSwordManState_Idle.h"
 #include "CSwordManState_Damage.h"
+#include "CSpawnerGenerator.h"
 
 
-CMonster_SwordMan::CMonster_SwordMan(CGameWorld & _rGameWorld)
+CMonster_SwordMan::CMonster_SwordMan(CGameWorld & _rGameWorld, CSpawnerGenerator* _pSpawnerGenerator/* = nullptr*/)
 	:
-	CObj(_rGameWorld, 0.f, 0.f, SWORDMAN_OUTPUT_WIDTH, SWORDMAN_OUTPUT_HEIGHT)
+	CObj(_rGameWorld, 0.f, 0.f, SWORDMAN_OUTPUT_WIDTH, SWORDMAN_OUTPUT_HEIGHT),
+	m_pSpawnerGenerator(_pSpawnerGenerator)
 {
 	SetInitInfo();
 }
 
-CMonster_SwordMan::CMonster_SwordMan(CGameWorld& _rGameWorld, float _fX, float _fY, int _iGroupID, CObj* _pTarget /*= nullptr*/)
-	:CObj(_rGameWorld, _fX, _fY, SWORDMAN_OUTPUT_WIDTH, SWORDMAN_OUTPUT_HEIGHT),
-	m_pTarget(_pTarget)
+CMonster_SwordMan::CMonster_SwordMan(CGameWorld& _rGameWorld, float _fX, float _fY, int _iGroupID, CObj* _pTarget /*= nullptr*/, CSpawnerGenerator* _pSpawnerGenerator/* = nullptr*/)
+	:
+	CObj(_rGameWorld, _fX, _fY, SWORDMAN_OUTPUT_WIDTH, SWORDMAN_OUTPUT_HEIGHT),
+	m_pTarget(_pTarget),
+	m_pSpawnerGenerator(_pSpawnerGenerator)
 {
 	m_iGroupID = _iGroupID;
 	SetInitInfo();
@@ -123,6 +127,7 @@ void CMonster_SwordMan::Attacked(float _fDamageAmount, POINT _ptCollisionPoint)
 {
 	if (!IsDead()) {
 		CObj::Attacked(_fDamageAmount, _ptCollisionPoint);
+		if (IsDead() && m_pSpawnerGenerator) m_pSpawnerGenerator->DecreaseSpawnedMonstersNum();
 		GetStateMgr()->SetNextState(new CSwordManState_Damage(*this, _ptCollisionPoint), true);
 	}
 }

@@ -8,6 +8,8 @@ public:
 public:
 	int Update(float _fDeltaTime);		// 몬스터 생성을 함. 1을 반환하면 더이상 생성할 몬스터가 없다는 뜻.
 	void Release(void);
+	int GetGroupID(void) const { return m_iGroupID; }
+	void DecreaseSpawnedMonstersNum(void) { if (m_iSpawnedMonstersNum > 0) m_iSpawnedMonstersNum--; }
 
 private:
 	CGameWorld& m_rGameWorld;
@@ -17,5 +19,6 @@ private:
 	int m_iMaxPhase = 0;
 	int m_iCurPhase = 0;
 	int m_iGroupID = -1;
+	int m_iSpawnedMonstersNum = 0;
 };
 

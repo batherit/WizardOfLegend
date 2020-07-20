@@ -136,6 +136,16 @@ void CMapLoader::ActivateDoors(int _iGroupID)
 	}
 }
 
+void CMapLoader::UnactivateDoors(int _iGroupID)
+{
+	for (auto iter = m_vecActiveDoors.begin(); iter != m_vecActiveDoors.end(); ) {
+		if ((*iter)->GetGroupID() == _iGroupID) {
+			iter = m_vecActiveDoors.erase(iter);
+		}
+		else iter++;
+	}
+}
+
 void CMapLoader::ClearObjs(void)
 {
 	for (int i = 0; i < ciMaxDrawLayerNum; i++) {

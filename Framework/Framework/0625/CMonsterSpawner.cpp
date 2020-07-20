@@ -5,14 +5,16 @@
 #include "CMonster_SwordMan.h"
 #include "CWOL_World.h"
 #include "CSpace.h"
+#include "CSpawnerGenerator.h"
 
 
 
-CMonsterSpawner::CMonsterSpawner(CGameWorld & _rGameWorld, list<CObj*>& _listMonsters, float _fX, float _fY, SPAWN::E_TYPE _eType, int _iGroupID)
+CMonsterSpawner::CMonsterSpawner(CGameWorld & _rGameWorld, list<CObj*>& _listMonsters, float _fX, float _fY, SPAWN::E_TYPE _eType, int _iGroupID, CSpawnerGenerator* _pSpawnerGenerator)
 	:
 	CSpawner(_rGameWorld, _fX, _fY),
 	m_listMonsters(_listMonsters),
-	m_eType(_eType)
+	m_eType(_eType),
+	m_pSpawnerGenerator(_pSpawnerGenerator)
 {
 	m_iGroupID = _iGroupID;
 
@@ -70,7 +72,7 @@ int CMonsterSpawner::Update(float _fDeltaTime)
 	if (!m_bIsSpawend && GetAnimProgress() >= 0.875f) {
 		switch (m_eType) {
 		case SPAWN::TYPE_SWORDMAN:
-			m_listMonsters.emplace_back(new CMonster_SwordMan(GetGameWorld(), GetX(), GetY(), m_iGroupID, TO_WOL(GetGameWorld()).GetPlayer()));
+			m_listMonsters.emplace_back(new CMonster_SwordMan(GetGameWorld(), GetX(), GetY(), m_iGroupID, TO_WOL(GetGameWorld()).GetPlayer(), m_pSpawnerGenerator));
 			break;
 		case SPAWN::TYPE_ARCHER:
 

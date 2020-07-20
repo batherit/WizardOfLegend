@@ -48,6 +48,7 @@ int CPlayScene::Update(float _fDeltaTime)
 
 	for (auto& pObj : m_listSpawnerGenerators) {
 		if (pObj->Update(_fDeltaTime) == 1) {
+			m_pMapLoader->UnactivateDoors(pObj->GetGroupID());
 			DeleteSafe(pObj);
 		}
 	}
