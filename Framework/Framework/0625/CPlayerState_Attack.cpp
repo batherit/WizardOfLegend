@@ -41,11 +41,11 @@ void CPlayerState_Attack::OnLoaded(void)
 		break;
 	}
 
-	TO_WOL(m_rOwner.GetGameWorld()).GetListUsedSkills().emplace_back(
+	TO_WOL(m_rOwner.GetGameWorld()).GetListUsedPlayerSkills().emplace_back(
 		new CPlayerNormalAttack(m_rOwner.GetGameWorld()
 			, m_rOwner.GetX() + m_rOwner.GetToX() * cfPlayerNormalAttackDist
 			, m_rOwner.GetY() + m_rOwner.GetToY() * cfPlayerNormalAttackDist
-			, m_rOwner.GetToX() * cfPlayerNormalAttackDist, m_rOwner.GetToY() * cfPlayerNormalAttackDist
+			, m_rOwner.GetToX(), m_rOwner.GetToY()
 			, m_rOwner.GetLastAttackState()));
 }
 
@@ -67,11 +67,11 @@ int CPlayerState_Attack::Update(float _fDeltaTime)
 				break;
 			}
 
-			TO_WOL(m_rOwner.GetGameWorld()).GetListUsedSkills().emplace_back(
+			TO_WOL(m_rOwner.GetGameWorld()).GetListUsedPlayerSkills().emplace_back(
 				new CPlayerNormalAttack(m_rOwner.GetGameWorld()
 					, m_rOwner.GetX() + m_rOwner.GetToX() * cfPlayerNormalAttackDist
 					, m_rOwner.GetY() + m_rOwner.GetToY() * cfPlayerNormalAttackDist
-					, m_rOwner.GetToX() * cfPlayerNormalAttackDist, m_rOwner.GetToY() * cfPlayerNormalAttackDist
+					, m_rOwner.GetToX(), m_rOwner.GetToY()
 					, m_rOwner.GetLastAttackState()));
 			m_iComboCount++;
 		}

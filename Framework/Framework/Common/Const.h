@@ -17,6 +17,7 @@ const float cfPlayerNormalAttackDist = 120.f;
 const float cfSwordManRunSpeed = 300.f;
 const float cfSwordManMaxHp = 80.f;
 const float cfSwordManAttackableRange = 80.f;
+const float cfSwordManNormalAttackDist = 120.f;
 
 // ÃÑ¾Ë º¯¼ö
 const size_t ciBulletSize = 8;

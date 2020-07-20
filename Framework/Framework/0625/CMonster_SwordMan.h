@@ -28,6 +28,7 @@ public:
 	bool GoToTarget(float _fDeltaTime);
 	bool IsAttackable(void);
 	bool DirectDirectionToTarget(void);
+	SWORDMAN::E_DIRECTION GetSwordManDir(void) const { return m_eSwordManDir; }
 
 
 private:

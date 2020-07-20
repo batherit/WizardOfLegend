@@ -23,7 +23,8 @@ public:
 public:
 	CObj* GetPlayer(void) const { return m_pPlayer; }
 	CCamera2D* GetCamera(void) const { return m_pCamera; }
-	list<CObj*>& GetListUsedSkills(void) { return m_plistUsedSkills; }
+	list<CObj*>& GetListUsedPlayerSkills(void) { return m_plistUsedPlayerSkills; }
+	list<CObj*>& GetListUsedMonsterSkills(void) { return m_plistUsedMonsterSkills; }
 
 private:
 	void LoadResources(void);
@@ -37,6 +38,7 @@ private:
 private:
 	// 월드 오브젝트
 	CObj* m_pPlayer = nullptr;
-	list<CObj*> m_plistUsedSkills;
+	list<CObj*> m_plistUsedPlayerSkills;
+	list<CObj*> m_plistUsedMonsterSkills;
 };
 

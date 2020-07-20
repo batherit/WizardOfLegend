@@ -43,7 +43,11 @@ void CWOL_World::Update(void)
 	GetSceneManager()->Update(fDeltaTime);
 	m_pCamera->Update(fDeltaTime);
 
-	for (auto& pObj : m_plistUsedSkills) {
+	for (auto& pObj : m_plistUsedPlayerSkills) {
+		pObj->Update(fDeltaTime);
+	}
+
+	for (auto& pObj : m_plistUsedMonsterSkills) {
 		pObj->Update(fDeltaTime);
 	}
 
@@ -59,7 +63,8 @@ void CWOL_World::LateUpdate(void)
 	GetSceneManager()->LateUpdate();
 	m_pCamera->LateUpdate();
 
-	CollectGarbageObjects(m_plistUsedSkills);
+	CollectGarbageObjects(m_plistUsedPlayerSkills);
+	CollectGarbageObjects(m_plistUsedMonsterSkills);
 }
 
 void CWOL_World::Render(void)
@@ -68,7 +73,10 @@ void CWOL_World::Render(void)
 
 	GetSceneManager()->Render(GetBackbufferDC(), m_pCamera);
 
-	for (auto& pObj : m_plistUsedSkills) {
+	for (auto& pObj : m_plistUsedPlayerSkills) {
+		pObj->Render(GetBackbufferDC(), m_pCamera);
+	}
+	for (auto& pObj : m_plistUsedMonsterSkills) {
 		pObj->Render(GetBackbufferDC(), m_pCamera);
 	}
 
@@ -91,7 +99,8 @@ void CWOL_World::Release(void)
 {
 	DeleteSafe(m_pCursor);
 	DeleteSafe(m_pCamera);
-	DeleteListSafe(m_plistUsedSkills);
+	DeleteListSafe(m_plistUsedPlayerSkills);
+	DeleteListSafe(m_plistUsedMonsterSkills);
 	CBitmapMgr::DestroyInstance();
 	CKeyMgr::DestroyInstance();
 }

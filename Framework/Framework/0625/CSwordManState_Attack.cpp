@@ -4,6 +4,7 @@
 #include "CSwordManState_Run.h"
 #include "CMonster_SwordMan.h"
 #include "CStateMgr.h"
+#include "CSwordManAttack.h"
 
 
 
@@ -22,10 +23,27 @@ void CSwordManState_Attack::OnLoaded(void)
 	m_rOwner.SetSpeed(0.f);
 	m_rOwner.SetNewStateAnim(SWORDMAN::STATE_ATTACK, true);
 	m_rOwner.DirectDirectionToTarget();
+
+
+
+
+		/*new CPlayerNormalAttack(m_rOwner.GetGameWorld()
+			, m_rOwner.GetX() + m_rOwner.GetToX() * cfPlayerNormalAttackDist
+			, m_rOwner.GetY() + m_rOwner.GetToY() * cfPlayerNormalAttackDist
+			, m_rOwner.GetToX() * cfPlayerNormalAttackDist, m_rOwner.GetToY() * cfPlayerNormalAttackDist
+			, m_rOwner.GetLastAttackState()));*/
 }
 
 int CSwordManState_Attack::Update(float _fDeltaTime)
 {
+	if (!bAttackOk && m_rOwner.GetAnimProgress() >= 0.5f) {
+		TO_WOL(m_rOwner.GetGameWorld()).GetListUsedMonsterSkills().emplace_back(
+			new CSwordManAttack(m_rOwner.GetGameWorld()
+				, m_rOwner.GetX() + m_rOwner.GetToX() * cfSwordManNormalAttackDist
+				, m_rOwner.GetY() + m_rOwner.GetToY() * cfSwordManNormalAttackDist
+				, m_rOwner.GetToX(), m_rOwner.GetToY(), m_rOwner.GetSwordManDir()));
+		bAttackOk = true;
+	}
 	if (m_rOwner.UpdateAnim(_fDeltaTime) == 1) {
 		if (m_rOwner.GetTarget()) {
 			if (m_rOwner.IsAttackable()) {
