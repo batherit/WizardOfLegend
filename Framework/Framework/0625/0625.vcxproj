@@ -191,6 +191,8 @@
     <ClInclude Include="CStateMgr.h" />
     <ClInclude Include="CSwordManAttack.h" />
     <ClInclude Include="CSwordManState_Attack.h" />
+    <ClInclude Include="CSwordManState_Damage.h" />
+    <ClInclude Include="CSwordManState_Death.h" />
     <ClInclude Include="CSwordManState_Idle.h" />
     <ClInclude Include="CSwordManState_Run.h" />
     <ClInclude Include="CSwordManState_Spawn.h">
@@ -280,6 +282,8 @@
     <ClCompile Include="CStateMgr.cpp" />
     <ClCompile Include="CSwordManAttack.cpp" />
     <ClCompile Include="CSwordManState_Attack.cpp" />
+    <ClCompile Include="CSwordManState_Damage.cpp" />
+    <ClCompile Include="CSwordManState_Death.cpp" />
     <ClCompile Include="CSwordManState_Idle.cpp" />
     <ClCompile Include="CSwordManState_Run.cpp" />
     <ClCompile Include="CSwordManState_Spawn.cpp">

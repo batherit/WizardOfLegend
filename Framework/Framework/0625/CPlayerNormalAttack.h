@@ -13,6 +13,7 @@ public:
 	virtual void Render(HDC& _hdc, CCamera2D* _pCamera)	override;
 	virtual void Release(void)							override;
 
+
 private:
 	HDC m_hDCKeyAtlas = nullptr;
 };

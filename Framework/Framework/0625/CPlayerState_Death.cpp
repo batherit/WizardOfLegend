@@ -21,7 +21,10 @@ void CPlayerState_Death::OnLoaded(void)
 
 int CPlayerState_Death::Update(float _fDeltaTime)
 {
-	m_rOwner.UpdateAnim(_fDeltaTime);
+	if (m_rOwner.UpdateAnim(_fDeltaTime) == 1) {
+		m_rOwner.GetGameWorld().GetSceneManager()->RequestSceneInit();
+		return 1;
+	}
 
 	return 0;
 }

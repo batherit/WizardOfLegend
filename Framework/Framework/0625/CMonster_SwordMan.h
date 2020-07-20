@@ -22,7 +22,7 @@ public:
 	CObj* GetTarget(void) const { return m_pTarget; }
 	CStateMgr<CMonster_SwordMan>* GetStateMgr(void) const { return m_pStateMgr; }
 	void SetNewStateAnim(SWORDMAN::E_STATE _eNewState, bool _bReset = false);
-	virtual void Attacked(float _fDamageAmount);
+	virtual void Attacked(float _fDamageAmount, POINT _ptCollisionPoint);
 	//void Spawn(float _fX, float _fY);
 	//bool IsSpawning(void) { return m_pSpawnEffect != nullptr; }
 	bool GoToTarget(float _fDeltaTime);

@@ -10,7 +10,7 @@ public:
 
 public:
 	bool ConfirmValidState(void);				// 다음 상태가 존재한다면, 그 상태으로 변경한다.
-	void SetNextState(CState<T>* _pNextScene);		
+	void SetNextState(CState<T>* _pNextScene, bool _bIsForced = false);
 	void Update(float _fDeltaTime);
 	void LateUpdate(void);
 	void Release(void);
@@ -53,12 +53,12 @@ bool CStateMgr<T>::ConfirmValidState(void)
 }
 
 template<typename T>
-void CStateMgr<T>::SetNextState(CState<T> * _pNextScene)
+void CStateMgr<T>::SetNextState(CState<T> * _pNextScene, bool _bIsForced)
 {
 	// 다음 씬이 이미 세팅된 경우, 해당 함수를 무시한다.
 	// => 다음 상태 변경까지 새로운 상태로 세팅할 수 없다.
 	// for 상태를 동기화해주기 위함.
-	if (!m_bIsConfirmed) {
+	if (!m_bIsConfirmed && !_bIsForced) {
 		DeleteSafe(_pNextScene);	// 들어온 상태는 제거한다.
 		return;						// 이전에 상태 변경이 요청이 들어왔지만 아직 변경되지 않은 경우
 	}

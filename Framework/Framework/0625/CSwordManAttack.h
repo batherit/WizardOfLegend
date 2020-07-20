@@ -15,5 +15,6 @@ public:
 
 private:
 	HDC m_hDCKeyAtlas = nullptr;
+	
 };
 

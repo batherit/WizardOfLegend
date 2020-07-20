@@ -32,6 +32,7 @@ void CPlayScene::ResetScene(void)
 	Release();
 	m_pMapLoader = new CMapLoader(m_rGameWorld, m_szMapDirectory);
 	const pair<float, float> pairSpawnPoint = m_pMapLoader->GetSpawnPoint()->GetXY();
+	TO_PLAYER_WOL(m_pPlayer)->SetInitInfo();
 	m_listSpawners.emplace_back(new CPlayerSpawner(m_rGameWorld, m_pPlayer, pairSpawnPoint.first, pairSpawnPoint.second));
 	//TO_PLAYER_WOL(m_pPlayer)->Respawn(pairSpawnPoint.first, pairSpawnPoint.second);
 	m_vecObjsToRender.reserve(100);
@@ -50,14 +51,8 @@ int CPlayScene::Update(float _fDeltaTime)
 			DeleteSafe(pObj);
 		}
 	}
-
-	m_vecObjsToRender.emplace_back(m_pPlayer);
-	for (auto& pObj : m_pMapLoader->GetDoors()) {
-		m_vecObjsToRender.emplace_back(pObj);
-	}
 	for (auto& pObj : m_listMonsters) {
 		pObj->Update(_fDeltaTime);
-		m_vecObjsToRender.emplace_back(pObj);
 	}
 	for (auto& pObj : m_listSpawners) {
 		pObj->Update(_fDeltaTime);
@@ -84,7 +79,27 @@ void CPlayScene::LateUpdate(void)
 		}
 	}
 
-	m_pMapLoader->LateUpdate();
+	for (auto& pPlayerSkill : TO_WOL(m_rGameWorld).GetListUsedPlayerSkills()) {
+		DO_IF_IS_VALID_OBJ(pPlayerSkill) {
+			pPlayerSkill->LateUpdate(); // 충돌 리스트를 정리
+			for (auto& pMonster : m_listMonsters) {
+				DO_IF_IS_VALID_OBJ(pMonster) {
+					pPlayerSkill->CheckCollision(pMonster);
+				}
+			}
+		}
+	}
+
+	for (auto& pMonsterSkill : TO_WOL(m_rGameWorld).GetListUsedMonsterSkills()) {
+		DO_IF_IS_VALID_OBJ(pMonsterSkill) {
+			pMonsterSkill->LateUpdate(); // 충돌 리스트를 정리
+			DO_IF_IS_VALID_OBJ(m_pPlayer) {
+				pMonsterSkill->CheckCollision(m_pPlayer);
+			}
+		}
+	}
+
+	m_pMapLoader->LateUpdate(); // 충돌한 트리거를 제거
 	m_listSpawnerGenerators.remove_if([](auto& pObj) { return pObj == nullptr; });
 	CollectGarbageObjects(m_listMonsters);
 	CollectGarbageObjects(m_listSpawners);
@@ -93,6 +108,14 @@ void CPlayScene::LateUpdate(void)
 void CPlayScene::Render(HDC & _hdc, CCamera2D * _pCamera)
 {
 	g_iRenderCount = 0;
+
+	m_vecObjsToRender.emplace_back(m_pPlayer);
+	for (auto& pObj : m_pMapLoader->GetDoors()) {
+		m_vecObjsToRender.emplace_back(pObj);
+	}
+	for (auto& pObj : m_listMonsters) {
+		m_vecObjsToRender.emplace_back(pObj);
+	}
 
 	for (auto& pObj : m_pMapLoader->GetAtlasObjsGroups(0)) {
 		pObj->Render(_hdc, _pCamera);
@@ -119,6 +142,7 @@ void CPlayScene::Render(HDC & _hdc, CCamera2D * _pCamera)
 void CPlayScene::Release(void)
 {
 	DeleteSafe(m_pMapLoader);
+	DeleteListSafe(m_listSpawnerGenerators);
 	DeleteListSafe(m_listMonsters);
 	DeleteListSafe(m_listSpawners);
 	m_vecObjsToRender.clear();

@@ -64,8 +64,8 @@ void CPlayerWOL::Render(HDC & _hdc, CCamera2D * _pCamera)
 	GdiTransparentBlt(_hdc,
 		pairLeftTop.first,			// 출력 시작좌표 X
 		pairLeftTop.second,			// 출력 시작좌표 Y
-		pairRightBottom.first - pairLeftTop.first + 1,					// 출력 크기 (1은 빈여백을 없애기 위한 추가 픽셀이다.)
-		pairRightBottom.second - pairLeftTop.second + 1,				// 출력 크기 (1은 빈여백을 없애기 위한 추가 픽셀이다.)
+		pairRightBottom.first - pairLeftTop.first,					// 출력 크기 (1은 빈여백을 없애기 위한 추가 픽셀이다.)
+		pairRightBottom.second - pairLeftTop.second,				// 출력 크기 (1은 빈여백을 없애기 위한 추가 픽셀이다.)
 		m_hDCKeyAtlas[m_eDir],
 		GetAnimX(),
 		GetAnimY(),
@@ -199,12 +199,12 @@ bool CPlayerWOL::IsMoveKeyPressed(float & _fToX, float & _fToY)
 	return true;
 }
 
-void CPlayerWOL::Attacked(float _fDamageAmount)
+void CPlayerWOL::Attacked(float _fDamageAmount, POINT _ptCollisionPoint)
 {
 	// TODO : 받은 데미지를 보여주는 UI를 띄우셈!
 	if (!IsDead()) {
-		CObj::Attacked(_fDamageAmount);
-		GetStateMgr()->SetNextState(new CPlayerState_Damage(*this));
+		CObj::Attacked(_fDamageAmount, _ptCollisionPoint);
+		GetStateMgr()->SetNextState(new CPlayerState_Damage(*this, _ptCollisionPoint), true);
 	}
 }
 

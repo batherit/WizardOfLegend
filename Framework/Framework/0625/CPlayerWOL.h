@@ -23,12 +23,10 @@ public:
 	void SetNewStateAnim(PLAYER::E_STATE _eNewState, bool _bReset = false);
 	const PLAYER::E_STATE GetLastAttackState(void) const { return m_eLastAttackState; }
 	bool IsMoveKeyPressed(float& _fToX, float& _fToY);
-	virtual void Attacked(float _fDamageAmount);
+	virtual void Attacked(float _fDamageAmoun, POINT _ptCollisionPointt);
 	//void Spawn(float _fX, float _fY);		// 데이터를 유지하며 스폰
 	//bool IsSpawning(void) { return m_pSpawnEffect != nullptr; }
 	//void Respawn(float _fX, float _fY);		// 데이터를 초기 데이터로 리셋하고 스폰.
-
-private:
 	void SetInitInfo(void);
 
 private:

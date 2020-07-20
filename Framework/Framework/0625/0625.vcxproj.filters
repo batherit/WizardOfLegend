@@ -299,6 +299,12 @@
     <ClInclude Include="CPlayerNormalAttack.h">
       <Filter>소스 파일\03.Obj\031.Skill\Player</Filter>
     </ClInclude>
+    <ClInclude Include="CSwordManState_Death.h">
+      <Filter>소스 파일\03.State\032.SwordMan</Filter>
+    </ClInclude>
+    <ClInclude Include="CSwordManState_Damage.h">
+      <Filter>소스 파일\03.State\032.SwordMan</Filter>
+    </ClInclude>
     <ClInclude Include="CSwordManAttack.h">
       <Filter>소스 파일\03.Obj\031.Skill\SwordMan</Filter>
     </ClInclude>
@@ -492,6 +498,12 @@
     </ClCompile>
     <ClCompile Include="CSwordManAttack.cpp">
       <Filter>소스 파일\03.Obj\031.Skill\SwordMan</Filter>
+    </ClCompile>
+    <ClCompile Include="CSwordManState_Death.cpp">
+      <Filter>소스 파일\03.State\032.SwordMan</Filter>
+    </ClCompile>
+    <ClCompile Include="CSwordManState_Damage.cpp">
+      <Filter>소스 파일\03.State\032.SwordMan</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

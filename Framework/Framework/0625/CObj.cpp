@@ -85,3 +85,29 @@ int CObj::UpdateAnim(float _fDeltaTime)
 
 	return 0;
 }
+
+void CObj::CheckCollision(CObj * _pObj)
+{
+	DO_IF_IS_VALID_OBJ(_pObj) {
+		auto iter = find(m_listCollidedObjs.begin(), m_listCollidedObjs.end(), _pObj);
+		if (iter == m_listCollidedObjs.end()) {
+			// 충돌 리스트에 없는데 충돌했다면,
+			RECT rcCollided;
+			if (IntersectRect(&rcCollided, &_pObj->GetRect(), &this->GetRect())) {
+				_pObj->Attacked(m_iDamage,
+					POINT{
+						(rcCollided.right + rcCollided.left) >> 1,
+						(rcCollided.bottom + rcCollided.top) >> 1
+					});					// 데미지를 주고
+				m_listCollidedObjs.emplace_back(_pObj);		// 충돌 리스트에 집어넣는다.
+			}
+		}
+		else {
+			// 충돌 리스트에 있는데 충돌하지 않았다면,
+			if (!IsCollided(_pObj, this)) {
+				m_listCollidedObjs.erase(iter);				// 충돌 리스트에서 제거한다.
+			}
+		}
+	}
+
+}

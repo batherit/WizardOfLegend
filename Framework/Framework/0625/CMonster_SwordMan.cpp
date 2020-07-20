@@ -6,6 +6,7 @@
 #include "CEffect_Spawn.h"
 #include "CSwordManState_Spawn.h"
 #include "CSwordManState_Idle.h"
+#include "CSwordManState_Damage.h"
 
 
 CMonster_SwordMan::CMonster_SwordMan(CGameWorld & _rGameWorld)
@@ -58,8 +59,8 @@ void CMonster_SwordMan::Render(HDC & _hdc, CCamera2D * _pCamera)
 	GdiTransparentBlt(_hdc,
 		pairLeftTop.first,			// 출력 시작좌표 X
 		pairLeftTop.second,			// 출력 시작좌표 Y
-		pairRightBottom.first - pairLeftTop.first + 1,					// 출력 크기 (1은 빈여백을 없애기 위한 추가 픽셀이다.)
-		pairRightBottom.second - pairLeftTop.second + 1,				// 출력 크기 (1은 빈여백을 없애기 위한 추가 픽셀이다.)
+		pairRightBottom.first - pairLeftTop.first,					// 출력 크기 (1은 빈여백을 없애기 위한 추가 픽셀이다.)
+		pairRightBottom.second - pairLeftTop.second + (m_eState == SWORDMAN::STATE_DEATH ? 80 : 0),				// 출력 크기 (1은 빈여백을 없애기 위한 추가 픽셀이다.)
 		m_hDCKeyAtlas[m_eSwordManDir],
 		GetAnimX(),
 		GetAnimY(),
@@ -118,11 +119,11 @@ void CMonster_SwordMan::SetNewStateAnim(SWORDMAN::E_STATE _eNewState, bool _bRes
 	SetNewAnimInfo(stAnimInfo);
 }
 
-void CMonster_SwordMan::Attacked(float _fDamageAmount)
+void CMonster_SwordMan::Attacked(float _fDamageAmount, POINT _ptCollisionPoint)
 {
 	if (!IsDead()) {
-		CObj::Attacked(_fDamageAmount);
-		//GetStateMgr()->SetNextState(new CSwordMan_Damage(*this));
+		CObj::Attacked(_fDamageAmount, _ptCollisionPoint);
+		GetStateMgr()->SetNextState(new CSwordManState_Damage(*this, _ptCollisionPoint), true);
 	}
 }
 

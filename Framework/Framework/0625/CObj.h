@@ -76,8 +76,9 @@ public:
 	
 	const OBJ::E_DIRECTION GetDirType(void) const { return m_eDir; }
 	void SetDirType(const OBJ::E_DIRECTION& _eDir) { m_eDir = _eDir; }
-	virtual void Attacked(float _fDamageAmount) { Clamp(&(m_fHp -= _fDamageAmount), 0.f, cfPlayerMaxHp); }
+	virtual void Attacked(float _fDamageAmount, POINT _ptCollisionPoint) { Clamp(&(m_fHp -= _fDamageAmount), 0.f, cfPlayerMaxHp); }
 	const bool IsDead(void) const { return m_fHp == 0.f; }
+	void CheckCollision(CObj* _pObj);
 
 protected:
 	int m_iGroupID = -1;
@@ -95,6 +96,9 @@ protected:
 	float m_fSpeed = 0.f;
 	size_t m_iWidth = 10;
 	size_t m_iHeight = 10;
+	int m_iDamage = 10;
+	list<CObj*> m_listCollidedObjs;
+
 	BOOL (__stdcall *m_pDrawFunc) (HDC hdc, int _left, int _right, int _top, int _bottom) = Rectangle;
 
 private:

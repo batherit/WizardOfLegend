@@ -23,15 +23,6 @@ void CSwordManState_Attack::OnLoaded(void)
 	m_rOwner.SetSpeed(0.f);
 	m_rOwner.SetNewStateAnim(SWORDMAN::STATE_ATTACK, true);
 	m_rOwner.DirectDirectionToTarget();
-
-
-
-
-		/*new CPlayerNormalAttack(m_rOwner.GetGameWorld()
-			, m_rOwner.GetX() + m_rOwner.GetToX() * cfPlayerNormalAttackDist
-			, m_rOwner.GetY() + m_rOwner.GetToY() * cfPlayerNormalAttackDist
-			, m_rOwner.GetToX() * cfPlayerNormalAttackDist, m_rOwner.GetToY() * cfPlayerNormalAttackDist
-			, m_rOwner.GetLastAttackState()));*/
 }
 
 int CSwordManState_Attack::Update(float _fDeltaTime)

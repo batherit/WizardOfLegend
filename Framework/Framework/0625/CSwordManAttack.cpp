@@ -71,6 +71,7 @@ int CSwordManAttack::Update(float _fDeltaTime)
 
 void CSwordManAttack::LateUpdate(void)
 {
+	m_listCollidedObjs.remove_if([](auto& _pObj) { return !IS_VALID_OBJ(_pObj); });
 }
 
 void CSwordManAttack::Render(HDC & _hdc, CCamera2D * _pCamera)
@@ -87,8 +88,8 @@ void CSwordManAttack::Render(HDC & _hdc, CCamera2D * _pCamera)
 	GdiTransparentBlt(_hdc,
 		pairLeftTop.first,			// 출력 시작좌표 X
 		pairLeftTop.second,			// 출력 시작좌표 Y
-		pairRightBottom.first - pairLeftTop.first + 1,					// 출력 크기 (1은 빈여백을 없애기 위한 추가 픽셀이다.)
-		pairRightBottom.second - pairLeftTop.second + 1,				// 출력 크기 (1은 빈여백을 없애기 위한 추가 픽셀이다.)
+		pairRightBottom.first - pairLeftTop.first,					// 출력 크기 (1은 빈여백을 없애기 위한 추가 픽셀이다.)
+		pairRightBottom.second - pairLeftTop.second,				// 출력 크기 (1은 빈여백을 없애기 위한 추가 픽셀이다.)
 		m_hDCKeyAtlas,
 		GetAnimX(),
 		GetAnimY(),

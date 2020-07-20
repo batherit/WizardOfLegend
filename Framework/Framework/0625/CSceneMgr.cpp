@@ -24,6 +24,11 @@ bool CSceneMgr::ConfirmValidScene(void)
 		m_bIsConfirmed = true;			// 상태 변경 완료!
 	}
 	if (!m_pCurScene) return false;		// 그럼에도 현재 유효한 씬이 없다면 false를 반환
+	if (!m_bInit) {
+		m_pCurScene->ResetScene();
+		m_bInit = true;
+	}
+	
 	return true;						// 계속 프로세스를 진행
 }
 

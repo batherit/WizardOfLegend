@@ -22,6 +22,7 @@ CTitleScene::~CTitleScene()
 
 void CTitleScene::ResetScene(void)
 {
+	// 타이틀씬은 딱히 Reset시킬만한 게 없음...
 }
 
 int CTitleScene::Update(float _fDeltaTime)
