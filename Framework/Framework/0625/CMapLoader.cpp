@@ -64,7 +64,7 @@ CMapLoader::CMapLoader(CGameWorld & _rGameWorld, const char* szMapDirectory)
 		for (int i = 0; i < iSize; i++) {
 			bIsRegistered = false;
 			pObj = new CTrigger(fpIn, _rGameWorld);
-			for (auto& pGroup : m_vecTriggersGroups) {
+			for (auto& pGroup : m_listTriggersGroups) {
 				if (pGroup->GetGroupID() == pObj->GetGroupID()) {
 					pGroup->RegisterMapObj(pObj);
 					bIsRegistered = true;
@@ -74,7 +74,7 @@ CMapLoader::CMapLoader(CGameWorld & _rGameWorld, const char* szMapDirectory)
 			if (!bIsRegistered) {
 				CMapObjsGroup* pMapObjsGroup = new CMapObjsGroup(_rGameWorld, pObj->GetGroupID());
 				pMapObjsGroup->RegisterMapObj(pObj);
-				m_vecTriggersGroups.emplace_back(pMapObjsGroup);
+				m_listTriggersGroups.emplace_back(pMapObjsGroup);
 			}
 		}
 
@@ -100,6 +100,7 @@ void CMapLoader::Update(float _fDeltaTime)
 
 void CMapLoader::LateUpdate(void)
 {
+	CollectGarbageObjects(m_listTriggersGroups);
 }
 
 void CMapLoader::Render(HDC & _hdc, CCamera2D * _pCamera)
@@ -126,13 +127,22 @@ void CMapLoader::Release(void)
 	ClearObjs();
 }
 
+void CMapLoader::ActivateDoors(int _iGroupID)
+{
+	for (auto& pObj : m_vecUnactiveDoors) {
+		if (pObj->GetGroupID() == _iGroupID) {
+			m_vecActiveDoors.emplace_back(pObj);
+		}
+	}
+}
+
 void CMapLoader::ClearObjs(void)
 {
 	for (int i = 0; i < ciMaxDrawLayerNum; i++) {
 		DeleteVectorSafe(m_vecAtlasObjsGroups[i]);
 	}
 	DeleteVectorSafe(m_vecCollidersGroups);
-	DeleteVectorSafe(m_vecTriggersGroups);
+	DeleteListSafe(m_listTriggersGroups);
 	DeleteVectorSafe(m_vecUnactiveDoors);
 	DeleteVectorSafe(m_vecActiveDoors);
 	DeleteSafe(m_pSpawnPoint);

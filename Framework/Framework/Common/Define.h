@@ -95,3 +95,9 @@
 // 스워드맨 비트맵 출력 사이즈
 #define SWORDMAN_OUTPUT_WIDTH		200
 #define SWORDMAN_OUTPUT_HEIGHT		200
+
+
+
+// 플레이어 노멀 공격 사이즈
+#define PLAYER_NORMAL_ATTACK_WIDTH	200
+#define PLAYER_NORMAL_ATTACK_HEIGHT	200

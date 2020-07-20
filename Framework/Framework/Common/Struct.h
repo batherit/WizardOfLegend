@@ -50,7 +50,7 @@ struct _pivot_point {
 struct _anim_info {
 	int iState = -1;				// 상태를 나타내는 열거형값 0은 기본적으로 Idle
 	int iStartFrameIndex = 0;			// 애니메이션 시작 인덱스
-	int iFrameCount = 0;				// 프레임 총 수
+	int iFrameCount = 0;				// 시작 인덱스에서부터 출력할 총 프레임.
 	float fTotalTime = 0.f;			// 한 애니메이션 총 진행 시간
 	int iCountToRepeat = 0;			// 한 애니메이션을 몇 번 진행? (0 - 무한, 1 - 1회하고 끝(별 일 없으면 IDLE로 전환))
 };

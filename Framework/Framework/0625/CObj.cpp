@@ -76,12 +76,12 @@ int CObj::UpdateAnim(float _fDeltaTime)
 		else {
 			// 무한 애님이라면.
 			m_stAnimProcessingInfo.fAnimElapsedTime = 0.f;
-			m_stAnimProcessingInfo.iCurrentIndex = 0;
+			m_stAnimProcessingInfo.iCurrentIndex = m_stAnimInfo.iStartFrameIndex;
 		}
 	}
 
-	float fCutTime = m_stAnimInfo.fTotalTime / (m_stAnimInfo.iFrameCount - m_stAnimInfo.iStartFrameIndex);
-	m_stAnimProcessingInfo.iCurrentIndex = m_stAnimProcessingInfo.fAnimElapsedTime / fCutTime;
+	float fCutTime = m_stAnimInfo.fTotalTime / m_stAnimInfo.iFrameCount;
+	m_stAnimProcessingInfo.iCurrentIndex = m_stAnimProcessingInfo.fAnimElapsedTime / fCutTime + m_stAnimInfo.iStartFrameIndex;
 
 	return 0;
 }

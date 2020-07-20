@@ -29,7 +29,7 @@ bool IsPointInRect(const RECT& _rRect, const POINT& _rPoint);
 POINT GetClientCursorPoint(void);
 float GetRandomFloat(void);
 float GetRadianByVector(float _fToX, float _fToY);
-float GetPositiveRadianByVector(float _fX, float _fY);
+float GetPositiveDegreeByVector(float _fToX, float _fToY);
 OBJ::E_DIRECTION GetDirByDegree(float _fDegree);
 int GetNumberMinBetweenMax(int _iMin, int _iMax);
 float GetNumberMinBetweenMax(float _fMin, float _fMax);
@@ -47,7 +47,12 @@ T Clamp(T _Value, T _Min, T _Max) {
 void PushObjectInRect(CObj& _pObj, const RECT& _rRect);
 bool MyIntersectRect(const RECT & _rRect1, const RECT & _rRect2, RECT* _pCollidedPoint = nullptr);
 
-void CollectGarbageObjects(list<CObj*>& _list);
+template<typename T>
+void CollectGarbageObjects(list<T*>& _list)
+{
+	for (auto& pObj : _list) { DO_IF_IS_NOT_VALID_OBJ(pObj) { DeleteSafe(pObj); } }
+	_list.remove_if([](auto& pObj) { return pObj == nullptr; });
+}
 
 void NormalizeVector(float& _fToX, float& _fToY);
 float GetVectorLength(const float& _fToX, const float& _fToY);

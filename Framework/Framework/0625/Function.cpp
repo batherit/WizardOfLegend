@@ -54,8 +54,8 @@ float GetRadianByVector(float _fToX, float _fToY)
 	return fRadian;
 }
 
-float GetPositiveRadianByVector(float _fX, float _fY) {
-	float fDegree = TO_DEGREE(GetRadianByVector(_fX, _fY));
+float GetPositiveDegreeByVector(float _fToX, float _fToY) {
+	float fDegree = TO_DEGREE(GetRadianByVector(_fToX, _fToY));
 	if (fDegree < 0.f) fDegree += 360.f;
 	return fDegree;
 }
@@ -160,8 +160,8 @@ float GetVectorLength(const float & _fToX, const float & _fToY)
 	return sqrtf(_fToX * _fToX + _fToY * _fToY);
 }
 
-void CollectGarbageObjects(list<CObj*>& _list)
-{
-	for (auto& pObj : _list) { DO_IF_IS_NOT_VALID_OBJ(pObj) { DeleteSafe(pObj); } }
-	_list.remove_if([](auto& pObj) { return pObj == nullptr; });
-}
+//void CollectGarbageObjects(list<CObj*>& _list)
+//{
+//	for (auto& pObj : _list) { DO_IF_IS_NOT_VALID_OBJ(pObj) { DeleteSafe(pObj); } }
+//	_list.remove_if([](auto& pObj) { return pObj == nullptr; });
+//}

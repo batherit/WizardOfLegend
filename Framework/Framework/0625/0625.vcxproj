@@ -164,6 +164,7 @@
     <ClInclude Include="CMapObjsGroup.h" />
     <ClInclude Include="CMonsterSpawner.h" />
     <ClInclude Include="CMonster_SwordMan.h" />
+    <ClInclude Include="CPlayerNormalAttack.h" />
     <ClInclude Include="CPlayerSpawner.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
     </ClInclude>
@@ -188,6 +189,7 @@
     <ClInclude Include="CSpawnPoint.h" />
     <ClInclude Include="CState.h" />
     <ClInclude Include="CStateMgr.h" />
+    <ClInclude Include="CSwordManAttack.h" />
     <ClInclude Include="CSwordManState_Attack.h" />
     <ClInclude Include="CSwordManState_Idle.h" />
     <ClInclude Include="CSwordManState_Run.h" />
@@ -252,6 +254,7 @@
     <ClCompile Include="CMapObjsGroup.cpp" />
     <ClCompile Include="CMonsterSpawner.cpp" />
     <ClCompile Include="CMonster_SwordMan.cpp" />
+    <ClCompile Include="CPlayerNormalAttack.cpp" />
     <ClCompile Include="CPlayerSpawner.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
     </ClCompile>
@@ -275,6 +278,7 @@
     <ClCompile Include="CSpawnPoint.cpp" />
     <ClCompile Include="CState.cpp" />
     <ClCompile Include="CStateMgr.cpp" />
+    <ClCompile Include="CSwordManAttack.cpp" />
     <ClCompile Include="CSwordManState_Attack.cpp" />
     <ClCompile Include="CSwordManState_Idle.cpp" />
     <ClCompile Include="CSwordManState_Run.cpp" />

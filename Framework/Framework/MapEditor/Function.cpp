@@ -115,6 +115,8 @@ bool MyIntersectRect(const RECT & _rRect1, const RECT & _rRect2, RECT* _pCollide
 	return true;
 }
 
+
+
 void NormalizeVector(float & _fToX, float & _fToY)
 {
 	float fVectorLength = sqrtf(_fToX *_fToX + _fToY *_fToY);
@@ -127,8 +129,3 @@ float GetVectorLength(const float & _fToX, const float & _fToY)
 	return sqrtf(_fToX * _fToX + _fToY * _fToY);
 }
 
-void CollectGarbageObjects(list<CObj*>& _list)
-{
-	for (auto& pObj : _list) { DO_IF_IS_NOT_VALID_OBJ(pObj) { DeleteSafe(pObj); } }
-	_list.remove_if([](auto& pObj) { return pObj == nullptr; });
-}

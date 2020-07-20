@@ -36,6 +36,5 @@ private:
 	HDC m_hDCKeyAtlas[OBJ::DIR_END];
 	PLAYER::E_STATE m_eState = PLAYER::STATE_END;
 	PLAYER::E_STATE m_eLastAttackState = PLAYER::STATE_ATTACK1;
-	//CObj* m_pSpawnEffect = nullptr;
 };
 

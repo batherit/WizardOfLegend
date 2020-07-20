@@ -21,9 +21,10 @@ public:
 	// 플레이어와 충돌을 확인하기 위해 데이터 접근 함수를 만들어줌.
 	const vector<CMapObjsGroup*>& GetAtlasObjsGroups(int _iLayerIndex) { return m_vecAtlasObjsGroups[_iLayerIndex]; }
 	const vector<CMapObjsGroup*>& GetCollidersGroups(void) const { return m_vecCollidersGroups; }
-	const vector<CMapObjsGroup*>& GetTriggersGroups(void) const { return m_vecTriggersGroups; }
+	list<CMapObjsGroup*>& GetTriggersGroups(void) { return m_listTriggersGroups; }
 	const vector<CObj*>& GetDoors(void) const { return m_vecActiveDoors; }
 	const CObj* GetSpawnPoint(void) const { return m_pSpawnPoint; }
+	void ActivateDoors(int _iGroupID);
 
 private:
 	void ClearObjs(void);
@@ -33,7 +34,7 @@ private:
 
 	vector<CMapObjsGroup*> m_vecAtlasObjsGroups[ciMaxDrawLayerNum];
 	vector<CMapObjsGroup*> m_vecCollidersGroups;
-	vector<CMapObjsGroup*> m_vecTriggersGroups;
+	list<CMapObjsGroup*> m_listTriggersGroups;
 
 	vector<CObj*> m_vecUnactiveDoors;
 	vector<CObj*> m_vecActiveDoors;

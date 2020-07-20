@@ -6,6 +6,7 @@
 #include "CPlayerState_Idle.h"
 #include "CPlayerState_Dash.h"
 #include "CCamera2D.h"
+#include "CPlayerNormalAttack.h"
 
 
 
@@ -39,6 +40,13 @@ void CPlayerState_Attack::OnLoaded(void)
 		m_rOwner.SetNewStateAnim(PLAYER::STATE_ATTACK1);
 		break;
 	}
+
+	TO_WOL(m_rOwner.GetGameWorld()).GetListUsedSkills().emplace_back(
+		new CPlayerNormalAttack(m_rOwner.GetGameWorld()
+			, m_rOwner.GetX() + m_rOwner.GetToX() * cfPlayerNormalAttackDist
+			, m_rOwner.GetY() + m_rOwner.GetToY() * cfPlayerNormalAttackDist
+			, m_rOwner.GetToX() * cfPlayerNormalAttackDist, m_rOwner.GetToY() * cfPlayerNormalAttackDist
+			, m_rOwner.GetLastAttackState()));
 }
 
 int CPlayerState_Attack::Update(float _fDeltaTime)
@@ -58,6 +66,13 @@ int CPlayerState_Attack::Update(float _fDeltaTime)
 				m_rOwner.SetNewStateAnim(PLAYER::STATE_ATTACK1);
 				break;
 			}
+
+			TO_WOL(m_rOwner.GetGameWorld()).GetListUsedSkills().emplace_back(
+				new CPlayerNormalAttack(m_rOwner.GetGameWorld()
+					, m_rOwner.GetX() + m_rOwner.GetToX() * cfPlayerNormalAttackDist
+					, m_rOwner.GetY() + m_rOwner.GetToY() * cfPlayerNormalAttackDist
+					, m_rOwner.GetToX() * cfPlayerNormalAttackDist, m_rOwner.GetToY() * cfPlayerNormalAttackDist
+					, m_rOwner.GetLastAttackState()));
 			m_iComboCount++;
 		}
 	}
@@ -102,6 +117,6 @@ void CPlayerState_Attack::SetAttackDirection(float* _pLength)
 	if (_pLength) *_pLength = GetVectorLength(fToX, fToY);
 	m_rOwner.SetToXY(fToX, fToY);
 
-	float fDegree = GetPositiveRadianByVector(m_rOwner.GetToX(), m_rOwner.GetToY());
+	float fDegree = GetPositiveDegreeByVector(m_rOwner.GetToX(), m_rOwner.GetToY());
 	m_rOwner.SetDirType(GetDirByDegree(fDegree));
 }

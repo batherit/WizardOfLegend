@@ -44,7 +44,12 @@ T Clamp(T _Value, T _Min, T _Max) {
 void PushObjectInRect(CObj& _pObj, const RECT& _rRect);
 bool MyIntersectRect(const RECT & _rRect1, const RECT & _rRect2, RECT* _pCollidedPoint = nullptr);
 
-void CollectGarbageObjects(list<CObj*>& _list);
+template<typename T>
+void CollectGarbageObjects(list<T*>& _list)
+{
+	for (auto& pObj : _list) { DO_IF_IS_NOT_VALID_OBJ(pObj) { DeleteSafe(pObj); } }
+	_list.remove_if([](auto& pObj) { return pObj == nullptr; });
+}
 
 void NormalizeVector(float& _fToX, float& _fToY);
 float GetVectorLength(const float& _fToX, const float& _fToY);

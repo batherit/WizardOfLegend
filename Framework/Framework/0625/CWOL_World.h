@@ -23,6 +23,7 @@ public:
 public:
 	CObj* GetPlayer(void) const { return m_pPlayer; }
 	CCamera2D* GetCamera(void) const { return m_pCamera; }
+	list<CObj*>& GetListUsedSkills(void) { return m_plistUsedSkills; }
 
 private:
 	void LoadResources(void);
@@ -30,8 +31,12 @@ private:
 private:
 	CUI_Cursor* m_pCursor = nullptr;
 	CCamera2D* m_pCamera = nullptr;
-	CObj* m_pPlayer = nullptr;
 	float m_fElapsedTime = 0.f;
 	int m_iFrameCount = 0;
+
+private:
+	// 월드 오브젝트
+	CObj* m_pPlayer = nullptr;
+	list<CObj*> m_plistUsedSkills;
 };
 

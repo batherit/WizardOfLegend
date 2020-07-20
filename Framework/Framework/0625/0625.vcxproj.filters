@@ -105,6 +105,15 @@
     <Filter Include="소스 파일\98.Generator">
       <UniqueIdentifier>{99c955b2-5bfd-4fe1-9d1f-72ec8a51be50}</UniqueIdentifier>
     </Filter>
+    <Filter Include="소스 파일\03.Obj\031.Skill">
+      <UniqueIdentifier>{13b21e5e-eabc-455c-ad3f-74a84f017ce1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\03.Obj\031.Skill\Player">
+      <UniqueIdentifier>{653f603f-73d1-47cd-9556-d9fbe9100224}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\03.Obj\031.Skill\SwordMan">
+      <UniqueIdentifier>{3fb01a26-631c-4adb-9072-a7f3b2ddb9c0}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CLayer.h">
@@ -286,6 +295,12 @@
     </ClInclude>
     <ClInclude Include="CSpawnerGenerator.h">
       <Filter>소스 파일\98.Generator</Filter>
+    </ClInclude>
+    <ClInclude Include="CPlayerNormalAttack.h">
+      <Filter>소스 파일\03.Obj\031.Skill\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="CSwordManAttack.h">
+      <Filter>소스 파일\03.Obj\031.Skill\SwordMan</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -471,6 +486,12 @@
     </ClCompile>
     <ClCompile Include="CSpawnerGenerator.cpp">
       <Filter>소스 파일\98.Generator</Filter>
+    </ClCompile>
+    <ClCompile Include="CPlayerNormalAttack.cpp">
+      <Filter>소스 파일\03.Obj\031.Skill\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="CSwordManAttack.cpp">
+      <Filter>소스 파일\03.Obj\031.Skill\SwordMan</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

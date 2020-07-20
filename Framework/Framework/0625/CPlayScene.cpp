@@ -70,15 +70,21 @@ int CPlayScene::Update(float _fDeltaTime)
 void CPlayScene::LateUpdate(void)
 {
 	for (auto& pGroup : m_pMapLoader->GetTriggersGroups()) {
+		if(pGroup)
 		if (IsCollided(m_pPlayer->GetRect(), pGroup->GetRect())) {
 			for (auto& pObj : pGroup->GetMapObjs()) {
 				if (IsCollided(m_pPlayer->GetRect(), pObj->GetRect())) {
+					// TODO : 그룹 삭제에 대한 코드를 변경해야됨.
 					m_listSpawnerGenerators.emplace_back(new CSpawnerGenerator(m_rGameWorld, m_listSpawners, m_listMonsters, pGroup->GetGroupID()));
+					m_pMapLoader->ActivateDoors(pGroup->GetGroupID());
+					pGroup->SetValid(false);
+					break;
 				}
 			}
 		}
 	}
 
+	m_pMapLoader->LateUpdate();
 	m_listSpawnerGenerators.remove_if([](auto& pObj) { return pObj == nullptr; });
 	CollectGarbageObjects(m_listMonsters);
 	CollectGarbageObjects(m_listSpawners);

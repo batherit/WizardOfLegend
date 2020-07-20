@@ -39,6 +39,5 @@ private:
 	HDC  m_hDCKeyAtlas[SWORDMAN::DIR_END];
 	SWORDMAN::E_STATE m_eState = SWORDMAN::STATE_END;
 	SWORDMAN::E_DIRECTION m_eSwordManDir = SWORDMAN::DIR_END;
-	//CObj* m_pSpawnEffect = nullptr;
 };
 

@@ -43,6 +43,11 @@ void CWOL_World::Update(void)
 	GetSceneManager()->Update(fDeltaTime);
 	m_pCamera->Update(fDeltaTime);
 
+	for (auto& pObj : m_plistUsedSkills) {
+		pObj->Update(fDeltaTime);
+	}
+
+
 	m_fElapsedTime += fDeltaTime;
 	m_iFrameCount += 1;
 	//m_pMap->Update(fDeltaTime);
@@ -53,6 +58,8 @@ void CWOL_World::LateUpdate(void)
 	//m_pMap->LateUpdate();
 	GetSceneManager()->LateUpdate();
 	m_pCamera->LateUpdate();
+
+	CollectGarbageObjects(m_plistUsedSkills);
 }
 
 void CWOL_World::Render(void)
@@ -60,6 +67,10 @@ void CWOL_World::Render(void)
 	ClearWindow();
 
 	GetSceneManager()->Render(GetBackbufferDC(), m_pCamera);
+
+	for (auto& pObj : m_plistUsedSkills) {
+		pObj->Render(GetBackbufferDC(), m_pCamera);
+	}
 
 	if (m_fElapsedTime >= 1.f) {
 		TCHAR szBuf[64];
@@ -80,6 +91,7 @@ void CWOL_World::Release(void)
 {
 	DeleteSafe(m_pCursor);
 	DeleteSafe(m_pCamera);
+	DeleteListSafe(m_plistUsedSkills);
 	CBitmapMgr::DestroyInstance();
 	CKeyMgr::DestroyInstance();
 }
@@ -111,8 +123,13 @@ void CWOL_World::LoadResources(void)
 	CBitmapMgr::GetInstance()->InsertBitmap(TEXT("../Textures/FRONT_COMPLETE.bmp"), TEXT("PLAYER_FRONT"));				// 비고. 죽음 장면까지 포함.
 	CBitmapMgr::GetInstance()->InsertBitmap(TEXT("../Textures/LEFT_COMPLETE.bmp"), TEXT("PLAYER_LEFT"));
 	CBitmapMgr::GetInstance()->InsertBitmap(TEXT("../Textures/RIGHT_COMPLETE.bmp"), TEXT("PLAYER_RIGHT"));
+	// 플레이어 공격 렌더링
+	CBitmapMgr::GetInstance()->InsertBitmap(TEXT("../Textures/PLAYER_NORMAL_ATTACK.bmp"), TEXT("PLAYER_NORMAL_ATTACK"));
+
 
 	// 스워드맨 렌더링
 	CBitmapMgr::GetInstance()->InsertBitmap(TEXT("../Textures/SWORDMAN_LEFT.bmp"), TEXT("SWORDMAN_LEFT"));
 	CBitmapMgr::GetInstance()->InsertBitmap(TEXT("../Textures/SWORDMAN_RIGHT.bmp"), TEXT("SWORDMAN_RIGHT"));
+	// 스워드맨 공격 렌더링
+	CBitmapMgr::GetInstance()->InsertBitmap(TEXT("../Textures/SWORDMAN_ATTACK.bmp"), TEXT("SWORDMAN_ATTACK"));
 }
