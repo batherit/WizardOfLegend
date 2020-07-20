@@ -15,10 +15,11 @@ CMonster_SwordMan::CMonster_SwordMan(CGameWorld & _rGameWorld)
 	SetInitInfo();
 }
 
-CMonster_SwordMan::CMonster_SwordMan(CGameWorld& _rGameWorld, float _fX, float _fY, CObj* _pTarget /*= nullptr*/)
+CMonster_SwordMan::CMonster_SwordMan(CGameWorld& _rGameWorld, float _fX, float _fY, int _iGroupID, CObj* _pTarget /*= nullptr*/)
 	:CObj(_rGameWorld, _fX, _fY, SWORDMAN_OUTPUT_WIDTH, SWORDMAN_OUTPUT_HEIGHT),
 	m_pTarget(_pTarget)
 {
+	m_iGroupID = _iGroupID;
 	SetInitInfo();
 }
 

@@ -18,7 +18,6 @@ CPlayScene::CPlayScene(CGameWorld& _rGameWorld, const char* _szMapDirectory)
 	m_szMapDirectory(_szMapDirectory),
 	m_pPlayer(TO_WOL(_rGameWorld).GetPlayer())
 {
-	CSpawnerGenerator(_rGameWorld, m_listSpawners, m_listMonsters, 0);
 	ResetScene();
 }
 
@@ -42,9 +41,16 @@ void CPlayScene::ResetScene(void)
 int CPlayScene::Update(float _fDeltaTime)
 {
 	if(CKeyMgr::GetInstance()->IsKeyDown(KEY::KEY_RBUTTON)) {
-		CObj* pObj = new CMonsterSpawner(m_rGameWorld, m_listMonsters, m_pPlayer->GetX() + 100, m_pPlayer->GetY(), SPAWN::TYPE_SWORDMAN);
+		CObj* pObj = new CMonsterSpawner(m_rGameWorld, m_listMonsters, m_pPlayer->GetX() + 100, m_pPlayer->GetY(), SPAWN::TYPE_SWORDMAN, -1);
 		m_listSpawners.emplace_back(pObj);
 	}
+
+	for (auto& pObj : m_listSpawnerGenerators) {
+		if (pObj->Update(_fDeltaTime) == 1) {
+			DeleteSafe(pObj);
+		}
+	}
+
 	m_vecObjsToRender.emplace_back(m_pPlayer);
 	for (auto& pObj : m_pMapLoader->GetDoors()) {
 		m_vecObjsToRender.emplace_back(pObj);
@@ -63,6 +69,17 @@ int CPlayScene::Update(float _fDeltaTime)
 
 void CPlayScene::LateUpdate(void)
 {
+	for (auto& pGroup : m_pMapLoader->GetTriggersGroups()) {
+		if (IsCollided(m_pPlayer->GetRect(), pGroup->GetRect())) {
+			for (auto& pObj : pGroup->GetMapObjs()) {
+				if (IsCollided(m_pPlayer->GetRect(), pObj->GetRect())) {
+					m_listSpawnerGenerators.emplace_back(new CSpawnerGenerator(m_rGameWorld, m_listSpawners, m_listMonsters, pGroup->GetGroupID()));
+				}
+			}
+		}
+	}
+
+	m_listSpawnerGenerators.remove_if([](auto& pObj) { return pObj == nullptr; });
 	CollectGarbageObjects(m_listMonsters);
 	CollectGarbageObjects(m_listSpawners);
 }

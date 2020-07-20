@@ -4,7 +4,7 @@ class CMonsterSpawner :
 	public CSpawner
 {
 public:
-	CMonsterSpawner(CGameWorld& _rGameWorld, list<CObj*>& _listMonsters, float _fX, float _fY, SPAWN::E_TYPE _eType);
+	CMonsterSpawner(CGameWorld& _rGameWorld, list<CObj*>& _listMonsters, float _fX, float _fY, SPAWN::E_TYPE _eType, int _iGroupID);
 	virtual ~CMonsterSpawner();
 
 	virtual int Update(float _fDeltaTime) override;

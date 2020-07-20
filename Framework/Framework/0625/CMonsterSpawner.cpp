@@ -7,12 +7,14 @@
 
 
 
-CMonsterSpawner::CMonsterSpawner(CGameWorld & _rGameWorld, list<CObj*>& _listMonsters, float _fX, float _fY, SPAWN::E_TYPE _eType)
+CMonsterSpawner::CMonsterSpawner(CGameWorld & _rGameWorld, list<CObj*>& _listMonsters, float _fX, float _fY, SPAWN::E_TYPE _eType, int _iGroupID)
 	:
 	CSpawner(_rGameWorld, _fX, _fY),
 	m_listMonsters(_listMonsters),
 	m_eType(_eType)
 {
+	m_iGroupID = _iGroupID;
+
 	_anim_info stAnimInfo;
 	stAnimInfo.iState = 0;
 	switch (_eType) {
@@ -67,7 +69,7 @@ int CMonsterSpawner::Update(float _fDeltaTime)
 	if (!m_bIsSpawend && GetAnimProgress() >= 0.875f) {
 		switch (m_eType) {
 		case SPAWN::TYPE_SWORDMAN:
-			m_listMonsters.emplace_back(new CMonster_SwordMan(GetGameWorld(), GetX(), GetY(), TO_WOL(GetGameWorld()).GetPlayer()));
+			m_listMonsters.emplace_back(new CMonster_SwordMan(GetGameWorld(), GetX(), GetY(), m_iGroupID, TO_WOL(GetGameWorld()).GetPlayer()));
 			break;
 		case SPAWN::TYPE_ARCHER:
 

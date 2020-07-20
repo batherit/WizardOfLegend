@@ -8,7 +8,7 @@ class CMonster_SwordMan :
 {
 public:
 	CMonster_SwordMan(CGameWorld& _rGameWorld);
-	CMonster_SwordMan(CGameWorld& _rGameWorld, float _fX, float _fY, CObj* _pTarget = nullptr);
+	CMonster_SwordMan(CGameWorld& _rGameWorld, float _fX, float _fY, int _iGroupID = -1, CObj* _pTarget = nullptr);
 	virtual ~CMonster_SwordMan();
 
 public:
