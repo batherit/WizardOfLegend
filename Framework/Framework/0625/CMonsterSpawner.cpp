@@ -11,8 +11,9 @@
 
 
 
-CMonsterSpawner::CMonsterSpawner(CGameWorld & _rGameWorld, list<CObj*>& _listMonsters, float _fX, float _fY, SPAWN::E_TYPE _eType, int _iGroupID, CSpawnerGenerator* _pSpawnerGenerator)
+CMonsterSpawner::CMonsterSpawner(CGameWorld & _rGameWorld, list<CObj*>& _listMonsters, float _fTimeToDelay, float _fX, float _fY, SPAWN::E_TYPE _eType, int _iGroupID, CSpawnerGenerator* _pSpawnerGenerator)
 	:
+	m_fTimeToDelay(_fTimeToDelay),
 	CSpawner(_rGameWorld, _fX, _fY),
 	m_listMonsters(_listMonsters),
 	m_eType(_eType),
@@ -65,28 +66,30 @@ CMonsterSpawner::~CMonsterSpawner()
 
 int CMonsterSpawner::Update(float _fDeltaTime)
 {
-	if (UpdateAnim(_fDeltaTime) == 1) {
-		
-		SetValid(false);
-		return 1;
-	}
+	if ((m_fElapsedTime += _fDeltaTime) >= m_fTimeToDelay) {
+		if (UpdateAnim(_fDeltaTime) == 1) {
 
-	if (!m_bIsSpawend && GetAnimProgress() >= 0.875f) {
-		switch (m_eType) {
-		case SPAWN::TYPE_SWORDMAN:
-			m_listMonsters.emplace_back(new CMonster_SwordMan(GetGameWorld(), GetX(), GetY(), m_iGroupID, TO_WOL(GetGameWorld()).GetPlayer(), m_pSpawnerGenerator));
-			break;
-		case SPAWN::TYPE_ARCHER:
-			m_listMonsters.emplace_back(new CMonster_Archer(GetGameWorld(), GetX(), GetY(), m_iGroupID, TO_WOL(GetGameWorld()).GetPlayer(), m_pSpawnerGenerator));
-			break;
-		case SPAWN::TYPE_WIZARD:
-
-			break;
-		case SPAWN::TYPE_WIZARDBALL:
-
-			break;
+			SetValid(false);
+			return 1;
 		}
-		m_bIsSpawend = true;
+
+		if (!m_bIsSpawend && GetAnimProgress() >= 0.875f) {
+			switch (m_eType) {
+			case SPAWN::TYPE_SWORDMAN:
+				m_listMonsters.emplace_back(new CMonster_SwordMan(GetGameWorld(), GetX(), GetY(), m_iGroupID, TO_WOL(GetGameWorld()).GetPlayer(), m_pSpawnerGenerator));
+				break;
+			case SPAWN::TYPE_ARCHER:
+				m_listMonsters.emplace_back(new CMonster_Archer(GetGameWorld(), GetX(), GetY(), m_iGroupID, TO_WOL(GetGameWorld()).GetPlayer(), m_pSpawnerGenerator));
+				break;
+			case SPAWN::TYPE_WIZARD:
+
+				break;
+			case SPAWN::TYPE_WIZARDBALL:
+
+				break;
+			}
+			m_bIsSpawend = true;
+		}
 	}
 	return 0;
 }

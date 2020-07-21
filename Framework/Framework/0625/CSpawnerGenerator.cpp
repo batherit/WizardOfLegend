@@ -18,6 +18,7 @@ CSpawnerGenerator::CSpawnerGenerator(CGameWorld & _rGameWorld, list<CObj*>& _lis
 	errno_t err = fopen_s(&fpIn, strEventDirectory.c_str(), "rt");
 
 	if (!err) {
+		float fTimeToDelay = 0.f;
 		int iSpawnX = 0;
 		int iSpawnY = 0;
 		SPAWN::E_TYPE eType;
@@ -25,11 +26,11 @@ CSpawnerGenerator::CSpawnerGenerator(CGameWorld & _rGameWorld, list<CObj*>& _lis
 		m_vecUnactiveSpawnersPerPhase.resize(m_iMaxPhase);
 		for (int i = 0; i < m_iMaxPhase; i++) {
 			while (true) {
-				fscanf_s(fpIn, "%d %d %d", &iSpawnX, &iSpawnY, &eType);
+				fscanf_s(fpIn, "%f %d %d %d", &fTimeToDelay, &iSpawnX, &iSpawnY, &eType);
 				if (eType < 0) break;
 
 				m_vecUnactiveSpawnersPerPhase[i].emplace_back(
-					new CMonsterSpawner(m_rGameWorld, _listMonsters, iSpawnX, iSpawnY, eType, _iGroupID, this));
+					new CMonsterSpawner(m_rGameWorld, _listMonsters, fTimeToDelay, iSpawnX, iSpawnY, eType, _iGroupID, this));
 			}
 		}
 	}
