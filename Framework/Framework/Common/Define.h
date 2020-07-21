@@ -111,9 +111,15 @@
 // 아쳐 변수
 #define ARCHER_RUN_SPEED			300.f
 #define ARCHER_MAX_HP				80.f
-#define ARCHER_ATTACKABLE_RANGE		80.f
+#define ARCHER_ATTACKABLE_RANGE_IN	250.f
+#define ARCHER_ATTACKABLE_RANGE_OUT	600.f
 #define ARCHER_NORMAL_ATTACK_DIST	120.f
 #define ARCHER_KNOCKBACK_SPEED		250.f   
+// 아쳐 보우 변수
+#define ARCHER_BOW_OUTPUT_WIDTH		180.f
+#define ARCHER_BOW_OUTPUT_HEIGHT	170.f
+// 아쳐 애로우 변수
+#define ARCHER_ARROW_SPEED			1500.f
 
 
 // 플레이어 노멀 공격 사이즈

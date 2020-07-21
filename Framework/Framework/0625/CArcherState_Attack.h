@@ -14,5 +14,8 @@ public:
 	virtual void OnLoaded(void) override;
 	virtual int Update(float _fDeltaTime) override;
 	virtual void LateUpdate(void) override;
+
+private:
+	bool bAttackOk = false;
 };
 

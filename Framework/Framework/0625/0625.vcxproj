@@ -151,6 +151,8 @@
     <ClInclude Include="Bullet.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
     </ClInclude>
+    <ClInclude Include="CArcherArrow.h" />
+    <ClInclude Include="CArcherBow.h" />
     <ClInclude Include="CArcherState_Attack.h" />
     <ClInclude Include="CArcherState_Damage.h" />
     <ClInclude Include="CArcherState_Death.h" />
@@ -256,6 +258,8 @@
     <ClCompile Include="Bullet.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
     </ClCompile>
+    <ClCompile Include="CArcherArrow.cpp" />
+    <ClCompile Include="CArcherBow.cpp" />
     <ClCompile Include="CArcherState_Attack.cpp" />
     <ClCompile Include="CArcherState_Damage.cpp" />
     <ClCompile Include="CArcherState_Death.cpp" />

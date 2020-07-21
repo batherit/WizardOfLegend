@@ -123,6 +123,9 @@
     <Filter Include="소스 파일\03.Obj\023.Monster\Archer">
       <UniqueIdentifier>{9106e857-b523-4005-be27-43a2911ef1b5}</UniqueIdentifier>
     </Filter>
+    <Filter Include="소스 파일\03.Obj\031.Skill\Archer">
+      <UniqueIdentifier>{23fea572-7662-4978-84a3-802a258328a2}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CLayer.h">
@@ -337,6 +340,12 @@
     </ClInclude>
     <ClInclude Include="CArcherState_Death.h">
       <Filter>소스 파일\03.State\033.CArcher</Filter>
+    </ClInclude>
+    <ClInclude Include="CArcherBow.h">
+      <Filter>소스 파일\03.Obj\023.Monster\Archer</Filter>
+    </ClInclude>
+    <ClInclude Include="CArcherArrow.h">
+      <Filter>소스 파일\03.Obj\031.Skill\Archer</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -555,6 +564,12 @@
     </ClCompile>
     <ClCompile Include="CArcherState_Death.cpp">
       <Filter>소스 파일\03.State\033.CArcher</Filter>
+    </ClCompile>
+    <ClCompile Include="CArcherBow.cpp">
+      <Filter>소스 파일\03.Obj\023.Monster\Archer</Filter>
+    </ClCompile>
+    <ClCompile Include="CArcherArrow.cpp">
+      <Filter>소스 파일\03.Obj\031.Skill\Archer</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

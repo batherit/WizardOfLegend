@@ -63,8 +63,8 @@ void CWOL_World::LateUpdate(void)
 	GetSceneManager()->LateUpdate();
 	m_pCamera->LateUpdate();
 
-	CollectGarbageObjects(m_plistUsedPlayerSkills);
-	CollectGarbageObjects(m_plistUsedMonsterSkills);
+	CollectGarbageObjects(m_plistUsedPlayerSkills);		// 무효화된 플레이어 스킬 제거
+	CollectGarbageObjects(m_plistUsedMonsterSkills);	// 무효화된 몬스터 스킬 제거
 }
 
 void CWOL_World::Render(void)

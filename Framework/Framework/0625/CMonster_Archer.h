@@ -26,9 +26,7 @@ public:
 	CStateMgr<CMonster_Archer>* GetStateMgr(void) const { return m_pStateMgr; }
 	void SetNewStateAnim(ARCHER::E_STATE _eNewState, bool _bReset = false);
 	virtual void Attacked(float _fDamageAmount, POINT _ptCollisionPoint);
-	//void Spawn(float _fX, float _fY);
-	//bool IsSpawning(void) { return m_pSpawnEffect != nullptr; }
-	bool GoToTarget(float _fDeltaTime);
+	bool GoToAttackableLocation(float _fDeltaTime);
 	bool IsAttackable(void);
 	bool DirectDirectionToTarget(void);
 	ARCHER::E_DIRECTION GetArcherDir(void) const { return m_eArcherDir; }
@@ -45,5 +43,6 @@ private:
 	ARCHER::E_STATE m_eState = ARCHER::STATE_END;
 	ARCHER::E_DIRECTION m_eArcherDir = ARCHER::DIR_END;
 	CSpawnerGenerator* m_pSpawnerGenerator = nullptr;
+	CObj* m_pBowObj = nullptr;
 };
 

@@ -6,6 +6,7 @@
 #include "CBitmapMgr.h"
 #include "CArcherState_Idle.h"
 #include "CArcherState_Damage.h"
+#include "CArcherBow.h"
 
 
 
@@ -39,6 +40,9 @@ int CMonster_Archer::Update(float _fDeltaTime)
 	if (GetToX() > 0.f) m_eArcherDir = ARCHER::DIR_RIGHT;
 	else m_eArcherDir = ARCHER::DIR_LEFT;
 	m_pStateMgr->Update(_fDeltaTime);
+
+	if (m_pBowObj && m_stAnimInfo.iState == ARCHER::STATE_ATTACK) m_pBowObj->Update(_fDeltaTime);
+
 	return 0;
 }
 
@@ -70,12 +74,14 @@ void CMonster_Archer::Render(HDC & _hdc, CCamera2D * _pCamera)
 		m_iHeight,
 		RGB(255, 0, 255));
 	g_iRenderCount++;
+
+	if (m_pBowObj && m_stAnimInfo.iState == ARCHER::STATE_ATTACK) m_pBowObj->Render(_hdc, _pCamera);
 }
 
 void CMonster_Archer::Release(void)
 {
-	m_pTarget = nullptr;
 	DeleteSafe(m_pStateMgr);
+	DeleteSafe(m_pBowObj);
 }
 
 void CMonster_Archer::SetNewStateAnim(ARCHER::E_STATE _eNewState, bool _bReset)
@@ -101,9 +107,10 @@ void CMonster_Archer::SetNewStateAnim(ARCHER::E_STATE _eNewState, bool _bReset)
 		break;
 	case ARCHER::STATE_ATTACK:
 		stAnimInfo.iCountToRepeat = 1;
-		stAnimInfo.fTotalTime = 1.5f;
+		stAnimInfo.fTotalTime = 2.f;
 		stAnimInfo.iStartFrameIndex = 0;
 		stAnimInfo.iFrameCount = 4;
+		m_pBowObj->Ready();
 		break;
 	case ARCHER::STATE_DAMAGE:
 		stAnimInfo.iCountToRepeat = 1;
@@ -131,15 +138,30 @@ void CMonster_Archer::Attacked(float _fDamageAmount, POINT _ptCollisionPoint)
 	}
 }
 
-bool CMonster_Archer::GoToTarget(float _fDeltaTime)
+bool CMonster_Archer::GoToAttackableLocation(float _fDeltaTime)
 {
+	// 공격 가능한 범위에 있다면 true 아니면 false를 반환
 	if (!m_pTarget) return false;
 
-	// 지정된 타겟에게 다가간다.
-	if (!DirectDirectionToTarget()) return false;
+	pair<float, float> pairPlayerXY = m_pTarget->GetXY();
+	float fToX = GetX() - pairPlayerXY.first;	// 플레이어와 반대 방향
+	float fToY = GetY() - pairPlayerXY.second;	// 플레이어와 반대 방향
+
+	float fLength = GetVectorLength(fToX, fToY);
+
+	if (IsAttackable()) {
+		return true;
+	}
+
+	if (fLength > ARCHER_ATTACKABLE_RANGE_OUT) {
+		// 공격 가능 위치보다 멀리 있을 경우, 플레이어에게 달려간다.
+		fToX *= -1.f;
+		fToY *= -1.f;
+	}
+	SetToXY(fToX, fToY);
 	MoveByDeltaTime(_fDeltaTime);
 
-	return true;
+	return false;
 }
 
 bool CMonster_Archer::IsAttackable(void)
@@ -152,7 +174,7 @@ bool CMonster_Archer::IsAttackable(void)
 
 	float fLength = GetVectorLength(fToX, fToY);
 
-	if (fLength <= cfSwordManAttackableRange) {
+	if (ARCHER_ATTACKABLE_RANGE_IN <= fLength && fLength <= ARCHER_ATTACKABLE_RANGE_OUT) {
 		return true;
 	}
 	return false;
@@ -171,12 +193,13 @@ bool CMonster_Archer::DirectDirectionToTarget(void)
 
 void CMonster_Archer::SetInitInfo(void)
 {
-	DeleteSafe(m_pStateMgr);
+	Release();
 	m_pStateMgr = new CStateMgr<CMonster_Archer>(GetGameWorld(), *this);
 	// TODO : 아쳐의 Idle 상태만들 것
 	m_pStateMgr->SetNextState(new CArcherState_Idle(*this));
 	m_fMaxHp = ARCHER_MAX_HP;
 	m_fHp = m_fMaxHp;
+	m_pBowObj = new CArcherBow(GetGameWorld(), *this);
 	m_eArcherDir = ARCHER::DIR_RIGHT;
 	m_hDCKeyAtlas[ARCHER::DIR_LEFT] = CBitmapMgr::GetInstance()->GetBitmapMemDC(TEXT("ARCHER_LEFT"));
 	m_hDCKeyAtlas[ARCHER::DIR_RIGHT] = CBitmapMgr::GetInstance()->GetBitmapMemDC(TEXT("ARCHER_RIGHT"));

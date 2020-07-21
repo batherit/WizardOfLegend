@@ -154,6 +154,8 @@ void CMapLoader::ClearObjs(void)
 	DeleteVectorSafe(m_vecCollidersGroups);
 	DeleteListSafe(m_listTriggersGroups);
 	DeleteVectorSafe(m_vecUnactiveDoors);
-	DeleteVectorSafe(m_vecActiveDoors);
+	// 활성 문은 UnactiveDoors에서 받아오는 것이므로 동적해제를 할 이유가 없다.
+	m_vecActiveDoors.clear();
+	m_vecActiveDoors.shrink_to_fit();
 	DeleteSafe(m_pSpawnPoint);
 }

@@ -29,9 +29,10 @@ int CArcherState_Run::Update(float _fDeltaTime)
 		m_rOwner.GetStateMgr()->SetNextState(new CArcherState_Attack(m_rOwner));
 	}
 	else {
-		if (!m_rOwner.GoToTarget(_fDeltaTime)) {
+		if (!m_rOwner.GetTarget()) {
 			m_rOwner.GetStateMgr()->SetNextState(new CArcherState_Idle(m_rOwner));
 		}
+		else m_rOwner.GoToAttackableLocation(_fDeltaTime);
 	}
 
 	m_rOwner.UpdateAnim(_fDeltaTime);
