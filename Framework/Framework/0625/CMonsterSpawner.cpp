@@ -3,9 +3,11 @@
 #include "CBitmapMgr.h"
 #include "CCamera2D.h"
 #include "CMonster_SwordMan.h"
+#include "CMonster_Archer.h"
 #include "CWOL_World.h"
 #include "CSpace.h"
 #include "CSpawnerGenerator.h"
+
 
 
 
@@ -75,7 +77,7 @@ int CMonsterSpawner::Update(float _fDeltaTime)
 			m_listMonsters.emplace_back(new CMonster_SwordMan(GetGameWorld(), GetX(), GetY(), m_iGroupID, TO_WOL(GetGameWorld()).GetPlayer(), m_pSpawnerGenerator));
 			break;
 		case SPAWN::TYPE_ARCHER:
-
+			m_listMonsters.emplace_back(new CMonster_Archer(GetGameWorld(), GetX(), GetY(), m_iGroupID, TO_WOL(GetGameWorld()).GetPlayer(), m_pSpawnerGenerator));
 			break;
 		case SPAWN::TYPE_WIZARD:
 

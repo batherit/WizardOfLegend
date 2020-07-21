@@ -114,6 +114,15 @@
     <Filter Include="소스 파일\03.Obj\031.Skill\SwordMan">
       <UniqueIdentifier>{3fb01a26-631c-4adb-9072-a7f3b2ddb9c0}</UniqueIdentifier>
     </Filter>
+    <Filter Include="소스 파일\03.State\033.CArcher">
+      <UniqueIdentifier>{4c2eb7a6-f961-49ae-be64-2d59fac2bacf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\03.Obj\023.Monster\SwordMan">
+      <UniqueIdentifier>{9d2109a2-0478-4887-87f3-23a70aab987e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\03.Obj\023.Monster\Archer">
+      <UniqueIdentifier>{9106e857-b523-4005-be27-43a2911ef1b5}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CLayer.h">
@@ -260,9 +269,6 @@
     <ClInclude Include="CEffect_Spawn.h">
       <Filter>소스 파일\03.Obj\02. Effect</Filter>
     </ClInclude>
-    <ClInclude Include="CMonster_SwordMan.h">
-      <Filter>소스 파일\03.Obj\023.Monster</Filter>
-    </ClInclude>
     <ClInclude Include="Function.h">
       <Filter>소스 파일\99.Helper</Filter>
     </ClInclude>
@@ -310,6 +316,27 @@
     </ClInclude>
     <ClInclude Include="CUI_PlayerBar.h">
       <Filter>소스 파일\03.Obj\040.UI</Filter>
+    </ClInclude>
+    <ClInclude Include="CMonster_Archer.h">
+      <Filter>소스 파일\03.Obj\023.Monster\Archer</Filter>
+    </ClInclude>
+    <ClInclude Include="CMonster_SwordMan.h">
+      <Filter>소스 파일\03.Obj\023.Monster\SwordMan</Filter>
+    </ClInclude>
+    <ClInclude Include="CArcherState_Idle.h">
+      <Filter>소스 파일\03.State\033.CArcher</Filter>
+    </ClInclude>
+    <ClInclude Include="CArcherState_Run.h">
+      <Filter>소스 파일\03.State\033.CArcher</Filter>
+    </ClInclude>
+    <ClInclude Include="CArcherState_Attack.h">
+      <Filter>소스 파일\03.State\033.CArcher</Filter>
+    </ClInclude>
+    <ClInclude Include="CArcherState_Damage.h">
+      <Filter>소스 파일\03.State\033.CArcher</Filter>
+    </ClInclude>
+    <ClInclude Include="CArcherState_Death.h">
+      <Filter>소스 파일\03.State\033.CArcher</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -466,9 +493,6 @@
     <ClCompile Include="CEffect_Spawn.cpp">
       <Filter>소스 파일\03.Obj\02. Effect</Filter>
     </ClCompile>
-    <ClCompile Include="CMonster_SwordMan.cpp">
-      <Filter>소스 파일\03.Obj\023.Monster</Filter>
-    </ClCompile>
     <ClCompile Include="Function.cpp">
       <Filter>소스 파일\99.Helper</Filter>
     </ClCompile>
@@ -510,6 +534,27 @@
     </ClCompile>
     <ClCompile Include="CUI_PlayerBar.cpp">
       <Filter>소스 파일\03.Obj\040.UI</Filter>
+    </ClCompile>
+    <ClCompile Include="CMonster_Archer.cpp">
+      <Filter>소스 파일\03.Obj\023.Monster\Archer</Filter>
+    </ClCompile>
+    <ClCompile Include="CMonster_SwordMan.cpp">
+      <Filter>소스 파일\03.Obj\023.Monster\SwordMan</Filter>
+    </ClCompile>
+    <ClCompile Include="CArcherState_Idle.cpp">
+      <Filter>소스 파일\03.State\033.CArcher</Filter>
+    </ClCompile>
+    <ClCompile Include="CArcherState_Run.cpp">
+      <Filter>소스 파일\03.State\033.CArcher</Filter>
+    </ClCompile>
+    <ClCompile Include="CArcherState_Attack.cpp">
+      <Filter>소스 파일\03.State\033.CArcher</Filter>
+    </ClCompile>
+    <ClCompile Include="CArcherState_Damage.cpp">
+      <Filter>소스 파일\03.State\033.CArcher</Filter>
+    </ClCompile>
+    <ClCompile Include="CArcherState_Death.cpp">
+      <Filter>소스 파일\03.State\033.CArcher</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

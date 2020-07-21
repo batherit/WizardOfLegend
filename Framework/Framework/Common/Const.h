@@ -22,6 +22,9 @@ const float cfSwordManAttackableRange = 80.f;
 const float cfSwordManNormalAttackDist = 120.f;
 const float cfSwordManKnockbackSpeed = 250.f;
 
+// 아쳐 변수
+// => 매크로로 이제 하려고 한다. +ㅅ+!
+
 // 총알 변수
 const size_t ciBulletSize = 8;
 const float cfBulletSpeed = 5.f;

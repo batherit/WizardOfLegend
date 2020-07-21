@@ -151,6 +151,11 @@
     <ClInclude Include="Bullet.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
     </ClInclude>
+    <ClInclude Include="CArcherState_Attack.h" />
+    <ClInclude Include="CArcherState_Damage.h" />
+    <ClInclude Include="CArcherState_Death.h" />
+    <ClInclude Include="CArcherState_Idle.h" />
+    <ClInclude Include="CArcherState_Run.h" />
     <ClInclude Include="CAtlasLoader.h" />
     <ClInclude Include="CAtlasObj.h" />
     <ClInclude Include="CCollider.h" />
@@ -163,7 +168,12 @@
     <ClInclude Include="CMapFileMgr.h" />
     <ClInclude Include="CMapObjsGroup.h" />
     <ClInclude Include="CMonsterSpawner.h" />
-    <ClInclude Include="CMonster_SwordMan.h" />
+    <ClInclude Include="CMonster_Archer.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
+    </ClInclude>
+    <ClInclude Include="CMonster_SwordMan.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
+    </ClInclude>
     <ClInclude Include="CPlayerNormalAttack.h" />
     <ClInclude Include="CPlayerSpawner.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
@@ -246,6 +256,11 @@
     <ClCompile Include="Bullet.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
     </ClCompile>
+    <ClCompile Include="CArcherState_Attack.cpp" />
+    <ClCompile Include="CArcherState_Damage.cpp" />
+    <ClCompile Include="CArcherState_Death.cpp" />
+    <ClCompile Include="CArcherState_Idle.cpp" />
+    <ClCompile Include="CArcherState_Run.cpp" />
     <ClCompile Include="CAtlasLoader.cpp" />
     <ClCompile Include="CAtlasObj.cpp" />
     <ClCompile Include="CCollider.cpp" />
@@ -258,7 +273,12 @@
     <ClCompile Include="CMapFileMgr.cpp" />
     <ClCompile Include="CMapObjsGroup.cpp" />
     <ClCompile Include="CMonsterSpawner.cpp" />
-    <ClCompile Include="CMonster_SwordMan.cpp" />
+    <ClCompile Include="CMonster_Archer.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="CMonster_SwordMan.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="CPlayerNormalAttack.cpp" />
     <ClCompile Include="CPlayerSpawner.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>

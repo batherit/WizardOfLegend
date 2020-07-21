@@ -144,4 +144,11 @@ void CWOL_World::LoadResources(void)
 	CBitmapMgr::GetInstance()->InsertBitmap(TEXT("../Textures/SWORDMAN_RIGHT.bmp"), TEXT("SWORDMAN_RIGHT"));
 	// 스워드맨 공격 렌더링
 	CBitmapMgr::GetInstance()->InsertBitmap(TEXT("../Textures/SWORDMAN_ATTACK.bmp"), TEXT("SWORDMAN_ATTACK"));
+
+	// 아쳐 렌더링
+	CBitmapMgr::GetInstance()->InsertBitmap(TEXT("../Textures/ARCHER_LEFT.bmp"), TEXT("ARCHER_LEFT"));
+	CBitmapMgr::GetInstance()->InsertBitmap(TEXT("../Textures/ARCHER_RIGHT.bmp"), TEXT("ARCHER_RIGHT"));
+	// 아쳐 활/화살 렌더링
+	CBitmapMgr::GetInstance()->InsertBitmap(TEXT("../Textures/ARCHER_BOW_LEFT.bmp"), TEXT("ARCHER_BOW_LEFT"));
+	CBitmapMgr::GetInstance()->InsertBitmap(TEXT("../Textures/ARCHER_BOW_RIGHT.bmp"), TEXT("ARCHER_BOW_RIGHT"));
 }

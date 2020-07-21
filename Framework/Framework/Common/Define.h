@@ -104,6 +104,16 @@
 #define SWORDMAN_OUTPUT_WIDTH		200
 #define SWORDMAN_OUTPUT_HEIGHT		200
 
+// 아쳐 비트맵 출력 사이즈
+#define ARCHER_OUTPUT_WIDTH			200
+#define ARCHER_OUTPUT_HEIGHT		200
+
+// 아쳐 변수
+#define ARCHER_RUN_SPEED			300.f
+#define ARCHER_MAX_HP				80.f
+#define ARCHER_ATTACKABLE_RANGE		80.f
+#define ARCHER_NORMAL_ATTACK_DIST	120.f
+#define ARCHER_KNOCKBACK_SPEED		250.f   
 
 
 // 플레이어 노멀 공격 사이즈
