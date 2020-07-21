@@ -129,3 +129,8 @@
 // 스워드맨 공격 사이즈
 #define SWORDMAN_ATTACK_WIDTH	200
 #define SWORDMAN_ATTACK_HEIGHT	200
+
+// UI 데미지 텍스트 관련
+#define UI_DAMAGE_TEXT_KEEP_TIME	0.6f;
+#define UI_DAMAGE_TEXT_MAX_SIZE		40
+#define UI_DAMAGE_TEXT_MIN_SIZE		20

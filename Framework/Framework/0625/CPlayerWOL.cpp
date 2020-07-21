@@ -6,6 +6,7 @@
 #include "CStateMgr.h"
 #include "CPlayerState_Idle.h"
 #include "CPlayerState_Damage.h"
+#include "CUI_DamageText.h"
 //#include "CPlayerState_Spawn.h"
 //#include "CEffect_Spawn.h"
 
@@ -206,6 +207,7 @@ void CPlayerWOL::Attacked(float _fDamageAmount, POINT _ptCollisionPoint)
 	// TODO : 받은 데미지를 보여주는 UI를 띄우셈!
 	if (!IsDead()) {
 		CObj::Attacked(_fDamageAmount, _ptCollisionPoint);
+		TO_WOL(GetGameWorld()).GetListUIs().emplace_back(new CUI_DamageText(GetGameWorld(), GetX(), GetY(), _ptCollisionPoint, _fDamageAmount));
 		GetStateMgr()->SetNextState(new CPlayerState_Damage(*this, _ptCollisionPoint), true);
 	}
 }

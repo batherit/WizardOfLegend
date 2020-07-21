@@ -33,9 +33,6 @@ void CWOL_World::Ready(void)
 	GetSceneManager()->SetNextScene(new CTitleScene(*this));
 	m_pPlayer = new CPlayerWOL(*this, 0.f, 0.f);
 	m_pCamera = new CCamera2D(*this, m_pPlayer, WINCX >> 1, WINCY >> 1);
-	//m_pMap = new CMapLoader(*this, "../MapDatas/Maps/0/Objs.txt");
-
-	m_plistUIs.emplace_back(new CUI_DamageText(*this, 0, 0, 10));
 }
 
 void CWOL_World::Update(void)

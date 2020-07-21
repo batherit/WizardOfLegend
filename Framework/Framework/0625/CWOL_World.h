@@ -25,6 +25,7 @@ public:
 	CCamera2D* GetCamera(void) const { return m_pCamera; }
 	list<CObj*>& GetListUsedPlayerSkills(void) { return m_plistUsedPlayerSkills; }
 	list<CObj*>& GetListUsedMonsterSkills(void) { return m_plistUsedMonsterSkills; }
+	list<CObj*>& GetListUIs(void) { return m_plistUIs; }
 
 private:
 	void LoadResources(void);

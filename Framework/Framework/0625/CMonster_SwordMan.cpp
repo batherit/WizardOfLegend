@@ -8,6 +8,7 @@
 #include "CSwordManState_Idle.h"
 #include "CSwordManState_Damage.h"
 #include "CSpawnerGenerator.h"
+#include "CUI_DamageText.h"
 
 
 CMonster_SwordMan::CMonster_SwordMan(CGameWorld & _rGameWorld, CSpawnerGenerator* _pSpawnerGenerator/* = nullptr*/)
@@ -127,6 +128,7 @@ void CMonster_SwordMan::Attacked(float _fDamageAmount, POINT _ptCollisionPoint)
 {
 	if (!IsDead()) {
 		CObj::Attacked(_fDamageAmount, _ptCollisionPoint);
+		TO_WOL(GetGameWorld()).GetListUIs().emplace_back(new CUI_DamageText(GetGameWorld(), GetX(), GetY(), _ptCollisionPoint, _fDamageAmount));
 		if (IsDead() && m_pSpawnerGenerator) m_pSpawnerGenerator->DecreaseSpawnedMonstersNum();
 		GetStateMgr()->SetNextState(new CSwordManState_Damage(*this, _ptCollisionPoint), true);
 	}

@@ -7,6 +7,7 @@
 #include "CArcherState_Idle.h"
 #include "CArcherState_Damage.h"
 #include "CArcherBow.h"
+#include "CUI_DamageText.h"
 
 
 
@@ -132,8 +133,8 @@ void CMonster_Archer::Attacked(float _fDamageAmount, POINT _ptCollisionPoint)
 {
 	if (!IsDead()) {
 		CObj::Attacked(_fDamageAmount, _ptCollisionPoint);
+		TO_WOL(GetGameWorld()).GetListUIs().emplace_back(new CUI_DamageText(GetGameWorld(), GetX(), GetY(), _ptCollisionPoint, _fDamageAmount));
 		if (IsDead() && m_pSpawnerGenerator) m_pSpawnerGenerator->DecreaseSpawnedMonstersNum();
-		// TODO : 아쳐 데미지 상태 만들 것.
 		GetStateMgr()->SetNextState(new CArcherState_Damage(*this, _ptCollisionPoint), true);
 	}
 }
