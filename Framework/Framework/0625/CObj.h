@@ -54,6 +54,12 @@ public:
 		};
 		return rc;
 	}
+	void SetRect(RECT _rcRect) {
+		SetWidth(_rcRect.right - _rcRect.left);
+		SetHeight(_rcRect.bottom - _rcRect.top);
+		SetX((_rcRect.right + _rcRect.left) >> 1);
+		SetY((_rcRect.bottom + _rcRect.top) >> 1);
+	}
 	void SetWidth(size_t _iWidth) { m_iWidth = _iWidth; }
 	void SetHeight(size_t _iHeight) { m_iHeight = _iHeight; }
 	size_t GetWidth(void) const { return m_iWidth; }
@@ -79,6 +85,10 @@ public:
 	virtual void Attacked(float _fDamageAmount, POINT _ptCollisionPoint) { Clamp(&(m_fHp -= _fDamageAmount), 0.f, cfPlayerMaxHp); }
 	const bool IsDead(void) const { return m_fHp == 0.f; }
 	void CheckCollision(CObj* _pObj);
+	float GetMaxHp(void) const { return m_fMaxHp; }
+	float GetHP(void) const { return m_fHp; }
+	float GetMaxMana(void) const { return m_fMaxMana; }
+	float GetMana(void) const { return m_fMana; }
 
 protected:
 	int m_iGroupID = -1;
@@ -89,6 +99,8 @@ protected:
 	bool m_bIsValid = true;
 	float m_fMaxHp = 0.f;
 	float m_fHp = 0.f;
+	float m_fMaxMana = 0.f;
+	float m_fMana = 0.f;
 	float m_fX = 0.f;
 	float m_fY = 0.f;
 	float m_fToX = 0.f;

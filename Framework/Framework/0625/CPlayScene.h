@@ -3,6 +3,7 @@
 
 class CMapLoader;
 class CSpawnerGenerator;
+class CUI_PlayerBar;
 
 class CPlayScene :
 	public CScene
@@ -21,6 +22,7 @@ public:
 private:
 	CMapLoader* m_pMapLoader = nullptr;
 	CObj* m_pPlayer = nullptr;
+	CUI_PlayerBar* m_pPlayerBar = nullptr;
 	list<CObj*> m_listMonsters;
 	list<CSpawnerGenerator*> m_listSpawnerGenerators;
 	list<CObj*> m_listSpawners;

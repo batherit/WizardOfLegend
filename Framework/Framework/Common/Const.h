@@ -12,6 +12,7 @@ const float cfPlayerDashSpeed = 2350.f;	// 0.25초에 6개의 타일을 지나가는 것에 �
 const float cfPlayerAttackSpeed = 300.f;
 const float cfPlayerKnockbackSpeed = 250.f;
 const float cfPlayerMaxHp = 500.f;
+const float cfPlayerMaxMana = 100.f;
 const float cfPlayerNormalAttackDist = 120.f;
 
 // 스워드맨 변수

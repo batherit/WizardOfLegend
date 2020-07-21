@@ -10,6 +10,7 @@
 #include "CMonsterSpawner.h"
 #include "CPlayerSpawner.h"
 #include "CSpawnerGenerator.h"
+#include "CUI_PlayerBar.h"
 
 
 CPlayScene::CPlayScene(CGameWorld& _rGameWorld, const char* _szMapDirectory)
@@ -33,6 +34,7 @@ void CPlayScene::ResetScene(void)
 	m_pMapLoader = new CMapLoader(m_rGameWorld, m_szMapDirectory);
 	const pair<float, float> pairSpawnPoint = m_pMapLoader->GetSpawnPoint()->GetXY();
 	TO_PLAYER_WOL(m_pPlayer)->SetInitInfo();
+	m_pPlayerBar = new CUI_PlayerBar(m_rGameWorld, m_pPlayer);
 	m_listSpawners.emplace_back(new CPlayerSpawner(m_rGameWorld, m_pPlayer, pairSpawnPoint.first, pairSpawnPoint.second));
 	//TO_PLAYER_WOL(m_pPlayer)->Respawn(pairSpawnPoint.first, pairSpawnPoint.second);
 	m_vecObjsToRender.reserve(100);
@@ -59,6 +61,7 @@ int CPlayScene::Update(float _fDeltaTime)
 		pObj->Update(_fDeltaTime);
 	}
 	m_pPlayer->Update(_fDeltaTime);
+	m_pPlayerBar->Update(_fDeltaTime);
 	
 	return 0;
 }
@@ -138,10 +141,13 @@ void CPlayScene::Render(HDC & _hdc, CCamera2D * _pCamera)
 	for (auto& pObj : m_pMapLoader->GetAtlasObjsGroups(1)) {
 		pObj->Render(_hdc, _pCamera);
 	}
+
+	m_pPlayerBar->Render(_hdc, _pCamera);
 }
 
 void CPlayScene::Release(void)
 {
+	DeleteSafe(m_pPlayerBar);
 	DeleteSafe(m_pMapLoader);
 	DeleteListSafe(m_listSpawnerGenerators);
 	DeleteListSafe(m_listMonsters);

@@ -92,6 +92,14 @@
 #define PLAYER_OUTPUT_WITDH			180
 #define PLAYER_OUTPUT_HEIGHT		182
 
+// 플레이어 바 사이즈
+#define PLAYER_BAR_WIDTH	328
+#define PLAYER_BAR_HEIGHT	80
+#define HP_BAR_WIDTH		244
+#define HP_BAR_HEIGHT		32
+#define MANA_BAR_WIDTH		192
+#define MANA_BAR_HEIGHT		16
+
 // 스워드맨 비트맵 출력 사이즈
 #define SWORDMAN_OUTPUT_WIDTH		200
 #define SWORDMAN_OUTPUT_HEIGHT		200

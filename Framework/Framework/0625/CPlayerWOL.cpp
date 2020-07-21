@@ -90,6 +90,8 @@ void CPlayerWOL::SetInitInfo(void)
 	m_pStateMgr->SetNextState(new CPlayerState_Idle(*this));
 	m_fMaxHp = cfPlayerMaxHp;
 	m_fHp = m_fMaxHp;
+	m_fMaxMana = cfPlayerMaxMana;
+	m_fMana = m_fMaxMana;
 	m_eDir = OBJ::DIR_DOWN;
 	m_hDCKeyAtlas[OBJ::DIR_DOWN] = CBitmapMgr::GetInstance()->GetBitmapMemDC(TEXT("PLAYER_FRONT"));
 	m_hDCKeyAtlas[OBJ::DIR_UP] = CBitmapMgr::GetInstance()->GetBitmapMemDC(TEXT("PLAYER_BACK"));

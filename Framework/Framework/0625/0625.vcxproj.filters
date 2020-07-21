@@ -308,6 +308,9 @@
     <ClInclude Include="CSwordManAttack.h">
       <Filter>소스 파일\03.Obj\031.Skill\SwordMan</Filter>
     </ClInclude>
+    <ClInclude Include="CUI_PlayerBar.h">
+      <Filter>소스 파일\03.Obj\040.UI</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CLayer.cpp">
@@ -504,6 +507,9 @@
     </ClCompile>
     <ClCompile Include="CSwordManState_Damage.cpp">
       <Filter>소스 파일\03.State\032.SwordMan</Filter>
+    </ClCompile>
+    <ClCompile Include="CUI_PlayerBar.cpp">
+      <Filter>소스 파일\03.Obj\040.UI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
