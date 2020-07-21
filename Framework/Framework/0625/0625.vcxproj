@@ -214,6 +214,7 @@
     <ClInclude Include="CTitleScene.h" />
     <ClInclude Include="CTrigger.h" />
     <ClInclude Include="CUI_Cursor.h" />
+    <ClInclude Include="CUI_DamageText.h" />
     <ClInclude Include="CWOL_World.h" />
     <ClInclude Include="Function.h" />
     <ClInclude Include="GuidedBullet.h">
@@ -320,6 +321,7 @@
     <ClCompile Include="CTitleScene.cpp" />
     <ClCompile Include="CTrigger.cpp" />
     <ClCompile Include="CUI_Cursor.cpp" />
+    <ClCompile Include="CUI_DamageText.cpp" />
     <ClCompile Include="CWOL_World.cpp" />
     <ClCompile Include="Function.cpp" />
     <ClCompile Include="GuidedBullet.cpp">

@@ -7,6 +7,7 @@
 #include "CPlayerWOL.h"
 #include "CBitmapMgr.h"
 #include "CTitleScene.h"
+#include "CUI_DamageText.h"
 
 
 CWOL_World::CWOL_World()
@@ -33,6 +34,8 @@ void CWOL_World::Ready(void)
 	m_pPlayer = new CPlayerWOL(*this, 0.f, 0.f);
 	m_pCamera = new CCamera2D(*this, m_pPlayer, WINCX >> 1, WINCY >> 1);
 	//m_pMap = new CMapLoader(*this, "../MapDatas/Maps/0/Objs.txt");
+
+	m_plistUIs.emplace_back(new CUI_DamageText(*this, 0, 0, 10));
 }
 
 void CWOL_World::Update(void)
@@ -51,6 +54,10 @@ void CWOL_World::Update(void)
 		pObj->Update(fDeltaTime);
 	}
 
+	for (auto& pObj : m_plistUIs) {
+		pObj->Update(fDeltaTime);
+	}
+
 
 	m_fElapsedTime += fDeltaTime;
 	m_iFrameCount += 1;
@@ -65,6 +72,7 @@ void CWOL_World::LateUpdate(void)
 
 	CollectGarbageObjects(m_plistUsedPlayerSkills);		// 무효화된 플레이어 스킬 제거
 	CollectGarbageObjects(m_plistUsedMonsterSkills);	// 무효화된 몬스터 스킬 제거
+	CollectGarbageObjects(m_plistUIs);					// 무효화된 UI를 제거
 }
 
 void CWOL_World::Render(void)
@@ -77,6 +85,9 @@ void CWOL_World::Render(void)
 		pObj->Render(GetBackbufferDC(), m_pCamera);
 	}
 	for (auto& pObj : m_plistUsedMonsterSkills) {
+		pObj->Render(GetBackbufferDC(), m_pCamera);
+	}
+	for (auto& pObj : m_plistUIs) {
 		pObj->Render(GetBackbufferDC(), m_pCamera);
 	}
 
@@ -101,6 +112,7 @@ void CWOL_World::Release(void)
 	DeleteSafe(m_pCamera);
 	DeleteListSafe(m_plistUsedPlayerSkills);
 	DeleteListSafe(m_plistUsedMonsterSkills);
+	DeleteListSafe(m_plistUIs);
 	CBitmapMgr::DestroyInstance();
 	CKeyMgr::DestroyInstance();
 }

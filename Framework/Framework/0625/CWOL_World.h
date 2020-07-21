@@ -40,5 +40,6 @@ private:
 	CObj* m_pPlayer = nullptr;
 	list<CObj*> m_plistUsedPlayerSkills;
 	list<CObj*> m_plistUsedMonsterSkills;
+	list<CObj*> m_plistUIs;
 };
 

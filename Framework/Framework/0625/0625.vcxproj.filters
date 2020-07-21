@@ -347,6 +347,7 @@
     <ClInclude Include="CArcherArrow.h">
       <Filter>소스 파일\03.Obj\031.Skill\Archer</Filter>
     </ClInclude>
+    <ClInclude Include="CUI_DamageText.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CLayer.cpp">
@@ -570,6 +571,9 @@
     </ClCompile>
     <ClCompile Include="CArcherArrow.cpp">
       <Filter>소스 파일\03.Obj\031.Skill\Archer</Filter>
+    </ClCompile>
+    <ClCompile Include="CUI_DamageText.cpp">
+      <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
