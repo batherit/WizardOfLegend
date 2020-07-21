@@ -166,6 +166,8 @@
     <ClInclude Include="CCamera2D.h" />
     <ClInclude Include="CDoor.h" />
     <ClInclude Include="CEffect_Spawn.h" />
+    <ClInclude Include="CFireDragon.h" />
+    <ClInclude Include="CFireParticle.h" />
     <ClInclude Include="CMapLoader.h" />
     <ClInclude Include="CMapFileMgr.h" />
     <ClInclude Include="CMapObjsGroup.h" />
@@ -274,6 +276,8 @@
     <ClCompile Include="CCamera2D.cpp" />
     <ClCompile Include="CDoor.cpp" />
     <ClCompile Include="CEffect_Spawn.cpp" />
+    <ClCompile Include="CFireDragon.cpp" />
+    <ClCompile Include="CFireParticle.cpp" />
     <ClCompile Include="CMapLoader.cpp" />
     <ClCompile Include="CMapFileMgr.cpp" />
     <ClCompile Include="CMapObjsGroup.cpp" />

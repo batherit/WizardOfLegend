@@ -7,7 +7,8 @@
 #include "CPlayerWOL.h"
 #include "CBitmapMgr.h"
 #include "CTitleScene.h"
-#include "CUI_DamageText.h"
+//#include "CUI_DamageText.h"	//테스트용
+#include "CFireDragon.h"		//테스트용
 
 
 CWOL_World::CWOL_World()
@@ -38,10 +39,24 @@ void CWOL_World::Ready(void)
 void CWOL_World::Update(void)
 {
 	float fDeltaTime = GetTimer()->GetElapsedTimePerFrame();
+
+	if (CKeyMgr::GetInstance()->IsKeyDown(KEY::KEY_P)) {
+		m_plistUsedPlayerSkills.emplace_back(new CFireDragon(
+			*this,
+			m_pPlayer->GetX(), m_pPlayer->GetY(),
+			m_pPlayer->GetToX(), m_pPlayer->GetToY(),
+			TO_PLAYER_WOL(m_pPlayer)->GetLastAttackState()
+		));
+	}
+
 	m_pCursor->Update(fDeltaTime);
 
 	GetSceneManager()->Update(fDeltaTime);
 	m_pCamera->Update(fDeltaTime);
+
+	for (auto* pObj : m_plistParticles) {
+		pObj->Update(fDeltaTime);
+	}
 
 	for (auto& pObj : m_plistUsedPlayerSkills) {
 		pObj->Update(fDeltaTime);
@@ -70,6 +85,7 @@ void CWOL_World::LateUpdate(void)
 	CollectGarbageObjects(m_plistUsedPlayerSkills);		// 무효화된 플레이어 스킬 제거
 	CollectGarbageObjects(m_plistUsedMonsterSkills);	// 무효화된 몬스터 스킬 제거
 	CollectGarbageObjects(m_plistUIs);					// 무효화된 UI를 제거
+	CollectGarbageObjects(m_plistParticles);
 }
 
 void CWOL_World::Render(void)
@@ -78,6 +94,9 @@ void CWOL_World::Render(void)
 
 	GetSceneManager()->Render(GetBackbufferDC(), m_pCamera);
 
+	for (auto* pObj : m_plistParticles) {
+		pObj->Render(GetBackbufferDC(), m_pCamera);
+	}
 	for (auto& pObj : m_plistUsedPlayerSkills) {
 		pObj->Render(GetBackbufferDC(), m_pCamera);
 	}
@@ -110,6 +129,7 @@ void CWOL_World::Release(void)
 	DeleteListSafe(m_plistUsedPlayerSkills);
 	DeleteListSafe(m_plistUsedMonsterSkills);
 	DeleteListSafe(m_plistUIs);
+	DeleteListSafe(m_plistParticles);
 	CBitmapMgr::DestroyInstance();
 	CKeyMgr::DestroyInstance();
 }
@@ -147,6 +167,10 @@ void CWOL_World::LoadResources(void)
 	CBitmapMgr::GetInstance()->InsertBitmap(TEXT("../Textures/UI_PLAYERBAR.bmp"), TEXT("UI_PLAYERBAR"));
 	CBitmapMgr::GetInstance()->InsertBitmap(TEXT("../Textures/UI_HPBAR.bmp"), TEXT("UI_HPBAR"));
 	CBitmapMgr::GetInstance()->InsertBitmap(TEXT("../Textures/UI_MANABAR.bmp"), TEXT("UI_MANABAR"));
+	// 스킬 파이어 드래곤
+	CBitmapMgr::GetInstance()->InsertBitmap(TEXT("../Textures/SKILL_FIREDRAGON_COM.bmp"), TEXT("SKILL_FIREDRAGON"));
+	// 파이어 파티클
+	CBitmapMgr::GetInstance()->InsertBitmap(TEXT("../Textures/FIRE_PARTICLE.bmp"), TEXT("FIRE_PARTICLE"));
 
 	// 스워드맨 렌더링
 	CBitmapMgr::GetInstance()->InsertBitmap(TEXT("../Textures/SWORDMAN_LEFT.bmp"), TEXT("SWORDMAN_LEFT"));

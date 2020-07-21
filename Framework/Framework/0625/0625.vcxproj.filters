@@ -126,6 +126,9 @@
     <Filter Include="소스 파일\03.Obj\031.Skill\Archer">
       <UniqueIdentifier>{23fea572-7662-4978-84a3-802a258328a2}</UniqueIdentifier>
     </Filter>
+    <Filter Include="소스 파일\03.Obj\023.Particle">
+      <UniqueIdentifier>{0c697256-cb5d-4175-b690-6aa130aab9ec}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CLayer.h">
@@ -350,6 +353,10 @@
     <ClInclude Include="CUI_DamageText.h">
       <Filter>소스 파일\03.Obj\040.UI</Filter>
     </ClInclude>
+    <ClInclude Include="CFireDragon.h">
+      <Filter>소스 파일\03.Obj\031.Skill\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="CFireParticle.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CLayer.cpp">
@@ -576,6 +583,12 @@
     </ClCompile>
     <ClCompile Include="CPlayerWOL.cpp">
       <Filter>소스 파일\03.Obj\020.Player</Filter>
+    </ClCompile>
+    <ClCompile Include="CFireDragon.cpp">
+      <Filter>소스 파일\03.Obj\031.Skill\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="CFireParticle.cpp">
+      <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -26,6 +26,7 @@ public:
 	list<CObj*>& GetListUsedPlayerSkills(void) { return m_plistUsedPlayerSkills; }
 	list<CObj*>& GetListUsedMonsterSkills(void) { return m_plistUsedMonsterSkills; }
 	list<CObj*>& GetListUIs(void) { return m_plistUIs; }
+	list<CObj*>& GetListParticles(void) { return m_plistParticles; }
 
 private:
 	void LoadResources(void);
@@ -39,8 +40,9 @@ private:
 private:
 	// 월드 오브젝트
 	CObj* m_pPlayer = nullptr;
-	list<CObj*> m_plistUsedPlayerSkills;
 	list<CObj*> m_plistUsedMonsterSkills;
+	list<CObj*> m_plistUsedPlayerSkills;
+	list<CObj*> m_plistParticles;
 	list<CObj*> m_plistUIs;
 };
 

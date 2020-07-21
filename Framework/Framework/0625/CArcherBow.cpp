@@ -3,6 +3,7 @@
 #include "CBitmapMgr.h"
 #include "CCamera2D.h"
 #include "CMonster_Archer.h"
+#include "CSpace.h"
 
 
 
@@ -61,8 +62,8 @@ void CArcherBow::Render(HDC & _hdc, CCamera2D * _pCamera)
 	const pair<int, int>& pairLeftTop = _pCamera->GetScreenPoint(rcDrawArea.left, rcDrawArea.top);
 	const pair<int, int>& pairRightBottom = _pCamera->GetScreenPoint(rcDrawArea.right, rcDrawArea.bottom);
 
-	//RECT rcCollider = { pairLeftTop.first, pairLeftTop.second, pairRightBottom.first, pairRightBottom.second };
-	//if (!IsCollided(GetGameWorld().GetViewSpace()->GetRect(), rcCollider)) return;
+	RECT rcCollider = { pairLeftTop.first, pairLeftTop.second, pairRightBottom.first, pairRightBottom.second };
+	if (!IsCollided(GetGameWorld().GetViewSpace()->GetRect(), rcCollider)) return;
 
 	ARCHER::E_DIRECTION eArcherDir = dynamic_cast<CMonster_Archer&>(m_rOwner).GetArcherDir();
 

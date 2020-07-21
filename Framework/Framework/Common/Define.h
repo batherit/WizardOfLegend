@@ -1,7 +1,7 @@
 #pragma once
 
 // 윈도우 사이즈
-#define WINCX 1500// 1400 1920 
+#define WINCX 1900// 1400 1920 
 #define WINCY 900// 800 1080
 
 // 타이머 관련
@@ -119,12 +119,21 @@
 #define ARCHER_BOW_OUTPUT_WIDTH		180.f
 #define ARCHER_BOW_OUTPUT_HEIGHT	170.f
 // 아쳐 애로우 변수
-#define ARCHER_ARROW_SPEED			1500.f
+#define ARCHER_ARROW_SPEED			1400.f
 
 
 // 플레이어 노멀 공격 사이즈
 #define PLAYER_NORMAL_ATTACK_WIDTH	200
 #define PLAYER_NORMAL_ATTACK_HEIGHT	200
+// 파이어 드래곤 사이즈
+#define PLAYER_FIRE_DRAGON_WIDTH		180
+#define PLAYER_FIRE_DRAGON_HEIGHT		180
+#define PLAYER_FIRE_DRAGON_SPEED		1000.f
+#define PLAYER_FIRE_DRAGON_ROT_SPEED	500.f
+#define PLAYER_FIRE_DRAGON_DELTA_DEGREE 100
+// 파이어 파티클 사이즈
+#define FIRE_PARTICLE_WIDTH		70
+#define FIRE_PARTICLE_HEIGHT	70
 
 // 스워드맨 공격 사이즈
 #define SWORDMAN_ATTACK_WIDTH	200
@@ -132,5 +141,5 @@
 
 // UI 데미지 텍스트 관련
 #define UI_DAMAGE_TEXT_KEEP_TIME	0.6f;
-#define UI_DAMAGE_TEXT_MAX_SIZE		40
+#define UI_DAMAGE_TEXT_MAX_SIZE		50
 #define UI_DAMAGE_TEXT_MIN_SIZE		20

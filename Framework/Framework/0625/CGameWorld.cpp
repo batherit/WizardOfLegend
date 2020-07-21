@@ -13,6 +13,7 @@ CGameWorld::CGameWorld()
 	// ViewSpace는 렌더 컬링할때 쓰일 수 있다.
 	m_pViewSpace(new CSpace(*this, WINCX >> 1, WINCY >> 1, static_cast<int>(WINCX), static_cast<int>(WINCY)))
 {
+	srand((unsigned int)time(nullptr));
 	if (m_pTimer) m_pTimer->Reset();
 	m_hDC = GetDC(g_hWND);
 

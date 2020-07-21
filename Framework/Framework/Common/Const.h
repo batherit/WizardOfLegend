@@ -10,7 +10,7 @@ const size_t ciPlayerSize = 50;
 const float cfPlayerRunSpeed = 610.f; // 1.55초에 13개의 타일(73*73)을 지나가는 것에 근거. 
 const float cfPlayerDashSpeed = 2350.f;	// 0.25초에 6개의 타일을 지나가는 것에 근거
 const float cfPlayerAttackSpeed = 300.f;
-const float cfPlayerKnockbackSpeed = 250.f;
+const float cfPlayerKnockbackSpeed = 1050.f;
 const float cfPlayerMaxHp = 500.f;
 const float cfPlayerMaxMana = 100.f;
 const float cfPlayerNormalAttackDist = 120.f;
@@ -20,7 +20,7 @@ const float cfSwordManRunSpeed = 300.f;
 const float cfSwordManMaxHp = 80.f;
 const float cfSwordManAttackableRange = 80.f;
 const float cfSwordManNormalAttackDist = 120.f;
-const float cfSwordManKnockbackSpeed = 250.f;
+const float cfSwordManKnockbackSpeed = 500.f;
 
 // 아쳐 변수
 // => 매크로로 이제 하려고 한다. +ㅅ+!
