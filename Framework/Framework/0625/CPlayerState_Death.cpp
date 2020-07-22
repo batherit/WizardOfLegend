@@ -32,3 +32,7 @@ int CPlayerState_Death::Update(float _fDeltaTime)
 void CPlayerState_Death::LateUpdate(void)
 {
 }
+
+void CPlayerState_Death::OnExited(void)
+{
+}

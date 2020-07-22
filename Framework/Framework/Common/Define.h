@@ -75,6 +75,8 @@
 #define KM_G		0x00004000
 #define KM_SPACE	0x00008000
 
+#define KM_R		0x00010000
+
 // 파일 입출력 관련
 #define FB_WRITE_DATA(_valueName, _fpOut) fwrite(&(_valueName), sizeof(_valueName), 1, _fpOut)
 #define FB_READ_DATA(_valueName, _fpIn) fread(&(_valueName), sizeof(_valueName), 1, _fpIn)
@@ -99,6 +101,10 @@
 #define HP_BAR_HEIGHT		32
 #define MANA_BAR_WIDTH		192
 #define MANA_BAR_HEIGHT		16
+
+// 타격 이펙트 비트맵 출력 사이즈
+#define HIT_EFFECT_OUTPUT_WIDTH		230
+#define HIT_EFFECT_OUTPUT_HEIGHT	230
 
 // 스워드맨 비트맵 출력 사이즈
 #define SWORDMAN_OUTPUT_WIDTH		200
@@ -150,9 +156,9 @@
 // 파이어 드래곤 사이즈
 #define PLAYER_FIRE_DRAGON_WIDTH		180
 #define PLAYER_FIRE_DRAGON_HEIGHT		180
-#define PLAYER_FIRE_DRAGON_SPEED		1000.f
-#define PLAYER_FIRE_DRAGON_ROT_SPEED	500.f
-#define PLAYER_FIRE_DRAGON_DELTA_DEGREE 100
+#define PLAYER_FIRE_DRAGON_SPEED		1700.f
+#define PLAYER_FIRE_DRAGON_ROT_SPEED	360.f
+#define PLAYER_FIRE_DRAGON_DELTA_DEGREE 40
 // 파이어 파티클 사이즈
 #define FIRE_PARTICLE_WIDTH		70
 #define FIRE_PARTICLE_HEIGHT	70

@@ -43,3 +43,7 @@ int CWizardBallState_Idle::Update(float _fDeltaTime)
 void CWizardBallState_Idle::LateUpdate(void)
 {
 }
+
+void CWizardBallState_Idle::OnExited(void)
+{
+}

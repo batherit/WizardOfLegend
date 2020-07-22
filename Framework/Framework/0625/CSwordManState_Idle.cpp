@@ -35,3 +35,7 @@ int CSwordManState_Idle::Update(float _fDeltaTime)
 void CSwordManState_Idle::LateUpdate(void)
 {
 }
+
+void CSwordManState_Idle::OnExited(void)
+{
+}

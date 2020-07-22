@@ -17,5 +17,8 @@ public:
 
 private:
 	float m_fElapsedTime = 0.f;
+
+	// CState을(를) 통해 상속됨
+	virtual void OnExited(void) override;
 };
 

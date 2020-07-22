@@ -54,3 +54,7 @@ int CArcherState_Damage::Update(float _fDeltaTime)
 void CArcherState_Damage::LateUpdate(void)
 {
 }
+
+void CArcherState_Damage::OnExited(void)
+{
+}

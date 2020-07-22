@@ -59,3 +59,7 @@ int CArcherState_Attack::Update(float _fDeltaTime)
 void CArcherState_Attack::LateUpdate(void)
 {
 }
+
+void CArcherState_Attack::OnExited(void)
+{
+}

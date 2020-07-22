@@ -33,3 +33,7 @@ void CSwordManState_Spawn::LateUpdate(void)
 {
 }
 
+void CSwordManState_Spawn::OnExited(void)
+{
+}
+

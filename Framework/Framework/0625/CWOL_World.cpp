@@ -156,6 +156,9 @@ void CWOL_World::LoadResources(void)
 	CBitmapMgr::GetInstance()->InsertBitmap(TEXT("../Textures/SPAWN_CARD_WIZARD.bmp"), TEXT("SPAWN_CARD_WIZARD"));
 	CBitmapMgr::GetInstance()->InsertBitmap(TEXT("../Textures/SPAWN_CARD_WIZARDBALL.bmp"), TEXT("SPAWN_CARD_WIZARDBALL"));
 
+	// 타격 이펙트
+	CBitmapMgr::GetInstance()->InsertBitmap(TEXT("../Textures/HIT_EFFECT.bmp"), TEXT("HIT_EFFECT"));
+
 	// 플레이어 렌더링
 	CBitmapMgr::GetInstance()->InsertBitmap(TEXT("../Textures/BACK_COMPLETE.bmp"), TEXT("PLAYER_BACK"));
 	CBitmapMgr::GetInstance()->InsertBitmap(TEXT("../Textures/FRONT_COMPLETE.bmp"), TEXT("PLAYER_FRONT"));				// 비고. 죽음 장면까지 포함.

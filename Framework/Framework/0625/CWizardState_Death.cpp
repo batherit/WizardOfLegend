@@ -33,3 +33,7 @@ int CWizardState_Death::Update(float _fDeltaTime)
 void CWizardState_Death::LateUpdate(void)
 {
 }
+
+void CWizardState_Death::OnExited(void)
+{
+}

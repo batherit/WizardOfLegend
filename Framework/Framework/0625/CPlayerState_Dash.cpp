@@ -54,3 +54,7 @@ int CPlayerState_Dash::Update(float _fDeltaTime)
 void CPlayerState_Dash::LateUpdate(void)
 {
 }
+
+void CPlayerState_Dash::OnExited(void)
+{
+}

@@ -54,3 +54,7 @@ int CPlayerState_Damage::Update(float _fDeltaTime)
 void CPlayerState_Damage::LateUpdate(void)
 {
 }
+
+void CPlayerState_Damage::OnExited(void)
+{
+}

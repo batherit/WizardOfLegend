@@ -43,3 +43,7 @@ int CArcherState_Run::Update(float _fDeltaTime)
 void CArcherState_Run::LateUpdate(void)
 {
 }
+
+void CArcherState_Run::OnExited(void)
+{
+}

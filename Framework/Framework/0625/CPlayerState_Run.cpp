@@ -59,3 +59,7 @@ int CPlayerState_Run::Update(float _fDeltaTime)
 void CPlayerState_Run::LateUpdate(void)
 {
 }
+
+void CPlayerState_Run::OnExited(void)
+{
+}

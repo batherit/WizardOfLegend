@@ -17,5 +17,8 @@ public:
 
 private:
 	POINT m_ptCollisionPoint;
+
+	// CState을(를) 통해 상속됨
+	virtual void OnExited(void) override;
 };
 

@@ -21,6 +21,7 @@ CPlayerNormalSkillState::CPlayerNormalSkillState(CPlayerWOL & _rOwner)
 
 CPlayerNormalSkillState::~CPlayerNormalSkillState()
 {
+	m_pCamera = nullptr;
 }
 
 void CPlayerNormalSkillState::OnLoaded(void)
@@ -83,24 +84,8 @@ int CPlayerNormalSkillState::Update(float _fDeltaTime)
 	}
 	m_rOwner.MoveByDeltaTime(_fDeltaTime);
 
-	if (CKeyMgr::GetInstance()->IsKeyDown(KEY::KEY_SPACE)) {
-		m_rOwner.GetStateMgr()->SetNextState(new CPlayerState_Dash(m_rOwner));
-	}
-
-
-	if (m_rOwner.UpdateAnim(_fDeltaTime) == 1) {
-		float fNewToX = 0.f;
-		float fNewToY = 0.f;
-
-		if (m_rOwner.IsMoveKeyPressed(fNewToX, fNewToY)) {
-			m_rOwner.SetToXY(fNewToX, fNewToY);
-			m_rOwner.GetStateMgr()->SetNextState(new CPlayerState_Run(m_rOwner));
-		}
-		else {
-			m_rOwner.GetStateMgr()->SetNextState(new CPlayerState_Idle(m_rOwner));
-		}
-	}
-	return 0;
+	
+	return m_rOwner.UpdateAnim(_fDeltaTime);
 }
 
 void CPlayerNormalSkillState::LateUpdate(void)
@@ -119,4 +104,8 @@ void CPlayerNormalSkillState::SetAttackDirection(float * _pLength)
 
 	float fDegree = GetPositiveDegreeByVector(m_rOwner.GetToX(), m_rOwner.GetToY());
 	m_rOwner.SetDirType(GetDirByDegree(fDegree));
+}
+
+void CPlayerNormalSkillState::OnExited(void)
+{
 }

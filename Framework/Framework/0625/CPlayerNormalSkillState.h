@@ -22,5 +22,8 @@ private:
 	int m_iComboCount = 0;
 	CCamera2D* m_pCamera = nullptr;
 	float m_fPlayerAttackSpeed = 0.f;
+
+	// CState을(를) 통해 상속됨
+	virtual void OnExited(void) override;
 };
 

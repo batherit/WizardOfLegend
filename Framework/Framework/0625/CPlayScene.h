@@ -24,6 +24,7 @@ private:
 	CObj* m_pPlayer = nullptr;
 	CUI_PlayerBar* m_pPlayerBar = nullptr;
 	list<CObj*> m_listMonsters;
+	list<CObj*> m_listHitEffects;
 	list<CSpawnerGenerator*> m_listSpawnerGenerators;
 	list<CObj*> m_listSpawners;
 	vector<CObj*> m_vecObjsToRender;

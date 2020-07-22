@@ -53,3 +53,7 @@ int CSwordManState_Damage::Update(float _fDeltaTime)
 void CSwordManState_Damage::LateUpdate(void)
 {
 }
+
+void CSwordManState_Damage::OnExited(void)
+{
+}

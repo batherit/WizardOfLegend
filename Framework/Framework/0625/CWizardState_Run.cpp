@@ -43,3 +43,7 @@ int CWizardState_Run::Update(float _fDeltaTime)
 void CWizardState_Run::LateUpdate(void)
 {
 }
+
+void CWizardState_Run::OnExited(void)
+{
+}

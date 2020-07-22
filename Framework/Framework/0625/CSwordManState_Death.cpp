@@ -33,3 +33,7 @@ int CSwordManState_Death::Update(float _fDeltaTime)
 void CSwordManState_Death::LateUpdate(void)
 {
 }
+
+void CSwordManState_Death::OnExited(void)
+{
+}

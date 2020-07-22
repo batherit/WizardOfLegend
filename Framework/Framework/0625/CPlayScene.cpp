@@ -11,6 +11,7 @@
 #include "CPlayerSpawner.h"
 #include "CSpawnerGenerator.h"
 #include "CUI_PlayerBar.h"
+#include "CHitEffect.h"
 
 
 CPlayScene::CPlayScene(CGameWorld& _rGameWorld, const char* _szMapDirectory)
@@ -60,6 +61,9 @@ int CPlayScene::Update(float _fDeltaTime)
 	for (auto& pObj : m_listSpawners) {
 		pObj->Update(_fDeltaTime);
 	}
+	for (auto& pObj : m_listHitEffects) {
+		pObj->Update(_fDeltaTime);
+	}
 	m_pPlayer->Update(_fDeltaTime);
 	m_pPlayerBar->Update(_fDeltaTime);
 	
@@ -86,9 +90,14 @@ void CPlayScene::LateUpdate(void)
 	for (auto& pPlayerSkill : TO_WOL(m_rGameWorld).GetListUsedPlayerSkills()) {
 		DO_IF_IS_VALID_OBJ(pPlayerSkill) {
 			pPlayerSkill->LateUpdate(); // 충돌 리스트를 정리
+			POINT ptCollisionPoint;
 			for (auto& pMonster : m_listMonsters) {
 				DO_IF_IS_VALID_OBJ(pMonster) {
-					pPlayerSkill->CheckCollision(pMonster);
+					if (pPlayerSkill->CheckCollision(pMonster, &ptCollisionPoint)) {
+						m_listHitEffects.emplace_back(
+							new CHitEffect(m_rGameWorld, ptCollisionPoint.x, ptCollisionPoint.y)
+						);
+					}
 				}
 			}
 		}
@@ -98,7 +107,12 @@ void CPlayScene::LateUpdate(void)
 		DO_IF_IS_VALID_OBJ(pMonsterSkill) {
 			pMonsterSkill->LateUpdate(); // 충돌 리스트를 정리
 			DO_IF_IS_VALID_OBJ(m_pPlayer) {
-				pMonsterSkill->CheckCollision(m_pPlayer);
+				POINT ptCollisionPoint;
+				if (pMonsterSkill->CheckCollision(m_pPlayer, &ptCollisionPoint)) {
+					m_listHitEffects.emplace_back(
+						new CHitEffect(m_rGameWorld, ptCollisionPoint.x, ptCollisionPoint.y)
+					);
+				}
 			}
 		}
 	}
@@ -107,6 +121,7 @@ void CPlayScene::LateUpdate(void)
 	m_listSpawnerGenerators.remove_if([](auto& pObj) { return pObj == nullptr; });
 	CollectGarbageObjects(m_listMonsters);
 	CollectGarbageObjects(m_listSpawners);
+	CollectGarbageObjects(m_listHitEffects);
 }
 
 void CPlayScene::Render(HDC & _hdc, CCamera2D * _pCamera)
@@ -137,6 +152,9 @@ void CPlayScene::Render(HDC & _hdc, CCamera2D * _pCamera)
 	for (auto& pObj : m_listSpawners) {
 		pObj->Render(_hdc, _pCamera);
 	}
+	for (auto&pObj : m_listHitEffects) {
+		pObj->Render(_hdc, _pCamera);
+	}
 
 	for (auto& pObj : m_pMapLoader->GetAtlasObjsGroups(1)) {
 		pObj->Render(_hdc, _pCamera);
@@ -151,6 +169,7 @@ void CPlayScene::Release(void)
 	DeleteSafe(m_pMapLoader);
 	DeleteListSafe(m_listSpawnerGenerators);
 	DeleteListSafe(m_listMonsters);
+	DeleteListSafe(m_listHitEffects);
 	DeleteListSafe(m_listSpawners);
 	m_vecObjsToRender.clear();
 }

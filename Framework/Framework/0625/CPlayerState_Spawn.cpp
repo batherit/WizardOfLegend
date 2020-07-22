@@ -32,3 +32,7 @@ int CPlayerState_Spawn::Update(float _fDeltaTime)
 void CPlayerState_Spawn::LateUpdate(void)
 {
 }
+
+void CPlayerState_Spawn::OnExited(void)
+{
+}

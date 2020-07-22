@@ -51,3 +51,7 @@ int CWizardBallState_Run::Update(float _fDeltaTime)
 void CWizardBallState_Run::LateUpdate(void)
 {
 }
+
+void CWizardBallState_Run::OnExited(void)
+{
+}

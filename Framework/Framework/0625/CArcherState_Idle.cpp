@@ -36,3 +36,7 @@ int CArcherState_Idle::Update(float _fDeltaTime)
 void CArcherState_Idle::LateUpdate(void)
 {
 }
+
+void CArcherState_Idle::OnExited(void)
+{
+}

@@ -55,3 +55,7 @@ int CSwordManState_Attack::Update(float _fDeltaTime)
 void CSwordManState_Attack::LateUpdate(void)
 {
 }
+
+void CSwordManState_Attack::OnExited(void)
+{
+}

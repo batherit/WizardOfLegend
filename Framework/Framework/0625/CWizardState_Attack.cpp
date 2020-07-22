@@ -58,3 +58,7 @@ int CWizardState_Attack::Update(float _fDeltaTime)
 void CWizardState_Attack::LateUpdate(void)
 {
 }
+
+void CWizardState_Attack::OnExited(void)
+{
+}

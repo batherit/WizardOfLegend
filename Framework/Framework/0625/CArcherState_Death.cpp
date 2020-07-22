@@ -32,3 +32,7 @@ int CArcherState_Death::Update(float _fDeltaTime)
 void CArcherState_Death::LateUpdate(void)
 {
 }
+
+void CArcherState_Death::OnExited(void)
+{
+}

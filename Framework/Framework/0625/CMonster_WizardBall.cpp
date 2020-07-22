@@ -38,6 +38,8 @@ int CMonster_WizardBall::Update(float _fDeltaTime)
 	if (!m_pStateMgr->ConfirmValidState()) return 1;
 
 	m_pStateMgr->Update(_fDeltaTime);
+
+	return 0;
 }
 
 void CMonster_WizardBall::LateUpdate(void)

@@ -24,13 +24,13 @@ CFireDragon::CFireDragon(CGameWorld & _rGameWorld, float _fX, float _fY, float _
 		{
 		case PLAYER::STATE_ATTACK1:
 			// 아래로
-			m_fInitDegree -= 20.f;
-			m_fDeltaDegree = 40.f;
+			m_fInitDegree -= (PLAYER_FIRE_DRAGON_DELTA_DEGREE >> 1);
+			m_fDeltaDegree = PLAYER_FIRE_DRAGON_DELTA_DEGREE;
 			break;
 		case PLAYER::STATE_ATTACK2:
 			// 위로
-			m_fInitDegree += 20.f;
-			m_fDeltaDegree = -40.f;
+			m_fInitDegree += (PLAYER_FIRE_DRAGON_DELTA_DEGREE >> 1);
+			m_fDeltaDegree = -PLAYER_FIRE_DRAGON_DELTA_DEGREE;
 			break;
 		default:
 			break;
@@ -41,12 +41,12 @@ CFireDragon::CFireDragon(CGameWorld & _rGameWorld, float _fX, float _fY, float _
 		{
 		case PLAYER::STATE_ATTACK1:
 			// 아래로
-			m_fInitDegree += PLAYER_FIRE_DRAGON_DELTA_DEGREE >> 1;
+			m_fInitDegree += (PLAYER_FIRE_DRAGON_DELTA_DEGREE >> 1);
 			m_fDeltaDegree = -PLAYER_FIRE_DRAGON_DELTA_DEGREE;
 			break;
 		case PLAYER::STATE_ATTACK2:
 			// 위로
-			m_fInitDegree -= PLAYER_FIRE_DRAGON_DELTA_DEGREE >> 1;
+			m_fInitDegree -= (PLAYER_FIRE_DRAGON_DELTA_DEGREE >> 1);
 			m_fDeltaDegree = PLAYER_FIRE_DRAGON_DELTA_DEGREE;
 			break;
 		default:
@@ -58,12 +58,12 @@ CFireDragon::CFireDragon(CGameWorld & _rGameWorld, float _fX, float _fY, float _
 		{
 		case PLAYER::STATE_ATTACK1:
 			// 오른쪽
-			m_fInitDegree += PLAYER_FIRE_DRAGON_DELTA_DEGREE >> 1;
+			m_fInitDegree += (PLAYER_FIRE_DRAGON_DELTA_DEGREE >> 1);
 			m_fDeltaDegree = -PLAYER_FIRE_DRAGON_DELTA_DEGREE;
 			break;
 		case PLAYER::STATE_ATTACK2:
 			// 왼쪽
-			m_fInitDegree -= PLAYER_FIRE_DRAGON_DELTA_DEGREE >> 1;
+			m_fInitDegree -= (PLAYER_FIRE_DRAGON_DELTA_DEGREE >> 1);
 			m_fDeltaDegree = PLAYER_FIRE_DRAGON_DELTA_DEGREE;
 			break;
 		default:

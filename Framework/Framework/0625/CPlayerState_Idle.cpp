@@ -54,3 +54,7 @@ int CPlayerState_Idle::Update(float _fDeltaTime)
 void CPlayerState_Idle::LateUpdate(void)
 {
 }
+
+void CPlayerState_Idle::OnExited(void)
+{
+}

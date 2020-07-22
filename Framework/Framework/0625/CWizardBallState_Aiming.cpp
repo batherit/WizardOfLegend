@@ -48,3 +48,7 @@ int CWizardBallState_Aiming::Update(float _fDeltaTime)
 void CWizardBallState_Aiming::LateUpdate(void)
 {
 }
+
+void CWizardBallState_Aiming::OnExited(void)
+{
+}

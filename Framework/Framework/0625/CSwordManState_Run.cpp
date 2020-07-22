@@ -42,3 +42,7 @@ int CSwordManState_Run::Update(float _fDeltaTime)
 void CSwordManState_Run::LateUpdate(void)
 {
 }
+
+void CSwordManState_Run::OnExited(void)
+{
+}

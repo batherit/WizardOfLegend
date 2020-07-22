@@ -23,12 +23,10 @@ public:
 	CStateMgr<CPlayerWOL>* GetStateMgr(void) const { return m_pStateMgr; }
 	void SetNewStateAnim(PLAYER::E_STATE _eNewState, bool _bReset = false);
 	const PLAYER::E_STATE GetLastAttackState(void) const { return m_eLastAttackState; }
+	void SetLastAttackState(PLAYER::E_STATE _eState) { m_eLastAttackState = _eState; }
 	bool IsMoveKeyPressed(float& _fToX, float& _fToY);
 	void UpdateSkillKey(void);
 	virtual void Attacked(float _fDamageAmoun, POINT _ptCollisionPointt);
-	//void Spawn(float _fX, float _fY);		// 데이터를 유지하며 스폰
-	//bool IsSpawning(void) { return m_pSpawnEffect != nullptr; }
-	//void Respawn(float _fX, float _fY);		// 데이터를 초기 데이터로 리셋하고 스폰.
 	void SetInitInfo(void);
 	CState<CPlayerWOL>* GetUsingSkill(void) { return m_pUsingSkill; }
 

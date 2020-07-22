@@ -10,6 +10,7 @@ public:
 	virtual void OnLoaded(void) = 0;
 	virtual int Update(float _fDeltaTime) = 0;
 	virtual void LateUpdate(void) = 0;
+	virtual void OnExited(void) = 0;
 
 protected:
 	T& m_rOwner;
