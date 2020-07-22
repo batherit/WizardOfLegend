@@ -178,6 +178,10 @@
     <ClInclude Include="CMonster_SwordMan.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
     </ClInclude>
+    <ClInclude Include="CMonster_Wizard.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
+    </ClInclude>
+    <ClInclude Include="CMonster_WizardBall.h" />
     <ClInclude Include="CPlayerNormalAttack.h" />
     <ClInclude Include="CPlayerSpawner.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
@@ -217,6 +221,18 @@
     <ClInclude Include="CTrigger.h" />
     <ClInclude Include="CUI_Cursor.h" />
     <ClInclude Include="CUI_DamageText.h" />
+    <ClInclude Include="CWizardBallState_Aiming.h" />
+    <ClInclude Include="CWizardBallState_Attack.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
+    </ClInclude>
+    <ClInclude Include="CWizardBallState_Damage.h" />
+    <ClInclude Include="CWizardBallState_Idle.h" />
+    <ClInclude Include="CWizardBallState_Run.h" />
+    <ClInclude Include="CWizardState_Attack.h" />
+    <ClInclude Include="CWizardState_Damage.h" />
+    <ClInclude Include="CWizardState_Death.h" />
+    <ClInclude Include="CWizardState_Idle.h" />
+    <ClInclude Include="CWizardState_Run.h" />
     <ClInclude Include="CWOL_World.h" />
     <ClInclude Include="Function.h" />
     <ClInclude Include="GuidedBullet.h">
@@ -288,6 +304,10 @@
     <ClCompile Include="CMonster_SwordMan.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
     </ClCompile>
+    <ClCompile Include="CMonster_Wizard.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="CMonster_WizardBall.cpp" />
     <ClCompile Include="CPlayerNormalAttack.cpp" />
     <ClCompile Include="CPlayerSpawner.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
@@ -326,6 +346,18 @@
     <ClCompile Include="CTrigger.cpp" />
     <ClCompile Include="CUI_Cursor.cpp" />
     <ClCompile Include="CUI_DamageText.cpp" />
+    <ClCompile Include="CWizardBallState_Aiming.cpp" />
+    <ClCompile Include="CWizardBallState_Attack.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="CWizardBallState_Damage.cpp" />
+    <ClCompile Include="CWizardBallState_Idle.cpp" />
+    <ClCompile Include="CWizardBallState_Run.cpp" />
+    <ClCompile Include="CWizardState_Attack.cpp" />
+    <ClCompile Include="CWizardState_Damage.cpp" />
+    <ClCompile Include="CWizardState_Death.cpp" />
+    <ClCompile Include="CWizardState_Idle.cpp" />
+    <ClCompile Include="CWizardState_Run.cpp" />
     <ClCompile Include="CWOL_World.cpp" />
     <ClCompile Include="Function.cpp" />
     <ClCompile Include="GuidedBullet.cpp">

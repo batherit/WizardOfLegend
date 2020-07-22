@@ -27,7 +27,6 @@ void CArcherState_Attack::OnLoaded(void)
 
 int CArcherState_Attack::Update(float _fDeltaTime)
 {
-	
 	m_rOwner.DirectDirectionToTarget();
 	if (!bAttackOk && m_rOwner.GetAnimProgress() >= 0.75f) {
 		TO_WOL(m_rOwner.GetGameWorld()).GetListUsedMonsterSkills().emplace_back(

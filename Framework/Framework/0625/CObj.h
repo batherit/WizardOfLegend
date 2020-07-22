@@ -76,6 +76,7 @@ public:
 		ZeroMemory(&m_stAnimProcessingInfo, sizeof(m_stAnimProcessingInfo));
 	}
 	int UpdateAnim(float _fDeltaTime);
+	_anim_info& GetAnimInfo(void) { return m_stAnimInfo; }
 	float GetAnimProgress(void) const { return m_stAnimProcessingInfo.fAnimElapsedTime / m_stAnimInfo.fTotalTime;  }
 	int GetAnimX(void) const { return m_stAnimProcessingInfo.iCurrentIndex * m_iWidth; }
 	int GetAnimY(void) const { return m_stAnimInfo.iState * m_iHeight; }

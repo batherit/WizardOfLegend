@@ -81,7 +81,9 @@ int CObj::UpdateAnim(float _fDeltaTime)
 	}
 
 	float fCutTime = m_stAnimInfo.fTotalTime / m_stAnimInfo.iFrameCount;
-	m_stAnimProcessingInfo.iCurrentIndex = m_stAnimProcessingInfo.fAnimElapsedTime / fCutTime + m_stAnimInfo.iStartFrameIndex;
+	int iIndexOffset = m_stAnimProcessingInfo.fAnimElapsedTime / fCutTime;
+	if (m_stAnimInfo.bIsReversePlay) iIndexOffset *= -1;
+	m_stAnimProcessingInfo.iCurrentIndex = m_stAnimInfo.iStartFrameIndex + iIndexOffset;
 
 	return 0;
 }

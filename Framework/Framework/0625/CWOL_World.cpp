@@ -184,4 +184,14 @@ void CWOL_World::LoadResources(void)
 	// 아쳐 활/화살 렌더링
 	CBitmapMgr::GetInstance()->InsertBitmap(TEXT("../Textures/ARCHER_BOW_LEFT.bmp"), TEXT("ARCHER_BOW_LEFT"));
 	CBitmapMgr::GetInstance()->InsertBitmap(TEXT("../Textures/ARCHER_BOW_RIGHT.bmp"), TEXT("ARCHER_BOW_RIGHT"));
+
+	// 위자드 렌더링
+	CBitmapMgr::GetInstance()->InsertBitmap(TEXT("../Textures/WIZARD_LEFT.bmp"), TEXT("WIZARD_LEFT"));
+	CBitmapMgr::GetInstance()->InsertBitmap(TEXT("../Textures/WIZARD_RIGHT.bmp"), TEXT("WIZARD_RIGHT"));
+	// 위자드 파이어 렌더링
+	CBitmapMgr::GetInstance()->InsertBitmap(TEXT("../Textures/WIZARD_FIRE.bmp"), TEXT("WIZARD_FIRE"));
+
+
+	// 위자드볼 렌더링
+	CBitmapMgr::GetInstance()->InsertBitmap(TEXT("../Textures/WIZARD_BALL.bmp"), TEXT("WIZARD_BALL"));
 }

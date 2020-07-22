@@ -121,6 +121,28 @@
 // 아쳐 애로우 변수
 #define ARCHER_ARROW_SPEED			1400.f
 
+// 위자드 비트맵 출력 사이즈
+#define WIZARD_OUTPUT_WIDTH			170.f
+#define WIZARD_OUTPUT_HEIGHT		230.f
+
+// 위자드 변수
+#define WIZARD_RUN_SPEED			100.f
+#define WIZARD_MAX_HP				80.f
+#define WIZARD_KNOCKBACK_SPEED		250.f
+#define WIZARD_ATTACKABLE_RANGE_IN	250.f
+#define WIZARD_ATTACKABLE_RANGE_OUT	600.f
+
+// 위자드 볼 비트맵 출력 사이즈
+#define WIZARD_BALL_OUTPUT_WIDTH	90.f
+#define WIZARD_BALL_OUTPUT_HEIGHT	90.f
+
+// 위자드 볼 변수
+#define WIZARD_BALL_RUN_SPEED			100.f
+#define WIZARD_BALL_ATTACK_SPEED		1800.f
+#define WIZARD_BALL_MAX_HP				60.f
+#define WIZARD_BALL_ATTACKABLE_RANGE	500.f
+#define WIZARD_KNOCKBACK_SPEED			250.f  
+#define WIZARD_BALL_BALLAST_SPEED		100.f
 
 // 플레이어 노멀 공격 사이즈
 #define PLAYER_NORMAL_ATTACK_WIDTH	200

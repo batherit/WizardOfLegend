@@ -4,6 +4,8 @@
 #include "CCamera2D.h"
 #include "CMonster_SwordMan.h"
 #include "CMonster_Archer.h"
+#include "CMonster_Wizard.h"
+#include "CMonster_WizardBall.h"
 #include "CWOL_World.h"
 #include "CSpace.h"
 #include "CSpawnerGenerator.h"
@@ -82,10 +84,10 @@ int CMonsterSpawner::Update(float _fDeltaTime)
 				m_listMonsters.emplace_back(new CMonster_Archer(GetGameWorld(), GetX(), GetY(), m_iGroupID, TO_WOL(GetGameWorld()).GetPlayer(), m_pSpawnerGenerator));
 				break;
 			case SPAWN::TYPE_WIZARD:
-
+				m_listMonsters.emplace_back(new CMonster_Wizard(GetGameWorld(), GetX(), GetY(), m_iGroupID, TO_WOL(GetGameWorld()).GetPlayer(), m_pSpawnerGenerator));
 				break;
 			case SPAWN::TYPE_WIZARDBALL:
-
+				m_listMonsters.emplace_back(new CMonster_WizardBall(GetGameWorld(), GetX(), GetY(), m_iGroupID, TO_WOL(GetGameWorld()).GetPlayer(), m_pSpawnerGenerator));
 				break;
 			}
 			m_bIsSpawend = true;

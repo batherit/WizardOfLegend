@@ -8,6 +8,7 @@
 #include "CArcherState_Damage.h"
 #include "CArcherBow.h"
 #include "CUI_DamageText.h"
+#include "CSpace.h"
 
 
 
@@ -31,6 +32,7 @@ CMonster_Archer::CMonster_Archer(CGameWorld & _rGameWorld, float _fX, float _fY,
 
 CMonster_Archer::~CMonster_Archer()
 {
+	Release();
 }
 
 int CMonster_Archer::Update(float _fDeltaTime)
@@ -60,8 +62,8 @@ void CMonster_Archer::Render(HDC & _hdc, CCamera2D * _pCamera)
 	const pair<int, int>& pairLeftTop = _pCamera->GetScreenPoint(rcDrawArea.left, rcDrawArea.top);
 	const pair<int, int>& pairRightBottom = _pCamera->GetScreenPoint(rcDrawArea.right, rcDrawArea.bottom);
 
-	//RECT rcCollider = { pairLeftTop.first, pairLeftTop.second, pairRightBottom.first, pairRightBottom.second };
-	//if (!IsCollided(GetGameWorld().GetViewSpace()->GetRect(), rcCollider)) return;
+	RECT rcCollider = { pairLeftTop.first, pairLeftTop.second, pairRightBottom.first, pairRightBottom.second };
+	if (!IsCollided(GetGameWorld().GetViewSpace()->GetRect(), rcCollider)) return;
 
 	GdiTransparentBlt(_hdc,
 		pairLeftTop.first,			// 출력 시작좌표 X
@@ -201,6 +203,7 @@ void CMonster_Archer::SetInitInfo(void)
 	m_fMaxHp = ARCHER_MAX_HP;
 	m_fHp = m_fMaxHp;
 	m_pBowObj = new CArcherBow(GetGameWorld(), *this);
+	m_eState = ARCHER::STATE_IDLE;
 	m_eArcherDir = ARCHER::DIR_RIGHT;
 	m_hDCKeyAtlas[ARCHER::DIR_LEFT] = CBitmapMgr::GetInstance()->GetBitmapMemDC(TEXT("ARCHER_LEFT"));
 	m_hDCKeyAtlas[ARCHER::DIR_RIGHT] = CBitmapMgr::GetInstance()->GetBitmapMemDC(TEXT("ARCHER_RIGHT"));

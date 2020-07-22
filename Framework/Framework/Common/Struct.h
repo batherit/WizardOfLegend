@@ -53,6 +53,7 @@ struct _anim_info {
 	int iFrameCount = 0;				// 시작 인덱스에서부터 출력할 총 프레임.
 	float fTotalTime = 0.f;			// 한 애니메이션 총 진행 시간
 	int iCountToRepeat = 0;			// 한 애니메이션을 몇 번 진행? (0 - 무한, 1 - 1회하고 끝(별 일 없으면 IDLE로 전환))
+	bool bIsReversePlay = false;
 };
 // => CObj는 float fAnimElapsedTime과 int iRepeatedCount를 지닌다. 
 struct _anim_processing_info {

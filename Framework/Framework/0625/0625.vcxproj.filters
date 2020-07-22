@@ -114,9 +114,6 @@
     <Filter Include="소스 파일\03.Obj\031.Skill\SwordMan">
       <UniqueIdentifier>{3fb01a26-631c-4adb-9072-a7f3b2ddb9c0}</UniqueIdentifier>
     </Filter>
-    <Filter Include="소스 파일\03.State\033.CArcher">
-      <UniqueIdentifier>{4c2eb7a6-f961-49ae-be64-2d59fac2bacf}</UniqueIdentifier>
-    </Filter>
     <Filter Include="소스 파일\03.Obj\023.Monster\SwordMan">
       <UniqueIdentifier>{9d2109a2-0478-4887-87f3-23a70aab987e}</UniqueIdentifier>
     </Filter>
@@ -128,6 +125,21 @@
     </Filter>
     <Filter Include="소스 파일\03.Obj\023.Particle">
       <UniqueIdentifier>{0c697256-cb5d-4175-b690-6aa130aab9ec}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\03.Obj\023.Monster\Wizard">
+      <UniqueIdentifier>{ebf405d5-5fcb-424e-a075-4a3981c3b796}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\03.State\033.Archer">
+      <UniqueIdentifier>{4c2eb7a6-f961-49ae-be64-2d59fac2bacf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\03.State\034.Wizard">
+      <UniqueIdentifier>{04690913-49d3-452a-947f-f180b8f5f814}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\03.Obj\023.Monster\WizardBall">
+      <UniqueIdentifier>{9630aee2-1764-423b-b731-39a37df3d4f4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\03.State\035.WizardBall">
+      <UniqueIdentifier>{e52956e7-e60c-4824-8553-a67ea2e6e942}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -329,20 +341,17 @@
     <ClInclude Include="CMonster_SwordMan.h">
       <Filter>소스 파일\03.Obj\023.Monster\SwordMan</Filter>
     </ClInclude>
-    <ClInclude Include="CArcherState_Idle.h">
-      <Filter>소스 파일\03.State\033.CArcher</Filter>
-    </ClInclude>
     <ClInclude Include="CArcherState_Run.h">
-      <Filter>소스 파일\03.State\033.CArcher</Filter>
+      <Filter>소스 파일\03.State\033.Archer</Filter>
     </ClInclude>
     <ClInclude Include="CArcherState_Attack.h">
-      <Filter>소스 파일\03.State\033.CArcher</Filter>
+      <Filter>소스 파일\03.State\033.Archer</Filter>
     </ClInclude>
     <ClInclude Include="CArcherState_Damage.h">
-      <Filter>소스 파일\03.State\033.CArcher</Filter>
+      <Filter>소스 파일\03.State\033.Archer</Filter>
     </ClInclude>
     <ClInclude Include="CArcherState_Death.h">
-      <Filter>소스 파일\03.State\033.CArcher</Filter>
+      <Filter>소스 파일\03.State\033.Archer</Filter>
     </ClInclude>
     <ClInclude Include="CArcherBow.h">
       <Filter>소스 파일\03.Obj\023.Monster\Archer</Filter>
@@ -356,7 +365,48 @@
     <ClInclude Include="CFireDragon.h">
       <Filter>소스 파일\03.Obj\031.Skill\Player</Filter>
     </ClInclude>
-    <ClInclude Include="CFireParticle.h" />
+    <ClInclude Include="CFireParticle.h">
+      <Filter>소스 파일\03.Obj\023.Particle</Filter>
+    </ClInclude>
+    <ClInclude Include="CMonster_Wizard.h">
+      <Filter>소스 파일\03.Obj\023.Monster\Wizard</Filter>
+    </ClInclude>
+    <ClInclude Include="CWizardState_Idle.h">
+      <Filter>소스 파일\03.State\034.Wizard</Filter>
+    </ClInclude>
+    <ClInclude Include="CArcherState_Idle.h">
+      <Filter>소스 파일\03.State\033.Archer</Filter>
+    </ClInclude>
+    <ClInclude Include="CWizardState_Run.h">
+      <Filter>소스 파일\03.State\034.Wizard</Filter>
+    </ClInclude>
+    <ClInclude Include="CWizardState_Attack.h">
+      <Filter>소스 파일\03.State\034.Wizard</Filter>
+    </ClInclude>
+    <ClInclude Include="CWizardState_Damage.h">
+      <Filter>소스 파일\03.State\034.Wizard</Filter>
+    </ClInclude>
+    <ClInclude Include="CWizardState_Death.h">
+      <Filter>소스 파일\03.State\034.Wizard</Filter>
+    </ClInclude>
+    <ClInclude Include="CMonster_WizardBall.h">
+      <Filter>소스 파일\03.Obj\023.Monster\WizardBall</Filter>
+    </ClInclude>
+    <ClInclude Include="CWizardBallState_Idle.h">
+      <Filter>소스 파일\03.State\035.WizardBall</Filter>
+    </ClInclude>
+    <ClInclude Include="CWizardBallState_Run.h">
+      <Filter>소스 파일\03.State\035.WizardBall</Filter>
+    </ClInclude>
+    <ClInclude Include="CWizardBallState_Aiming.h">
+      <Filter>소스 파일\03.State\035.WizardBall</Filter>
+    </ClInclude>
+    <ClInclude Include="CWizardBallState_Attack.h">
+      <Filter>소스 파일\03.State\035.WizardBall</Filter>
+    </ClInclude>
+    <ClInclude Include="CWizardBallState_Damage.h">
+      <Filter>소스 파일\03.State\035.WizardBall</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CLayer.cpp">
@@ -558,19 +608,19 @@
       <Filter>소스 파일\03.Obj\023.Monster\SwordMan</Filter>
     </ClCompile>
     <ClCompile Include="CArcherState_Idle.cpp">
-      <Filter>소스 파일\03.State\033.CArcher</Filter>
+      <Filter>소스 파일\03.State\033.Archer</Filter>
     </ClCompile>
     <ClCompile Include="CArcherState_Run.cpp">
-      <Filter>소스 파일\03.State\033.CArcher</Filter>
+      <Filter>소스 파일\03.State\033.Archer</Filter>
     </ClCompile>
     <ClCompile Include="CArcherState_Attack.cpp">
-      <Filter>소스 파일\03.State\033.CArcher</Filter>
+      <Filter>소스 파일\03.State\033.Archer</Filter>
     </ClCompile>
     <ClCompile Include="CArcherState_Damage.cpp">
-      <Filter>소스 파일\03.State\033.CArcher</Filter>
+      <Filter>소스 파일\03.State\033.Archer</Filter>
     </ClCompile>
     <ClCompile Include="CArcherState_Death.cpp">
-      <Filter>소스 파일\03.State\033.CArcher</Filter>
+      <Filter>소스 파일\03.State\033.Archer</Filter>
     </ClCompile>
     <ClCompile Include="CArcherBow.cpp">
       <Filter>소스 파일\03.Obj\023.Monster\Archer</Filter>
@@ -588,7 +638,43 @@
       <Filter>소스 파일\03.Obj\031.Skill\Player</Filter>
     </ClCompile>
     <ClCompile Include="CFireParticle.cpp">
-      <Filter>소스 파일</Filter>
+      <Filter>소스 파일\03.Obj\023.Particle</Filter>
+    </ClCompile>
+    <ClCompile Include="CMonster_Wizard.cpp">
+      <Filter>소스 파일\03.Obj\023.Monster\Wizard</Filter>
+    </ClCompile>
+    <ClCompile Include="CWizardState_Idle.cpp">
+      <Filter>소스 파일\03.State\034.Wizard</Filter>
+    </ClCompile>
+    <ClCompile Include="CWizardState_Run.cpp">
+      <Filter>소스 파일\03.State\034.Wizard</Filter>
+    </ClCompile>
+    <ClCompile Include="CWizardState_Attack.cpp">
+      <Filter>소스 파일\03.State\034.Wizard</Filter>
+    </ClCompile>
+    <ClCompile Include="CWizardState_Damage.cpp">
+      <Filter>소스 파일\03.State\034.Wizard</Filter>
+    </ClCompile>
+    <ClCompile Include="CWizardState_Death.cpp">
+      <Filter>소스 파일\03.State\034.Wizard</Filter>
+    </ClCompile>
+    <ClCompile Include="CWizardBallState_Idle.cpp">
+      <Filter>소스 파일\03.State\035.WizardBall</Filter>
+    </ClCompile>
+    <ClCompile Include="CMonster_WizardBall.cpp">
+      <Filter>소스 파일\03.Obj\023.Monster\WizardBall</Filter>
+    </ClCompile>
+    <ClCompile Include="CWizardBallState_Run.cpp">
+      <Filter>소스 파일\03.State\035.WizardBall</Filter>
+    </ClCompile>
+    <ClCompile Include="CWizardBallState_Aiming.cpp">
+      <Filter>소스 파일\03.State\035.WizardBall</Filter>
+    </ClCompile>
+    <ClCompile Include="CWizardBallState_Attack.cpp">
+      <Filter>소스 파일\03.State\035.WizardBall</Filter>
+    </ClCompile>
+    <ClCompile Include="CWizardBallState_Damage.cpp">
+      <Filter>소스 파일\03.State\035.WizardBall</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
