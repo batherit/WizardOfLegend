@@ -11,6 +11,7 @@
 #include "CPlayerSpawner.h"
 #include "CSpawnerGenerator.h"
 #include "CUI_PlayerBar.h"
+#include "CUI_Money.h"
 #include "CHitEffect.h"
 
 
@@ -35,7 +36,8 @@ void CPlayScene::ResetScene(void)
 	m_pMapLoader = new CMapLoader(m_rGameWorld, m_szMapDirectory);
 	const pair<float, float> pairSpawnPoint = m_pMapLoader->GetSpawnPoint()->GetXY();
 	TO_PLAYER_WOL(m_pPlayer)->SetInitInfo();
-	m_pPlayerBar = new CUI_PlayerBar(m_rGameWorld, m_pPlayer);
+	m_pPlayerBarUI = new CUI_PlayerBar(m_rGameWorld, m_pPlayer);
+	m_pMoneyUI = new CUI_Money(m_rGameWorld, (WINCX >> 1) - 100, WINCY - 50, *m_pPlayer);
 	m_listSpawners.emplace_back(new CPlayerSpawner(m_rGameWorld, m_pPlayer, pairSpawnPoint.first, pairSpawnPoint.second));
 	//TO_PLAYER_WOL(m_pPlayer)->Respawn(pairSpawnPoint.first, pairSpawnPoint.second);
 	m_vecObjsToRender.reserve(100);
@@ -65,7 +67,8 @@ int CPlayScene::Update(float _fDeltaTime)
 		pObj->Update(_fDeltaTime);
 	}
 	m_pPlayer->Update(_fDeltaTime);
-	m_pPlayerBar->Update(_fDeltaTime);
+	m_pPlayerBarUI->Update(_fDeltaTime);
+	m_pMoneyUI->Update(_fDeltaTime);
 	
 	return 0;
 }
@@ -160,12 +163,14 @@ void CPlayScene::Render(HDC & _hdc, CCamera2D * _pCamera)
 		pObj->Render(_hdc, _pCamera);
 	}
 
-	m_pPlayerBar->Render(_hdc, _pCamera);
+	m_pPlayerBarUI->Render(_hdc, _pCamera);
+	m_pMoneyUI->Render(_hdc, _pCamera);
 }
 
 void CPlayScene::Release(void)
 {
-	DeleteSafe(m_pPlayerBar);
+	DeleteSafe(m_pPlayerBarUI);
+	DeleteSafe(m_pMoneyUI);
 	DeleteSafe(m_pMapLoader);
 	DeleteListSafe(m_listSpawnerGenerators);
 	DeleteListSafe(m_listMonsters);

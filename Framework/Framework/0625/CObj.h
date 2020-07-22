@@ -90,6 +90,8 @@ public:
 	float GetHP(void) const { return m_fHp; }
 	float GetMaxMana(void) const { return m_fMaxMana; }
 	float GetMana(void) const { return m_fMana; }
+	void SetMoney(int iMoney) { m_iMoney = iMoney; }
+	int GetMoney(void) { return m_iMoney; }
 
 protected:
 	int m_iGroupID = -1;
@@ -107,6 +109,7 @@ protected:
 	float m_fToX = 0.f;
 	float m_fToY = -1.f;
 	float m_fSpeed = 0.f;
+	int m_iMoney = 0;
 	size_t m_iWidth = 10;
 	size_t m_iHeight = 10;
 	int m_iDamage = 10;

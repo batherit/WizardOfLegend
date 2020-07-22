@@ -160,6 +160,7 @@
     <ClInclude Include="CArcherState_Run.h" />
     <ClInclude Include="CAtlasLoader.h" />
     <ClInclude Include="CAtlasObj.h" />
+    <ClInclude Include="CCoin.h" />
     <ClInclude Include="CCollider.h" />
     <ClInclude Include="CBitmapMgr.h" />
     <ClInclude Include="CBitmapObj.h" />
@@ -224,6 +225,8 @@
     <ClInclude Include="CTrigger.h" />
     <ClInclude Include="CUI_Cursor.h" />
     <ClInclude Include="CUI_DamageText.h" />
+    <ClInclude Include="CUI_GoldText.h" />
+    <ClInclude Include="CUI_Money.h" />
     <ClInclude Include="CWizardBallState_Aiming.h" />
     <ClInclude Include="CWizardBallState_Attack.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
@@ -289,6 +292,7 @@
     <ClCompile Include="CArcherState_Run.cpp" />
     <ClCompile Include="CAtlasLoader.cpp" />
     <ClCompile Include="CAtlasObj.cpp" />
+    <ClCompile Include="CCoin.cpp" />
     <ClCompile Include="CCollider.cpp" />
     <ClCompile Include="CBitmapMgr.cpp" />
     <ClCompile Include="CBitmapObj.cpp" />
@@ -352,6 +356,8 @@
     <ClCompile Include="CTrigger.cpp" />
     <ClCompile Include="CUI_Cursor.cpp" />
     <ClCompile Include="CUI_DamageText.cpp" />
+    <ClCompile Include="CUI_GoldText.cpp" />
+    <ClCompile Include="CUI_Money.cpp" />
     <ClCompile Include="CWizardBallState_Aiming.cpp" />
     <ClCompile Include="CWizardBallState_Attack.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>

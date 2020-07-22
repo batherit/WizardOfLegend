@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "CSwordManState_Death.h"
 #include "CMonster_SwordMan.h"
+#include "CCoin.h"
 
 
 
@@ -24,6 +25,11 @@ int CSwordManState_Death::Update(float _fDeltaTime)
 {
 	if (m_rOwner.UpdateAnim(_fDeltaTime) == 1) {
 		m_rOwner.SetValid(false);
+		TO_WOL(m_rOwner.GetGameWorld()).GetListParticles().emplace_back(
+			new CCoin(m_rOwner.GetGameWorld(),
+				m_rOwner.GetX(), m_rOwner.GetY() + (m_rOwner.GetHeight() >> 1),
+				m_rOwner.GetMoney())
+		);
 		return 1;
 	}
 

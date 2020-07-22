@@ -4,6 +4,7 @@
 #include "CStateMgr.h"
 #include "CWizardBallState_Idle.h"
 #include "CWizardBallState_Run.h"
+#include "CCoin.h"
 
 
 
@@ -47,6 +48,11 @@ int CWizardBallState_Damage::Update(float _fDeltaTime)
 
 		if (m_rOwner.IsDead()) {
 			m_rOwner.SetValid(false);
+			TO_WOL(m_rOwner.GetGameWorld()).GetListParticles().emplace_back(
+				new CCoin(m_rOwner.GetGameWorld(),
+					m_rOwner.GetX(), m_rOwner.GetY() + (m_rOwner.GetHeight() >> 1),
+					m_rOwner.GetMoney())
+			);
 			return 1;
 		}
 		else if (m_rOwner.GetTarget()) {

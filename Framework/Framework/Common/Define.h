@@ -102,6 +102,13 @@
 #define MANA_BAR_WIDTH		192
 #define MANA_BAR_HEIGHT		16
 
+// UI 돈 비트맵 출력 사이즈
+#define UI_MONEY_OUTPUT_WIDTH	31
+#define UI_MONEY_OUTPU_HEIGHT	31
+// 코인 비트맵 출력 사이즈
+#define COIN_OUTPUT_WIDTH	24
+#define COIN_OUTPUT_HEIGHT	24
+
 // 타격 이펙트 비트맵 출력 사이즈
 #define HIT_EFFECT_OUTPUT_WIDTH		230
 #define HIT_EFFECT_OUTPUT_HEIGHT	230

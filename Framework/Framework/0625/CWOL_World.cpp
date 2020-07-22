@@ -159,6 +159,13 @@ void CWOL_World::LoadResources(void)
 	// 타격 이펙트
 	CBitmapMgr::GetInstance()->InsertBitmap(TEXT("../Textures/HIT_EFFECT.bmp"), TEXT("HIT_EFFECT"));
 
+	// 동전 렌더링
+	CBitmapMgr::GetInstance()->InsertBitmap(TEXT("../Textures/COIN.bmp"), TEXT("COIN"));
+	CBitmapMgr::GetInstance()->InsertBitmap(TEXT("../Textures/UI_MONEY.bmp"), TEXT("UI_MONEY"));
+
+	// 스킬바 UI
+	CBitmapMgr::GetInstance()->InsertBitmap(TEXT("../Textures/UI_SKILLBAR.bmp"), TEXT("UI_SKILLBAR"));
+
 	// 플레이어 렌더링
 	CBitmapMgr::GetInstance()->InsertBitmap(TEXT("../Textures/BACK_COMPLETE.bmp"), TEXT("PLAYER_BACK"));
 	CBitmapMgr::GetInstance()->InsertBitmap(TEXT("../Textures/FRONT_COMPLETE.bmp"), TEXT("PLAYER_FRONT"));				// 비고. 죽음 장면까지 포함.

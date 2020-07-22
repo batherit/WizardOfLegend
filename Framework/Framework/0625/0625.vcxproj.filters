@@ -150,6 +150,9 @@
     <Filter Include="소스 파일\03.State\031.PlayerSKills\032.FireDragonSkillState">
       <UniqueIdentifier>{4ff1c368-5ba6-4c56-b89a-542582adaac6}</UniqueIdentifier>
     </Filter>
+    <Filter Include="소스 파일\03.Obj\035.Coin">
+      <UniqueIdentifier>{e605f0b6-9b97-4a0c-ab05-772d29ee7ceb}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CLayer.h">
@@ -368,9 +371,6 @@
     <ClInclude Include="CArcherArrow.h">
       <Filter>소스 파일\03.Obj\031.Skill\Archer</Filter>
     </ClInclude>
-    <ClInclude Include="CUI_DamageText.h">
-      <Filter>소스 파일\03.Obj\040.UI</Filter>
-    </ClInclude>
     <ClInclude Include="CFireDragon.h">
       <Filter>소스 파일\03.Obj\031.Skill\Player</Filter>
     </ClInclude>
@@ -424,6 +424,18 @@
     </ClInclude>
     <ClInclude Include="CHitEffect.h">
       <Filter>소스 파일\03.Obj\023.Particle</Filter>
+    </ClInclude>
+    <ClInclude Include="CUI_Money.h">
+      <Filter>소스 파일\03.Obj\040.UI</Filter>
+    </ClInclude>
+    <ClInclude Include="CCoin.h">
+      <Filter>소스 파일\03.Obj\035.Coin</Filter>
+    </ClInclude>
+    <ClInclude Include="CUI_DamageText.h">
+      <Filter>소스 파일\03.Obj\040.UI</Filter>
+    </ClInclude>
+    <ClInclude Include="CUI_GoldText.h">
+      <Filter>소스 파일\03.Obj\040.UI</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -702,6 +714,15 @@
     </ClCompile>
     <ClCompile Include="CHitEffect.cpp">
       <Filter>소스 파일\03.Obj\023.Particle</Filter>
+    </ClCompile>
+    <ClCompile Include="CUI_Money.cpp">
+      <Filter>소스 파일\03.Obj\040.UI</Filter>
+    </ClCompile>
+    <ClCompile Include="CCoin.cpp">
+      <Filter>소스 파일\03.Obj\035.Coin</Filter>
+    </ClCompile>
+    <ClCompile Include="CUI_GoldText.cpp">
+      <Filter>소스 파일\03.Obj\040.UI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
