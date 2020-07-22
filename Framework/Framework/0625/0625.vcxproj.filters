@@ -141,6 +141,9 @@
     <Filter Include="소스 파일\03.State\035.WizardBall">
       <UniqueIdentifier>{e52956e7-e60c-4824-8553-a67ea2e6e942}</UniqueIdentifier>
     </Filter>
+    <Filter Include="소스 파일\03.State\036.NormalSkillState">
+      <UniqueIdentifier>{9eb32389-edfd-4f06-8218-7124f7e85745}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CLayer.h">
@@ -407,6 +410,7 @@
     <ClInclude Include="CWizardBallState_Damage.h">
       <Filter>소스 파일\03.State\035.WizardBall</Filter>
     </ClInclude>
+    <ClInclude Include="CPlayerNormalSkillState.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CLayer.cpp">
@@ -675,6 +679,9 @@
     </ClCompile>
     <ClCompile Include="CWizardBallState_Damage.cpp">
       <Filter>소스 파일\03.State\035.WizardBall</Filter>
+    </ClCompile>
+    <ClCompile Include="CPlayerNormalSkillState.cpp">
+      <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

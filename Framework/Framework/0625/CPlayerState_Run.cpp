@@ -34,9 +34,10 @@ int CPlayerState_Run::Update(float _fDeltaTime)
 		m_rOwner.GetStateMgr()->SetNextState(new CPlayerState_Dash(m_rOwner));
 	}
 	
-	if (CKeyMgr::GetInstance()->IsKeyDown(KEY::KEY_LBUTTON)) {
+	/*if (CKeyMgr::GetInstance()->IsKeyDown(KEY::KEY_LBUTTON)) {
 		m_rOwner.GetStateMgr()->SetNextState(new CPlayerState_Attack(m_rOwner));
-	}
+	}*/
+	m_rOwner.UpdateSkillKey();
 
 	if (m_rOwner.IsMoveKeyPressed(fNewToX, fNewToY)) {
 		m_rOwner.SetToXY(fNewToX, fNewToY);

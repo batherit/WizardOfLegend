@@ -15,8 +15,8 @@ public:
 	virtual int Update(float _fDeltaTime) override;
 	virtual void LateUpdate(void) override;
 
-private:
-	void SetAttackDirection(float* _pLength = nullptr);
+//private:
+//	void SetAttackDirection(float* _pLength = nullptr);
 
 private:
 	int m_iComboCount = 0;

@@ -183,6 +183,7 @@
     </ClInclude>
     <ClInclude Include="CMonster_WizardBall.h" />
     <ClInclude Include="CPlayerNormalAttack.h" />
+    <ClInclude Include="CPlayerNormalSkillState.h" />
     <ClInclude Include="CPlayerSpawner.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
     </ClInclude>
@@ -309,6 +310,7 @@
     </ClCompile>
     <ClCompile Include="CMonster_WizardBall.cpp" />
     <ClCompile Include="CPlayerNormalAttack.cpp" />
+    <ClCompile Include="CPlayerNormalSkillState.cpp" />
     <ClCompile Include="CPlayerSpawner.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
     </ClCompile>
