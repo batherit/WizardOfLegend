@@ -20,7 +20,7 @@ const float cfSwordManRunSpeed = 300.f;
 const float cfSwordManMaxHp = 80.f;
 const float cfSwordManAttackableRange = 80.f;
 const float cfSwordManNormalAttackDist = 120.f;
-const float cfSwordManKnockbackSpeed = 500.f;
+const float cfSwordManKnockbackSpeed = 300.f;
 
 // 아쳐 변수
 // => 매크로로 이제 하려고 한다. +ㅅ+!

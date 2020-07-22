@@ -96,6 +96,7 @@ int CMonsterSpawner::Update(float _fDeltaTime)
 
 void CMonsterSpawner::Render(HDC & _hdc, CCamera2D * _pCamera)
 {
+	if (m_fElapsedTime < m_fTimeToDelay) return;
 	RECT& rcDrawArea = GetRect();
 
 	// 그릴 영역을 스크린 좌표로 변환한다.

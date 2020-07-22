@@ -1,8 +1,8 @@
 #pragma once
 
 // 윈도우 사이즈
-#define WINCX 1900// 1400 1920 
-#define WINCY 900// 800 1080
+#define WINCX 1750// 1400 1920 
+#define WINCY 950// 800 1080
 
 // 타이머 관련
 #define WORLD_TIMER	CGameWorldTimer::Instance()

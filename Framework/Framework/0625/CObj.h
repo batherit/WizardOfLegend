@@ -82,7 +82,7 @@ public:
 	
 	const OBJ::E_DIRECTION GetDirType(void) const { return m_eDir; }
 	void SetDirType(const OBJ::E_DIRECTION& _eDir) { m_eDir = _eDir; }
-	virtual void Attacked(float _fDamageAmount, POINT _ptCollisionPoint) { Clamp(&(m_fHp -= _fDamageAmount), 0.f, cfPlayerMaxHp); }
+	virtual void Attacked(float _fDamageAmount, POINT _ptCollisionPoint);
 	const bool IsDead(void) const { return m_fHp == 0.f; }
 	void CheckCollision(CObj* _pObj);
 	float GetMaxHp(void) const { return m_fMaxHp; }

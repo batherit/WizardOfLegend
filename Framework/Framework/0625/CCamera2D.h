@@ -25,6 +25,7 @@ public:
 	void ZoomIn(float _fDeltaTime);
 	void ZoomOut(float _fDeltaTime);
 	float GetZoomMultiple(void) const { return m_fZoomMultiple; }
+	void Shake(float _fShakeKeepTime, float _fSakeRadius, int _iShakeNum);
 
 public:
 	RECT GetScreenRect(RECT& _rRectW);
@@ -37,5 +38,15 @@ private:
 	const float m_cfZoomSpeed = 2.f;
 	const float m_cfMaxZoomOut = 0.2f;
 	const float m_cfMaxZoomIn = 2.0f;
+
+	bool m_bIsShaking = false;
+	float m_fShakeKeepTime = 0.f;
+	float m_fShakeTickTime = 0.f;
+	float m_fShakeElapsedTime = 0.f;
+	float m_fShakeRadius = 0.f;
+	float m_fShakeOffsetX = 0.f;
+	float m_fShakeOffsetY = 0.f;
+	float m_fOffsetDegree = 0.f;
+	int m_iShakeNum = 0;
 };
 

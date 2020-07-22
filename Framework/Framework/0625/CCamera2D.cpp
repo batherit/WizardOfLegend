@@ -24,9 +24,29 @@ CCamera2D::~CCamera2D()
 
 int CCamera2D::Update(float _fDeltaTime)
 {
+	if (m_bIsShaking) {
+		m_fShakeTickTime += _fDeltaTime;
+		if (m_fShakeTickTime >= m_fShakeKeepTime / m_iShakeNum) {
+			m_fShakeElapsedTime += m_fShakeTickTime;
+			if (m_fShakeElapsedTime >= m_fShakeKeepTime) {
+				m_fShakeTickTime = 0.f;
+				m_fOffsetDegree = GetNumberMinBetweenMax(0.f, 360.f);
+				float fT = 1.f - m_fShakeElapsedTime / m_fShakeKeepTime;
+				m_fShakeOffsetX = cosf(TO_RADIAN(m_fOffsetDegree)) * m_fShakeRadius * fT;
+				m_fShakeOffsetY = sinf(TO_RADIAN(m_fOffsetDegree)) * m_fShakeRadius * fT;
+			}
+			else {
+				m_fShakeKeepTime = 0.f;
+				m_fShakeOffsetX = 0.f;
+				m_fShakeOffsetY = 0.f;
+				m_bIsShaking = false;
+			}
+		}
+	}
+
 	if (m_pOwner) {
-		SetX(m_pOwner->GetX());
-		SetY(m_pOwner->GetY());
+		SetX(m_pOwner->GetX() + m_fShakeOffsetX);
+		SetY(m_pOwner->GetY() + m_fShakeOffsetY);
 	}
 	else {
 		if (CKeyMgr::GetInstance()->IsKeyPressing(KEY::KEY_Q)) {
@@ -67,6 +87,21 @@ void CCamera2D::ZoomIn(float _fDeltaTime)
 void CCamera2D::ZoomOut(float _fDeltaTime)
 {
 	Clamp(&(m_fZoomMultiple += (m_cfZoomSpeed * _fDeltaTime)), m_cfMaxZoomOut, m_cfMaxZoomIn);
+}
+
+void CCamera2D::Shake(float _fShakeKeepTime, float _fSakeRadius, int _iShakeNum)
+{
+	m_bIsShaking = true;
+	m_fShakeKeepTime = _fShakeKeepTime;
+	m_fShakeRadius = _fSakeRadius;
+	m_iShakeNum = _iShakeNum;
+	m_fShakeElapsedTime = 0.f;
+	m_fShakeTickTime = 0.f;
+
+	m_fOffsetDegree = GetNumberMinBetweenMax(0.f, 360.f);
+	float fT = 1.f - m_fShakeElapsedTime / m_fShakeKeepTime;
+	m_fShakeOffsetX = cosf(TO_RADIAN(m_fOffsetDegree)) * m_fShakeRadius * fT;
+	m_fShakeOffsetY = sinf(TO_RADIAN(m_fOffsetDegree)) * m_fShakeRadius * fT;
 }
 
 RECT CCamera2D::GetScreenRect(RECT& _rRectW)

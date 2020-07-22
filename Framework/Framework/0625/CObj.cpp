@@ -86,6 +86,13 @@ int CObj::UpdateAnim(float _fDeltaTime)
 	return 0;
 }
 
+void CObj::Attacked(float _fDamageAmount, POINT _ptCollisionPoint)
+{
+	Clamp(&(m_fHp -= _fDamageAmount), 0.f, cfPlayerMaxHp);
+	CCamera2D* pCamera = m_rGameWorld.GetCamera();
+	if (pCamera) pCamera->Shake(0.6f, 7.f, 4);
+}
+
 void CObj::CheckCollision(CObj * _pObj)
 {
 	DO_IF_IS_VALID_OBJ(_pObj) {

@@ -3,6 +3,7 @@
 class CTimer;
 class CSceneMgr;
 class CSpace;
+class CCamera2D;
 
 class CGameWorld abstract
 {
@@ -28,6 +29,7 @@ public:
 	CTimer* GetTimer(void) const { return m_pTimer; }
 	CSceneMgr* GetSceneManager(void) const { return m_pSceneManager; }
 	CSpace* GetViewSpace(void) const { return m_pViewSpace; }
+	virtual CCamera2D* GetCamera(void) const { return nullptr; }
 
 private:
 	HDC m_hDC;

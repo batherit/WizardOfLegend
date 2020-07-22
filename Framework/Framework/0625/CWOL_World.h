@@ -22,7 +22,7 @@ public:
 
 public:
 	CObj* GetPlayer(void) const { return m_pPlayer; }
-	CCamera2D* GetCamera(void) const { return m_pCamera; }
+	virtual CCamera2D* GetCamera(void) const { return m_pCamera; }
 	list<CObj*>& GetListUsedPlayerSkills(void) { return m_plistUsedPlayerSkills; }
 	list<CObj*>& GetListUsedMonsterSkills(void) { return m_plistUsedMonsterSkills; }
 	list<CObj*>& GetListUIs(void) { return m_plistUIs; }
