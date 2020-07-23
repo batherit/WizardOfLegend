@@ -227,6 +227,7 @@
     <ClInclude Include="CUI_DamageText.h" />
     <ClInclude Include="CUI_GoldText.h" />
     <ClInclude Include="CUI_Money.h" />
+    <ClInclude Include="CUI_SkillBar.h" />
     <ClInclude Include="CWizardBallState_Aiming.h" />
     <ClInclude Include="CWizardBallState_Attack.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
@@ -358,6 +359,7 @@
     <ClCompile Include="CUI_DamageText.cpp" />
     <ClCompile Include="CUI_GoldText.cpp" />
     <ClCompile Include="CUI_Money.cpp" />
+    <ClCompile Include="CUI_SkillBar.cpp" />
     <ClCompile Include="CWizardBallState_Aiming.cpp" />
     <ClCompile Include="CWizardBallState_Attack.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>

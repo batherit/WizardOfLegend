@@ -102,6 +102,10 @@
 #define MANA_BAR_WIDTH		192
 #define MANA_BAR_HEIGHT		16
 
+// UI 스킬바 비트맵 출력 사이즈
+#define UI_SKILLBAR_OUTPUT_WIDTH		640
+#define UI_SKILLBAR_OUTPUT_HEIGHT		160
+
 // UI 돈 비트맵 출력 사이즈
 #define UI_MONEY_OUTPUT_WIDTH	31
 #define UI_MONEY_OUTPU_HEIGHT	31

@@ -7,7 +7,7 @@
 
 CUI_PlayerBar::CUI_PlayerBar(CGameWorld & _rGameWorld, CObj* _pPlayer)
 	:
-	CObj(_rGameWorld, 210.f, 85.f, PLAYER_BAR_WIDTH, PLAYER_BAR_HEIGHT),
+	CObj(_rGameWorld, (PLAYER_BAR_WIDTH >> 1) + 50, 85.f, PLAYER_BAR_WIDTH, PLAYER_BAR_HEIGHT),
 	m_pPlayer(_pPlayer)
 {
 	m_hDCPlayerBar = CBitmapMgr::GetInstance()->GetBitmapMemDC(TEXT("UI_PLAYERBAR"));

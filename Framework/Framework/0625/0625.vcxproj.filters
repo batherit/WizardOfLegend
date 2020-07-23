@@ -344,9 +344,6 @@
     <ClInclude Include="CSwordManAttack.h">
       <Filter>소스 파일\03.Obj\031.Skill\SwordMan</Filter>
     </ClInclude>
-    <ClInclude Include="CUI_PlayerBar.h">
-      <Filter>소스 파일\03.Obj\040.UI</Filter>
-    </ClInclude>
     <ClInclude Include="CMonster_Archer.h">
       <Filter>소스 파일\03.Obj\023.Monster\Archer</Filter>
     </ClInclude>
@@ -435,6 +432,12 @@
       <Filter>소스 파일\03.Obj\040.UI</Filter>
     </ClInclude>
     <ClInclude Include="CUI_GoldText.h">
+      <Filter>소스 파일\03.Obj\040.UI</Filter>
+    </ClInclude>
+    <ClInclude Include="CUI_PlayerBar.h">
+      <Filter>소스 파일\03.Obj\040.UI</Filter>
+    </ClInclude>
+    <ClInclude Include="CUI_SkillBar.h">
       <Filter>소스 파일\03.Obj\040.UI</Filter>
     </ClInclude>
   </ItemGroup>
@@ -722,6 +725,9 @@
       <Filter>소스 파일\03.Obj\035.Coin</Filter>
     </ClCompile>
     <ClCompile Include="CUI_GoldText.cpp">
+      <Filter>소스 파일\03.Obj\040.UI</Filter>
+    </ClCompile>
+    <ClCompile Include="CUI_SkillBar.cpp">
       <Filter>소스 파일\03.Obj\040.UI</Filter>
     </ClCompile>
   </ItemGroup>
