@@ -16,7 +16,7 @@ public:
 	virtual void Release(void) override;
 
 private:
-	HDC m_hDCSkillBar;
+	HDC m_hDCSkillBar = nullptr;
 	CObj* m_pPlayer = nullptr;
 	CUI_Cooltime* m_pCooltimeUI[SKILL::KEY_END];
 };

@@ -76,6 +76,7 @@
 #define KM_SPACE	0x00008000
 
 #define KM_R		0x00010000
+#define KM_TAB		0x00020000
 
 // 파일 입출력 관련
 #define FB_WRITE_DATA(_valueName, _fpOut) fwrite(&(_valueName), sizeof(_valueName), 1, _fpOut)
@@ -108,8 +109,19 @@
 #define PLAYER_MANA_REDUCTION_PER_SEC	5.f
 
 // UI 스킬바 비트맵 출력 사이즈
-#define UI_SKILLBAR_OUTPUT_WIDTH		640
-#define UI_SKILLBAR_OUTPUT_HEIGHT		160
+#define UI_SKILLBAR_OUTPUT_WIDTH			640
+#define UI_SKILLBAR_OUTPUT_HEIGHT			160
+
+// UI 스킬키 바인딩 메뉴 출력 사이즈
+#define UI_SKILLKEY_BINDING_MENU_WIDTH		576 
+#define UI_SKILLKEY_BINDING_MENU_HEIGHT		865
+// UI 스킬키 바인딩 버튼 출력 사이즈
+#define UI_SKILLKEY_BINDING_BUTTON_WIDTH	52
+#define UI_SKILLKEY_BINDING_BUTTON_HEIGHT	52
+// UI 스킬키 바인딩 설명 출력 사이즈
+#define UI_SKILLKEY_BINDING_DESC_WIDTH		475
+#define UI_SKILLKEY_BINDING_DESC_HEIGHT		200
+
 
 // UI 스킬바 아이콘 출력 사이즈
 #define UI_SKILLBAR_ICON_OUTPUT_WIDTH	54

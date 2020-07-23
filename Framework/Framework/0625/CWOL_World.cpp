@@ -184,10 +184,30 @@ void CWOL_World::LoadResources(void)
 	// 스킬바 UI
 	CBitmapMgr::GetInstance()->InsertBitmap(TEXT("../Textures/UI_SKILLBAR.bmp"), TEXT("UI_SKILLBAR"));
 	// 스킬바 마법 아이콘
+	CBitmapMgr::GetInstance()->InsertBitmap(TEXT("../Textures/DASH_SKILLBAR.bmp"), TEXT("DASH_SKILLBAR"));
+	CBitmapMgr::GetInstance()->InsertBitmap(TEXT("../Textures/NORMAL_ATTACK_SKILLBAR.bmp"), TEXT("NORMAL_ATTACK_SKILLBAR"));
 	CBitmapMgr::GetInstance()->InsertBitmap(TEXT("../Textures/ICE_BLAST_SKILLBAR.bmp"), TEXT("ICE_BLAST_SKILLBAR"));
 	CBitmapMgr::GetInstance()->InsertBitmap(TEXT("../Textures/FIRE_DRAGON_SKILLBAR.bmp"), TEXT("FIRE_DRAGON_SKILLBAR"));
 	CBitmapMgr::GetInstance()->InsertBitmap(TEXT("../Textures/GAIA_ARMOR_SKILLBAR.bmp"), TEXT("GAIA_ARMOR_SKILLBAR"));
 	CBitmapMgr::GetInstance()->InsertBitmap(TEXT("../Textures/ICE_CRYSTAL_SKILLBAR.bmp"), TEXT("ICE_CRYSTAL_SKILLBAR"));
+	CBitmapMgr::GetInstance()->InsertBitmap(TEXT("../Textures/ICE_BLAST_SKILLBAR.bmp"), TEXT("ICE_BLAST_SKILLBAR"));
+
+	// 스킬키 바인딩
+	CBitmapMgr::GetInstance()->InsertBitmap(TEXT("../Textures/INVENTORY.bmp"), TEXT("INVENTORY"));
+	CBitmapMgr::GetInstance()->InsertBitmap(TEXT("../Textures/NORMAL_ATTACK_EX.bmp"), TEXT("NORMAL_ATTACK_EX"));
+	CBitmapMgr::GetInstance()->InsertBitmap(TEXT("../Textures/DASH_EX.bmp"), TEXT("DASH_EX"));
+	CBitmapMgr::GetInstance()->InsertBitmap(TEXT("../Textures/FIRE_DRAGON_EX.bmp"), TEXT("FIRE_DRAGON_EX"));
+	CBitmapMgr::GetInstance()->InsertBitmap(TEXT("../Textures/ICE_CRYSTAL_EX.bmp"), TEXT("ICE_CRYSTAL_EX"));
+	CBitmapMgr::GetInstance()->InsertBitmap(TEXT("../Textures/GAIA_ARMOR_EX.bmp"), TEXT("GAIA_ARMOR_EX"));
+	CBitmapMgr::GetInstance()->InsertBitmap(TEXT("../Textures/ICE_BLAST_EX.bmp"), TEXT("ICE_BLAST_EX"));
+
+	CBitmapMgr::GetInstance()->InsertBitmap(TEXT("../Textures/NORMAL_ATTACK_ICON.bmp"), TEXT("NORMAL_ATTACK_ICON"));
+	CBitmapMgr::GetInstance()->InsertBitmap(TEXT("../Textures/DASH_ICON.bmp"), TEXT("DASH_ICON"));
+	CBitmapMgr::GetInstance()->InsertBitmap(TEXT("../Textures/FIRE_DRAGON_ICON.bmp"), TEXT("FIRE_DRAGON_ICON"));
+	CBitmapMgr::GetInstance()->InsertBitmap(TEXT("../Textures/ICE_CRYSTAL_ICON.bmp"), TEXT("ICE_CRYSTAL_ICON"));
+	CBitmapMgr::GetInstance()->InsertBitmap(TEXT("../Textures/GAIA_ARMOR_ICON.bmp"), TEXT("GAIA_ARMOR_ICON"));
+	CBitmapMgr::GetInstance()->InsertBitmap(TEXT("../Textures/ICE_BLAST_ICON.bmp"), TEXT("ICE_BLAST_ICON"));
+
 
 	// 플레이어 렌더링
 	CBitmapMgr::GetInstance()->InsertBitmap(TEXT("../Textures/BACK_COMPLETE.bmp"), TEXT("PLAYER_BACK"));

@@ -8,6 +8,7 @@
 #include "CPlayerState_Dash.h"
 #include "CPlayerState_Run.h"
 #include "CPlayerState_Idle.h"
+#include "CBitmapMgr.h"
 
 
 
@@ -17,6 +18,9 @@ CPlayerNormalSkillState::CPlayerNormalSkillState(CPlayerWOL & _rOwner)
 {
 	m_iComboCount = 0;
 	m_pCamera = TO_WOL(m_rOwner.GetGameWorld()).GetCamera();
+	m_hDCState[STATE_HDC::STATE_HDC_SKILLBAR] = CBitmapMgr::GetInstance()->GetBitmapMemDC(TEXT("NORMAL_ATTACK_SKILLBAR"));
+	m_hDCState[STATE_HDC::STATE_HDC_ICON] = CBitmapMgr::GetInstance()->GetBitmapMemDC(TEXT("NORMAL_ATTACK_ICON"));
+	m_hDCState[STATE_HDC::STATE_HDC_DESC] = CBitmapMgr::GetInstance()->GetBitmapMemDC(TEXT("NORMAL_ATTACK_EX"));
 }
 
 CPlayerNormalSkillState::~CPlayerNormalSkillState()

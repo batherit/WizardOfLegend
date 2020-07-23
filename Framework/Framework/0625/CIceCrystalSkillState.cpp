@@ -12,7 +12,9 @@ CIceCrystalSkillState::CIceCrystalSkillState(CPlayerWOL & _rOwner)
 {
 	m_fEndCooltime = 5.0f;
 	m_fCurCooltime = m_fEndCooltime;
-	m_hDCStateIcon = CBitmapMgr::GetInstance()->GetBitmapMemDC(TEXT("ICE_CRYSTAL_SKILLBAR"));
+	m_hDCState[STATE_HDC::STATE_HDC_SKILLBAR] = CBitmapMgr::GetInstance()->GetBitmapMemDC(TEXT("ICE_CRYSTAL_SKILLBAR"));
+	m_hDCState[STATE_HDC::STATE_HDC_ICON] = CBitmapMgr::GetInstance()->GetBitmapMemDC(TEXT("ICE_CRYSTAL_ICON"));
+	m_hDCState[STATE_HDC::STATE_HDC_DESC] = CBitmapMgr::GetInstance()->GetBitmapMemDC(TEXT("ICE_CRYSTAL_EX"));
 }
 
 CIceCrystalSkillState::~CIceCrystalSkillState()

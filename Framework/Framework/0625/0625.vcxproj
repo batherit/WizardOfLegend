@@ -230,9 +230,15 @@
     <ClInclude Include="CUI_Cursor.h" />
     <ClInclude Include="CUI_DamageText.h" />
     <ClInclude Include="CUI_GoldText.h" />
+    <ClInclude Include="CUI_Image.h" />
     <ClInclude Include="CUI_Money.h" />
     <ClInclude Include="CUI_SkillBar.h" />
-    <ClInclude Include="CUI_SkillKeyBinding.h" />
+    <ClInclude Include="CUI_SkillKeyBinding.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
+    </ClInclude>
+    <ClInclude Include="CUI_SkillKeyButton.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
+    </ClInclude>
     <ClInclude Include="CWizardBallState_Aiming.h" />
     <ClInclude Include="CWizardBallState_Attack.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
@@ -246,6 +252,7 @@
     <ClInclude Include="CWizardState_Idle.h" />
     <ClInclude Include="CWizardState_Run.h" />
     <ClInclude Include="CWOL_World.h" />
+    <ClInclude Include="CDashSkillState.h" />
     <ClInclude Include="Function.h" />
     <ClInclude Include="GuidedBullet.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
@@ -367,9 +374,15 @@
     <ClCompile Include="CUI_Cursor.cpp" />
     <ClCompile Include="CUI_DamageText.cpp" />
     <ClCompile Include="CUI_GoldText.cpp" />
+    <ClCompile Include="CUI_Image.cpp" />
     <ClCompile Include="CUI_Money.cpp" />
     <ClCompile Include="CUI_SkillBar.cpp" />
-    <ClCompile Include="CUI_SkillKeyBinding.cpp" />
+    <ClCompile Include="CUI_SkillKeyBinding.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="CUI_SkillKeyButton.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="CWizardBallState_Aiming.cpp" />
     <ClCompile Include="CWizardBallState_Attack.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
@@ -383,6 +396,7 @@
     <ClCompile Include="CWizardState_Idle.cpp" />
     <ClCompile Include="CWizardState_Run.cpp" />
     <ClCompile Include="CWOL_World.cpp" />
+    <ClCompile Include="CDashSkillState.cpp" />
     <ClCompile Include="Function.cpp" />
     <ClCompile Include="GuidedBullet.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>

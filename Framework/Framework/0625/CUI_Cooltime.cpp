@@ -35,17 +35,18 @@ void CUI_Cooltime::Render(HDC & _hdc, CCamera2D * _pCamera)
 	if (m_prSkillState) {
 		RECT& rcDrawArea = GetRect();
 
-		GdiTransparentBlt(_hdc,
+		BitBlt(_hdc,
 			rcDrawArea.left,			// 출력 시작좌표 X
 			rcDrawArea.top,			// 출력 시작좌표 Y
 			rcDrawArea.right - rcDrawArea.left,
 			rcDrawArea.bottom - rcDrawArea.top,
-			m_prSkillState->GetStateIcon(),
+			m_prSkillState->GetStateHDC(STATE_HDC::STATE_HDC_SKILLBAR),
 			0,
 			0,
-			m_iWidth,
+			SRCCOPY);
+			/*m_iWidth,
 			m_iHeight,
-			RGB(255, 0, 255));
+			RGB(255, 0, 255));*/
 
 		switch (m_prSkillState->GetCooltimeType()) {
 		case SKILL_COOLTIME::TYPE_NORMAL: 

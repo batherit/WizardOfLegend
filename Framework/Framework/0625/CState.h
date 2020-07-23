@@ -17,12 +17,12 @@ public:
 	// ÄðÅ¸ÀÓ °ü·Ã
 	float GetCurCooltime(void) const { return m_fCurCooltime; }
 	float GetEndCooltime(void) const { return m_fEndCooltime; }
-	HDC GetStateIcon(void) const { return m_hDCStateIcon; }
+	HDC GetStateHDC(STATE_HDC::E_TYPE _eHDCType) const { return m_hDCState[_eHDCType]; }
 	SKILL_COOLTIME::E_TYPE GetCooltimeType(void) const { return m_eCooltimeType; }
 
 protected:
 	T& m_rOwner;
-	HDC m_hDCStateIcon = nullptr;
+	HDC m_hDCState[STATE_HDC::STATE_HDC_END] = { nullptr, };
 	float m_fCurCooltime = 0.f;
 	float m_fEndCooltime = 0.f;
 	SKILL_COOLTIME::E_TYPE m_eCooltimeType = SKILL_COOLTIME::TYPE_NORMAL;

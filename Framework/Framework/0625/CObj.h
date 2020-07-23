@@ -98,6 +98,8 @@ public:
 	int GetDamage(void) { return m_iDamage; }
 	void SetMoney(int iMoney) { m_iMoney = iMoney; }
 	int GetMoney(void) { return m_iMoney; }
+	bool IsVisible(void) { return m_bIsVisible; }
+	void SetVisible(bool _bIsVisible) { m_bIsVisible = _bIsVisible; }
 
 protected:
 	int m_iGroupID = -1;
@@ -106,6 +108,7 @@ protected:
 	_anim_info m_stAnimInfo;
 	_anim_processing_info m_stAnimProcessingInfo;
 	bool m_bIsValid = true;
+	bool m_bIsVisible = true;
 	float m_fMaxHp = 0.f;
 	float m_fHp = 0.f;
 	float m_fMaxMana = 0.f;

@@ -18,7 +18,9 @@ CFireDragonSkillState::CFireDragonSkillState(CPlayerWOL & _rOwner)
 	m_fEndCooltime = 8.f;
 	m_fCurCooltime = m_fEndCooltime;
 	m_eCooltimeType = SKILL_COOLTIME::TYPE_COUNT;
-	m_hDCStateIcon = CBitmapMgr::GetInstance()->GetBitmapMemDC(TEXT("FIRE_DRAGON_SKILLBAR"));
+	m_hDCState[STATE_HDC::STATE_HDC_SKILLBAR] = CBitmapMgr::GetInstance()->GetBitmapMemDC(TEXT("FIRE_DRAGON_SKILLBAR"));
+	m_hDCState[STATE_HDC::STATE_HDC_ICON] = CBitmapMgr::GetInstance()->GetBitmapMemDC(TEXT("FIRE_DRAGON_ICON"));
+	m_hDCState[STATE_HDC::STATE_HDC_DESC] = CBitmapMgr::GetInstance()->GetBitmapMemDC(TEXT("FIRE_DRAGON_EX"));
 }
 
 CFireDragonSkillState::~CFireDragonSkillState()

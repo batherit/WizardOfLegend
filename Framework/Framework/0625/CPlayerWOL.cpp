@@ -9,6 +9,7 @@
 #include "CUI_DamageText.h"
 #include "CPlayerState_Attack.h"
 #include "CPlayerNormalSkillState.h"
+#include "CDashSkillState.h"
 #include "CFireDragonSkillState.h"
 #include "CIceCrystalSkillState.h"
 //#include "CPlayerState_Spawn.h"
@@ -96,7 +97,8 @@ void CPlayerWOL::SetInitInfo(void)
 {
 	DeleteSafe(m_pStateMgr);
 	for (auto& pSkill : m_pSkills) { DeleteSafe(pSkill); }
-	m_pSkills[SKILL::KEY_LBUTTON] = new CPlayerNormalSkillState(*this);//
+	m_pSkills[SKILL::KEY_LBUTTON] = new CPlayerNormalSkillState(*this);
+	m_pSkills[SKILL::KEY_SPACE] = new CDashSkillState(*this);
 	m_pSkills[SKILL::KEY_Q] = new CFireDragonSkillState(*this);
 	m_pSkills[SKILL::KEY_R] = new CIceCrystalSkillState(*this);
 	m_pStateMgr = new CStateMgr<CPlayerWOL>(GetGameWorld(), *this);
@@ -110,6 +112,13 @@ void CPlayerWOL::SetInitInfo(void)
 	m_hDCKeyAtlas[OBJ::DIR_UP] = CBitmapMgr::GetInstance()->GetBitmapMemDC(TEXT("PLAYER_BACK"));
 	m_hDCKeyAtlas[OBJ::DIR_RIGHT] = CBitmapMgr::GetInstance()->GetBitmapMemDC(TEXT("PLAYER_RIGHT"));
 	m_hDCKeyAtlas[OBJ::DIR_LEFT] = CBitmapMgr::GetInstance()->GetBitmapMemDC(TEXT("PLAYER_LEFT"));
+}
+
+void CPlayerWOL::SwapSkillKey(SKILL::E_KEY _eKey1, SKILL::E_KEY _eKey2)
+{
+	CState<CPlayerWOL>* pTemp = m_pSkills[_eKey1];
+	m_pSkills[_eKey1] = m_pSkills[_eKey2];
+	m_pSkills[_eKey2] = pTemp;
 }
 
 void CPlayerWOL::SetNewStateAnim(PLAYER::E_STATE _eNewState, bool _bReset /*= false*/)
@@ -215,6 +224,12 @@ void CPlayerWOL::UpdateSkillKey(void)
 			GetStateMgr()->SetNextState(new CPlayerState_Attack(*this));
 		return;
 	}
+	if (CKeyMgr::GetInstance()->IsKeyDown(KEY::KEY_RBUTTON)) {
+		m_pUsingSkill = m_pSkills[SKILL::KEY_RBUTTON];
+		if (m_pUsingSkill && m_pUsingSkill->IsMutable())
+			GetStateMgr()->SetNextState(new CPlayerState_Attack(*this));
+		return;
+	}
 	if (CKeyMgr::GetInstance()->IsKeyDown(KEY::KEY_Q)) {
 		m_pUsingSkill = m_pSkills[SKILL::KEY_Q];
 		if (m_pUsingSkill && m_pUsingSkill->IsMutable()) 
@@ -230,6 +245,12 @@ void CPlayerWOL::UpdateSkillKey(void)
 	if (CKeyMgr::GetInstance()->IsKeyDown(KEY::KEY_R)) {
 		m_pUsingSkill = m_pSkills[SKILL::KEY_R];
 		if (m_pUsingSkill && m_pUsingSkill->IsMutable()) 
+			GetStateMgr()->SetNextState(new CPlayerState_Attack(*this));
+		return;
+	}
+	if (CKeyMgr::GetInstance()->IsKeyDown(KEY::KEY_SPACE)) {
+		m_pUsingSkill = m_pSkills[SKILL::KEY_SPACE];
+		if (m_pUsingSkill && m_pUsingSkill->IsMutable())
 			GetStateMgr()->SetNextState(new CPlayerState_Attack(*this));
 		return;
 	}

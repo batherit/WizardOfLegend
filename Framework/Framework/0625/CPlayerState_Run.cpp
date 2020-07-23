@@ -30,9 +30,9 @@ int CPlayerState_Run::Update(float _fDeltaTime)
 	float fNewToX = 0.f;
 	float fNewToY = 0.f;
 
-	if (CKeyMgr::GetInstance()->IsKeyDown(KEY::KEY_SPACE)) {
+	/*if (CKeyMgr::GetInstance()->IsKeyDown(KEY::KEY_SPACE)) {
 		m_rOwner.GetStateMgr()->SetNextState(new CPlayerState_Dash(m_rOwner));
-	}
+	}*/
 	
 	/*if (CKeyMgr::GetInstance()->IsKeyDown(KEY::KEY_LBUTTON)) {
 		m_rOwner.GetStateMgr()->SetNextState(new CPlayerState_Attack(m_rOwner));

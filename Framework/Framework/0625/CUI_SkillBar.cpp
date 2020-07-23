@@ -56,7 +56,7 @@ void CUI_SkillBar::Render(HDC & _hdc, CCamera2D * _pCamera)
 void CUI_SkillBar::Release(void)
 {
 	m_pPlayer = nullptr;
-	for (int i = 0; SKILL::KEY_END; i++) {
+	for (int i = 0; i < SKILL::KEY_END; i++) {
 		m_pCooltimeUI[i] = nullptr;
 	}
 }
