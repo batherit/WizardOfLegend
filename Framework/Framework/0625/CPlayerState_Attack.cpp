@@ -53,4 +53,5 @@ void CPlayerState_Attack::LateUpdate(void)
 
 void CPlayerState_Attack::OnExited(void)
 {
+	m_rOwner.GetUsingSkill()->OnExited();
 }

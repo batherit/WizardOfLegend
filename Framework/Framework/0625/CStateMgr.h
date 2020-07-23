@@ -42,6 +42,7 @@ template<typename T>
 bool CStateMgr<T>::ConfirmValidState(void)
 {
 	if (!m_bIsConfirmed) {				// 상태 변경 요청이 접수된 경우
+		if(m_pCurState) m_pCurState->OnExited();		// 없애기 전 상태를 정리한다.
 		DeleteSafe(m_pCurState);		// 기존 상태를 지운다. 
 		m_pCurState = m_pNextState;		// 기존 상태를 새로운 상태로 교체한다.
 		m_pCurState->OnLoaded();		// 상태 준비

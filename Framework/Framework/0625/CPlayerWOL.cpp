@@ -18,6 +18,7 @@ CPlayerWOL::CPlayerWOL(CGameWorld & _rGameWorld)
 	:
 	CObj(_rGameWorld, 0, 0, PLAYER_OUTPUT_WITDH, PLAYER_OUTPUT_HEIGHT, 0.f, 0.f, 0.f, Rectangle)
 {
+	ZeroMemory(m_pSkills, sizeof(m_pSkills));
 	SetInitInfo();
 }
 
@@ -25,6 +26,7 @@ CPlayerWOL::CPlayerWOL(CGameWorld & _rGameWorld, float _fX, float _fY)
 	:
 	CObj(_rGameWorld, _fX, _fY, PLAYER_OUTPUT_WITDH, PLAYER_OUTPUT_HEIGHT, 0.f, 0.f, 0.f, Rectangle)
 {
+	ZeroMemory(m_pSkills, sizeof(m_pSkills));
 	SetInitInfo();
 }
 
@@ -41,6 +43,9 @@ int CPlayerWOL::Update(float _fDeltaTime)
 {
 	// 유효하지 않은 상태로 컨펌되면 false를 반환한다.
 	if (!m_pStateMgr->ConfirmValidState()) return 1;
+	for (auto& pSkillState : m_pSkills) {
+		if(pSkillState) pSkillState->AlwaysUpdate(_fDeltaTime);
+	}
 
 	m_pStateMgr->Update(_fDeltaTime);
 	return 0;
@@ -86,7 +91,9 @@ void CPlayerWOL::Release(void)
 void CPlayerWOL::SetInitInfo(void)
 {
 	DeleteSafe(m_pStateMgr);
-	m_pSkills[SKILL::KEY_LBUTTON] = new CPlayerNormalSkillState(*this);//new CFireDragonSkillState(*this);
+	for (auto& pSkill : m_pSkills) { DeleteSafe(pSkill); }
+	m_pSkills[SKILL::KEY_LBUTTON] = new CPlayerNormalSkillState(*this);//
+	m_pSkills[SKILL::KEY_Q] = new CFireDragonSkillState(*this);
 	m_pStateMgr = new CStateMgr<CPlayerWOL>(GetGameWorld(), *this);
 	m_pStateMgr->SetNextState(new CPlayerState_Idle(*this));
 	m_fMaxHp = cfPlayerMaxHp;
@@ -228,13 +235,3 @@ void CPlayerWOL::Attacked(float _fDamageAmount, POINT _ptCollisionPoint)
 		GetStateMgr()->SetNextState(new CPlayerState_Damage(*this, _ptCollisionPoint), true);
 	}
 }
-
-//void CPlayerWOL::Spawn(float _fX, float _fY)
-//{
-//	SetXY(_fX, _fY);
-//	DeleteSafe(m_pSpawnEffect);
-//	m_pSpawnEffect = new CEffect_Spawn(GetGameWorld(), this, EFFECT_SPAWN::EFFECT_SPAWN_PLAYER);
-//	m_pStateMgr->SetNextState(new CPlayerState_Spawn(*this));
-//	SetSpeed(0.f);
-//	m_eDir = OBJ::DIR_DOWN;
-//}
