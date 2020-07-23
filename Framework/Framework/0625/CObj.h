@@ -89,7 +89,13 @@ public:
 	float GetMaxHp(void) const { return m_fMaxHp; }
 	float GetHP(void) const { return m_fHp; }
 	float GetMaxMana(void) const { return m_fMaxMana; }
+	void SetMana(float _fMana) { m_fMana = _fMana; }
 	float GetMana(void) const { return m_fMana; }
+	void IncreaseMana(float _fManaAmount) { m_fMana = Clamp((m_fMana + _fManaAmount), 0.f, m_fMaxMana); }
+	void DecreaseMana(float _fManaAmount) { m_fMana = Clamp((m_fMana - _fManaAmount), 0.f, m_fMaxMana); }
+	bool IsManaFulled(void) { return GetMana() >= GetMaxMana(); }
+	bool IsManaEmpty(void) { return GetMana() <= 0.f; }
+	int GetDamage(void) { return m_iDamage; }
 	void SetMoney(int iMoney) { m_iMoney = iMoney; }
 	int GetMoney(void) { return m_iMoney; }
 

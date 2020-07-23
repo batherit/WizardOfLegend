@@ -103,6 +103,11 @@ void CPlayScene::LateUpdate(void)
 						m_listHitEffects.emplace_back(
 							new CHitEffect(m_rGameWorld, ptCollisionPoint.x, ptCollisionPoint.y)
 						);
+
+						if (!TO_PLAYER_WOL(m_pPlayer)->IsSignatureMode()) {
+							m_pPlayer->IncreaseMana(pPlayerSkill->GetDamage());
+							if (m_pPlayer->IsManaFulled()) TO_PLAYER_WOL(m_pPlayer)->SetSignatureMode(true);
+						}
 					}
 				}
 			}

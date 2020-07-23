@@ -30,6 +30,8 @@ public:
 	void SetInitInfo(void);
 	CState<CPlayerWOL>* GetUsingSkill(void) { return m_pUsingSkill; }
 	CState<CPlayerWOL>*& GetSkill(SKILL::E_KEY _eSkillKey) { return m_pSkills[_eSkillKey]; }
+	bool IsSignatureMode(void) { return m_bIsSignatureMode; }
+	void SetSignatureMode(bool _bIsSignatureMode) { m_bIsSignatureMode = _bIsSignatureMode; if(!_bIsSignatureMode) SetMana(0.f); }
 
 private:
 	CStateMgr<CPlayerWOL>* m_pStateMgr = nullptr;
@@ -38,5 +40,6 @@ private:
 	PLAYER::E_STATE m_eLastAttackState = PLAYER::STATE_ATTACK1;
 	CState<CPlayerWOL>* m_pSkills[SKILL::KEY_END];
 	CState<CPlayerWOL>* m_pUsingSkill = nullptr;
+	bool m_bIsSignatureMode = false;
 };
 

@@ -102,6 +102,11 @@
 #define MANA_BAR_WIDTH		192
 #define MANA_BAR_HEIGHT		16
 
+// 플레이어 상수
+#define PLAYER_MAX_HP		500.f
+#define PLAYER_MAX_MANA		500.f
+#define PLAYER_MANA_REDUCTION_PER_SEC	5.f
+
 // UI 스킬바 비트맵 출력 사이즈
 #define UI_SKILLBAR_OUTPUT_WIDTH		640
 #define UI_SKILLBAR_OUTPUT_HEIGHT		160
