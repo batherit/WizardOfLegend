@@ -3,6 +3,7 @@
 
 template<typename T> class CState;
 class CPlayerWOL;
+class CUI_Gauge;
 
 class CUI_Cooltime :
 	public CObj
@@ -19,5 +20,6 @@ private:
 	TCHAR m_szCount[32] = L"";
 	CState<CPlayerWOL>*& m_prSkillState;
 	SKILL_COOLTIME::E_TYPE m_eCooltimeType = SKILL_COOLTIME::TYPE_END;
+	CUI_Gauge* m_pCooltimeGauge = nullptr;
 };
 

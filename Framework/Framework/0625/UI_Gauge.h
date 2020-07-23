@@ -14,6 +14,7 @@ public:
 	virtual void Render(HDC& _hdc, CCamera2D* _pCamera = nullptr) override;
 	virtual void Release(void) { m_pOwner = nullptr; }
 	void SetHDC(const HDC& _hDCGauge) { m_hDCGauge = _hDCGauge; }
+	void SetMax(float _fMax) { m_fMax = _fMax; }
 
 private:
 	CObj* m_pOwner;

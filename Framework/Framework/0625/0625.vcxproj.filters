@@ -455,6 +455,7 @@
     <ClInclude Include="CIceCrystalChild.h">
       <Filter>소스 파일\03.Obj\031.Skill\Player</Filter>
     </ClInclude>
+    <ClInclude Include="CUI_SkillKeyBinding.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CLayer.cpp">
@@ -756,6 +757,9 @@
     </ClCompile>
     <ClCompile Include="CIceCrystalChild.cpp">
       <Filter>소스 파일\03.Obj\031.Skill\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="CUI_SkillKeyBinding.cpp">
+      <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -97,7 +97,7 @@ void CIceCrystal::LateUpdate(void)
 
 void CIceCrystal::Render(HDC & _hdc, CCamera2D * _pCamera)
 {
-	// 본체는 그릴 것이 없다.
+	// 본체는 그릴 것이 없다. 자식만 그린다.
 	for (int i = 0; i < m_iIceCrystalNum; i++) {
 		m_pIceCrystal[i]->Render(_hdc, _pCamera);
 	}

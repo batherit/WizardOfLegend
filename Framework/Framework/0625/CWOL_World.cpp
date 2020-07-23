@@ -174,6 +174,9 @@ void CWOL_World::LoadResources(void)
 	// Å¸°Ý ÀÌÆåÆ®
 	CBitmapMgr::GetInstance()->InsertBitmap(TEXT("../Textures/HIT_EFFECT.bmp"), TEXT("HIT_EFFECT"));
 
+	// ½ºÅ³ ÄðÅ¸ÀÓ
+	CBitmapMgr::GetInstance()->InsertBitmap(TEXT("../Textures/COOLTIME_SHADOW.bmp"), TEXT("COOLTIME_SHADOW"));
+
 	// µ¿Àü ·»´õ¸µ
 	CBitmapMgr::GetInstance()->InsertBitmap(TEXT("../Textures/COIN.bmp"), TEXT("COIN"));
 	CBitmapMgr::GetInstance()->InsertBitmap(TEXT("../Textures/UI_MONEY.bmp"), TEXT("UI_MONEY"));

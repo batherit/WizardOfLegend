@@ -1,6 +1,8 @@
 #include "stdafx.h"
 #include "CUI_Cooltime.h"
 #include "CState.h"
+#include "UI_Gauge.h"
+#include "CBitmapMgr.h"
 
 
 
@@ -10,14 +12,21 @@ CUI_Cooltime::CUI_Cooltime(CGameWorld & _rGameWorld, float _fX, float _fY, CStat
 	m_prSkillState(_prSkillState)
 {
 	if(m_prSkillState) m_eCooltimeType = m_prSkillState->GetCooltimeType();
+	m_pCooltimeGauge = new CUI_Gauge(_rGameWorld, nullptr, GetRect(), 0.f, 0.f);
+	m_pCooltimeGauge->SetHDC(CBitmapMgr::GetInstance()->GetBitmapMemDC(TEXT("COOLTIME_SHADOW")));
 }
 
 CUI_Cooltime::~CUI_Cooltime()
 {
+	DeleteSafe(m_pCooltimeGauge);
 }
 
 int CUI_Cooltime::Update(float _fDeltaTime)
 {
+	if (m_prSkillState) {
+		m_pCooltimeGauge->SetMax(m_prSkillState->GetEndCooltime());
+		m_pCooltimeGauge->SetCurrentGauge(m_prSkillState->GetEndCooltime() - m_prSkillState->GetCurCooltime());
+	}
 	return 0;
 }
 
@@ -40,7 +49,7 @@ void CUI_Cooltime::Render(HDC & _hdc, CCamera2D * _pCamera)
 
 		switch (m_prSkillState->GetCooltimeType()) {
 		case SKILL_COOLTIME::TYPE_NORMAL: 
-		
+			m_pCooltimeGauge->Render(_hdc, _pCamera);
 			break;
 		case SKILL_COOLTIME::TYPE_COUNT:
 		{
