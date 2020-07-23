@@ -29,6 +29,7 @@ public:
 	virtual void Attacked(float _fDamageAmoun, POINT _ptCollisionPointt);
 	void SetInitInfo(void);
 	CState<CPlayerWOL>* GetUsingSkill(void) { return m_pUsingSkill; }
+	CState<CPlayerWOL>*& GetSkill(SKILL::E_KEY _eSkillKey) { return m_pSkills[_eSkillKey]; }
 
 private:
 	CStateMgr<CPlayerWOL>* m_pStateMgr = nullptr;

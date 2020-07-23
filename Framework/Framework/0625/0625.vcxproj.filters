@@ -153,6 +153,9 @@
     <Filter Include="소스 파일\03.Obj\035.Coin">
       <UniqueIdentifier>{e605f0b6-9b97-4a0c-ab05-772d29ee7ceb}</UniqueIdentifier>
     </Filter>
+    <Filter Include="소스 파일\03.State\031.PlayerSKills\033.IceKrystalSkillState">
+      <UniqueIdentifier>{65febf27-5db9-4e5e-b0f5-2c5f696d83a7}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CLayer.h">
@@ -440,6 +443,16 @@
     <ClInclude Include="CUI_SkillBar.h">
       <Filter>소스 파일\03.Obj\040.UI</Filter>
     </ClInclude>
+    <ClInclude Include="CUI_Cooltime.h">
+      <Filter>소스 파일\03.Obj\040.UI</Filter>
+    </ClInclude>
+    <ClInclude Include="CIceCrystalSkillState.h">
+      <Filter>소스 파일\03.State\031.PlayerSKills\033.IceKrystalSkillState</Filter>
+    </ClInclude>
+    <ClInclude Include="CIceCrystal.h">
+      <Filter>소스 파일\03.Obj\031.Skill\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="CIceCrystalChild.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CLayer.cpp">
@@ -542,9 +555,6 @@
       <Filter>소스 파일\98.Manager</Filter>
     </ClCompile>
     <ClCompile Include="CTitleScene.cpp">
-      <Filter>소스 파일\04.Scene</Filter>
-    </ClCompile>
-    <ClCompile Include="CPlayScene.cpp">
       <Filter>소스 파일\04.Scene</Filter>
     </ClCompile>
     <ClCompile Include="CTrigger.cpp">
@@ -729,6 +739,21 @@
     </ClCompile>
     <ClCompile Include="CUI_SkillBar.cpp">
       <Filter>소스 파일\03.Obj\040.UI</Filter>
+    </ClCompile>
+    <ClCompile Include="CUI_Cooltime.cpp">
+      <Filter>소스 파일\03.Obj\040.UI</Filter>
+    </ClCompile>
+    <ClCompile Include="CPlayScene.cpp">
+      <Filter>소스 파일\04.Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="CIceCrystalSkillState.cpp">
+      <Filter>소스 파일\03.State\031.PlayerSKills\033.IceKrystalSkillState</Filter>
+    </ClCompile>
+    <ClCompile Include="CIceCrystal.cpp">
+      <Filter>소스 파일\03.Obj\031.Skill\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="CIceCrystalChild.cpp">
+      <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

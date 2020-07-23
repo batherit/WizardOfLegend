@@ -1,5 +1,8 @@
 #pragma once
 #include "CObj.h"
+
+class CUI_Cooltime;
+
 class CUI_SkillBar :
 	public CObj
 {
@@ -15,6 +18,6 @@ public:
 private:
 	HDC m_hDCSkillBar;
 	CObj* m_pPlayer = nullptr;
-
+	CUI_Cooltime* m_pCooltimeUI[SKILL::KEY_END];
 };
 

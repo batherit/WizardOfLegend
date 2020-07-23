@@ -49,7 +49,7 @@ void CPlayScene::ResetScene(void)
 int CPlayScene::Update(float _fDeltaTime)
 {
 	if(CKeyMgr::GetInstance()->IsKeyDown(KEY::KEY_RBUTTON)) {
-		CObj* pObj = new CMonsterSpawner(m_rGameWorld, m_listMonsters, 0.f, m_pPlayer->GetX() + 100, m_pPlayer->GetY(), SPAWN::TYPE_WIZARD, -1);
+		CObj* pObj = new CMonsterSpawner(m_rGameWorld, m_listMonsters, 0.f, m_pPlayer->GetX() + 100, m_pPlayer->GetY(), SPAWN::TYPE_WIZARDBALL, -1);
 		m_listSpawners.emplace_back(pObj);
 	}
 

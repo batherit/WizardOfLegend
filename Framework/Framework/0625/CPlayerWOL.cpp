@@ -10,6 +10,7 @@
 #include "CPlayerState_Attack.h"
 #include "CPlayerNormalSkillState.h"
 #include "CFireDragonSkillState.h"
+#include "CIceCrystalSkillState.h"
 //#include "CPlayerState_Spawn.h"
 //#include "CEffect_Spawn.h"
 
@@ -94,6 +95,7 @@ void CPlayerWOL::SetInitInfo(void)
 	for (auto& pSkill : m_pSkills) { DeleteSafe(pSkill); }
 	m_pSkills[SKILL::KEY_LBUTTON] = new CPlayerNormalSkillState(*this);//
 	m_pSkills[SKILL::KEY_Q] = new CFireDragonSkillState(*this);
+	m_pSkills[SKILL::KEY_R] = new CIceCrystalSkillState(*this);
 	m_pStateMgr = new CStateMgr<CPlayerWOL>(GetGameWorld(), *this);
 	m_pStateMgr->SetNextState(new CPlayerState_Idle(*this));
 	m_fMaxHp = cfPlayerMaxHp;
@@ -206,22 +208,26 @@ void CPlayerWOL::UpdateSkillKey(void)
 {
 	if (CKeyMgr::GetInstance()->IsKeyDown(KEY::KEY_LBUTTON)) {
 		m_pUsingSkill = m_pSkills[SKILL::KEY_LBUTTON];
-		if (m_pUsingSkill) GetStateMgr()->SetNextState(new CPlayerState_Attack(*this));
+		if (m_pUsingSkill && m_pUsingSkill->IsMutable()) 
+			GetStateMgr()->SetNextState(new CPlayerState_Attack(*this));
 		return;
 	}
 	if (CKeyMgr::GetInstance()->IsKeyDown(KEY::KEY_Q)) {
 		m_pUsingSkill = m_pSkills[SKILL::KEY_Q];
-		if (m_pUsingSkill) GetStateMgr()->SetNextState(new CPlayerState_Attack(*this));
+		if (m_pUsingSkill && m_pUsingSkill->IsMutable()) 
+			GetStateMgr()->SetNextState(new CPlayerState_Attack(*this));
 		return;
 	}
 	if (CKeyMgr::GetInstance()->IsKeyDown(KEY::KEY_E)) {
 		m_pUsingSkill = m_pSkills[SKILL::KEY_E];
-		if (m_pUsingSkill) GetStateMgr()->SetNextState(new CPlayerState_Attack(*this));
+		if (m_pUsingSkill && m_pUsingSkill->IsMutable()) 
+			GetStateMgr()->SetNextState(new CPlayerState_Attack(*this));
 		return;
 	}
 	if (CKeyMgr::GetInstance()->IsKeyDown(KEY::KEY_R)) {
 		m_pUsingSkill = m_pSkills[SKILL::KEY_R];
-		if (m_pUsingSkill) GetStateMgr()->SetNextState(new CPlayerState_Attack(*this));
+		if (m_pUsingSkill && m_pUsingSkill->IsMutable()) 
+			GetStateMgr()->SetNextState(new CPlayerState_Attack(*this));
 		return;
 	}
 }

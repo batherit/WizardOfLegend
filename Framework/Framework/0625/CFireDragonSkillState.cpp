@@ -4,6 +4,7 @@
 #include "CPlayerWOL.h"
 #include "CStateMgr.h"
 #include "CFireDragon.h"
+#include "CBitmapMgr.h"
 
 
 
@@ -12,6 +13,12 @@ CFireDragonSkillState::CFireDragonSkillState(CPlayerWOL & _rOwner)
 	CState(_rOwner)
 {
 	m_pCamera = TO_WOL(m_rOwner.GetGameWorld()).GetCamera();
+
+	// 쿨타임 관련 세팅
+	m_fEndCooltime = 8.f;
+	m_fCurCooltime = m_fEndCooltime;
+	m_eCooltimeType = SKILL_COOLTIME::TYPE_COUNT;
+	m_hDCStateIcon = CBitmapMgr::GetInstance()->GetBitmapMemDC(TEXT("FIRE_DRAGON_SKILLBAR"));
 }
 
 CFireDragonSkillState::~CFireDragonSkillState()
@@ -23,51 +30,48 @@ void CFireDragonSkillState::OnLoaded(void)
 {
 	m_bCoolTimeStop = true;		// 쿨타임 업데이트를 잠시 멈춘다.
 	
+	
+	// IsMutable이 상태 사용 가능 여부를 체크하므로 OnLoaded는 항상 유효한 상태이다.
+
+	float fLength = 0;
+	SetAttackDirection(&fLength);
+
 	_anim_info stAnimInfo;
-	stAnimInfo.iState = 0;
-	stAnimInfo.iCountToRepeat = 1;
-	m_rOwner.SetNewAnimInfo(stAnimInfo); // 더미 애니메이션을 넣는다. => 사용가능횟수가 0일시 바로 스킬상태를 빠져나오게 하기 위함.
-
-	if (static_cast<int> (m_fCoolTime) > 0) {
-		float fLength = 0;
-		SetAttackDirection(&fLength);
-
-		switch (m_rOwner.GetLastAttackState()) {
-		case PLAYER::STATE_ATTACK1:
-			stAnimInfo.iState = PLAYER::STATE_ATTACK1;
-			stAnimInfo.iCountToRepeat = 1;
-			stAnimInfo.fTotalTime = 0.1f;
-			stAnimInfo.iStartFrameIndex = 0;
-			stAnimInfo.iFrameCount = 8;
-			m_rOwner.SetLastAttackState(PLAYER::STATE_ATTACK2);
-			break;
-		case PLAYER::STATE_ATTACK2:
-			stAnimInfo.iState = PLAYER::STATE_ATTACK2;
-			stAnimInfo.iCountToRepeat = 1;
-			stAnimInfo.fTotalTime = 0.1f;
-			stAnimInfo.iStartFrameIndex = 0;
-			stAnimInfo.iFrameCount = 8;
-			m_rOwner.SetLastAttackState(PLAYER::STATE_ATTACK1);
-			break;
-		}
-		m_rOwner.SetNewAnimInfo(stAnimInfo);
-
-		TO_WOL(m_rOwner.GetGameWorld()).GetListUsedPlayerSkills().emplace_back(
-			new CFireDragon(m_rOwner.GetGameWorld()
-				, m_rOwner.GetX() + m_rOwner.GetToX() * cfPlayerNormalAttackDist
-				, m_rOwner.GetY() + m_rOwner.GetToY() * cfPlayerNormalAttackDist
-				, m_rOwner.GetToX(), m_rOwner.GetToY()
-				, m_rOwner.GetLastAttackState()));
-		m_pCamera->Shake(0.3f, 6.f, 5);
-
-		m_fCoolTime -= 1.f;
+	switch (m_rOwner.GetLastAttackState()) {
+	case PLAYER::STATE_ATTACK1:
+		stAnimInfo.iState = PLAYER::STATE_ATTACK1;
+		stAnimInfo.iCountToRepeat = 1;
+		stAnimInfo.fTotalTime = 0.1f;
+		stAnimInfo.iStartFrameIndex = 0;
+		stAnimInfo.iFrameCount = 8;
+		m_rOwner.SetLastAttackState(PLAYER::STATE_ATTACK2);
+		break;
+	case PLAYER::STATE_ATTACK2:
+		stAnimInfo.iState = PLAYER::STATE_ATTACK2;
+		stAnimInfo.iCountToRepeat = 1;
+		stAnimInfo.fTotalTime = 0.1f;
+		stAnimInfo.iStartFrameIndex = 0;
+		stAnimInfo.iFrameCount = 8;
+		m_rOwner.SetLastAttackState(PLAYER::STATE_ATTACK1);
+		break;
 	}
+	m_rOwner.SetNewAnimInfo(stAnimInfo);
+
+	TO_WOL(m_rOwner.GetGameWorld()).GetListUsedPlayerSkills().emplace_back(
+		new CFireDragon(m_rOwner.GetGameWorld()
+			, m_rOwner.GetX() + m_rOwner.GetToX() * cfPlayerNormalAttackDist
+			, m_rOwner.GetY() + m_rOwner.GetToY() * cfPlayerNormalAttackDist
+			, m_rOwner.GetToX(), m_rOwner.GetToY()
+			, m_rOwner.GetLastAttackState()));
+	m_pCamera->Shake(0.3f, 6.f, 5);
+
+	m_fCurCooltime -= 1.f;
 }
 
 int CFireDragonSkillState::Update(float _fDeltaTime)
 {
 	if (m_rOwner.UpdateAnim(_fDeltaTime) == 1) {
-		if (static_cast<int> (m_fCoolTime) > 0) {
+		if (static_cast<int> (m_fCurCooltime) > 0) {
 			float fLength = 0;
 			SetAttackDirection(&fLength);
 
@@ -100,7 +104,7 @@ int CFireDragonSkillState::Update(float _fDeltaTime)
 					, m_rOwner.GetLastAttackState()));
 			m_pCamera->Shake(0.3f, 6.f, 5);
 
-			m_fCoolTime -= 1.f;
+			m_fCurCooltime -= 1.f;
 			return 0;
 		}
 		return 1;
@@ -120,9 +124,15 @@ void CFireDragonSkillState::OnExited(void)
 int CFireDragonSkillState::AlwaysUpdate(float _fDeltaTime)
 {
 	if(!m_bCoolTimeStop)
-		if ((m_fCoolTime += (_fDeltaTime * 1.5f)) > 2.f) m_fCoolTime = 8.f;
+		// 기존 시간보다 3배빠르게 쿨타임이 채워지도록 함.
+		if ((m_fCurCooltime += (_fDeltaTime * 3.0f)) > m_fEndCooltime) m_fCurCooltime = m_fEndCooltime;
 
 	return 0;
+}
+
+bool CFireDragonSkillState::IsMutable(void)
+{
+	return static_cast<int>(m_fCurCooltime) > 0;
 }
 
 
