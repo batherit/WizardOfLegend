@@ -40,6 +40,13 @@ void CWOL_World::Update(void)
 {
 	float fDeltaTime = GetTimer()->GetElapsedTimePerFrame();
 
+	if (m_bTimeFactorChange) {
+		if ((m_fTimeFactorChangeElapsedTime += fDeltaTime) > m_fTimeFactorChangeTime) {
+			m_fTimeFactor = 1;
+			m_bTimeFactorChange = false;
+		}
+	}
+
 	if (CKeyMgr::GetInstance()->IsKeyDown(KEY::KEY_P)) {
 		m_plistUsedPlayerSkills.emplace_back(new CFireDragon(
 			*this,
@@ -51,19 +58,19 @@ void CWOL_World::Update(void)
 
 	m_pCursor->Update(fDeltaTime);
 
-	GetSceneManager()->Update(fDeltaTime);
-	m_pCamera->Update(fDeltaTime);
+	GetSceneManager()->Update(fDeltaTime * m_fTimeFactor);
+	m_pCamera->Update(fDeltaTime * m_fTimeFactor);
 
 	for (auto* pObj : m_plistParticles) {
-		pObj->Update(fDeltaTime);
+		pObj->Update(fDeltaTime* m_fTimeFactor);
 	}
 
 	for (auto& pObj : m_plistUsedPlayerSkills) {
-		pObj->Update(fDeltaTime);
+		pObj->Update(fDeltaTime* m_fTimeFactor);
 	}
 
 	for (auto& pObj : m_plistUsedMonsterSkills) {
-		pObj->Update(fDeltaTime);
+		pObj->Update(fDeltaTime* m_fTimeFactor);
 	}
 
 	for (auto& pObj : m_plistUIs) {
@@ -132,6 +139,14 @@ void CWOL_World::Release(void)
 	DeleteListSafe(m_plistParticles);
 	CBitmapMgr::DestroyInstance();
 	CKeyMgr::DestroyInstance();
+}
+
+void CWOL_World::TemporarilyAdjustWorldTimeSpeed(float _fTimeFactorChangeTime, float _fTimeFactor)
+{
+	m_bTimeFactorChange = true;
+	m_fTimeFactor = _fTimeFactor;
+	m_fTimeFactorChangeTime = _fTimeFactorChangeTime;
+	m_fTimeFactorChangeElapsedTime = 0.f;
 }
 
 void CWOL_World::LoadResources(void)

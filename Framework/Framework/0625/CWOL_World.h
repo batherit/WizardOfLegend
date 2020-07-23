@@ -27,6 +27,7 @@ public:
 	list<CObj*>& GetListUsedMonsterSkills(void) { return m_plistUsedMonsterSkills; }
 	list<CObj*>& GetListUIs(void) { return m_plistUIs; }
 	list<CObj*>& GetListParticles(void) { return m_plistParticles; }
+	void TemporarilyAdjustWorldTimeSpeed(float _fTimeFactorChangeTime, float _fTimeFactor);
 
 private:
 	void LoadResources(void);
@@ -36,6 +37,10 @@ private:
 	CCamera2D* m_pCamera = nullptr;
 	float m_fElapsedTime = 0.f;
 	int m_iFrameCount = 0;
+	bool m_bTimeFactorChange = false;
+	float m_fTimeFactor = 1.f;
+	float m_fTimeFactorChangeTime = 0.f;
+	float m_fTimeFactorChangeElapsedTime = 0.f;
 
 private:
 	// 월드 오브젝트

@@ -45,7 +45,7 @@ void CIceCrystalSkillState::OnLoaded(void)
 	// TODO : 여기에 아이스 크리스탈 스킬 생성해주면 됩니더ㅓㅓㄷㄷ..
 	TO_WOL(m_rOwner.GetGameWorld()).GetListUsedPlayerSkills().emplace_back(
 		new CIceCrystal(m_rOwner.GetGameWorld(), &m_rOwner));
-
+	TO_WOL(m_rOwner.GetGameWorld()).TemporarilyAdjustWorldTimeSpeed(0.6f, 0.2f);
 	// 쿨타임 초기화
 	m_fCurCooltime = 0.f;
 }
