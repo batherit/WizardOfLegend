@@ -65,7 +65,9 @@ int CPlayerNormalSkillState::Update(float _fDeltaTime)
 		m_iComboCount = 0;
 		return 1;
 	}
-m_rOwner.UpdateSkillKey();
+
+	m_rOwner.UpdateSkillKey();
+
 	if (m_rOwner.GetAnimProgress() >= 0.0f) {
 		float fT = (m_rOwner.GetAnimProgress() - 0.0f) / 1.0f;
 		m_rOwner.SetSpeed(m_fPlayerAttackSpeed * (1.f - fT) + 0.f * fT);

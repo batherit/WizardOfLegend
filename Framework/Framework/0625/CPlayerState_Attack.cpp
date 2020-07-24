@@ -33,6 +33,9 @@ int CPlayerState_Attack::Update(float _fDeltaTime)
 		float fNewToY = 0.f;
 		//m_rOwner.m_debug = true;
 		//m_rOwner.SetUsingSkill(nullptr);
+
+		m_rOwner.GetUsingSkill()->OnExited();
+		m_rOwner.SetUsingSkill(nullptr);
 		if (m_rOwner.IsMoveKeyPressed(fNewToX, fNewToY)) {
 			m_rOwner.SetToXY(fNewToX, fNewToY);
 			m_rOwner.GetStateMgr()->SetNextState(new CPlayerState_Run(m_rOwner));
@@ -58,8 +61,8 @@ void CPlayerState_Attack::LateUpdate(void)
 void CPlayerState_Attack::OnExited(void)
 {
 	// 완전히 다른 상태로 전이.
-	m_rOwner.GetUsingSkill()->OnExited();
-	m_rOwner.SetUsingSkill(nullptr);
+	//m_rOwner.GetUsingSkill()->OnExited();
+	//m_rOwner.SetUsingSkill(nullptr);
 	//m_rOwner.SetNextSkill(nullptr);
 	//m_rOwner.SetSkillConfirmed(true);
 }
