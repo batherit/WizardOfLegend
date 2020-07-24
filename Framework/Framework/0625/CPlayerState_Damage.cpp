@@ -35,6 +35,7 @@ int CPlayerState_Damage::Update(float _fDeltaTime)
 	m_rOwner.MoveByDeltaTime(_fDeltaTime);
 
 	if (m_rOwner.UpdateAnim(_fDeltaTime) == 1) {
+		m_rOwner.UpdateSkillKey();
 		float fNewToX = 0.f;
 		float fNewToY = 0.f;
 

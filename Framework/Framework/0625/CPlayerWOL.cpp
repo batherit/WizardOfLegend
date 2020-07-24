@@ -114,6 +114,22 @@ void CPlayerWOL::SetInitInfo(void)
 	m_hDCKeyAtlas[OBJ::DIR_LEFT] = CBitmapMgr::GetInstance()->GetBitmapMemDC(TEXT("PLAYER_LEFT"));
 }
 
+bool CPlayerWOL::ConfirmValidSkill(void)
+{
+	if (!m_bIsSkillConfirmed) {
+		if (!m_pNextSkill) { 
+			int a = 10; 
+		}
+		if (m_pUsingSkill && (m_pUsingSkill != m_pNextSkill)) m_pUsingSkill->OnExited();
+		m_pUsingSkill = m_pNextSkill;
+		if (m_pUsingSkill) m_pUsingSkill->OnLoaded();
+		
+		m_pNextSkill = nullptr;
+		m_bIsSkillConfirmed = true;
+	}
+	return true;
+}
+
 void CPlayerWOL::SwapSkillKey(SKILL::E_KEY _eKey1, SKILL::E_KEY _eKey2)
 {
 	CState<CPlayerWOL>* pTemp = m_pSkills[_eKey1];
@@ -219,40 +235,49 @@ bool CPlayerWOL::IsMoveKeyPressed(float & _fToX, float & _fToY)
 void CPlayerWOL::UpdateSkillKey(void)
 {
 	if (CKeyMgr::GetInstance()->IsKeyDown(KEY::KEY_LBUTTON)) {
-		//if (m_pUsingSkill && m_pUsingSkill != m_pSkills[SKILL::KEY_LBUTTON]) m_pUsingSkill->OnExited();
-		m_pUsingSkill = m_pSkills[SKILL::KEY_LBUTTON];
-		if (m_pUsingSkill && m_pUsingSkill->IsMutable()) 
+
+		if (visitIdle == 2) {
+			int a = 10;
+		}
+		if (m_pSkills[SKILL::KEY_LBUTTON] && m_pSkills[SKILL::KEY_LBUTTON]->IsMutable()) {
+			SetNextSkill(m_pSkills[SKILL::KEY_LBUTTON]);
 			GetStateMgr()->SetNextState(new CPlayerState_Attack(*this));
+		}
 		return;
 	}
 	if (CKeyMgr::GetInstance()->IsKeyDown(KEY::KEY_RBUTTON)) {
-		m_pUsingSkill = m_pSkills[SKILL::KEY_RBUTTON];
-		if (m_pUsingSkill && m_pUsingSkill->IsMutable())
+		if (m_pSkills[SKILL::KEY_RBUTTON] && m_pSkills[SKILL::KEY_RBUTTON]->IsMutable()) {
+			SetNextSkill(m_pSkills[SKILL::KEY_RBUTTON]);
 			GetStateMgr()->SetNextState(new CPlayerState_Attack(*this));
+		}
 		return;
 	}
 	if (CKeyMgr::GetInstance()->IsKeyDown(KEY::KEY_Q)) {
-		m_pUsingSkill = m_pSkills[SKILL::KEY_Q];
-		if (m_pUsingSkill && m_pUsingSkill->IsMutable()) 
+		if (m_pSkills[SKILL::KEY_Q] && m_pSkills[SKILL::KEY_Q]->IsMutable()) {
+			SetNextSkill(m_pSkills[SKILL::KEY_Q]);
 			GetStateMgr()->SetNextState(new CPlayerState_Attack(*this));
+		}
 		return;
 	}
 	if (CKeyMgr::GetInstance()->IsKeyDown(KEY::KEY_E)) {
-		m_pUsingSkill = m_pSkills[SKILL::KEY_E];
-		if (m_pUsingSkill && m_pUsingSkill->IsMutable()) 
+		if (m_pSkills[SKILL::KEY_E] && m_pSkills[SKILL::KEY_E]->IsMutable()) {
+			SetNextSkill(m_pSkills[SKILL::KEY_E]);
 			GetStateMgr()->SetNextState(new CPlayerState_Attack(*this));
+		}
 		return;
 	}
 	if (CKeyMgr::GetInstance()->IsKeyDown(KEY::KEY_R)) {
-		m_pUsingSkill = m_pSkills[SKILL::KEY_R];
-		if (m_pUsingSkill && m_pUsingSkill->IsMutable()) 
+		if (m_pSkills[SKILL::KEY_R] && m_pSkills[SKILL::KEY_R]->IsMutable()) {
+			SetNextSkill(m_pSkills[SKILL::KEY_R]);
 			GetStateMgr()->SetNextState(new CPlayerState_Attack(*this));
+		}
 		return;
 	}
 	if (CKeyMgr::GetInstance()->IsKeyDown(KEY::KEY_SPACE)) {
-		m_pUsingSkill = m_pSkills[SKILL::KEY_SPACE];
-		if (m_pUsingSkill && m_pUsingSkill->IsMutable())
+		if (m_pSkills[SKILL::KEY_SPACE] && m_pSkills[SKILL::KEY_SPACE]->IsMutable()) {
+			SetNextSkill(m_pSkills[SKILL::KEY_SPACE]);
 			GetStateMgr()->SetNextState(new CPlayerState_Attack(*this));
+		}
 		return;
 	}
 }

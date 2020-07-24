@@ -23,6 +23,10 @@ void CPlayerState_Idle::OnLoaded(void)
 {
 	m_rOwner.SetNewStateAnim(PLAYER::STATE_IDLE);
 	m_rOwner.SetSpeed(0.f);
+	m_rOwner.visitIdle++;
+	if(m_rOwner.visitIdle == 2) {
+		int a = 10;
+	}
 }
 
 int CPlayerState_Idle::Update(float _fDeltaTime)
@@ -42,6 +46,12 @@ int CPlayerState_Idle::Update(float _fDeltaTime)
 	}*/
 
 	m_rOwner.UpdateSkillKey();
+
+	
+	//if (m_rOwner.m_debug)
+	//{
+	//	int a = 10;
+	//}
 	/*if (CKeyMgr::GetInstance()->IsKeyDown(KEY::KEY_LBUTTON)) {
 		m_rOwner.GetStateMgr()->SetNextState(new CPlayerState_Attack(m_rOwner));
 	}*/

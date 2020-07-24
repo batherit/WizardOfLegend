@@ -29,10 +29,18 @@ public:
 	virtual void Attacked(float _fDamageAmoun, POINT _ptCollisionPointt);
 	void SetInitInfo(void);
 	CState<CPlayerWOL>* GetUsingSkill(void) { return m_pUsingSkill; }
+	bool ConfirmValidSkill(void);
+	void SetUsingSkill(CState<CPlayerWOL>* _pSkillState) { m_pUsingSkill = _pSkillState; }
+	void SetNextSkill(CState<CPlayerWOL>* _pSkillState) { 
+		if (!m_bIsSkillConfirmed) return;
+		m_pNextSkill = _pSkillState;
+		m_bIsSkillConfirmed = false;
+	}
 	CState<CPlayerWOL>*& GetSkill(SKILL::E_KEY _eSkillKey) { return m_pSkills[_eSkillKey]; }
 	bool IsSignatureMode(void) { return m_bIsSignatureMode; }
 	void SetSignatureMode(bool _bIsSignatureMode) { m_bIsSignatureMode = _bIsSignatureMode; if(!_bIsSignatureMode) SetMana(0.f); }
 	void SwapSkillKey(SKILL::E_KEY _eKey1, SKILL::E_KEY _eKey2);
+	void SetSkillConfirmed(bool value) { m_bIsSkillConfirmed = value; }
 
 private:
 	CStateMgr<CPlayerWOL>* m_pStateMgr = nullptr;
@@ -41,6 +49,13 @@ private:
 	PLAYER::E_STATE m_eLastAttackState = PLAYER::STATE_ATTACK1;
 	CState<CPlayerWOL>* m_pSkills[SKILL::KEY_END];
 	CState<CPlayerWOL>* m_pUsingSkill = nullptr;
+	CState<CPlayerWOL>* m_pNextSkill = nullptr;
+	bool m_bIsSkillConfirmed = true;
 	bool m_bIsSignatureMode = false;
+	// 디버그용
+//public:
+//	bool m_debug = false;
+public:
+	int visitIdle = 0;
 };
 

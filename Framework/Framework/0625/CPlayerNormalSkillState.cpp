@@ -30,7 +30,7 @@ CPlayerNormalSkillState::~CPlayerNormalSkillState()
 
 void CPlayerNormalSkillState::OnLoaded(void)
 {
-	m_iComboCount = 1;
+	if (m_iComboCount >= 3) return;
 
 	float fLength = 0;
 	SetAttackDirection(&fLength);
@@ -52,41 +52,20 @@ void CPlayerNormalSkillState::OnLoaded(void)
 			, m_rOwner.GetY() + m_rOwner.GetToY() * cfPlayerNormalAttackDist
 			, m_rOwner.GetToX(), m_rOwner.GetToY()
 			, m_rOwner.GetLastAttackState()));
+
+	m_iComboCount++;
 }
 
 int CPlayerNormalSkillState::Update(float _fDeltaTime)
 {
-	if (m_iComboCount < 3) {
-		if (CKeyMgr::GetInstance()->IsKeyDown(KEY::KEY_LBUTTON)) {
-			float fLength = 0;
-			SetAttackDirection(&fLength);
-			if (fLength >= 100) m_fPlayerAttackSpeed = cfPlayerAttackSpeed;
-			else m_fPlayerAttackSpeed = 0.f;
-
-			switch (m_rOwner.GetLastAttackState()) {
-			case PLAYER::STATE_ATTACK1:
-				m_rOwner.SetNewStateAnim(PLAYER::STATE_ATTACK2);
-				break;
-			case PLAYER::STATE_ATTACK2:
-				m_rOwner.SetNewStateAnim(PLAYER::STATE_ATTACK1);
-				break;
-			}
-
-			TO_WOL(m_rOwner.GetGameWorld()).GetListUsedPlayerSkills().emplace_back(
-				new CPlayerNormalAttack(m_rOwner.GetGameWorld()
-					, m_rOwner.GetX() + m_rOwner.GetToX() * cfPlayerNormalAttackDist
-					, m_rOwner.GetY() + m_rOwner.GetToY() * cfPlayerNormalAttackDist
-					, m_rOwner.GetToX(), m_rOwner.GetToY()
-					, m_rOwner.GetLastAttackState()));
-			m_iComboCount++;
-		}
-	}
+	//if (m_iComboCount < 3)
+	
 
 	if (m_rOwner.UpdateAnim(_fDeltaTime) == 1) {
 		m_iComboCount = 0;
 		return 1;
 	}
-
+m_rOwner.UpdateSkillKey();
 	if (m_rOwner.GetAnimProgress() >= 0.0f) {
 		float fT = (m_rOwner.GetAnimProgress() - 0.0f) / 1.0f;
 		m_rOwner.SetSpeed(m_fPlayerAttackSpeed * (1.f - fT) + 0.f * fT);
@@ -100,12 +79,6 @@ void CPlayerNormalSkillState::LateUpdate(void)
 {
 }
 
-//bool CPlayerNormalSkillState::IsMutable(void)
-//{
-//	if (!CState<CPlayerWOL>::IsMutable()) return false;
-//	if (m_iComboCount >= 3) return false;
-//	return true;
-//}
 
 void CPlayerNormalSkillState::SetAttackDirection(float * _pLength)
 {
@@ -123,5 +96,5 @@ void CPlayerNormalSkillState::SetAttackDirection(float * _pLength)
 
 void CPlayerNormalSkillState::OnExited(void)
 {
-	//m_iComboCount = 0;
+	m_iComboCount = 0;
 }

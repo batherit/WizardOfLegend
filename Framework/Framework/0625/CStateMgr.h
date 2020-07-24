@@ -45,7 +45,7 @@ bool CStateMgr<T>::ConfirmValidState(void)
 		if(m_pCurState) m_pCurState->OnExited();		// 없애기 전 상태를 정리한다.
 		DeleteSafe(m_pCurState);		// 기존 상태를 지운다. 
 		m_pCurState = m_pNextState;		// 기존 상태를 새로운 상태로 교체한다.
-		m_pCurState->OnLoaded();		// 상태 준비
+		if(m_pCurState) m_pCurState->OnLoaded();		// 상태 준비
 		m_pNextState = nullptr;			// 새로운 상태 변수 무효화
 		m_bIsConfirmed = true;			// 상태 변경 완료!
 	}

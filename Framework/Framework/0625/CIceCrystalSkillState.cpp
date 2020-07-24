@@ -54,6 +54,7 @@ void CIceCrystalSkillState::OnLoaded(void)
 
 int CIceCrystalSkillState::Update(float _fDeltaTime)
 {
+	m_rOwner.UpdateSkillKey();
 	// 애니메이션만 발동하고 딱히 하는 건 없음;;^ㅅ^V
 	return m_rOwner.UpdateAnim(_fDeltaTime);
 }
