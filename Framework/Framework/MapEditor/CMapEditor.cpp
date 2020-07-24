@@ -116,13 +116,13 @@ void CMapEditor::Update(float _fDeltaTime)
 	int iUiReturnVal = 0;
 
 	// 쇼스펙
-	CKeyMgr* pKeyMgrInst = CKeyMgr::GetInstance();
-	if (pKeyMgrInst->IsKeyDown(KEY::KEY_P)) {
+	//CKeyMgr* pKeyMgrInst = CKeyMgr::GetInstance();
+	if (CKeyMgr::GetInstance()->IsKeyDown(KEY::KEY_P)) {
 		if (g_bDebugShowSpec) g_bDebugShowSpec = false;
 		else g_bDebugShowSpec = true;
 	}
 
-	if (pKeyMgrInst->IsKeyDown(KEY::KEY_G)) {
+	if (CKeyMgr::GetInstance()->IsKeyDown(KEY::KEY_G)) {
 		if (g_bDebugShowGroup) g_bDebugShowGroup = false;
 		else g_bDebugShowGroup = true;
 	}
@@ -135,11 +135,11 @@ void CMapEditor::Update(float _fDeltaTime)
 	
 	
 	// 맵 드래그 관련(우클릭으로 맵을 드래그한다.)
-	if (pKeyMgrInst->IsKeyDown(KEY::KEY_RBUTTON)) {
-		pKeyMgrInst->SetOldClickedPoint(GetClientCursorPoint());
+	if (CKeyMgr::GetInstance()->IsKeyDown(KEY::KEY_RBUTTON)) {
+		CKeyMgr::GetInstance()->SetOldClickedPoint(GetClientCursorPoint());
 	}
-	if (pKeyMgrInst->IsKeyPressing(KEY::KEY_RBUTTON)) {
-		POINT ptOldClickedPoint = pKeyMgrInst->GetOldClickedPoint();
+	if (CKeyMgr::GetInstance()->IsKeyPressing(KEY::KEY_RBUTTON)) {
+		POINT ptOldClickedPoint = CKeyMgr::GetInstance()->GetOldClickedPoint();
 		POINT ptCurClickedPoint = GetClientCursorPoint();
 		CObj* pCamera = TO_MAPTOOL(m_rGameWorld).GetCamera();
 		POINT ptDeltaMove = {
@@ -147,188 +147,189 @@ void CMapEditor::Update(float _fDeltaTime)
 			(ptOldClickedPoint.y - ptCurClickedPoint.y) / TO_CAMERA2D(pCamera)->GetZoomMultiple()
 		};
 		TO_CAMERA2D(pCamera)->MoveTo(ptDeltaMove.x, ptDeltaMove.y);
-		pKeyMgrInst->SetOldClickedPoint(ptCurClickedPoint);
+		CKeyMgr::GetInstance()->SetOldClickedPoint(ptCurClickedPoint);
 	}
-	if (pKeyMgrInst->IsKeyUp(KEY::KEY_RBUTTON)) {
-		pKeyMgrInst->SetOldClickedPoint(POINT{0, 0});
+	if (CKeyMgr::GetInstance()->IsKeyUp(KEY::KEY_RBUTTON)) {
+		CKeyMgr::GetInstance()->SetOldClickedPoint(POINT{0, 0});
 	}
 
 	// 툴 변경
-	if (pKeyMgrInst->IsKeyDown(KEY::KEY_LSHIFT) || pKeyMgrInst->IsKeyUp(KEY::KEY_LSHIFT)) {
+	if (CKeyMgr::GetInstance()->IsKeyDown(KEY::KEY_LSHIFT) || CKeyMgr::GetInstance()->IsKeyUp(KEY::KEY_LSHIFT)) {
 		m_eTool = (m_eTool == MAP_EDITOR::TOOL_PAINT ? MAP_EDITOR::TOOL_ERASE : MAP_EDITOR::TOOL_PAINT);
 	}
-	
-	if (pKeyMgrInst->IsKeyDown(KEY::KEY_LBUTTON)) {
+
+	if (CKeyMgr::GetInstance()->IsKeyDown(KEY::KEY_LBUTTON)) {
 		if (m_iVisibleAtlasID != -1) {
 			// 클릭시 타일 검출 관련. (Detect Tile)
 			m_stDetectedAtlasObj = m_stMapRenderInfo.vecAtlasLoaders[m_iVisibleAtlasID]->GetDetectedTileRowCol(GetClientCursorPoint());
 			m_stMapRenderInfo.vecAtlasLoaders[m_iVisibleAtlasID]->SetVisible(false);
 			m_iVisibleAtlasID = -1;
 		}
-		else {
-			// 타일맵에 타일을 칠한다. (Paint Tile)
-			CObj* pCamera = TO_MAPTOOL(m_rGameWorld).GetCamera();
-			POINT ptScreenPoint = GetClientCursorPoint();
-			// 스크린 커서 좌표 -> 월드 커서 좌표 변환
-			pair<float, float> pairWorldPoint = TO_CAMERA2D(pCamera)->GetWorldPoint(ptScreenPoint.x, ptScreenPoint.y);
-			POINT ptWorldPoint;
-			ptWorldPoint.x = pairWorldPoint.first;
-			ptWorldPoint.y = pairWorldPoint.second;
+	}
+	
+	if (CKeyMgr::GetInstance()->IsKeyPressing(KEY::KEY_LBUTTON)) {
+		// 타일맵에 타일을 칠한다. (Paint Tile)
+		CObj* pCamera = TO_MAPTOOL(m_rGameWorld).GetCamera();
+		POINT ptScreenPoint = GetClientCursorPoint();
+		// 스크린 커서 좌표 -> 월드 커서 좌표 변환
+		pair<float, float> pairWorldPoint = TO_CAMERA2D(pCamera)->GetWorldPoint(ptScreenPoint.x, ptScreenPoint.y);
+		POINT ptWorldPoint;
+		ptWorldPoint.x = pairWorldPoint.first;
+		ptWorldPoint.y = pairWorldPoint.second;
 
-			if (IsPointInRect(GetMapRect(), ptWorldPoint)) {
-				// 커서 좌표가 맵 영역에 들어온 경우.
-				int iCol = pairWorldPoint.first / GetTileWidth();
-				int iRow = pairWorldPoint.second / GetTileHeight();
+		if (IsPointInRect(GetMapRect(), ptWorldPoint)) {
+			// 커서 좌표가 맵 영역에 들어온 경우.
+			int iCol = pairWorldPoint.first / GetTileWidth();
+			int iRow = pairWorldPoint.second / GetTileHeight();
 
-				switch (m_eLayerType)
-				{
-				case MAP_EDITOR::LAYER_DRAW:
-				{
-					CEditor_Obj* pPickedObj = nullptr;
-					for (auto& obj : m_listAtlasObjs[m_iDrawLayerIndex]) {
-						if (IsPointInRect(obj->GetRowColRect(), POINT{ iCol, iRow })) {
-							pPickedObj = obj;
-							break;
-						}
-					}
-					switch (m_eTool)
-					{
-					case MAP_EDITOR::TOOL_PAINT:
-						if (!pPickedObj && m_stDetectedAtlasObj.iAtlasID >= 0) {
-							CEditor_Obj* pObj = new CEditor_AtlasObj(m_rGameWorld, m_stMapRenderInfo, iRow, iCol, m_stDetectedAtlasObj);
-							pObj->SetGroupID(m_iGroupID);
-							pObj->SetDrawLayer(m_iDrawLayerIndex);
-							m_listAtlasObjs[m_iDrawLayerIndex].emplace_back(pObj);
-						}
-						break;
-					case MAP_EDITOR::TOOL_ERASE:
-						if (pPickedObj) {
-							m_listAtlasObjs[m_iDrawLayerIndex].erase(find(m_listAtlasObjs[m_iDrawLayerIndex].begin(), m_listAtlasObjs[m_iDrawLayerIndex].end(), pPickedObj));
-							DeleteSafe(pPickedObj);
-						}
-						break;
-					default:
+			switch (m_eLayerType)
+			{
+			case MAP_EDITOR::LAYER_DRAW:
+			{
+				CEditor_Obj* pPickedObj = nullptr;
+				for (auto& obj : m_listAtlasObjs[m_iDrawLayerIndex]) {
+					if (IsPointInRect(obj->GetRowColRect(), POINT{ iCol, iRow })) {
+						pPickedObj = obj;
 						break;
 					}
-				break;
 				}
-				case MAP_EDITOR::LAYER_COLLISION:
+				switch (m_eTool)
 				{
-					CEditor_Obj* pPickedObj = nullptr;
-					for (auto& obj : m_listColliders) {
-						if (IsPointInRect(obj->GetRowColRect(), POINT{ iCol, iRow })) {
-							pPickedObj = obj;
-							break;
-						}
-					}
-					switch (m_eTool)
-					{
-					case MAP_EDITOR::TOOL_PAINT:
-						if (!pPickedObj)
-						{
-							CEditor_Obj* pObj = new CEditor_Collider(m_rGameWorld, m_stMapRenderInfo, iRow, iCol);
-							pObj->SetGroupID(m_iGroupID);
-							m_listColliders.emplace_back(pObj);
-						}
-						break;
-					case MAP_EDITOR::TOOL_ERASE:
-						if (pPickedObj) {
-							m_listColliders.erase(find(m_listColliders.begin(), m_listColliders.end(), pPickedObj));
-							DeleteSafe(pPickedObj);
-						}	
-						break;
-					default:
-						break;
-					}
-				break;
-				}
-				case MAP_EDITOR::LAYER_TRIGGER:
-				{
-					CEditor_Obj* pPickedObj = nullptr;
-					for (auto& obj : m_listTriggers) {
-						if (IsPointInRect(obj->GetRowColRect(), POINT{ iCol, iRow })) {
-							pPickedObj = obj;
-							break;
-						}
-					}
-					switch (m_eTool)
-					{
-					case MAP_EDITOR::TOOL_PAINT:
-						if (!pPickedObj)
-						{
-							CEditor_Obj* pObj = new CEditor_Trigger(m_rGameWorld, m_stMapRenderInfo, iRow, iCol);
-							pObj->SetGroupID(m_iGroupID);
-							m_listTriggers.emplace_back(pObj);
-						}
-						break;
-					case MAP_EDITOR::TOOL_ERASE:
-						if (pPickedObj) {
-							m_listTriggers.erase(find(m_listTriggers.begin(), m_listTriggers.end(), pPickedObj));
-							DeleteSafe(pPickedObj);
-						}
-						break;
-					default:
-						break;
+				case MAP_EDITOR::TOOL_PAINT:
+					if (!pPickedObj && m_stDetectedAtlasObj.iAtlasID >= 0) {
+						CEditor_Obj* pObj = new CEditor_AtlasObj(m_rGameWorld, m_stMapRenderInfo, iRow, iCol, m_stDetectedAtlasObj);
+						pObj->SetGroupID(m_iGroupID);
+						pObj->SetDrawLayer(m_iDrawLayerIndex);
+						m_listAtlasObjs[m_iDrawLayerIndex].emplace_back(pObj);
 					}
 					break;
+				case MAP_EDITOR::TOOL_ERASE:
+					if (pPickedObj) {
+						m_listAtlasObjs[m_iDrawLayerIndex].erase(find(m_listAtlasObjs[m_iDrawLayerIndex].begin(), m_listAtlasObjs[m_iDrawLayerIndex].end(), pPickedObj));
+						DeleteSafe(pPickedObj);
+					}
+					break;
+				default:
+					break;
 				}
-				case MAP_EDITOR::LAYER_DOOR:
+			break;
+			}
+			case MAP_EDITOR::LAYER_COLLISION:
+			{
+				CEditor_Obj* pPickedObj = nullptr;
+				for (auto& obj : m_listColliders) {
+					if (IsPointInRect(obj->GetRowColRect(), POINT{ iCol, iRow })) {
+						pPickedObj = obj;
+						break;
+					}
+				}
+				switch (m_eTool)
 				{
-					/*CEditor_Obj* pPickedObj = nullptr;
+				case MAP_EDITOR::TOOL_PAINT:
+					if (!pPickedObj)
+					{
+						CEditor_Obj* pObj = new CEditor_Collider(m_rGameWorld, m_stMapRenderInfo, iRow, iCol);
+						pObj->SetGroupID(m_iGroupID);
+						m_listColliders.emplace_back(pObj);
+					}
+					break;
+				case MAP_EDITOR::TOOL_ERASE:
+					if (pPickedObj) {
+						m_listColliders.erase(find(m_listColliders.begin(), m_listColliders.end(), pPickedObj));
+						DeleteSafe(pPickedObj);
+					}	
+					break;
+				default:
+					break;
+				}
+			break;
+			}
+			case MAP_EDITOR::LAYER_TRIGGER:
+			{
+				CEditor_Obj* pPickedObj = nullptr;
+				for (auto& obj : m_listTriggers) {
+					if (IsPointInRect(obj->GetRowColRect(), POINT{ iCol, iRow })) {
+						pPickedObj = obj;
+						break;
+					}
+				}
+				switch (m_eTool)
+				{
+				case MAP_EDITOR::TOOL_PAINT:
+					if (!pPickedObj)
+					{
+						CEditor_Obj* pObj = new CEditor_Trigger(m_rGameWorld, m_stMapRenderInfo, iRow, iCol);
+						pObj->SetGroupID(m_iGroupID);
+						m_listTriggers.emplace_back(pObj);
+					}
+					break;
+				case MAP_EDITOR::TOOL_ERASE:
+					if (pPickedObj) {
+						m_listTriggers.erase(find(m_listTriggers.begin(), m_listTriggers.end(), pPickedObj));
+						DeleteSafe(pPickedObj);
+					}
+					break;
+				default:
+					break;
+				}
+				break;
+			}
+			case MAP_EDITOR::LAYER_DOOR:
+			{
+				/*CEditor_Obj* pPickedObj = nullptr;
+				for (auto& obj : m_listDoors) {
+					if (IsPointInRect(obj->GetRowColRect(), POINT{ iCol, iRow })) {
+						pPickedObj = obj;
+						break;
+					}
+				}*/
+				switch (m_eTool)
+				{
+				case MAP_EDITOR::TOOL_PAINT:
+				{
+					CEditor_Obj* pObj = new CEditor_Door(m_rGameWorld, m_stMapRenderInfo, iRow, iCol, m_eDoorType);
+					pObj->SetGroupID(m_iGroupID);
+					m_listDoors.emplace_back(pObj);
+				}
+					break;
+				case MAP_EDITOR::TOOL_ERASE:
+				{
+					CEditor_Obj* pPickedObj = nullptr;
 					for (auto& obj : m_listDoors) {
 						if (IsPointInRect(obj->GetRowColRect(), POINT{ iCol, iRow })) {
 							pPickedObj = obj;
 							break;
 						}
-					}*/
-					switch (m_eTool)
-					{
-					case MAP_EDITOR::TOOL_PAINT:
-					{
-						CEditor_Obj* pObj = new CEditor_Door(m_rGameWorld, m_stMapRenderInfo, iRow, iCol, m_eDoorType);
-						pObj->SetGroupID(m_iGroupID);
-						m_listDoors.emplace_back(pObj);
 					}
-						break;
-					case MAP_EDITOR::TOOL_ERASE:
-					{
-						CEditor_Obj* pPickedObj = nullptr;
-						for (auto& obj : m_listDoors) {
-							if (IsPointInRect(obj->GetRowColRect(), POINT{ iCol, iRow })) {
-								pPickedObj = obj;
-								break;
-							}
-						}
-						if (pPickedObj) {
-							m_listDoors.erase(find(m_listDoors.begin(), m_listDoors.end(), pPickedObj));
-							DeleteSafe(pPickedObj);
-						}
+					if (pPickedObj) {
+						m_listDoors.erase(find(m_listDoors.begin(), m_listDoors.end(), pPickedObj));
+						DeleteSafe(pPickedObj);
 					}
-						break;
-					default:
-						break;
-					}
-					break;
 				}
-				case MAP_EDITOR::LAYER_SPAWN_POINT:
-				{
-					switch (m_eTool)
-					{
-					case MAP_EDITOR::TOOL_PAINT:
-						// 스폰포인트는 무조건 존재한다. 하지만 혹시 모르므로 체크해줌. ^_^V
-						if (m_pSpawnPoint) dynamic_cast<CEditor_SpawnPoint*>(m_pSpawnPoint)->SetSpawnPoint(pairWorldPoint.first, pairWorldPoint.second);
-						break;
-					case MAP_EDITOR::TOOL_ERASE:
-						// 지우지 않는다, 지우지 못한다!!
-						break;
-					default:
-						break;
-					}
 					break;
-				}
 				default:
 					break;
 				}
+				break;
+			}
+			case MAP_EDITOR::LAYER_SPAWN_POINT:
+			{
+				switch (m_eTool)
+				{
+				case MAP_EDITOR::TOOL_PAINT:
+					// 스폰포인트는 무조건 존재한다. 하지만 혹시 모르므로 체크해줌. ^_^V
+					if (m_pSpawnPoint) dynamic_cast<CEditor_SpawnPoint*>(m_pSpawnPoint)->SetSpawnPoint(pairWorldPoint.first, pairWorldPoint.second);
+					break;
+				case MAP_EDITOR::TOOL_ERASE:
+					// 지우지 않는다, 지우지 못한다!!
+					break;
+				default:
+					break;
+				}
+				break;
+			}
+			default:
+				break;
 			}
 		}
 	}

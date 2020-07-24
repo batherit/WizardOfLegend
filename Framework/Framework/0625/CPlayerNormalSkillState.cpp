@@ -81,20 +81,31 @@ int CPlayerNormalSkillState::Update(float _fDeltaTime)
 			m_iComboCount++;
 		}
 	}
-	// 감속 조정
+
+	if (m_rOwner.UpdateAnim(_fDeltaTime) == 1) {
+		m_iComboCount = 0;
+		return 1;
+	}
+
 	if (m_rOwner.GetAnimProgress() >= 0.0f) {
 		float fT = (m_rOwner.GetAnimProgress() - 0.0f) / 1.0f;
 		m_rOwner.SetSpeed(m_fPlayerAttackSpeed * (1.f - fT) + 0.f * fT);
 	}
 	m_rOwner.MoveByDeltaTime(_fDeltaTime);
 
-	
-	return m_rOwner.UpdateAnim(_fDeltaTime);
+	return 0;
 }
 
 void CPlayerNormalSkillState::LateUpdate(void)
 {
 }
+
+//bool CPlayerNormalSkillState::IsMutable(void)
+//{
+//	if (!CState<CPlayerWOL>::IsMutable()) return false;
+//	if (m_iComboCount >= 3) return false;
+//	return true;
+//}
 
 void CPlayerNormalSkillState::SetAttackDirection(float * _pLength)
 {
@@ -112,4 +123,5 @@ void CPlayerNormalSkillState::SetAttackDirection(float * _pLength)
 
 void CPlayerNormalSkillState::OnExited(void)
 {
+	//m_iComboCount = 0;
 }

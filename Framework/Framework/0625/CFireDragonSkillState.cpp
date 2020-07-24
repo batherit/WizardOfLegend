@@ -72,6 +72,7 @@ void CFireDragonSkillState::OnLoaded(void)
 
 int CFireDragonSkillState::Update(float _fDeltaTime)
 {
+	m_rOwner.UpdateSkillKey();
 	if (m_rOwner.UpdateAnim(_fDeltaTime) == 1) {
 		if (static_cast<int> (m_fCurCooltime) > 0) {
 			float fLength = 0;

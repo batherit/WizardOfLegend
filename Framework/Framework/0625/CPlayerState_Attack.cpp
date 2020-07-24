@@ -40,9 +40,6 @@ int CPlayerState_Attack::Update(float _fDeltaTime)
 		}
 		return 1;
 	}
-	//if (CKeyMgr::GetInstance()->IsKeyDown(KEY::KEY_SPACE)) {
-	//	m_rOwner.GetStateMgr()->SetNextState(new CPlayerState_Dash(m_rOwner));
-	//}
 	return 0;
 }
 

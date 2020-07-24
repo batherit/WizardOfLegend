@@ -14,6 +14,7 @@ public:
 	virtual void OnLoaded(void) override;
 	virtual int Update(float _fDeltaTime) override;
 	virtual void LateUpdate(void) override;
+	//virtual bool IsMutable(void);
 
 private:
 	void SetAttackDirection(float* _pLength = nullptr);

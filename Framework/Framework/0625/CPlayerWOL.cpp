@@ -219,6 +219,7 @@ bool CPlayerWOL::IsMoveKeyPressed(float & _fToX, float & _fToY)
 void CPlayerWOL::UpdateSkillKey(void)
 {
 	if (CKeyMgr::GetInstance()->IsKeyDown(KEY::KEY_LBUTTON)) {
+		//if (m_pUsingSkill && m_pUsingSkill != m_pSkills[SKILL::KEY_LBUTTON]) m_pUsingSkill->OnExited();
 		m_pUsingSkill = m_pSkills[SKILL::KEY_LBUTTON];
 		if (m_pUsingSkill && m_pUsingSkill->IsMutable()) 
 			GetStateMgr()->SetNextState(new CPlayerState_Attack(*this));
