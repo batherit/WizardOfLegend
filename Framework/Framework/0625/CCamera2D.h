@@ -13,7 +13,7 @@ public:
 public:
 	virtual void Ready(void) {};
 	virtual int Update(float _fDeltaTime);
-	virtual void LateUpdate(void) {};
+	virtual void LateUpdate(void) { };
 	virtual void Render(HDC& _hdc) {
 		TCHAR szBuffer[64];
 		swprintf(szBuffer, sizeof(szBuffer), L"Camera X : %f, Y : %f, Zoom : %f", GetX(), GetY(), m_fZoomMultiple);
@@ -25,7 +25,14 @@ public:
 	void ZoomIn(float _fDeltaTime);
 	void ZoomOut(float _fDeltaTime);
 	float GetZoomMultiple(void) const { return m_fZoomMultiple; }
+	void SetZoomMultiple(float _fZoomMultiple) { m_fZoomMultiple = _fZoomMultiple; }
 	void Shake(float _fShakeKeepTime, float _fSakeRadius, int _iShakeNum);
+	void AdjustPosToOwner(void) {
+		if (m_pOwner) {
+			SetX(m_pOwner->GetX());
+			SetY(m_pOwner->GetY());
+		} 
+	}
 
 public:
 	RECT GetScreenRect(RECT& _rRectW);

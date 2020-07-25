@@ -173,7 +173,7 @@ void CPlayerWOL::SetNewStateAnim(PLAYER::E_STATE _eNewState, bool _bReset /*= fa
 		break;
 	case PLAYER::STATE_DASH:
 		stAnimInfo.iCountToRepeat = 1;
-		stAnimInfo.fTotalTime = 0.25f;
+		stAnimInfo.fTotalTime = 0.35f;
 		stAnimInfo.iStartFrameIndex = 0;
 		stAnimInfo.iFrameCount = 8;
 		break;
@@ -296,7 +296,7 @@ void CPlayerWOL::UpdateSkillKey(void)
 
 void CPlayerWOL::Attacked(float _fDamageAmount, POINT _ptCollisionPoint)
 {
-	// TODO : 받은 데미지를 보여주는 UI를 띄우셈!
+	// TODO : 받은 데미지를 보여주는 UI를 띄우셈! 했어오 ^ㅅ^v
 	if (!IsDead()) {
 		CObj::Attacked(_fDamageAmount, _ptCollisionPoint);
 		TO_WOL(GetGameWorld()).GetListUIs().emplace_back(new CUI_DamageText(GetGameWorld(), GetX(), GetY(), _ptCollisionPoint, _fDamageAmount));

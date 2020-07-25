@@ -183,6 +183,10 @@ void CWOL_World::LoadResources(void)
 
 	// 스킬바 UI
 	CBitmapMgr::GetInstance()->InsertBitmap(TEXT("../Textures/UI_SKILLBAR.bmp"), TEXT("UI_SKILLBAR"));
+
+	// 미니맵 UI
+	CBitmapMgr::GetInstance()->InsertBitmap(TEXT("../Textures/UI_PLAYER_MINIMAP.bmp"), TEXT("UI_PLAYER_MINIMAP"));
+
 	// 스킬바 마법 아이콘
 	CBitmapMgr::GetInstance()->InsertBitmap(TEXT("../Textures/DASH_SKILLBAR.bmp"), TEXT("DASH_SKILLBAR"));
 	CBitmapMgr::GetInstance()->InsertBitmap(TEXT("../Textures/NORMAL_ATTACK_SKILLBAR.bmp"), TEXT("NORMAL_ATTACK_SKILLBAR"));

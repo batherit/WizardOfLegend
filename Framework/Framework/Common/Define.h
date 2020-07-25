@@ -77,6 +77,8 @@
 
 #define KM_R		0x00010000
 #define KM_TAB		0x00020000
+#define KM_M		0x00040000			// 미니맵 관련
+#define KM_F		0x00080000			// 아이템과 상호작용
 
 // 파일 입출력 관련
 #define FB_WRITE_DATA(_valueName, _fpOut) fwrite(&(_valueName), sizeof(_valueName), 1, _fpOut)
@@ -126,6 +128,10 @@
 // UI 스킬바 아이콘 출력 사이즈
 #define UI_SKILLBAR_ICON_OUTPUT_WIDTH	54
 #define UI_SKILLBAR_ICON_OUTPUT_HEIGHT	54
+
+// UI 미니맵 출력 사이즈
+#define UI_PLAYER_MINIMAP_WIDHT			45
+#define UI_PLAYER_MINIMAP_HEIGHT		45
 
 // UI 돈 비트맵 출력 사이즈
 #define UI_MONEY_OUTPUT_WIDTH	31

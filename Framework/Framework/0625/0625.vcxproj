@@ -231,6 +231,7 @@
     <ClInclude Include="CUI_DamageText.h" />
     <ClInclude Include="CUI_GoldText.h" />
     <ClInclude Include="CUI_Image.h" />
+    <ClInclude Include="CUI_Minimap.h" />
     <ClInclude Include="CUI_Money.h" />
     <ClInclude Include="CUI_SkillBar.h" />
     <ClInclude Include="CUI_SkillKeyBinding.h">
@@ -375,6 +376,7 @@
     <ClCompile Include="CUI_DamageText.cpp" />
     <ClCompile Include="CUI_GoldText.cpp" />
     <ClCompile Include="CUI_Image.cpp" />
+    <ClCompile Include="CUI_Minimap.cpp" />
     <ClCompile Include="CUI_Money.cpp" />
     <ClCompile Include="CUI_SkillBar.cpp" />
     <ClCompile Include="CUI_SkillKeyBinding.cpp">

@@ -30,8 +30,8 @@ int CPlayerState_Dash::Update(float _fDeltaTime)
 	}
 
 	// 감속 조정
-	if (m_rOwner.GetAnimProgress() >= 0.4f) {
-		float fT = (m_rOwner.GetAnimProgress() - 0.4f) / 0.6f;
+	if (m_rOwner.GetAnimProgress() >= 0.7f) {
+		float fT = (m_rOwner.GetAnimProgress() - 0.7f) / 0.3f;
 		m_rOwner.SetSpeed(cfPlayerDashSpeed * (1.f - fT) + 0.f * fT);
 	}
 	m_rOwner.MoveByDeltaTime(_fDeltaTime);

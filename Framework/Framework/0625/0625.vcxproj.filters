@@ -263,9 +263,6 @@
     <ClInclude Include="CTrigger.h">
       <Filter>소스 파일\03.Obj\01.MapObj</Filter>
     </ClInclude>
-    <ClInclude Include="CPlayScene.h">
-      <Filter>소스 파일\04.Scene</Filter>
-    </ClInclude>
     <ClInclude Include="CDoor.h">
       <Filter>소스 파일\03.Obj\01.MapObj</Filter>
     </ClInclude>
@@ -469,6 +466,12 @@
     </ClInclude>
     <ClInclude Include="CDashSkillState.h">
       <Filter>소스 파일\03.State\031.PlayerSKills\034.DashSkillState</Filter>
+    </ClInclude>
+    <ClInclude Include="CUI_Minimap.h">
+      <Filter>소스 파일\03.Obj\040.UI</Filter>
+    </ClInclude>
+    <ClInclude Include="CPlayScene.h">
+      <Filter>소스 파일\04.Scene</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -783,6 +786,9 @@
     </ClCompile>
     <ClCompile Include="CDashSkillState.cpp">
       <Filter>소스 파일\03.State\031.PlayerSKills\034.DashSkillState</Filter>
+    </ClCompile>
+    <ClCompile Include="CUI_Minimap.cpp">
+      <Filter>소스 파일\03.Obj\040.UI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

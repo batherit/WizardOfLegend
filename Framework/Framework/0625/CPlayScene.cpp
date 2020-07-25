@@ -14,6 +14,7 @@
 #include "CUI_SkillBar.h"
 #include "CUI_SkillKeyBinding.h"
 #include "CUI_Money.h"
+#include "CUI_Minimap.h"
 #include "CHitEffect.h"
 #include "CCamera2D.h"
 
@@ -42,6 +43,7 @@ void CPlayScene::ResetScene(void)
 	m_pPlayerBarUI = new CUI_PlayerBar(m_rGameWorld, m_pPlayer);
 	m_pSkillBarUI = new CUI_SkillBar(m_rGameWorld, m_pPlayer);
 	m_pSkillKeyBindingUI = new CUI_SkillKeyBinding(m_rGameWorld, m_pPlayer);
+	m_pMinimapUI = new CUI_Minimap(m_rGameWorld, m_pMapLoader, m_pPlayer);
 	m_pMoneyUI = new CUI_Money(m_rGameWorld, (WINCX >> 1) - 100, WINCY - 50, *m_pPlayer);
 	m_listSpawners.emplace_back(new CPlayerSpawner(m_rGameWorld, m_pPlayer, pairSpawnPoint.first, pairSpawnPoint.second));
 	//TO_PLAYER_WOL(m_pPlayer)->Respawn(pairSpawnPoint.first, pairSpawnPoint.second);
@@ -75,6 +77,7 @@ int CPlayScene::Update(float _fDeltaTime)
 	m_pPlayerBarUI->Update(_fDeltaTime);
 	m_pSkillBarUI->Update(_fDeltaTime);
 	m_pSkillKeyBindingUI->Update(_fDeltaTime);
+	m_pMinimapUI->Update(_fDeltaTime);
 	m_pMoneyUI->Update(_fDeltaTime);
 	
 	return 0;
@@ -395,6 +398,7 @@ void CPlayScene::Render(HDC & _hdc, CCamera2D * _pCamera)
 	m_pPlayerBarUI->Render(_hdc, _pCamera);
 	m_pSkillBarUI->Render(_hdc, _pCamera);
 	m_pSkillKeyBindingUI->Render(_hdc, _pCamera);
+	m_pMinimapUI->Render(_hdc, _pCamera);
 	m_pMoneyUI->Render(_hdc, _pCamera);
 }
 
@@ -403,6 +407,7 @@ void CPlayScene::Release(void)
 	DeleteSafe(m_pPlayerBarUI);
 	DeleteSafe(m_pSkillBarUI);
 	DeleteSafe(m_pSkillKeyBindingUI);
+	DeleteSafe(m_pMinimapUI);
 	DeleteSafe(m_pMoneyUI);
 	DeleteSafe(m_pMapLoader);
 	DeleteListSafe(m_listSpawnerGenerators);
