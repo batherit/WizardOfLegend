@@ -19,6 +19,11 @@ void CWizardState_Death::OnLoaded(void)
 {
 	m_rOwner.SetSpeed(0.f);
 	m_rOwner.SetNewStateAnim(WIZARD::STATE_DEATH);
+
+	int iRandDashSountIndex = rand() % 3;
+	if (iRandDashSountIndex == 0)			CSoundMgr::Get_Instance()->PlaySound(TEXT("ENEMY_DIED.mp3"), CSoundMgr::MONSTER);
+	else if (iRandDashSountIndex == 1)		CSoundMgr::Get_Instance()->PlaySound(TEXT("ENEMY_DIED_2.mp3"), CSoundMgr::MONSTER);
+	else if (iRandDashSountIndex == 2)		CSoundMgr::Get_Instance()->PlaySound(TEXT("ENEMY_DIED_3.mp3"), CSoundMgr::MONSTER);
 }
 
 int CWizardState_Death::Update(float _fDeltaTime)
@@ -30,6 +35,7 @@ int CWizardState_Death::Update(float _fDeltaTime)
 				m_rOwner.GetX(), m_rOwner.GetY() + (m_rOwner.GetHeight() >> 1),
 				m_rOwner.GetMoney())
 		);
+		
 		return 1;
 	}
 

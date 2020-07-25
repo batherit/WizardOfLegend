@@ -166,7 +166,9 @@
     <ClInclude Include="CBitmapObj.h" />
     <ClInclude Include="CCamera2D.h" />
     <ClInclude Include="CDoor.h" />
-    <ClInclude Include="CEffect_Spawn.h" />
+    <ClInclude Include="CEffect_Spawn.h">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+    </ClInclude>
     <ClInclude Include="CFireDragon.h" />
     <ClInclude Include="CFireDragonSkillState.h" />
     <ClInclude Include="CFireParticle.h" />
@@ -202,6 +204,7 @@
     <ClInclude Include="CPlayerState_Run.h" />
     <ClInclude Include="CPlayerState_Spawn.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
     </ClInclude>
     <ClInclude Include="CPlayerWOL.h" />
     <ClInclude Include="CPlayScene.h" />
@@ -223,6 +226,7 @@
     <ClInclude Include="CSwordManState_Run.h" />
     <ClInclude Include="CSwordManState_Spawn.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
     </ClInclude>
     <ClInclude Include="CTimer.h" />
     <ClInclude Include="CTitleScene.h" />
@@ -255,6 +259,13 @@
     <ClInclude Include="CWizardState_Run.h" />
     <ClInclude Include="CWOL_World.h" />
     <ClInclude Include="CDashSkillState.h" />
+    <ClInclude Include="fmod.h" />
+    <ClInclude Include="fmod.hpp" />
+    <ClInclude Include="fmod_codec.h" />
+    <ClInclude Include="fmod_dsp.h" />
+    <ClInclude Include="fmod_errors.h" />
+    <ClInclude Include="fmod_memoryinfo.h" />
+    <ClInclude Include="fmod_output.h" />
     <ClInclude Include="Function.h" />
     <ClInclude Include="GuidedBullet.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
@@ -269,6 +280,7 @@
     </ClInclude>
     <ClInclude Include="Monster.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
     </ClInclude>
     <ClInclude Include="Player.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
@@ -284,6 +296,7 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
     </ClInclude>
     <ClInclude Include="CSpawnerGenerator.h" />
+    <ClInclude Include="SoundMgr.h" />
     <ClInclude Include="stdafx.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
     </ClInclude>
@@ -313,7 +326,9 @@
     <ClCompile Include="CBitmapObj.cpp" />
     <ClCompile Include="CCamera2D.cpp" />
     <ClCompile Include="CDoor.cpp" />
-    <ClCompile Include="CEffect_Spawn.cpp" />
+    <ClCompile Include="CEffect_Spawn.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="CFireDragon.cpp" />
     <ClCompile Include="CFireDragonSkillState.cpp" />
     <ClCompile Include="CFireParticle.cpp" />
@@ -349,6 +364,7 @@
     <ClCompile Include="CPlayerState_Run.cpp" />
     <ClCompile Include="CPlayerState_Spawn.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="CPlayerWOL.cpp" />
     <ClCompile Include="CPlayScene.cpp" />
@@ -369,6 +385,7 @@
     <ClCompile Include="CSwordManState_Run.cpp" />
     <ClCompile Include="CSwordManState_Spawn.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="CTimer.cpp" />
     <ClCompile Include="CTitleScene.cpp" />
@@ -416,6 +433,7 @@
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Monster.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="Player.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
@@ -430,6 +448,7 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="CSpawnerGenerator.cpp" />
+    <ClCompile Include="SoundMgr.cpp" />
     <ClCompile Include="UI_Button.cpp" />
     <ClCompile Include="UI_Gauge.cpp" />
     <ClCompile Include="CUI_PlayerBar.cpp">

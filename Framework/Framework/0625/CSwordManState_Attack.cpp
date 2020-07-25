@@ -23,6 +23,7 @@ void CSwordManState_Attack::OnLoaded(void)
 	m_rOwner.SetSpeed(0.f);
 	m_rOwner.SetNewStateAnim(SWORDMAN::STATE_ATTACK, true);
 	m_rOwner.DirectDirectionToTarget();
+	CSoundMgr::Get_Instance()->PlaySound(TEXT("SWORDMAN_ATTACK.mp3"), CSoundMgr::SKILL);
 }
 
 int CSwordManState_Attack::Update(float _fDeltaTime)

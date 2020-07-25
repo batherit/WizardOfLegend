@@ -42,6 +42,8 @@ public:
 	void SwapSkillKey(SKILL::E_KEY _eKey1, SKILL::E_KEY _eKey2);
 	void SetSkillConfirmed(bool value) { m_bIsSkillConfirmed = value; }
 	bool AquireSkillState(CState<CPlayerWOL>* _pSkillState);
+	void SetIsSignatureSkillUsing(bool _bValue) { m_bIsSignatureSkillUsing = _bValue; }
+	bool IsSignatureSkillUsing(void) { return m_bIsSignatureSkillUsing; }
 
 private:
 	CStateMgr<CPlayerWOL>* m_pStateMgr = nullptr;
@@ -53,6 +55,7 @@ private:
 	CState<CPlayerWOL>* m_pNextSkill = nullptr;
 	bool m_bIsSkillConfirmed = true;
 	bool m_bIsSignatureMode = false;
+	bool m_bIsSignatureSkillUsing = false;
 	// 디버그용
 //public:
 //	bool m_debug = false;

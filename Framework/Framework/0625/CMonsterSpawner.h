@@ -19,5 +19,6 @@ private:
 	list<CObj*>& m_listMonsters;
 	SPAWN::E_TYPE m_eType = SPAWN::TYPE_END;
 	CSpawnerGenerator* m_pSpawnerGenerator = nullptr;
+	bool m_bIsAnimStarted = false;
 };
 

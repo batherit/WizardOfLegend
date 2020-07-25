@@ -1,2 +1,10 @@
-﻿  0625.vcxproj -> D:\MyLab\GameLab\Algorithm\WizardOfLegend\Framework\Framework\Debug\0625.exe
+﻿  CItem_DroppedCard.cpp
+d:\mylab\gamelab\algorithm\wizardoflegend\framework\framework\0625\cobj.h(62): warning C4244: '인수': 'LONG'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\mylab\gamelab\algorithm\wizardoflegend\framework\framework\0625\cobj.h(63): warning C4244: '인수': 'LONG'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\mylab\gamelab\algorithm\wizardoflegend\framework\framework\0625\citem_droppedcard.cpp(49): warning C4244: '인수': 'LONG'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\mylab\gamelab\algorithm\wizardoflegend\framework\framework\0625\citem_droppedcard.cpp(50): warning C4244: '인수': 'LONG'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+c:\program files (x86)\microsoft visual studio 14.0\vc\include\utility(200): warning C4244: '초기화 중': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  d:\mylab\gamelab\algorithm\wizardoflegend\framework\framework\0625\citem_droppedcard.cpp(49): note: 컴파일 중인 함수 템플릿 인스턴스화 'std::pair<int,int>::pair<float,float,void,0>(std::pair<float,float> &&) noexcept'에 대한 참조를 확인하십시오.
+  d:\mylab\gamelab\algorithm\wizardoflegend\framework\framework\0625\citem_droppedcard.cpp(49): note: 컴파일 중인 함수 템플릿 인스턴스화 'std::pair<int,int>::pair<float,float,void,0>(std::pair<float,float> &&) noexcept'에 대한 참조를 확인하십시오.
+  0625.vcxproj -> D:\MyLab\GameLab\Algorithm\WizardOfLegend\Framework\Framework\Debug\0625.exe
   0625.vcxproj -> D:\MyLab\GameLab\Algorithm\WizardOfLegend\Framework\Framework\Debug\0625.pdb (Full PDB)

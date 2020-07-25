@@ -37,9 +37,11 @@ int CUI_SkillKeyBinding::Update(float _fDeltaTime)
 			m_pDesc->Clear();
 			m_iSkillKeyToSwapIndex = 0;
 			SetVisible(false);
+			CSoundMgr::Get_Instance()->PlaySound(TEXT("CLOSE_INVENTORY.mp3"), CSoundMgr::SKILL);
 		}
 		else {
 			SetVisible(true);
+			CSoundMgr::Get_Instance()->PlaySound(TEXT("OPEN_INVENTORY.mp3"), CSoundMgr::SKILL);
 		}
 	}
 

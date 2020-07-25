@@ -53,6 +53,8 @@ void CPlayerNormalSkillState::OnLoaded(void)
 			, m_rOwner.GetToX(), m_rOwner.GetToY()
 			, m_rOwner.GetLastAttackState()));
 
+	
+
 	m_iComboCount++;
 }
 

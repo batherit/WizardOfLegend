@@ -20,6 +20,11 @@ void CPlayerState_Dash::OnLoaded(void)
 {
 	m_rOwner.SetNewStateAnim(PLAYER::STATE_DASH);
 	m_rOwner.SetSpeed(cfPlayerDashSpeed);
+	/*int iRandDashSountIndex = rand() % 4;
+	if (iRandDashSountIndex == 0)			CSoundMgr::Get_Instance()->PlaySound(TEXT("DASH_1.mp3"), CSoundMgr::PLAYER);
+	else if (iRandDashSountIndex == 1)		CSoundMgr::Get_Instance()->PlaySound(TEXT("DASH_2.mp3"), CSoundMgr::PLAYER);
+	else if (iRandDashSountIndex == 2)		CSoundMgr::Get_Instance()->PlaySound(TEXT("DASH_3.mp3"), CSoundMgr::PLAYER);
+	else if (iRandDashSountIndex == 3)	*/	CSoundMgr::Get_Instance()->PlaySound(TEXT("DASH_4.mp3"), CSoundMgr::PLAYER);
 }
 
 int CPlayerState_Dash::Update(float _fDeltaTime)

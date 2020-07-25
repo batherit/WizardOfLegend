@@ -23,6 +23,7 @@ CWizardBallState_Attack::~CWizardBallState_Attack()
 void CWizardBallState_Attack::OnLoaded(void)
 {
 	m_rOwner.SetSpeed(WIZARD_BALL_ATTACK_SPEED);
+	CSoundMgr::Get_Instance()->PlaySound(TEXT("BALL_ATTACK.mp3"), CSoundMgr::MONSTER);
 }
 
 int CWizardBallState_Attack::Update(float _fDeltaTime)

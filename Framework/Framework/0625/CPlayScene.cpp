@@ -29,6 +29,7 @@ CPlayScene::CPlayScene(CGameWorld& _rGameWorld, const char* _szMapDirectory)
 	m_pPlayer(TO_WOL(_rGameWorld).GetPlayer())
 {
 	ResetScene();
+	CSoundMgr::Get_Instance()->PlayBGM(TEXT("DUNGEON_BGM.mp3"));
 }
 
 
@@ -278,9 +279,12 @@ void CPlayScene::LateUpdate(void)
 							new CHitEffect(m_rGameWorld, ptCollisionPoint.x, ptCollisionPoint.y)
 						);
 
-						if (!TO_PLAYER_WOL(m_pPlayer)->IsSignatureMode()) {
+						if (!TO_PLAYER_WOL(m_pPlayer)->IsSignatureMode() && !TO_PLAYER_WOL(m_pPlayer)->IsSignatureSkillUsing()) {
 							m_pPlayer->IncreaseMana(pPlayerSkill->GetDamage());
-							if (m_pPlayer->IsManaFulled()) TO_PLAYER_WOL(m_pPlayer)->SetSignatureMode(true);
+							if (m_pPlayer->IsManaFulled()) {
+								CSoundMgr::Get_Instance()->PlaySound(TEXT("ULT_ON.mp3"), CSoundMgr::SKILL);
+								TO_PLAYER_WOL(m_pPlayer)->SetSignatureMode(true);
+							}
 						}
 					}
 				}

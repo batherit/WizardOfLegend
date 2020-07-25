@@ -23,6 +23,8 @@ CPlayerSpawner::CPlayerSpawner(CGameWorld & _rGameWorld, CObj * _pPlayer, float 
 	SetX(_fX); SetY(_fY - 225); // 225은 오프셋
 
 	SetNewAnimInfo(stAnimInfo);
+
+	CSoundMgr::Get_Instance()->PlaySound(TEXT("TELEPORT.mp3"), CSoundMgr::PLAYER);
 }
 
 CPlayerSpawner::~CPlayerSpawner()

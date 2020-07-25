@@ -28,6 +28,7 @@ void CPlayerState_Damage::OnLoaded(void)
 	}
 	m_rOwner.SetNewStateAnim(PLAYER::STATE_DAMAGE, true);
 	m_rOwner.SetToXY(m_rOwner.GetX() - m_ptCollisionPoint.x, m_rOwner.GetY() - m_ptCollisionPoint.y);
+	CSoundMgr::Get_Instance()->PlaySound(TEXT("PLAYER_HITED_1.mp3"), CSoundMgr::SKILL);
 }
 
 int CPlayerState_Damage::Update(float _fDeltaTime)

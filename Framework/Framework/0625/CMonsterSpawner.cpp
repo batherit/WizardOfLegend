@@ -60,6 +60,8 @@ CMonsterSpawner::CMonsterSpawner(CGameWorld & _rGameWorld, list<CObj*>& _listMon
 		break;
 	}
 	SetNewAnimInfo(stAnimInfo);
+
+
 }
 
 CMonsterSpawner::~CMonsterSpawner()
@@ -69,6 +71,11 @@ CMonsterSpawner::~CMonsterSpawner()
 int CMonsterSpawner::Update(float _fDeltaTime)
 {
 	if ((m_fElapsedTime += _fDeltaTime) >= m_fTimeToDelay) {
+		if (!m_bIsAnimStarted) {
+			CSoundMgr::Get_Instance()->PlaySound(TEXT("CARD_SUMMON.mp3"), CSoundMgr::MONSTER);
+			m_bIsAnimStarted = true;
+		}
+
 		if (UpdateAnim(_fDeltaTime) == 1) {
 
 			SetValid(false);

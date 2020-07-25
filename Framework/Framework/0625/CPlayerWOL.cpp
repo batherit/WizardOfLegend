@@ -147,6 +147,7 @@ void CPlayerWOL::SwapSkillKey(SKILL::E_KEY _eKey1, SKILL::E_KEY _eKey2)
 	CState<CPlayerWOL>* pTemp = m_pSkills[_eKey1];
 	m_pSkills[_eKey1] = m_pSkills[_eKey2];
 	m_pSkills[_eKey2] = pTemp;
+	CSoundMgr::Get_Instance()->PlaySound(TEXT("CHANGE_SKILL.mp3"), CSoundMgr::SKILL);
 }
 
 bool CPlayerWOL::AquireSkillState(CState<CPlayerWOL>* _pSkillState)

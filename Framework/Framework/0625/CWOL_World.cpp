@@ -29,7 +29,7 @@ LRESULT CWOL_World::OnProcessingWindowMessage(HWND hWnd, UINT nMessageID, WPARAM
 void CWOL_World::Ready(void)
 {
 	LoadResources();
-
+	CSoundMgr::Get_Instance()->Initialize();
 	m_pCursor = new CUI_Cursor(*this, CBitmapMgr::GetInstance()->GetBitmapMemDC(TEXT("UI_MOUSE_CURSOR")));
 	GetSceneManager()->SetNextScene(new CTitleScene(*this));
 	m_pPlayer = new CPlayerWOL(*this, 0.f, 0.f);
@@ -114,15 +114,15 @@ void CWOL_World::Render(void)
 		pObj->Render(GetBackbufferDC(), m_pCamera);
 	}
 
-	if (m_fElapsedTime >= 1.f) {
-		TCHAR szBuf[64];
-		
-		swprintf_s(szBuf, TEXT("Wizard Of Legend (FPS : %d, RenderCnt : %d)"), m_iFrameCount, g_iRenderCount);
-		SetWindowText(g_hWND, szBuf);
-		//TextOut(GetBackbufferDC(), 0, 0, szBuf, lstrlen(szBuf));
-		m_fElapsedTime = 0.f;
-		m_iFrameCount = 0;
-	}
+	//if (m_fElapsedTime >= 1.f) {
+	//	TCHAR szBuf[64];
+	//	
+	//	swprintf_s(szBuf, TEXT("Wizard Of Legend (FPS : %d, RenderCnt : %d)"), m_iFrameCount, g_iRenderCount);
+	//	SetWindowText(g_hWND, szBuf);
+	//	//TextOut(GetBackbufferDC(), 0, 0, szBuf, lstrlen(szBuf));
+	//	m_fElapsedTime = 0.f;
+	//	m_iFrameCount = 0;
+	//}
 
 	m_pCursor->Render(GetBackbufferDC(), m_pCamera);
 
@@ -139,6 +139,7 @@ void CWOL_World::Release(void)
 	DeleteListSafe(m_plistParticles);
 	CBitmapMgr::DestroyInstance();
 	CKeyMgr::DestroyInstance();
+	CSoundMgr::Destroy_Instance();
 }
 
 void CWOL_World::TemporarilyAdjustWorldTimeSpeed(float _fTimeFactorChangeTime, float _fTimeFactor)

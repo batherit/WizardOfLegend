@@ -34,6 +34,7 @@ int CItem_DroppedCard::Update(float _fDeltaTime)
 			else {
 				DeleteSafe(m_pSkillState);
 			}
+			CSoundMgr::Get_Instance()->PlaySound(TEXT("GET_SKILL.mp3"), CSoundMgr::UI);
 			SetValid(false);
 		}
 	}

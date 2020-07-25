@@ -13,11 +13,14 @@ CTitleScene::CTitleScene(CGameWorld& _rGameWorld)
 	const CBitmapObj* pBitmapObj = CBitmapMgr::GetInstance()->GetBitmapObj(TEXT("READY_MENU"));
 	m_iWidth = pBitmapObj->GetWitdh();
 	m_iHeight = pBitmapObj->GetHeight();
+	
+	CSoundMgr::Get_Instance()->PlayBGM(TEXT("MAIN_MENU_BGM.mp3"));
 }
 
 
 CTitleScene::~CTitleScene()
 {
+	//CSoundMgr::Get_Instance()->StopSound(CSoundMgr::BGM);
 }
 
 void CTitleScene::ResetScene(void)
@@ -28,6 +31,8 @@ void CTitleScene::ResetScene(void)
 int CTitleScene::Update(float _fDeltaTime)
 {
 	if (CKeyMgr::GetInstance()->IsKeyDown(KEY::KEY_LBUTTON)) {
+		CSoundMgr::Get_Instance()->PlaySound(TEXT("CLICK_MENU.mp3"),CSoundMgr::UI);
+		CSoundMgr::Get_Instance()->StopSound(CSoundMgr::BGM);
 		m_rGameWorld.GetSceneManager()->SetNextScene(new CPlayScene(m_rGameWorld, "../MapDatas/Maps/0/Game_Map.txt"));
 	}
 

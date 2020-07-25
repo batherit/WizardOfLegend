@@ -11,6 +11,7 @@ CUI_GoldText::CUI_GoldText(CGameWorld & _rGameWorld, float _fX, float _fY, int _
 	swprintf_s(m_szMoney, TEXT("+%d"), _iMoneyAmount);
 	SetSpeed(100.f);
 	SetToXY(0.f, -1.f);
+	CSoundMgr::Get_Instance()->PlaySound(TEXT("MONEY_TAKE.mp3"), CSoundMgr::UI);
 }
 
 CUI_GoldText::~CUI_GoldText()

@@ -90,6 +90,11 @@ CPlayerNormalAttack::CPlayerNormalAttack(CGameWorld & _rGameWorld, float _fX, fl
 	stAnimInfo.iFrameCount = 4;
 
 	SetNewAnimInfo(stAnimInfo);
+
+	int iRandSoundIndex = rand() % 3;
+	if (iRandSoundIndex == 0) CSoundMgr::Get_Instance()->PlaySound(TEXT("NORMAL_ATTACK_1.mp3"), CSoundMgr::SKILL);
+	if (iRandSoundIndex == 1) CSoundMgr::Get_Instance()->PlaySound(TEXT("NORMAL_ATTACK_2.mp3"), CSoundMgr::SKILL);
+	if (iRandSoundIndex == 2) CSoundMgr::Get_Instance()->PlaySound(TEXT("NORMAL_ATTACK_3.mp3"), CSoundMgr::SKILL);
 }
 
 CPlayerNormalAttack::~CPlayerNormalAttack()

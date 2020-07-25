@@ -38,3 +38,12 @@ using namespace std;
 #include "MainApp.h"
 #include "CSceneMgr.h"
 #include "CWOL_World.h"
+
+#define _CRTDBG_MAP_ALLOC
+#include <stdlib.h>
+#include <crtdbg.h>
+
+#include <io.h>
+#include "fmod.h"
+#pragma comment(lib, "fmodex_vc.lib")
+#include "SoundMgr.h"

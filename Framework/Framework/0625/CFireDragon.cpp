@@ -94,18 +94,27 @@ CFireDragon::CFireDragon(CGameWorld & _rGameWorld, float _fX, float _fY, float _
 	default:
 		break;
 	}
+
+	int iRandSountIndex = rand() % 3;
+	if (iRandSountIndex == 0)			CSoundMgr::Get_Instance()->PlaySound(TEXT("FIRE_DRAGON_1.mp3"), CSoundMgr::MONSTER);
+	else if (iRandSountIndex == 1)		CSoundMgr::Get_Instance()->PlaySound(TEXT("FIRE_DRAGON_2.mp3"), CSoundMgr::MONSTER);
+	else if (iRandSountIndex == 2)		CSoundMgr::Get_Instance()->PlaySound(TEXT("FIRE_DRAGON_3.mp3"), CSoundMgr::MONSTER);
 }
 
 CFireDragon::~CFireDragon()
 {
 	Release();
+	int iRandSountIndex = rand() % 3;
+	if (iRandSountIndex == 0)			CSoundMgr::Get_Instance()->PlaySound(TEXT("FIRE_DRAGON_DIE_1.mp3"), CSoundMgr::MONSTER);
+	else if (iRandSountIndex == 1)		CSoundMgr::Get_Instance()->PlaySound(TEXT("FIRE_DRAGON_DIE_2.mp3"), CSoundMgr::MONSTER);
+	else if (iRandSountIndex == 2)		CSoundMgr::Get_Instance()->PlaySound(TEXT("FIRE_DRAGON_DIE_3.mp3"), CSoundMgr::MONSTER);
 }
 
 int CFireDragon::Update(float _fDeltaTime)
 {
 	m_fLifeTime += _fDeltaTime;
 	m_fElapsedTime += _fDeltaTime;
-	if (m_fElapsedTime >= 0.05f) {
+	if (m_fElapsedTime >= 0.02f) {
 		TO_WOL(GetGameWorld()).GetListParticles().emplace_back(new CFireParticle(GetGameWorld(), GetX(), GetY()));
 		m_fElapsedTime = 0.f;
 	}

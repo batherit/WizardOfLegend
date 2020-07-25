@@ -162,6 +162,9 @@
     <Filter Include="소스 파일\03.Obj\036.Item">
       <UniqueIdentifier>{1c02fa2d-baa8-422c-96f3-cb4a42b6a1c4}</UniqueIdentifier>
     </Filter>
+    <Filter Include="소스 파일\99.FMOD">
+      <UniqueIdentifier>{458a7ca3-5d6b-4821-ab9d-0212490d1a47}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CLayer.h">
@@ -476,7 +479,33 @@
     <ClInclude Include="CPlayScene.h">
       <Filter>소스 파일\04.Scene</Filter>
     </ClInclude>
-    <ClInclude Include="CItem_DroppedCard.h" />
+    <ClInclude Include="fmod.h">
+      <Filter>소스 파일\99.FMOD</Filter>
+    </ClInclude>
+    <ClInclude Include="fmod.hpp">
+      <Filter>소스 파일\99.FMOD</Filter>
+    </ClInclude>
+    <ClInclude Include="fmod_codec.h">
+      <Filter>소스 파일\99.FMOD</Filter>
+    </ClInclude>
+    <ClInclude Include="fmod_dsp.h">
+      <Filter>소스 파일\99.FMOD</Filter>
+    </ClInclude>
+    <ClInclude Include="fmod_errors.h">
+      <Filter>소스 파일\99.FMOD</Filter>
+    </ClInclude>
+    <ClInclude Include="fmod_memoryinfo.h">
+      <Filter>소스 파일\99.FMOD</Filter>
+    </ClInclude>
+    <ClInclude Include="fmod_output.h">
+      <Filter>소스 파일\99.FMOD</Filter>
+    </ClInclude>
+    <ClInclude Include="SoundMgr.h">
+      <Filter>소스 파일\98.Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="CItem_DroppedCard.h">
+      <Filter>소스 파일\03.Obj\036.Item</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CLayer.cpp">
@@ -794,8 +823,11 @@
     <ClCompile Include="CUI_Minimap.cpp">
       <Filter>소스 파일\03.Obj\040.UI</Filter>
     </ClCompile>
+    <ClCompile Include="SoundMgr.cpp">
+      <Filter>소스 파일\98.Manager</Filter>
+    </ClCompile>
     <ClCompile Include="CItem_DroppedCard.cpp">
-      <Filter>소스 파일</Filter>
+      <Filter>소스 파일\03.Obj\036.Item</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

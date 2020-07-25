@@ -24,6 +24,11 @@ void CArcherState_Damage::OnLoaded(void)
 	m_rOwner.SetSpeed(0.f);
 	m_rOwner.SetNewStateAnim(ARCHER::STATE_DAMAGE, true);
 	m_rOwner.SetToXY(m_rOwner.GetX() - m_ptCollisionPoint.x, m_rOwner.GetY() - m_ptCollisionPoint.y);
+
+	int iRandSountIndex = rand() % 3;
+	if (iRandSountIndex == 0)			CSoundMgr::Get_Instance()->PlaySound(TEXT("ENEMY_HITTED_WIND_1.mp3"), CSoundMgr::MONSTER);
+	else if (iRandSountIndex == 1)		CSoundMgr::Get_Instance()->PlaySound(TEXT("ENEMY_HITTED_WIND_2.mp3"), CSoundMgr::MONSTER);
+	else if (iRandSountIndex == 2)		CSoundMgr::Get_Instance()->PlaySound(TEXT("ENEMY_HITTED_WIND_3.mp3"), CSoundMgr::MONSTER);
 }
 
 int CArcherState_Damage::Update(float _fDeltaTime)

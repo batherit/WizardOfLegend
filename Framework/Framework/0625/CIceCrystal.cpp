@@ -23,7 +23,11 @@ CIceCrystal::CIceCrystal(CGameWorld & _rGameWorld, CObj * _pOwner)
 			m_fMinRotSpeed = ICE_CRYSTAL_MIN_ROT_SPEED * 2.f;
 			m_fMaxRotSpeed = ICE_CRYSTAL_MAX_ROT_SPEED * 2.f;
 			TO_PLAYER_WOL(_pOwner)->SetSignatureMode(false);
+			TO_PLAYER_WOL(_pOwner)->SetIsSignatureSkillUsing(true);
 			TO_WOL(_rGameWorld).TemporarilyAdjustWorldTimeSpeed(0.6f, 0.2f);
+			CSoundMgr::Get_Instance()->PlaySound(TEXT("ULT_USE.mp3"), CSoundMgr::SKILL);
+			m_bIsSignatureMode = true;
+			
 		}
 		else {
 			m_iIceCrystalNum = 3;
@@ -36,6 +40,7 @@ CIceCrystal::CIceCrystal(CGameWorld & _rGameWorld, CObj * _pOwner)
 			m_pIceCrystal[i] = new CIceCrystalChild(_rGameWorld, this);
 			TO_WOL(_rGameWorld).GetListUsedPlayerSkills().emplace_back(m_pIceCrystal[i]);
 		}
+		CSoundMgr::Get_Instance()->PlaySound(TEXT("ICE_KRYSTAL_START.mp3"), CSoundMgr::SKILL);
 	}
 	else SetValid(false);
 }
@@ -47,6 +52,7 @@ CIceCrystal::CIceCrystal(CGameWorld & _rGameWorld, float _fX, float _fY)
 	m_fLifeTime(5.f)
 {
 	SetSpeed(ICE_CRYSTAL_MIN_ROT_SPEED);
+	CSoundMgr::Get_Instance()->PlaySound(TEXT("ICE_KRYSTAL_START.mp3"), CSoundMgr::SKILL);
 }
 
 CIceCrystal::~CIceCrystal()
@@ -67,6 +73,7 @@ int CIceCrystal::Update(float _fDeltaTime)
 			m_pIceCrystal[i]->SetValid(false);
 		}
 		SetValid(false);
+		if(m_bIsSignatureMode && TO_PLAYER_WOL(m_pOwner)) TO_PLAYER_WOL(m_pOwner)->SetIsSignatureSkillUsing(false);
 		return 1;
 	}
 

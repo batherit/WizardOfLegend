@@ -29,6 +29,8 @@ void CWizardBallState_Aiming::OnLoaded(void)
 	stAnimInfo.iStartFrameIndex = 0;
 
 	m_rOwner.SetNewAnimInfo(stAnimInfo);
+
+	CSoundMgr::Get_Instance()->PlaySound(TEXT("BALL_ATTACKMODE.mp3"), CSoundMgr::MONSTER);
 }
 
 int CWizardBallState_Aiming::Update(float _fDeltaTime)

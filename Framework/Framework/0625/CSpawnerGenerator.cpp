@@ -35,11 +35,14 @@ CSpawnerGenerator::CSpawnerGenerator(CGameWorld & _rGameWorld, list<CObj*>& _lis
 		}
 	}
 	if (fpIn) fclose(fpIn);
+
+	CSoundMgr::Get_Instance()->PlaySound(TEXT("PRISON_START.mp3"), CSoundMgr::EFFECT);
 }
 
 CSpawnerGenerator::~CSpawnerGenerator()
 {
 	Release();
+	CSoundMgr::Get_Instance()->PlaySound(TEXT("PRISON_END.mp3"), CSoundMgr::EFFECT);
 }
 
 int CSpawnerGenerator::Update(float _fDeltaTime)
