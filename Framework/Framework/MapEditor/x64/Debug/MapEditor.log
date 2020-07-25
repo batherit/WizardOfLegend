@@ -1,1 +1,142 @@
-﻿
+﻿  CMapEditor.cpp
+d:\mylab\gamelab\algorithm\wizardoflegend\framework\framework\mapeditor\cmapeditor.h(35): warning C4267: 'return': 'size_t'에서 'LONG'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\mylab\gamelab\algorithm\wizardoflegend\framework\framework\mapeditor\cmapeditor.h(36): warning C4267: 'return': 'size_t'에서 'LONG'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\mylab\gamelab\algorithm\wizardoflegend\framework\framework\mapeditor\catlasloader.h(23): warning C4267: 'return': 'size_t'에서 'LONG'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\mylab\gamelab\algorithm\wizardoflegend\framework\framework\mapeditor\catlasloader.h(24): warning C4267: 'return': 'size_t'에서 'LONG'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\mylab\gamelab\algorithm\wizardoflegend\framework\framework\mapeditor\cmapeditor.cpp(56): warning C4244: '인수': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\mylab\gamelab\algorithm\wizardoflegend\framework\framework\mapeditor\cmapeditor.cpp(62): warning C4244: '인수': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\mylab\gamelab\algorithm\wizardoflegend\framework\framework\mapeditor\cmapeditor.cpp(110): warning C4244: '인수': 'LONG'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\mylab\gamelab\algorithm\wizardoflegend\framework\framework\mapeditor\cmapeditor.cpp(153): warning C4838: 'float'에서 'LONG'(으)로의 변환에는 축소 변환이 필요합니다.
+d:\mylab\gamelab\algorithm\wizardoflegend\framework\framework\mapeditor\cmapeditor.cpp(151): warning C4244: '초기화 중': 'float'에서 'LONG'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\mylab\gamelab\algorithm\wizardoflegend\framework\framework\mapeditor\cmapeditor.cpp(152): warning C4244: '초기화 중': 'float'에서 'LONG'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\mylab\gamelab\algorithm\wizardoflegend\framework\framework\mapeditor\cmapeditor.cpp(154): warning C4244: '인수': 'LONG'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\mylab\gamelab\algorithm\wizardoflegend\framework\framework\mapeditor\cmapeditor.cpp(180): warning C4244: '인수': 'LONG'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\mylab\gamelab\algorithm\wizardoflegend\framework\framework\mapeditor\cmapeditor.cpp(182): warning C4244: '=': '_Ty1'에서 'LONG'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+          with
+          [
+              _Ty1=float
+          ]
+d:\mylab\gamelab\algorithm\wizardoflegend\framework\framework\mapeditor\cmapeditor.cpp(183): warning C4244: '=': '_Ty2'에서 'LONG'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+          with
+          [
+              _Ty2=float
+          ]
+d:\mylab\gamelab\algorithm\wizardoflegend\framework\framework\mapeditor\cmapeditor.cpp(187): warning C4244: '초기화 중': '_Ty1'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+          with
+          [
+              _Ty1=float
+          ]
+d:\mylab\gamelab\algorithm\wizardoflegend\framework\framework\mapeditor\cmapeditor.cpp(188): warning C4244: '초기화 중': '_Ty2'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+          with
+          [
+              _Ty2=float
+          ]
+d:\mylab\gamelab\algorithm\wizardoflegend\framework\framework\mapeditor\cmapeditor.cpp(326): warning C4244: '인수': '_Ty2'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+          with
+          [
+              _Ty2=float
+          ]
+d:\mylab\gamelab\algorithm\wizardoflegend\framework\framework\mapeditor\cmapeditor.cpp(326): warning C4244: '인수': '_Ty1'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+          with
+          [
+              _Ty1=float
+          ]
+d:\mylab\gamelab\algorithm\wizardoflegend\framework\framework\mapeditor\cmapeditor.cpp(395): warning C4244: '인수': 'size_t'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\mylab\gamelab\algorithm\wizardoflegend\framework\framework\mapeditor\cmapeditor.cpp(395): warning C4244: '인수': 'LONG'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\mylab\gamelab\algorithm\wizardoflegend\framework\framework\mapeditor\cmapeditor.cpp(396): warning C4244: '인수': '_Ty2'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+          with
+          [
+              _Ty2=float
+          ]
+d:\mylab\gamelab\algorithm\wizardoflegend\framework\framework\mapeditor\cmapeditor.cpp(396): warning C4244: '인수': '_Ty1'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+          with
+          [
+              _Ty1=float
+          ]
+d:\mylab\gamelab\algorithm\wizardoflegend\framework\framework\mapeditor\cmapeditor.cpp(398): warning C4244: '인수': 'size_t'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\mylab\gamelab\algorithm\wizardoflegend\framework\framework\mapeditor\cmapeditor.cpp(398): warning C4244: '인수': 'LONG'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\mylab\gamelab\algorithm\wizardoflegend\framework\framework\mapeditor\cmapeditor.cpp(399): warning C4244: '인수': '_Ty2'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+          with
+          [
+              _Ty2=float
+          ]
+d:\mylab\gamelab\algorithm\wizardoflegend\framework\framework\mapeditor\cmapeditor.cpp(399): warning C4244: '인수': '_Ty1'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+          with
+          [
+              _Ty1=float
+          ]
+d:\mylab\gamelab\algorithm\wizardoflegend\framework\framework\mapeditor\cmapeditor.cpp(404): warning C4244: '인수': 'LONG'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\mylab\gamelab\algorithm\wizardoflegend\framework\framework\mapeditor\cmapeditor.cpp(404): warning C4244: '인수': 'size_t'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\mylab\gamelab\algorithm\wizardoflegend\framework\framework\mapeditor\cmapeditor.cpp(405): warning C4244: '인수': '_Ty2'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+          with
+          [
+              _Ty2=float
+          ]
+d:\mylab\gamelab\algorithm\wizardoflegend\framework\framework\mapeditor\cmapeditor.cpp(405): warning C4244: '인수': '_Ty1'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+          with
+          [
+              _Ty1=float
+          ]
+d:\mylab\gamelab\algorithm\wizardoflegend\framework\framework\mapeditor\cmapeditor.cpp(407): warning C4244: '인수': 'LONG'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\mylab\gamelab\algorithm\wizardoflegend\framework\framework\mapeditor\cmapeditor.cpp(407): warning C4244: '인수': 'size_t'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\mylab\gamelab\algorithm\wizardoflegend\framework\framework\mapeditor\cmapeditor.cpp(408): warning C4244: '인수': '_Ty2'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+          with
+          [
+              _Ty2=float
+          ]
+d:\mylab\gamelab\algorithm\wizardoflegend\framework\framework\mapeditor\cmapeditor.cpp(408): warning C4244: '인수': '_Ty1'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+          with
+          [
+              _Ty1=float
+          ]
+d:\mylab\gamelab\algorithm\wizardoflegend\framework\framework\mapeditor\cmapeditor.cpp(420): warning C4244: '인수': '_Ty2'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+          with
+          [
+              _Ty2=float
+          ]
+d:\mylab\gamelab\algorithm\wizardoflegend\framework\framework\mapeditor\cmapeditor.cpp(419): warning C4244: '인수': '_Ty1'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+          with
+          [
+              _Ty1=float
+          ]
+d:\mylab\gamelab\algorithm\wizardoflegend\framework\framework\mapeditor\cmapeditor.cpp(418): warning C4244: '인수': '_Ty2'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+          with
+          [
+              _Ty2=float
+          ]
+d:\mylab\gamelab\algorithm\wizardoflegend\framework\framework\mapeditor\cmapeditor.cpp(417): warning C4244: '인수': '_Ty1'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+          with
+          [
+              _Ty1=float
+          ]
+d:\mylab\gamelab\algorithm\wizardoflegend\framework\framework\mapeditor\cmapeditor.cpp(432): warning C4267: '초기화 중': 'size_t'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\mylab\gamelab\algorithm\wizardoflegend\framework\framework\mapeditor\cmapeditor.cpp(433): warning C4267: '초기화 중': 'size_t'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\mylab\gamelab\algorithm\wizardoflegend\framework\framework\mapeditor\cmapeditor.cpp(445): warning C4267: '인수': 'size_t'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\mylab\gamelab\algorithm\wizardoflegend\framework\framework\mapeditor\cmapeditor.cpp(471): warning C4244: '인수': 'LONG'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\mylab\gamelab\algorithm\wizardoflegend\framework\framework\mapeditor\cmapeditor.cpp(472): warning C4244: '초기화 중': '_Ty2'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+          with
+          [
+              _Ty2=float
+          ]
+d:\mylab\gamelab\algorithm\wizardoflegend\framework\framework\mapeditor\cmapeditor.cpp(473): warning C4244: '초기화 중': '_Ty1'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+          with
+          [
+              _Ty1=float
+          ]
+d:\mylab\gamelab\algorithm\wizardoflegend\framework\framework\mapeditor\cmapeditor.cpp(491): warning C4267: '초기화 중': 'size_t'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\mylab\gamelab\algorithm\wizardoflegend\framework\framework\mapeditor\cmapeditor.cpp(497): warning C4267: '초기화 중': 'size_t'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\mylab\gamelab\algorithm\wizardoflegend\framework\framework\mapeditor\cmapeditor.cpp(523): warning C4244: '인수': 'LONG'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\mylab\gamelab\algorithm\wizardoflegend\framework\framework\mapeditor\cmapeditor.cpp(583): warning C4267: '=': 'size_t'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\mylab\gamelab\algorithm\wizardoflegend\framework\framework\mapeditor\cmapeditor.cpp(589): warning C4267: '=': 'size_t'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\mylab\gamelab\algorithm\wizardoflegend\framework\framework\mapeditor\cmapeditor.cpp(594): warning C4267: '=': 'size_t'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\mylab\gamelab\algorithm\wizardoflegend\framework\framework\mapeditor\cmapeditor.cpp(599): warning C4267: '=': 'size_t'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\mylab\gamelab\algorithm\wizardoflegend\framework\framework\mapeditor\cmapeditor.cpp(665): warning C4267: '=': 'size_t'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\mylab\gamelab\algorithm\wizardoflegend\framework\framework\mapeditor\cmapeditor.cpp(671): warning C4267: '=': 'size_t'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\mylab\gamelab\algorithm\wizardoflegend\framework\framework\mapeditor\cmapeditor.cpp(676): warning C4267: '=': 'size_t'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\mylab\gamelab\algorithm\wizardoflegend\framework\framework\mapeditor\cmapeditor.cpp(681): warning C4267: '=': 'size_t'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  CMapTool.cpp
+d:\mylab\gamelab\algorithm\wizardoflegend\framework\framework\mapeditor\cmapeditor.h(35): warning C4267: 'return': 'size_t'에서 'LONG'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\mylab\gamelab\algorithm\wizardoflegend\framework\framework\mapeditor\cmapeditor.h(36): warning C4267: 'return': 'size_t'에서 'LONG'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\mylab\gamelab\algorithm\wizardoflegend\framework\framework\mapeditor\cmaptool.cpp(27): warning C4244: '인수': 'time_t'에서 'unsigned int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  코드를 생성하고 있습니다...
+  MapEditor.vcxproj -> D:\MyLab\GameLab\Algorithm\WizardOfLegend\Framework\Framework\x64\Debug\MapEditor.exe

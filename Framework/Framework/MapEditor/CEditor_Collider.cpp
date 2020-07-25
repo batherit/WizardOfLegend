@@ -4,9 +4,11 @@
 #include "CSpace.h"
 
 
-CEditor_Collider::CEditor_Collider(CGameWorld& _rGameWorld, const _map_render_info & _rMapRenderInfo, int _iPivotRow, int _iPivotCol)
+CEditor_Collider::CEditor_Collider(CGameWorld& _rGameWorld, const _map_render_info & _rMapRenderInfo, int _iPivotRow, int _iPivotCol, int _iCoveredWidthTiles /*= 1*/, int _iCoveredHeightTiles/* = 1*/)
 	:
-	CEditor_Obj(_rGameWorld, _rMapRenderInfo, _iPivotRow, _iPivotCol, MAP_OBJ::TYPE_COLLIDER)
+	CEditor_Obj(_rGameWorld, _rMapRenderInfo, _iPivotRow, _iPivotCol, MAP_OBJ::TYPE_COLLIDER),
+	m_iCoveredWidthTiles(_iCoveredWidthTiles),
+	m_iCoveredHeightTiles(_iCoveredHeightTiles)
 {
 }
 
@@ -26,8 +28,8 @@ RECT CEditor_Collider::GetRect(void) const
 	RECT rc;
 	rc.left = m_stPivotPoint.iCol * m_rMapRenderInfo.stMapStructureInfo.iTileWidth;
 	rc.top = m_stPivotPoint.iRow * m_rMapRenderInfo.stMapStructureInfo.iTileHeight;
-	rc.right = (m_stPivotPoint.iCol + 1) * m_rMapRenderInfo.stMapStructureInfo.iTileWidth;
-	rc.bottom = (m_stPivotPoint.iRow + 1) * m_rMapRenderInfo.stMapStructureInfo.iTileHeight;
+	rc.right = (m_stPivotPoint.iCol + m_iCoveredWidthTiles) * m_rMapRenderInfo.stMapStructureInfo.iTileWidth;
+	rc.bottom = (m_stPivotPoint.iRow + m_iCoveredHeightTiles) * m_rMapRenderInfo.stMapStructureInfo.iTileHeight;
 	return rc;
 }
 
@@ -36,8 +38,8 @@ RECT CEditor_Collider::GetRowColRect(void) const
 	RECT rc;
 	rc.left = m_stPivotPoint.iCol;
 	rc.top = m_stPivotPoint.iRow;
-	rc.right = m_stPivotPoint.iCol;
-	rc.bottom = m_stPivotPoint.iRow;
+	rc.right = m_stPivotPoint.iCol + m_iCoveredWidthTiles - 1;
+	rc.bottom = m_stPivotPoint.iRow + m_iCoveredHeightTiles - 1;
 
 	return rc;
 }
@@ -85,11 +87,19 @@ void CEditor_Collider::Render(HDC & _hdc, CCamera2D * _pCamera)
 void CEditor_Collider::SaveInfo(FILE * _fpOut)
 {
 	CEditor_Obj::SaveInfo(_fpOut);
+	fprintf_s(_fpOut, "%d %d  \n",
+		m_iCoveredWidthTiles,
+		m_iCoveredHeightTiles
+	);
 }
 
 void CEditor_Collider::LoadInfo(FILE * _fpIn)
 {
 	CEditor_Obj::LoadInfo(_fpIn);
+	fscanf_s(_fpIn, "%d %d",
+		&m_iCoveredWidthTiles,
+		&m_iCoveredHeightTiles
+	);
 }
 
 void CEditor_Collider::MakeMapData(FILE * _fpOut)

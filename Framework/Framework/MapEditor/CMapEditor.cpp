@@ -72,6 +72,11 @@ CMapEditor::CMapEditor(CGameWorld& _rGameWorld)
 	m_vecEditorButtons.emplace_back(new CUI_Button<CMapEditor>(m_rGameWorld, 120, (WINCY >> 1) + 95, 25, 25, TEXT("<"), this, &CMapEditor::ChangeGroupID, new int(-1)));
 	m_vecEditorButtons.emplace_back(new CUI_Button<CMapEditor>(m_rGameWorld, 160, (WINCY >> 1) + 95, 25, 25, TEXT(">"), this, &CMapEditor::ChangeGroupID, new int(1)));
 
+	m_vecEditorButtons.emplace_back(new CUI_Button<CMapEditor>(m_rGameWorld, 30, (WINCY >> 1) + 180, 25, 25, TEXT("<"), this, &CMapEditor::ChangeColliderWidth, new int(-1)));
+	m_vecEditorButtons.emplace_back(new CUI_Button<CMapEditor>(m_rGameWorld, 70, (WINCY >> 1) + 180, 25, 25, TEXT(">"), this, &CMapEditor::ChangeColliderWidth, new int(1)));
+	m_vecEditorButtons.emplace_back(new CUI_Button<CMapEditor>(m_rGameWorld, 30, (WINCY >> 1) + 210, 25, 25, TEXT("<"), this, &CMapEditor::ChangeColliderHeight, new int(-1)));
+	m_vecEditorButtons.emplace_back(new CUI_Button<CMapEditor>(m_rGameWorld, 70, (WINCY >> 1) + 210, 25, 25, TEXT(">"), this, &CMapEditor::ChangeColliderHeight, new int(1)));
+
 	// TriggerID º¯°æ
 	/*int iNewTriggerID = -1;
 	for (int i = 0; i < ciMaxTriggerGroupRow; i++) {
@@ -228,7 +233,7 @@ void CMapEditor::Update(float _fDeltaTime)
 				case MAP_EDITOR::TOOL_PAINT:
 					if (!pPickedObj)
 					{
-						CEditor_Obj* pObj = new CEditor_Collider(m_rGameWorld, m_stMapRenderInfo, iRow, iCol);
+						CEditor_Obj* pObj = new CEditor_Collider(m_rGameWorld, m_stMapRenderInfo, iRow, iCol, m_iColliderWidth, m_iColliderHeight);
 						pObj->SetGroupID(m_iGroupID);
 						m_listColliders.emplace_back(pObj);
 					}
@@ -456,6 +461,8 @@ void CMapEditor::RenderMode(HDC & _hdc, CCamera2D * _pCamera)
 	TextOut(_hdc, 30, (WINCY >> 1) + 90, szMode, lstrlen(szMode));
 	swprintf_s(szMode, TEXT("Door : %c"), (m_eDoorType == MAP_OBJ::TYPE_DOOR_HOR ? 'H' : 'V'));
 	TextOut(_hdc, 30, (WINCY >> 1) + 120, szMode, lstrlen(szMode));
+	swprintf_s(szMode, TEXT("ColSize [W, H : %d, %d]"), m_iColliderWidth, m_iColliderHeight);
+	TextOut(_hdc, 30, (WINCY >> 1) + 150, szMode, lstrlen(szMode));
 }
 
 void CMapEditor::RenderCursorInfo(HDC & _hdc, CCamera2D * _pCamera)
@@ -679,6 +686,18 @@ void CMapEditor::MakeMapData(void *)
 		m_pSpawnPoint->MakeMapData(fpOut);
 	}
 	if (fpOut) fclose(fpOut);
+}
+
+void CMapEditor::ChangeColliderWidth(void * _pColliderDeltaWidth)
+{
+	int iDeltaWidth = m_iColliderWidth + *static_cast<int*>(_pColliderDeltaWidth);
+	m_iColliderWidth = Clamp(iDeltaWidth, 1, 1000);
+}
+
+void CMapEditor::ChangeColliderHeight(void * _pColliderDeltaHeight)
+{
+	int iDeltaHeight = m_iColliderHeight + *static_cast<int*>(_pColliderDeltaHeight);
+	m_iColliderHeight = Clamp(iDeltaHeight, 1, 1000);
 }
 
 

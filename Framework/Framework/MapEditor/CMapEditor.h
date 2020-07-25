@@ -72,6 +72,8 @@ public:
 	void LoadMap(void*);
 	void ChangeDoorType(void* _pDoorType);
 	void MakeMapData(void*);
+	void ChangeColliderWidth(void* _pColliderDeltaWidth);
+	void ChangeColliderHeight(void* _pColliderDeltaHeight);
 
 private:
 	CGameWorld& m_rGameWorld;
@@ -85,6 +87,8 @@ private:
 	int m_iDrawLayerIndex = 0;									// 아틀라스 오브젝트 드로우 레이어 인덱스
 	int m_iGroupID = 0;											// 할당할 트리거 아이디 최대 9개를 할당 할 수 있다. (예정)
 	int m_iMapID = 0;											// 하나의 맵에 부여되는 ID 맵에디터는 최대 5개의 아이디를 부여할 수 있다. (예정)
+	int m_iColliderWidth = 1;
+	int m_iColliderHeight = 1;
 	list<CEditor_Obj*> m_listColliders;							// 콜라이더
 	list<CEditor_Obj*> m_listTriggers;							// 트리거들
 	list<CEditor_Obj*> m_listDoors;								// 도어들
