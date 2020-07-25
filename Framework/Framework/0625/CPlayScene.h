@@ -33,6 +33,7 @@ private:
 	CUI_SkillKeyBinding* m_pSkillKeyBindingUI = nullptr;
 	CUI_Minimap* m_pMinimapUI = nullptr;
 	CUI_Money* m_pMoneyUI = nullptr;
+	list<CObj*> m_listItems;
 	list<CObj*> m_listMonsters;
 	list<CObj*> m_listHitEffects;
 	list<CSpawnerGenerator*> m_listSpawnerGenerators;

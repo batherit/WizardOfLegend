@@ -140,6 +140,10 @@
 #define COIN_OUTPUT_WIDTH	24
 #define COIN_OUTPUT_HEIGHT	24
 
+// 드랍되는 카드 아이템 사이즈
+#define ITEM_DROPPED_CARD_WIDTH		128
+#define ITEM_DROPPED_CARD_HEIGHT	192
+
 // 타격 이펙트 비트맵 출력 사이즈
 #define HIT_EFFECT_OUTPUT_WIDTH		230
 #define HIT_EFFECT_OUTPUT_HEIGHT	230

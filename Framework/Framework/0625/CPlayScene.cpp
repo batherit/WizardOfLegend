@@ -15,6 +15,9 @@
 #include "CUI_SkillKeyBinding.h"
 #include "CUI_Money.h"
 #include "CUI_Minimap.h"
+#include "CItem_DroppedCard.h"
+#include "CFireDragonSkillState.h"
+#include "CIceCrystalSkillState.h"
 #include "CHitEffect.h"
 #include "CCamera2D.h"
 
@@ -46,6 +49,8 @@ void CPlayScene::ResetScene(void)
 	m_pMinimapUI = new CUI_Minimap(m_rGameWorld, m_pMapLoader, m_pPlayer);
 	m_pMoneyUI = new CUI_Money(m_rGameWorld, (WINCX >> 1) - 100, WINCY - 50, *m_pPlayer);
 	m_listSpawners.emplace_back(new CPlayerSpawner(m_rGameWorld, m_pPlayer, pairSpawnPoint.first, pairSpawnPoint.second));
+	m_listItems.emplace_back(new CItem_DroppedCard(m_rGameWorld, pairSpawnPoint.first, pairSpawnPoint.second, new CFireDragonSkillState(*TO_PLAYER_WOL(m_pPlayer))));
+	m_listItems.emplace_back(new CItem_DroppedCard(m_rGameWorld, pairSpawnPoint.first + 100, pairSpawnPoint.second, new CIceCrystalSkillState(*TO_PLAYER_WOL(m_pPlayer))));
 	//TO_PLAYER_WOL(m_pPlayer)->Respawn(pairSpawnPoint.first, pairSpawnPoint.second);
 	m_vecObjsToRender.reserve(100);
 	m_vecObjsToRender.clear();
@@ -67,6 +72,9 @@ int CPlayScene::Update(float _fDeltaTime)
 	for (auto& pObj : m_listMonsters) {
 		pObj->Update(_fDeltaTime);
 	}
+	for (auto& pObj : m_listItems) {
+		pObj->Update(_fDeltaTime);
+	}
 	for (auto& pObj : m_listSpawners) {
 		pObj->Update(_fDeltaTime);
 	}
@@ -74,6 +82,8 @@ int CPlayScene::Update(float _fDeltaTime)
 		pObj->Update(_fDeltaTime);
 	}
 	m_pPlayer->Update(_fDeltaTime);
+
+
 	m_pPlayerBarUI->Update(_fDeltaTime);
 	m_pSkillBarUI->Update(_fDeltaTime);
 	m_pSkillKeyBindingUI->Update(_fDeltaTime);
@@ -347,6 +357,7 @@ void CPlayScene::LateUpdate(void)
 
 	m_pMapLoader->LateUpdate(); // 충돌한 트리거를 제거
 	m_listSpawnerGenerators.remove_if([](auto& pObj) { return pObj == nullptr; });
+	CollectGarbageObjects(m_listItems);
 	CollectGarbageObjects(m_listMonsters);
 	CollectGarbageObjects(m_listSpawners);
 	CollectGarbageObjects(m_listHitEffects);
@@ -361,6 +372,12 @@ void CPlayScene::Render(HDC & _hdc, CCamera2D * _pCamera)
 		m_vecObjsToRender.emplace_back(pObj);
 	}
 	for (auto& pObj : m_listMonsters) {
+		m_vecObjsToRender.emplace_back(pObj);
+	}
+	for (auto& pObj : m_listItems) {
+		m_vecObjsToRender.emplace_back(pObj);
+	}
+	for (auto& pObj : m_pMapLoader->GetAtlasObjsGroups(2)) {
 		m_vecObjsToRender.emplace_back(pObj);
 	}
 
@@ -410,6 +427,7 @@ void CPlayScene::Release(void)
 	DeleteSafe(m_pMinimapUI);
 	DeleteSafe(m_pMoneyUI);
 	DeleteSafe(m_pMapLoader);
+	DeleteListSafe(m_listItems);
 	DeleteListSafe(m_listSpawnerGenerators);
 	DeleteListSafe(m_listMonsters);
 	DeleteListSafe(m_listHitEffects);

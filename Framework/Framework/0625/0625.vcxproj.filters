@@ -159,6 +159,9 @@
     <Filter Include="소스 파일\03.State\031.PlayerSKills\034.DashSkillState">
       <UniqueIdentifier>{9ca421dc-0346-4bb9-838e-59cd2da90766}</UniqueIdentifier>
     </Filter>
+    <Filter Include="소스 파일\03.Obj\036.Item">
+      <UniqueIdentifier>{1c02fa2d-baa8-422c-96f3-cb4a42b6a1c4}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CLayer.h">
@@ -473,6 +476,7 @@
     <ClInclude Include="CPlayScene.h">
       <Filter>소스 파일\04.Scene</Filter>
     </ClInclude>
+    <ClInclude Include="CItem_DroppedCard.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CLayer.cpp">
@@ -789,6 +793,9 @@
     </ClCompile>
     <ClCompile Include="CUI_Minimap.cpp">
       <Filter>소스 파일\03.Obj\040.UI</Filter>
+    </ClCompile>
+    <ClCompile Include="CItem_DroppedCard.cpp">
+      <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

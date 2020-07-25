@@ -15,6 +15,7 @@ CIceCrystalSkillState::CIceCrystalSkillState(CPlayerWOL & _rOwner)
 	m_hDCState[STATE_HDC::STATE_HDC_SKILLBAR] = CBitmapMgr::GetInstance()->GetBitmapMemDC(TEXT("ICE_CRYSTAL_SKILLBAR"));
 	m_hDCState[STATE_HDC::STATE_HDC_ICON] = CBitmapMgr::GetInstance()->GetBitmapMemDC(TEXT("ICE_CRYSTAL_ICON"));
 	m_hDCState[STATE_HDC::STATE_HDC_DESC] = CBitmapMgr::GetInstance()->GetBitmapMemDC(TEXT("ICE_CRYSTAL_EX"));
+	m_hDCState[STATE_HDC::STATE_HDC_CARD] = CBitmapMgr::GetInstance()->GetBitmapMemDC(TEXT("ICE_CRYSTAL_CARD"));
 }
 
 CIceCrystalSkillState::~CIceCrystalSkillState()

@@ -212,6 +212,13 @@ void CWOL_World::LoadResources(void)
 	CBitmapMgr::GetInstance()->InsertBitmap(TEXT("../Textures/GAIA_ARMOR_ICON.bmp"), TEXT("GAIA_ARMOR_ICON"));
 	CBitmapMgr::GetInstance()->InsertBitmap(TEXT("../Textures/ICE_BLAST_ICON.bmp"), TEXT("ICE_BLAST_ICON"));
 
+	// 드랍되는 카드
+	CBitmapMgr::GetInstance()->InsertBitmap(TEXT("../Textures/FIRE_DRAGON_CARD.bmp"), TEXT("FIRE_DRAGON_CARD"));
+	CBitmapMgr::GetInstance()->InsertBitmap(TEXT("../Textures/ICE_CRYSTAL_CARD.bmp"), TEXT("ICE_CRYSTAL_CARD"));
+	CBitmapMgr::GetInstance()->InsertBitmap(TEXT("../Textures/ICE_BLAST_CARD.bmp"), TEXT("ICE_BLAST_CARD"));
+
+	// 상점 아이템
+	CBitmapMgr::GetInstance()->InsertBitmap(TEXT("../Textures/POTION.bmp"), TEXT("POTION"));
 
 	// 플레이어 렌더링
 	CBitmapMgr::GetInstance()->InsertBitmap(TEXT("../Textures/BACK_COMPLETE.bmp"), TEXT("PLAYER_BACK"));

@@ -41,6 +41,7 @@ public:
 	void SetSignatureMode(bool _bIsSignatureMode) { m_bIsSignatureMode = _bIsSignatureMode; if(!_bIsSignatureMode) SetMana(0.f); }
 	void SwapSkillKey(SKILL::E_KEY _eKey1, SKILL::E_KEY _eKey2);
 	void SetSkillConfirmed(bool value) { m_bIsSkillConfirmed = value; }
+	bool AquireSkillState(CState<CPlayerWOL>* _pSkillState);
 
 private:
 	CStateMgr<CPlayerWOL>* m_pStateMgr = nullptr;
