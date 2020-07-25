@@ -20,6 +20,7 @@
 #include "CIceCrystalSkillState.h"
 #include "CHitEffect.h"
 #include "CCamera2D.h"
+#include "CWizardFire.h"
 
 
 CPlayScene::CPlayScene(CGameWorld& _rGameWorld, const char* _szMapDirectory)
@@ -292,6 +293,7 @@ void CPlayScene::LateUpdate(void)
 		}
 	}
 
+	// 1) 플레이어 스킬과 벽과의 충돌 체크
 	for (auto& pPlayerSkill : TO_WOL(m_rGameWorld).GetListUsedPlayerSkills()) {
 		DO_IF_IS_VALID_OBJ(pPlayerSkill) {
 			pPlayerSkill->LateUpdate(); // 충돌 리스트를 정리
@@ -321,6 +323,30 @@ void CPlayScene::LateUpdate(void)
 		}
 	}
 
+	// 2) 플레이어 스킬과 문과의 충돌 체크
+	for (auto& pPlayerSkill : TO_WOL(m_rGameWorld).GetListUsedPlayerSkills()) {
+		DO_IF_IS_VALID_OBJ(pPlayerSkill) {
+			pPlayerSkill->LateUpdate(); // 충돌 리스트를 정리
+			pCollider = pPlayerSkill->GetCollider(COLLIDER::TYPE_WALL);
+			if (!pCollider) continue;
+
+			RECT rcCollisionRect;
+			for (auto& pDoor : m_pMapLoader->GetDoors()) {
+				DO_IF_IS_NOT_VALID_OBJ(pPlayerSkill) break;
+				if (IntersectRect(&rcCollisionRect, &pCollider->GetRect(), &pDoor->GetRect())) {
+					m_listHitEffects.emplace_back(
+						new CHitEffect(m_rGameWorld,
+							pPlayerSkill->GetX(),
+							pPlayerSkill->GetY())
+					);
+					pPlayerSkill->SetValid(false);
+					break;
+				}
+			}
+		}
+	}
+
+	// 1) 몬스터 스킬과 벽과의 충돌 체크
 	for (auto& pMonsterSkill : TO_WOL(m_rGameWorld).GetListUsedMonsterSkills()) {
 		DO_IF_IS_VALID_OBJ(pMonsterSkill) {
 			pMonsterSkill->LateUpdate(); // 충돌 리스트를 정리
@@ -343,6 +369,53 @@ void CPlayScene::LateUpdate(void)
 								break;
 							}
 
+						}
+					}
+				}
+			}
+		}
+	}
+
+	// 2) 몬스터 스킬과 문과의 충돌 체크
+	for (auto& pMonsterSkill : TO_WOL(m_rGameWorld).GetListUsedMonsterSkills()) {
+		DO_IF_IS_VALID_OBJ(pMonsterSkill) {
+			pMonsterSkill->LateUpdate(); // 충돌 리스트를 정리
+			pCollider = pMonsterSkill->GetCollider(COLLIDER::TYPE_WALL);
+			if (!pCollider) continue;
+
+			RECT rcCollisionRect;
+			for (auto& pDoor : m_pMapLoader->GetDoors()) {
+				DO_IF_IS_NOT_VALID_OBJ(pMonsterSkill) break;
+				if (IntersectRect(&rcCollisionRect, &pCollider->GetRect(), &pDoor->GetRect())) {
+					m_listHitEffects.emplace_back(
+						new CHitEffect(m_rGameWorld,
+							pMonsterSkill->GetX(),
+							pMonsterSkill->GetY())
+					);
+					pMonsterSkill->SetValid(false);
+					break;
+				}
+			}
+		}
+	}
+
+	// 위자드 파이어 삭제 과정
+	CObj* pWizardFire = nullptr;
+	for (auto& pPlayerSkill : TO_WOL(m_rGameWorld).GetListUsedPlayerSkills()) {
+		DO_IF_IS_VALID_OBJ(pPlayerSkill) {
+			RECT rcCollisionRect;
+			for (auto& pMonsterSkill : TO_WOL(m_rGameWorld).GetListUsedMonsterSkills()) {
+				DO_IF_IS_VALID_OBJ(pMonsterSkill) {
+					pWizardFire = dynamic_cast<CWizardFire*>(pMonsterSkill);
+					if (pWizardFire) {
+						if (IntersectRect(&rcCollisionRect, &pPlayerSkill->GetRect(), &pWizardFire->GetRect())) {
+							m_listHitEffects.emplace_back(
+								new CHitEffect(m_rGameWorld,
+									pMonsterSkill->GetX(),
+									pMonsterSkill->GetY())
+							);
+							pMonsterSkill->SetValid(false);
+							break;
 						}
 					}
 				}

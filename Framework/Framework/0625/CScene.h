@@ -17,6 +17,8 @@ public:
 	virtual void Release(void) = 0;
 
 	virtual list<CObj*>* GetHitEffects() { return nullptr; }
+	virtual list<CObj*>* GetSpawners() { return nullptr; }
+	virtual list<CObj*>* GetMonsters() { return nullptr; }
 
 protected:
 	CGameWorld& m_rGameWorld;

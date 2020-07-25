@@ -51,6 +51,7 @@ void CMonster_Wizard::LateUpdate(void)
 {
 	m_pStateMgr->LateUpdate();
 	m_pColliders[COLLIDER::TYPE_WALL]->LateUpdate();
+	m_listWizardBalls.remove_if([](auto& _pObj) { return !IS_VALID_OBJ(_pObj); });
 }
 
 void CMonster_Wizard::Render(HDC & _hdc, CCamera2D * _pCamera)

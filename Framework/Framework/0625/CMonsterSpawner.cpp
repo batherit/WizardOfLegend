@@ -13,13 +13,14 @@
 
 
 
-CMonsterSpawner::CMonsterSpawner(CGameWorld & _rGameWorld, list<CObj*>& _listMonsters, float _fTimeToDelay, float _fX, float _fY, SPAWN::E_TYPE _eType, int _iGroupID, CSpawnerGenerator* _pSpawnerGenerator)
+CMonsterSpawner::CMonsterSpawner(CGameWorld & _rGameWorld, list<CObj*>& _listMonsters, float _fTimeToDelay, float _fX, float _fY, SPAWN::E_TYPE _eType, int _iGroupID, CSpawnerGenerator* _pSpawnerGenerator, CObj* _pSummoner)
 	:
 	m_fTimeToDelay(_fTimeToDelay),
 	CSpawner(_rGameWorld, _fX, _fY),
 	m_listMonsters(_listMonsters),
 	m_eType(_eType),
-	m_pSpawnerGenerator(_pSpawnerGenerator)
+	m_pSpawnerGenerator(_pSpawnerGenerator),
+	m_pSummoner(_pSummoner)
 {
 	m_iGroupID = _iGroupID;
 
@@ -60,8 +61,6 @@ CMonsterSpawner::CMonsterSpawner(CGameWorld & _rGameWorld, list<CObj*>& _listMon
 		break;
 	}
 	SetNewAnimInfo(stAnimInfo);
-
-
 }
 
 CMonsterSpawner::~CMonsterSpawner()
@@ -82,19 +81,29 @@ int CMonsterSpawner::Update(float _fDeltaTime)
 			return 1;
 		}
 
+		CObj* pSpawnedMonster = nullptr;
 		if (!m_bIsSpawend && GetAnimProgress() >= 0.875f) {
 			switch (m_eType) {
 			case SPAWN::TYPE_SWORDMAN:
-				m_listMonsters.emplace_back(new CMonster_SwordMan(GetGameWorld(), GetX(), GetY(), m_iGroupID, TO_WOL(GetGameWorld()).GetPlayer(), m_pSpawnerGenerator));
+				pSpawnedMonster = new CMonster_SwordMan(GetGameWorld(), GetX(), GetY(), m_iGroupID, TO_WOL(GetGameWorld()).GetPlayer(), m_pSpawnerGenerator);
+				if (m_pSummoner && dynamic_cast<CMonster_Wizard*>(m_pSummoner)) dynamic_cast<CMonster_Wizard*>(m_pSummoner)->GetListWizardBalls().emplace_back(pSpawnedMonster);
+				m_listMonsters.emplace_back(pSpawnedMonster);
 				break;
 			case SPAWN::TYPE_ARCHER:
-				m_listMonsters.emplace_back(new CMonster_Archer(GetGameWorld(), GetX(), GetY(), m_iGroupID, TO_WOL(GetGameWorld()).GetPlayer(), m_pSpawnerGenerator));
+				pSpawnedMonster = new CMonster_Archer(GetGameWorld(), GetX(), GetY(), m_iGroupID, TO_WOL(GetGameWorld()).GetPlayer(), m_pSpawnerGenerator);
+				if (m_pSummoner && dynamic_cast<CMonster_Wizard*>(m_pSummoner)) dynamic_cast<CMonster_Wizard*>(m_pSummoner)->GetListWizardBalls().emplace_back(pSpawnedMonster);
+				m_listMonsters.emplace_back(pSpawnedMonster);
 				break;
 			case SPAWN::TYPE_WIZARD:
-				m_listMonsters.emplace_back(new CMonster_Wizard(GetGameWorld(), GetX(), GetY(), m_iGroupID, TO_WOL(GetGameWorld()).GetPlayer(), m_pSpawnerGenerator));
+				pSpawnedMonster = new CMonster_Wizard(GetGameWorld(), GetX(), GetY(), m_iGroupID, TO_WOL(GetGameWorld()).GetPlayer(), m_pSpawnerGenerator);
+				if (m_pSummoner && dynamic_cast<CMonster_Wizard*>(m_pSummoner)) dynamic_cast<CMonster_Wizard*>(m_pSummoner)->GetListWizardBalls().emplace_back(pSpawnedMonster);
+				m_listMonsters.emplace_back(pSpawnedMonster);
 				break;
 			case SPAWN::TYPE_WIZARDBALL:
-				m_listMonsters.emplace_back(new CMonster_WizardBall(GetGameWorld(), GetX(), GetY(), m_iGroupID, TO_WOL(GetGameWorld()).GetPlayer(), m_pSpawnerGenerator));
+				pSpawnedMonster = new CMonster_WizardBall(GetGameWorld(), GetX(), GetY(), m_iGroupID, TO_WOL(GetGameWorld()).GetPlayer(), m_pSpawnerGenerator);
+				if (m_pSummoner && dynamic_cast<CMonster_Wizard*>(m_pSummoner)) 
+					dynamic_cast<CMonster_Wizard*>(m_pSummoner)->GetListWizardBalls().emplace_back(pSpawnedMonster);
+				m_listMonsters.emplace_back(pSpawnedMonster);
 				break;
 			}
 			m_bIsSpawend = true;

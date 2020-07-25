@@ -180,6 +180,12 @@
 #define WIZARD_ATTACKABLE_RANGE_IN	250.f
 #define WIZARD_ATTACKABLE_RANGE_OUT	600.f
 
+// 위자드 파이어 비트맵 출력 사이즈
+#define WIZARD_FIRE_WIDTH			90.f
+#define WIZARD_FIRE_HEIGHT			90.f
+// 위자드 파이어 변수
+#define WIZARD_FIRE_SPEED			200.f
+
 // 위자드 볼 비트맵 출력 사이즈
 #define WIZARD_BALL_OUTPUT_WIDTH	90.f
 #define WIZARD_BALL_OUTPUT_HEIGHT	90.f

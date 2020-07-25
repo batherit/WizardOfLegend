@@ -30,6 +30,8 @@ public:
 	bool IsAttackable(void);
 	bool DirectDirectionToTarget(void);
 	MONSTER::E_DIRECTION GetArcherDir(void) const { return m_eWizardDir; }
+	int GetSummonedWizardBalls(void) const { return m_listWizardBalls.size(); }
+	list<CObj*>& GetListWizardBalls(void) { return m_listWizardBalls; }
 
 private:
 	void SetInitInfo(void);
@@ -41,5 +43,6 @@ private:
 	WIZARD::E_STATE m_eState = WIZARD::STATE_END;
 	MONSTER::E_DIRECTION m_eWizardDir = MONSTER::DIR_END;
 	CSpawnerGenerator* m_pSpawnerGenerator = nullptr;
+	list<CObj*> m_listWizardBalls;
 };
 

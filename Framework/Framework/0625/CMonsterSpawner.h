@@ -7,7 +7,7 @@ class CMonsterSpawner :
 	public CSpawner
 {
 public:
-	CMonsterSpawner(CGameWorld& _rGameWorld, list<CObj*>& _listMonsters, float _fTimeToDelay, float _fX, float _fY, SPAWN::E_TYPE _eType, int _iGroupID, CSpawnerGenerator* _pSpawnerGenerator = nullptr);
+	CMonsterSpawner(CGameWorld& _rGameWorld, list<CObj*>& _listMonsters, float _fTimeToDelay, float _fX, float _fY, SPAWN::E_TYPE _eType, int _iGroupID, CSpawnerGenerator* _pSpawnerGenerator = nullptr, CObj* _pSummoner = nullptr);
 	virtual ~CMonsterSpawner();
 
 	virtual int Update(float _fDeltaTime) override;
@@ -19,6 +19,7 @@ private:
 	list<CObj*>& m_listMonsters;
 	SPAWN::E_TYPE m_eType = SPAWN::TYPE_END;
 	CSpawnerGenerator* m_pSpawnerGenerator = nullptr;
+	CObj* m_pSummoner = nullptr;
 	bool m_bIsAnimStarted = false;
 };
 

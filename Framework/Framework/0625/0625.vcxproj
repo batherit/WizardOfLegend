@@ -252,6 +252,7 @@
     <ClInclude Include="CWizardBallState_Damage.h" />
     <ClInclude Include="CWizardBallState_Idle.h" />
     <ClInclude Include="CWizardBallState_Run.h" />
+    <ClInclude Include="CWizardFire.h" />
     <ClInclude Include="CWizardState_Attack.h" />
     <ClInclude Include="CWizardState_Damage.h" />
     <ClInclude Include="CWizardState_Death.h" />
@@ -411,13 +412,14 @@
     <ClCompile Include="CWizardBallState_Damage.cpp" />
     <ClCompile Include="CWizardBallState_Idle.cpp" />
     <ClCompile Include="CWizardBallState_Run.cpp" />
+    <ClCompile Include="CWizardFire.cpp" />
     <ClCompile Include="CWizardState_Attack.cpp" />
     <ClCompile Include="CWizardState_Damage.cpp" />
     <ClCompile Include="CWizardState_Death.cpp" />
     <ClCompile Include="CWizardState_Idle.cpp" />
     <ClCompile Include="CWizardState_Run.cpp" />
-    <ClCompile Include="CWOL_World.cpp" />
     <ClCompile Include="CDashSkillState.cpp" />
+    <ClCompile Include="CWOL_World.cpp" />
     <ClCompile Include="Function.cpp" />
     <ClCompile Include="GuidedBullet.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>

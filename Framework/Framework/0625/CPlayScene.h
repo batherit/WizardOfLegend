@@ -23,7 +23,9 @@ public:
 	virtual void Render(HDC & _hdc, CCamera2D * _pCamera) override;
 	virtual void Release(void) override;
 
-	virtual list<CObj*>* GetHitEffects() { return &m_listHitEffects; }
+	virtual list<CObj*>* GetHitEffects() override { return &m_listHitEffects; } 
+	virtual list<CObj*>* GetSpawners() override { return &m_listSpawners; }
+	virtual list<CObj*>* GetMonsters() override { return &m_listMonsters; } 
 
 private:
 	CMapLoader* m_pMapLoader = nullptr;

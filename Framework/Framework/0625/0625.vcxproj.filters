@@ -506,6 +506,7 @@
     <ClInclude Include="CItem_DroppedCard.h">
       <Filter>소스 파일\03.Obj\036.Item</Filter>
     </ClInclude>
+    <ClInclude Include="CWizardFire.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CLayer.cpp">
@@ -588,9 +589,6 @@
     </ClCompile>
     <ClCompile Include="CCollider.cpp">
       <Filter>소스 파일\03.Obj\01.MapObj</Filter>
-    </ClCompile>
-    <ClCompile Include="CWOL_World.cpp">
-      <Filter>소스 파일\01.MainApp</Filter>
     </ClCompile>
     <ClCompile Include="CMapFileMgr.cpp">
       <Filter>소스 파일\98.Manager</Filter>
@@ -828,6 +826,12 @@
     </ClCompile>
     <ClCompile Include="CItem_DroppedCard.cpp">
       <Filter>소스 파일\03.Obj\036.Item</Filter>
+    </ClCompile>
+    <ClCompile Include="CWOL_World.cpp">
+      <Filter>소스 파일\01.MainApp</Filter>
+    </ClCompile>
+    <ClCompile Include="CWizardFire.cpp">
+      <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
