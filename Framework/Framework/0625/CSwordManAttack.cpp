@@ -12,6 +12,9 @@ CSwordManAttack::CSwordManAttack(CGameWorld & _rGameWorld, float _fX, float _fY,
 	CObj(_rGameWorld, _fX, _fY, SWORDMAN_ATTACK_WIDTH, SWORDMAN_ATTACK_HEIGHT, _fToX, _fToY)
 {
 	m_hDCKeyAtlas = CBitmapMgr::GetInstance()->GetBitmapMemDC(TEXT("SWORDMAN_ATTACK"));
+
+	m_pColliders[COLLIDER::TYPE_DAMAGED] = this;
+
 	float fDegree = GetPositiveDegreeByVector(_fToX, _fToY);
 	OBJ::E_DIRECTION eDir = GetDirByDegree(fDegree);
 
@@ -71,7 +74,8 @@ int CSwordManAttack::Update(float _fDeltaTime)
 
 void CSwordManAttack::LateUpdate(void)
 {
-	m_listCollidedObjs.remove_if([](auto& _pObj) { return !IS_VALID_OBJ(_pObj); });
+	UpdateCollidedObjs();
+	//m_pColliders[COLLIDER::TYPE_DAMAGED]->LateUpdate(); //this로 자기자신 업데이트 중이면 할 필요x
 }
 
 void CSwordManAttack::Render(HDC & _hdc, CCamera2D * _pCamera)

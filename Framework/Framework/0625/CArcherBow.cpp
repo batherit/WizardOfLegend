@@ -4,6 +4,7 @@
 #include "CCamera2D.h"
 #include "CMonster_Archer.h"
 #include "CSpace.h"
+#include "CCollider.h"
 
 
 
@@ -14,7 +15,7 @@ CArcherBow::CArcherBow(CGameWorld & _rGameWorld, CObj& _rOwner)
 {
 	m_hDCKeyAtlas[ARCHER::DIR_LEFT] = CBitmapMgr::GetInstance()->GetBitmapMemDC(TEXT("ARCHER_BOW_LEFT"));
 	m_hDCKeyAtlas[ARCHER::DIR_RIGHT] = CBitmapMgr::GetInstance()->GetBitmapMemDC(TEXT("ARCHER_BOW_RIGHT"));
-	
+
 	_anim_info stAnimInfo;
 
 	stAnimInfo.iState = GetAnimState();

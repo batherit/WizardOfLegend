@@ -13,6 +13,7 @@ CObj::CObj(CGameWorld& _rGameWorld)
 	m_fSpeed(0.f),
 	m_pDrawFunc(Rectangle)
 {
+	ZeroMemory(m_pColliders, sizeof(m_pColliders));
 }
 
 CObj::CObj(CGameWorld& _rGameWorld, float _fX /*= 0*/, float _fY /*= 0*/, size_t _iWidth /*= 10*/, size_t _iHeight /*= 10*/,
@@ -29,6 +30,7 @@ CObj::CObj(CGameWorld& _rGameWorld, float _fX /*= 0*/, float _fY /*= 0*/, size_t
 	m_fSpeed(_fSpeed),
 	m_pDrawFunc(_pDrawFunc)
 {
+	ZeroMemory(m_pColliders, sizeof(m_pColliders));
 }
 
 
@@ -102,7 +104,7 @@ bool CObj::CheckCollision(CObj * _pObj, POINT* _pCollisionPoint /*= nullptr*/)
 		if (iter == m_listCollidedObjs.end()) {
 			// 충돌 리스트에 없는데 충돌했다면,
 			RECT rcCollided;
-			if (IntersectRect(&rcCollided, &_pObj->GetRect(), &this->GetRect())) {
+			if (IntersectRect(&rcCollided, &_pObj->GetCollider(COLLIDER::TYPE_DAMAGED)->GetRect(), &this->GetCollider(COLLIDER::TYPE_DAMAGED)->GetRect())) {
 				POINT ptCollisionPoint = {
 					((rcCollided.right + rcCollided.left) >> 1),
 					((rcCollided.bottom + rcCollided.top) >> 1)

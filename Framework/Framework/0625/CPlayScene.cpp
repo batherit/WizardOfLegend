@@ -15,6 +15,7 @@
 #include "CUI_SkillKeyBinding.h"
 #include "CUI_Money.h"
 #include "CHitEffect.h"
+#include "CCamera2D.h"
 
 
 CPlayScene::CPlayScene(CGameWorld& _rGameWorld, const char* _szMapDirectory)
@@ -81,6 +82,7 @@ int CPlayScene::Update(float _fDeltaTime)
 
 void CPlayScene::LateUpdate(void)
 {
+	// 트리거 박스와의 충돌 체크
 	for (auto& pGroup : m_pMapLoader->GetTriggersGroups()) {
 		if(pGroup)
 		if (IsCollided(m_pPlayer->GetRect(), pGroup->GetRect())) {
@@ -96,6 +98,162 @@ void CPlayScene::LateUpdate(void)
 		}
 	}
 
+
+	// 1) 플레이어와 벽과의 충돌 체크
+	CObj* pCollider = m_pPlayer->GetCollider(COLLIDER::TYPE_WALL);
+	pCollider->LateUpdate();
+	RECT rcColliderRect = pCollider->GetRect();
+	for (auto* pGroup : m_pMapLoader->GetCollidersGroups()) {
+		if (pGroup) {
+			if (IsCollided(rcColliderRect, pGroup->GetRect())) {
+				for (auto& pObj : pGroup->GetMapObjs()) {
+					RECT rcCollidedPoint;
+					if (IntersectRect(&rcCollidedPoint, &rcColliderRect, &pObj->GetRect())) {
+						if (rcCollidedPoint.bottom - rcCollidedPoint.top > rcCollidedPoint.right - rcCollidedPoint.left) {
+							if (pCollider->GetX() <= pObj->GetX()) {
+								m_pPlayer->MoveTo(-(rcCollidedPoint.right - rcCollidedPoint.left), 0.f);
+							}
+							else if (pCollider->GetX() >= pObj->GetX()) {
+								m_pPlayer->MoveTo((rcCollidedPoint.right - rcCollidedPoint.left), 0.f);
+							}
+						}
+						else {
+							if (pCollider->GetY() >= pObj->GetY()) {
+								m_pPlayer->MoveTo(0.f, (rcCollidedPoint.bottom - rcCollidedPoint.top));
+							}
+							else if (pCollider->GetY() <= pObj->GetY()) {
+								m_pPlayer->MoveTo(0.f, -(rcCollidedPoint.bottom - rcCollidedPoint.top));
+							}
+
+						}
+						pCollider->LateUpdate();
+						rcColliderRect = pCollider->GetRect();
+					}
+				}
+			}
+		}
+	}
+
+	// 2) 플레이어와 문과의 충돌 체크
+	pCollider = m_pPlayer->GetCollider(COLLIDER::TYPE_WALL);
+	pCollider->LateUpdate();
+	rcColliderRect = pCollider->GetRect();
+	for (auto* pObj : m_pMapLoader->GetDoors()) {
+		RECT rcCollidedPoint;
+		if (IntersectRect(&rcCollidedPoint, &rcColliderRect, &pObj->GetRect())) {
+			if (rcCollidedPoint.bottom - rcCollidedPoint.top > rcCollidedPoint.right - rcCollidedPoint.left) {
+				if (pCollider->GetX() <= pObj->GetX()) {
+					m_pPlayer->MoveTo(-(rcCollidedPoint.right - rcCollidedPoint.left), 0.f);
+				}
+				else if (pCollider->GetX() >= pObj->GetX()) {
+					m_pPlayer->MoveTo((rcCollidedPoint.right - rcCollidedPoint.left), 0.f);
+				}
+			}
+			else {
+				if (pCollider->GetY() >= pObj->GetY()) {
+					m_pPlayer->MoveTo(0.f, (rcCollidedPoint.bottom - rcCollidedPoint.top));
+				}
+				else if (pCollider->GetY() <= pObj->GetY()) {
+					m_pPlayer->MoveTo(0.f, -(rcCollidedPoint.bottom - rcCollidedPoint.top));
+				}
+
+			}
+			pCollider->LateUpdate();
+			rcColliderRect = pCollider->GetRect();
+		}
+	}
+
+
+	// 3) 플레이어와 몬스터 스킬과의 충돌 체크
+	for (auto& pMonsterSkill : TO_WOL(m_rGameWorld).GetListUsedMonsterSkills()) {
+		DO_IF_IS_VALID_OBJ(pMonsterSkill) {
+			pMonsterSkill->LateUpdate(); // 충돌 리스트를 정리
+			DO_IF_IS_VALID_OBJ(m_pPlayer) {
+				POINT ptCollisionPoint;
+				if (pMonsterSkill->CheckCollision(m_pPlayer, &ptCollisionPoint)) {
+					m_listHitEffects.emplace_back(
+						new CHitEffect(m_rGameWorld, ptCollisionPoint.x, ptCollisionPoint.y)
+					);
+				}
+			}
+		}
+	}
+
+
+	// 1) 몬스터와 벽과의 충돌 체크
+	for (auto& pMonster : m_listMonsters) {
+		DO_IF_IS_VALID_OBJ(pMonster) {
+			pCollider = pMonster->GetCollider(COLLIDER::TYPE_WALL);
+			pCollider->LateUpdate();
+			rcColliderRect = pCollider->GetRect();
+			for (auto* pGroup : m_pMapLoader->GetCollidersGroups()) {
+				if (pGroup) {
+					if (IsCollided(rcColliderRect, pGroup->GetRect())) {
+						for (auto& pObj : pGroup->GetMapObjs()) {
+							RECT rcCollidedPoint;
+							if (IntersectRect(&rcCollidedPoint, &rcColliderRect, &pObj->GetRect())) {
+								if (rcCollidedPoint.bottom - rcCollidedPoint.top > rcCollidedPoint.right - rcCollidedPoint.left) {
+									if (pCollider->GetX() <= pObj->GetX()) {
+										pMonster->MoveTo(-(rcCollidedPoint.right - rcCollidedPoint.left), 0.f);
+									}
+									else if (pCollider->GetX() >= pObj->GetX()) {
+										pMonster->MoveTo((rcCollidedPoint.right - rcCollidedPoint.left), 0.f);
+									}
+								}
+								else {
+									if (pCollider->GetY() >= pObj->GetY()) {
+										pMonster->MoveTo(0.f, (rcCollidedPoint.bottom - rcCollidedPoint.top));
+									}
+									else if (pCollider->GetY() <= pObj->GetY()) {
+										pMonster->MoveTo(0.f, -(rcCollidedPoint.bottom - rcCollidedPoint.top));
+									}
+
+								}
+								pCollider->LateUpdate();
+								rcColliderRect = pCollider->GetRect();
+							}
+						}
+					}
+				}
+			}
+		}
+	}
+
+	// 2) 몬스터와 문과의 충돌 체크
+	for (auto& pMonster : m_listMonsters) {
+		DO_IF_IS_VALID_OBJ(pMonster) {
+			pCollider = pMonster->GetCollider(COLLIDER::TYPE_WALL);
+			pCollider->LateUpdate();
+			rcColliderRect = pCollider->GetRect();
+			for (auto* pObj : m_pMapLoader->GetDoors()) {
+				RECT rcCollidedPoint;
+				if (IntersectRect(&rcCollidedPoint, &rcColliderRect, &pObj->GetRect())) {
+					if (rcCollidedPoint.bottom - rcCollidedPoint.top > rcCollidedPoint.right - rcCollidedPoint.left) {
+						if (pCollider->GetX() <= pObj->GetX()) {
+							pMonster->MoveTo(-(rcCollidedPoint.right - rcCollidedPoint.left), 0.f);
+						}
+						else if (pCollider->GetX() >= pObj->GetX()) {
+							pMonster->MoveTo((rcCollidedPoint.right - rcCollidedPoint.left), 0.f);
+						}
+					}
+					else {
+						if (pCollider->GetY() >= pObj->GetY()) {
+							pMonster->MoveTo(0.f, (rcCollidedPoint.bottom - rcCollidedPoint.top));
+						}
+						else if (pCollider->GetY() <= pObj->GetY()) {
+							pMonster->MoveTo(0.f, -(rcCollidedPoint.bottom - rcCollidedPoint.top));
+						}
+
+					}
+					pCollider->LateUpdate();
+					rcColliderRect = pCollider->GetRect();
+				}
+			}
+		}
+	}
+	
+
+	// 3) 몬스터와 플레이어 스킬과의 충돌 체크
 	for (auto& pPlayerSkill : TO_WOL(m_rGameWorld).GetListUsedPlayerSkills()) {
 		DO_IF_IS_VALID_OBJ(pPlayerSkill) {
 			pPlayerSkill->LateUpdate(); // 충돌 리스트를 정리
@@ -117,17 +275,70 @@ void CPlayScene::LateUpdate(void)
 		}
 	}
 
+	for (auto& pPlayerSkill : TO_WOL(m_rGameWorld).GetListUsedPlayerSkills()) {
+		DO_IF_IS_VALID_OBJ(pPlayerSkill) {
+			pPlayerSkill->LateUpdate(); // 충돌 리스트를 정리
+			pCollider = pPlayerSkill->GetCollider(COLLIDER::TYPE_WALL);
+			if (!pCollider) continue;
+
+			RECT rcCollisionRect;
+			for (auto& pGroup : m_pMapLoader->GetCollidersGroups()) {
+				DO_IF_IS_NOT_VALID_OBJ(pPlayerSkill) break;
+					if(pGroup) {
+					if (IsCollided(pCollider->GetRect(), pGroup->GetRect())) {
+						for (auto& pObj : pGroup->GetMapObjs()) {
+							if (IntersectRect(&rcCollisionRect, &pCollider->GetRect(), &pObj->GetRect())) {
+								m_listHitEffects.emplace_back(
+									new CHitEffect(m_rGameWorld, 
+										pPlayerSkill->GetX(),
+										pPlayerSkill->GetY())
+								);
+								pPlayerSkill->SetValid(false);
+								break;
+							}
+							
+						}
+					}
+				}
+			}
+		}
+	}
+
 	for (auto& pMonsterSkill : TO_WOL(m_rGameWorld).GetListUsedMonsterSkills()) {
 		DO_IF_IS_VALID_OBJ(pMonsterSkill) {
 			pMonsterSkill->LateUpdate(); // 충돌 리스트를 정리
-			DO_IF_IS_VALID_OBJ(m_pPlayer) {
-				POINT ptCollisionPoint;
-				if (pMonsterSkill->CheckCollision(m_pPlayer, &ptCollisionPoint)) {
-					m_listHitEffects.emplace_back(
-						new CHitEffect(m_rGameWorld, ptCollisionPoint.x, ptCollisionPoint.y)
-					);
+			pCollider = pMonsterSkill->GetCollider(COLLIDER::TYPE_WALL);
+			if (!pCollider) continue;
+
+			RECT rcCollisionRect;
+			for (auto& pGroup : m_pMapLoader->GetCollidersGroups()) {
+				DO_IF_IS_NOT_VALID_OBJ(pMonsterSkill) break;
+				if (pGroup) {
+					if (IsCollided(pCollider->GetRect(), pGroup->GetRect())) {
+						for (auto& pObj : pGroup->GetMapObjs()) {
+							if (IntersectRect(&rcCollisionRect, &pCollider->GetRect(), &pObj->GetRect())) {
+								m_listHitEffects.emplace_back(
+									new CHitEffect(m_rGameWorld,
+										pMonsterSkill->GetX(),
+										pMonsterSkill->GetY())
+								);
+								pMonsterSkill->SetValid(false);
+								break;
+							}
+
+						}
+					}
 				}
 			}
+		}
+	}
+
+
+
+	// 콜라이더 재설정과 충돌체 정리
+	for (auto& pMonster : m_listMonsters) {
+		DO_IF_IS_VALID_OBJ(pMonster) {
+			pMonster->LateUpdate();
 		}
 	}
 
@@ -150,8 +361,12 @@ void CPlayScene::Render(HDC & _hdc, CCamera2D * _pCamera)
 		m_vecObjsToRender.emplace_back(pObj);
 	}
 
+	RECT rcScreenRect;
 	for (auto& pObj : m_pMapLoader->GetAtlasObjsGroups(0)) {
-		pObj->Render(_hdc, _pCamera);
+		rcScreenRect = _pCamera->GetScreenRect(pObj->GetRect());
+		if (IsCollided(m_rGameWorld.GetViewSpace()->GetRect(), rcScreenRect)) {
+			pObj->Render(_hdc, _pCamera);
+		}
 	}
 
 	// y축 정렬
@@ -173,6 +388,9 @@ void CPlayScene::Render(HDC & _hdc, CCamera2D * _pCamera)
 	for (auto& pObj : m_pMapLoader->GetAtlasObjsGroups(1)) {
 		pObj->Render(_hdc, _pCamera);
 	}
+	/*for (auto& pObj : m_pMapLoader->GetCollidersGroups()) {
+		pObj->Render(_hdc, _pCamera);
+	}*/
 
 	m_pPlayerBarUI->Render(_hdc, _pCamera);
 	m_pSkillBarUI->Render(_hdc, _pCamera);

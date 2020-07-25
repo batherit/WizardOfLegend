@@ -9,6 +9,7 @@
 #include "CSwordManState_Damage.h"
 #include "CSpawnerGenerator.h"
 #include "CUI_DamageText.h"
+#include "CCollider.h"
 
 
 CMonster_SwordMan::CMonster_SwordMan(CGameWorld & _rGameWorld, CSpawnerGenerator* _pSpawnerGenerator/* = nullptr*/)
@@ -48,6 +49,7 @@ int CMonster_SwordMan::Update(float _fDeltaTime)
 void CMonster_SwordMan::LateUpdate(void)
 {
 	m_pStateMgr->LateUpdate();
+	m_pColliders[COLLIDER::TYPE_WALL]->LateUpdate();
 }
 
 void CMonster_SwordMan::Render(HDC & _hdc, CCamera2D * _pCamera)
@@ -185,6 +187,9 @@ bool CMonster_SwordMan::GoToTarget(float _fDeltaTime)
 void CMonster_SwordMan::SetInitInfo(void)
 {
 	DeleteSafe(m_pStateMgr);
+	DeleteSafe(m_pColliders[COLLIDER::TYPE_WALL]);
+	m_pColliders[COLLIDER::TYPE_WALL] = new CCollider(GetGameWorld(), this, 0.f, 67.f, 70.f, 50.f);
+	m_pColliders[COLLIDER::TYPE_DAMAGED] = this;
 	m_pStateMgr = new CStateMgr<CMonster_SwordMan>(GetGameWorld(), *this);
 	m_pStateMgr->SetNextState(new CSwordManState_Idle(*this));
 	m_fMaxHp = cfSwordManMaxHp;

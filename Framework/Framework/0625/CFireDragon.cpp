@@ -4,7 +4,7 @@
 #include "CCamera2D.h"
 #include "CSpace.h"
 #include "CFireParticle.h"
-
+#include "CCollider.h"
 
 
 CFireDragon::CFireDragon(CGameWorld & _rGameWorld, float _fX, float _fY, float _fToX, float _fToY, PLAYER::E_STATE _eAttackType)
@@ -12,6 +12,10 @@ CFireDragon::CFireDragon(CGameWorld & _rGameWorld, float _fX, float _fY, float _
 	CObj(_rGameWorld, _fX, _fY, PLAYER_FIRE_DRAGON_WIDTH, PLAYER_FIRE_DRAGON_HEIGHT, _fToX, _fToY, PLAYER_FIRE_DRAGON_SPEED)
 {
 	m_hDCKeyAtlas = CBitmapMgr::GetInstance()->GetBitmapMemDC(TEXT("SKILL_FIREDRAGON"));
+
+	m_pColliders[COLLIDER::TYPE_WALL] = new CCollider(_rGameWorld, this, 0.0f, 0.0f, 80.f, 80.f);
+	m_pColliders[COLLIDER::TYPE_DAMAGED] = m_pColliders[COLLIDER::TYPE_WALL];
+
 	// øÏ : 0, ¡¬ : 1
 	m_iState = (_fToX > 0 ? 0 : 1);
 
@@ -94,6 +98,7 @@ CFireDragon::CFireDragon(CGameWorld & _rGameWorld, float _fX, float _fY, float _
 
 CFireDragon::~CFireDragon()
 {
+	Release();
 }
 
 int CFireDragon::Update(float _fDeltaTime)
@@ -127,6 +132,8 @@ int CFireDragon::Update(float _fDeltaTime)
 
 void CFireDragon::LateUpdate(void)
 {
+	UpdateCollidedObjs();
+	m_pColliders[COLLIDER::TYPE_WALL]->LateUpdate();
 }
 
 void CFireDragon::Render(HDC & _hdc, CCamera2D * _pCamera)
@@ -158,6 +165,8 @@ void CFireDragon::Render(HDC & _hdc, CCamera2D * _pCamera)
 
 void CFireDragon::Release(void)
 {
+	DeleteSafe(m_pColliders[COLLIDER::TYPE_WALL]);
+	m_pColliders[COLLIDER::TYPE_DAMAGED] = nullptr;	// æË¿∫ ∫πªÁ¿Ãπ«∑Œ.
 }
 
 int CFireDragon::GetSpriteIndex(void)

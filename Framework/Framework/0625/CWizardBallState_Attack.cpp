@@ -4,6 +4,9 @@
 #include "CStateMgr.h"
 #include "CWizardBallState_Run.h"
 #include "CWizardBallState_Idle.h"
+#include "CWOL_World.h"
+#include "CScene.h"
+#include "CHitEffect.h"
 
 
 
@@ -40,8 +43,8 @@ int CWizardBallState_Attack::Update(float _fDeltaTime)
 		
 			return 0;
 		}
-			
 	}
+
 	if (!m_bIsAttacking) {
 		if (m_rOwner.UpdateAnim(_fDeltaTime) == 1) {
 			m_rOwner.GetAnimInfo().iState = 0;
@@ -64,6 +67,17 @@ int CWizardBallState_Attack::Update(float _fDeltaTime)
 
 void CWizardBallState_Attack::LateUpdate(void)
 {
+	if (m_bIsAttacking) {
+		m_rOwner.UpdateCollidedObjs(); // 충돌 리스트를 정리
+		CObj* pPlayer = TO_WOL(m_rOwner.GetGameWorld()).GetPlayer();
+		DO_IF_IS_VALID_OBJ(pPlayer) {
+			POINT ptCollisionPoint;
+			if (m_rOwner.CheckCollision(pPlayer, &ptCollisionPoint)) {
+				m_rOwner.GetGameWorld().GetSceneManager()->GetCurScene()->GetHitEffects()->emplace_back(
+					new CHitEffect(m_rOwner.GetGameWorld(), ptCollisionPoint.x, ptCollisionPoint.y));
+			}
+		}
+	}
 }
 
 void CWizardBallState_Attack::OnExited(void)

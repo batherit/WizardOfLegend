@@ -64,6 +64,27 @@ void CDoor::Render(HDC & _hdc, CCamera2D * _pCamera)
 		m_pBitmapObj->GetHeight(),
 		RGB(255, 0, 255));
 
+
+	//// 내부가 빈
+	//HBRUSH hBrush = (HBRUSH)GetStockObject(NULL_BRUSH);
+	//HBRUSH hOldBrush = (HBRUSH)SelectObject(_hdc, hBrush);
+
+	//// 빨간 선을 지닌
+	//HPEN hPen = CreatePen(PS_SOLID, 2, RGB(235, 120, 100));
+	//HPEN hOldPen = (HPEN)SelectObject(_hdc, hPen);
+
+	//// 직사각형을 그린다.
+	//Rectangle(_hdc, pairLeftTop.first, pairLeftTop.second, pairRightBottom.first + 1, pairRightBottom.second + 1);
+	//MoveToEx(_hdc, pairLeftTop.first, pairLeftTop.second, nullptr);
+	//LineTo(_hdc, pairRightBottom.first, pairRightBottom.second);
+	//MoveToEx(_hdc, pairRightBottom.first, pairLeftTop.second, nullptr);
+	//LineTo(_hdc, pairLeftTop.first, pairRightBottom.second);
+
+	//SelectObject(_hdc, hOldBrush);
+	//SelectObject(_hdc, hOldPen);
+	//DeleteObject(hBrush);
+	//DeleteObject(hPen);
+
 	/*TCHAR szMode[32];
 	swprintf_s(szMode, TEXT("GN : %d"), m_iGroupID);
 	TextOut(_hdc, pairLeftTop.first, pairLeftTop.second, szMode, lstrlen(szMode));*/

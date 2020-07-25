@@ -3,7 +3,7 @@
 #include "CCamera2D.h"
 #include "CMapLoader.h"
 
-CCollider::CCollider(FILE* _fpIn, CGameWorld & _rGameWorld, COLLIDER::E_TYPE _eType)
+CCollider::CCollider(FILE* _fpIn, CGameWorld & _rGameWorld, COLLIDER::E_SHAPE _eShape /*= COLLIDER::TYPE_RECT*/)
 	:
 	CObj(_rGameWorld, 0.f, 0.f, 0, 0)
 {
@@ -24,8 +24,38 @@ CCollider::CCollider(FILE* _fpIn, CGameWorld & _rGameWorld, COLLIDER::E_TYPE _eT
 	SetHeight(rcRect.bottom - rcRect.top);
 }
 
+CCollider::CCollider(CGameWorld & _rGameWorld, CObj* _pOwner, float _fOffsetX, float _fOffsetY, size_t _iWidth, size_t _iHeight, COLLIDER::E_SHAPE _eShape)
+	:
+	CObj(_rGameWorld, 0.f, 0.f, _iWidth, _iHeight),
+	m_pOwner(_pOwner),
+	m_fOffsetX(_fOffsetX),
+	m_fOffsetY(_fOffsetY)
+{
+	if (m_pOwner) {
+		SetX(m_pOwner->GetX() + _fOffsetX);
+		SetY(m_pOwner->GetY() + _fOffsetY);
+	}
+}
+
 CCollider::~CCollider()
 {
+}
+
+int CCollider::Update(float _fDeltaTime)
+{
+	if (m_pOwner) {
+		SetX(m_pOwner->GetX() + m_fOffsetX);
+		SetY(m_pOwner->GetY() + m_fOffsetY);
+	}
+	return 0;
+}
+
+void CCollider::LateUpdate(void)
+{
+	if (m_pOwner) {
+		SetX(m_pOwner->GetX() + m_fOffsetX);
+		SetY(m_pOwner->GetY() + m_fOffsetY);
+	}
 }
 
 void CCollider::Render(HDC & _hdc, CCamera2D * _pCamera)

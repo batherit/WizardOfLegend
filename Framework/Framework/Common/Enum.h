@@ -68,7 +68,8 @@ namespace ATLAS_LOADER {
 }
 
 namespace COLLIDER {
-	enum E_TYPE { TYPE_RECT, TYPE_CIRCLE, TYPE_END};
+	enum E_SHAPE { SHAPE_RECT, SHAPE_CIRCLE, SHAPE_END};
+	enum E_TYPE { TYPE_DAMAGED, TYPE_WALL, TYPE_END };
 }
 
 namespace PLAYER {

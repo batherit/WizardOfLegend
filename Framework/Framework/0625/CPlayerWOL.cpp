@@ -12,6 +12,7 @@
 #include "CDashSkillState.h"
 #include "CFireDragonSkillState.h"
 #include "CIceCrystalSkillState.h"
+#include "CCollider.h"
 //#include "CPlayerState_Spawn.h"
 //#include "CEffect_Spawn.h"
 
@@ -52,6 +53,11 @@ int CPlayerWOL::Update(float _fDeltaTime)
 	}
 
 	m_pStateMgr->Update(_fDeltaTime);
+
+	for (auto& pCollider : m_pColliders) {
+		pCollider->Update(_fDeltaTime);
+	}
+
 	return 0;
 }
 
@@ -59,6 +65,9 @@ void CPlayerWOL::LateUpdate(void)
 {
 	m_pStateMgr->LateUpdate();
 	if (IsSignatureMode() && IsManaEmpty()) SetSignatureMode(false);
+	for (auto& pCollider : m_pColliders) {
+		pCollider->LateUpdate();
+	}
 }
 
 void CPlayerWOL::Render(HDC & _hdc, CCamera2D * _pCamera)
@@ -84,19 +93,22 @@ void CPlayerWOL::Render(HDC & _hdc, CCamera2D * _pCamera)
 		m_iHeight,									
 		RGB(255, 0, 255));
 	g_iRenderCount++;
+
+	//m_pColliders[1]->Render(_hdc, _pCamera);
 }
 
 void CPlayerWOL::Release(void)
 {
 	DeleteSafe(m_pStateMgr);
-	DeleteSafe(m_pSkills[SKILL::KEY_LBUTTON]);
-
+	for (int i = 0; i < SKILL::KEY_END; i++) DeleteSafe(m_pSkills[i]);
+	for (int i = 0; i < COLLIDER::TYPE_END; i++) DeleteSafe(m_pColliders[i]);
 }
 
 void CPlayerWOL::SetInitInfo(void)
 {
-	DeleteSafe(m_pStateMgr);
-	for (auto& pSkill : m_pSkills) { DeleteSafe(pSkill); }
+	Release();
+	m_pColliders[COLLIDER::TYPE_WALL] = new CCollider(GetGameWorld(), this, 0.f, 50.f, 51, 27);
+	m_pColliders[COLLIDER::TYPE_DAMAGED] = new CCollider(GetGameWorld(), this, 0.f, -13.f, 150, 150);
 	m_pSkills[SKILL::KEY_LBUTTON] = new CPlayerNormalSkillState(*this);
 	m_pSkills[SKILL::KEY_SPACE] = new CDashSkillState(*this);
 	m_pSkills[SKILL::KEY_Q] = new CFireDragonSkillState(*this);

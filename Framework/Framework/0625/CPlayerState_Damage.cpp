@@ -22,18 +22,16 @@ CPlayerState_Damage::~CPlayerState_Damage()
 void CPlayerState_Damage::OnLoaded(void)
 {
 	m_rOwner.SetSpeed(0.f);
+	if (m_rOwner.GetUsingSkill()) {
+		m_rOwner.GetUsingSkill()->OnExited();
+		m_rOwner.SetUsingSkill(nullptr);
+	}
 	m_rOwner.SetNewStateAnim(PLAYER::STATE_DAMAGE, true);
 	m_rOwner.SetToXY(m_rOwner.GetX() - m_ptCollisionPoint.x, m_rOwner.GetY() - m_ptCollisionPoint.y);
 }
 
 int CPlayerState_Damage::Update(float _fDeltaTime)
 {
-	if (m_rOwner.GetAnimProgress() >= 0.0f) {
-		float fT = (m_rOwner.GetAnimProgress() - 0.0f) / 1.0f;
-		m_rOwner.SetSpeed(cfPlayerKnockbackSpeed * (1.f - fT) + 0.f * fT);
-	}
-	m_rOwner.MoveByDeltaTime(_fDeltaTime);
-
 	if (m_rOwner.UpdateAnim(_fDeltaTime) == 1) {
 		m_rOwner.UpdateSkillKey();
 		float fNewToX = 0.f;
@@ -49,6 +47,12 @@ int CPlayerState_Damage::Update(float _fDeltaTime)
 		else
 			m_rOwner.GetStateMgr()->SetNextState(new CPlayerState_Idle(m_rOwner));
 	}
+	
+	if (m_rOwner.GetAnimProgress() >= 0.0f) {
+		float fT = (m_rOwner.GetAnimProgress() - 0.0f) / 1.0f;
+		m_rOwner.SetSpeed(cfPlayerKnockbackSpeed * (1.f - fT) + 0.f * fT);
+	}
+	m_rOwner.MoveByDeltaTime(_fDeltaTime);
 	return 0;
 }
 

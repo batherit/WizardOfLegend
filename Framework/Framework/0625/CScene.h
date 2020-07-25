@@ -16,6 +16,8 @@ public:
 	virtual void Render(HDC& _hdc, CCamera2D* _pCamera) = 0;
 	virtual void Release(void) = 0;
 
+	virtual list<CObj*>* GetHitEffects() { return nullptr; }
+
 protected:
 	CGameWorld& m_rGameWorld;
 };

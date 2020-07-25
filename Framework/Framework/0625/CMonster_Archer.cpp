@@ -9,6 +9,7 @@
 #include "CArcherBow.h"
 #include "CUI_DamageText.h"
 #include "CSpace.h"
+#include "CCollider.h"
 
 
 
@@ -52,6 +53,7 @@ int CMonster_Archer::Update(float _fDeltaTime)
 void CMonster_Archer::LateUpdate(void)
 {
 	m_pStateMgr->LateUpdate();
+	m_pColliders[COLLIDER::TYPE_WALL]->LateUpdate();
 }
 
 void CMonster_Archer::Render(HDC & _hdc, CCamera2D * _pCamera)
@@ -197,6 +199,9 @@ bool CMonster_Archer::DirectDirectionToTarget(void)
 void CMonster_Archer::SetInitInfo(void)
 {
 	Release();
+	DeleteSafe(m_pColliders[COLLIDER::TYPE_WALL]);
+	m_pColliders[COLLIDER::TYPE_WALL] = new CCollider(GetGameWorld(), this, 0.f, 67.f, 70.f, 50.f);
+	m_pColliders[COLLIDER::TYPE_DAMAGED] = this;
 	m_pStateMgr = new CStateMgr<CMonster_Archer>(GetGameWorld(), *this);
 	// TODO : 아쳐의 Idle 상태만들 것
 	m_pStateMgr->SetNextState(new CArcherState_Idle(*this));

@@ -7,7 +7,7 @@ class CTrigger :
 	public CObj
 {
 public:
-	CTrigger(FILE* _fpIn, CGameWorld& _rGameWorld, COLLIDER::E_TYPE _eType = COLLIDER::TYPE_RECT);
+	CTrigger(FILE* _fpIn, CGameWorld& _rGameWorld, COLLIDER::E_SHAPE _eShape = COLLIDER::SHAPE_RECT);
 	~CTrigger();
 
 public:

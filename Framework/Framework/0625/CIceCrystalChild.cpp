@@ -13,6 +13,8 @@ CIceCrystalChild::CIceCrystalChild(CGameWorld & _rGameWorld, CIceCrystal* _pIceC
 	m_pIceCrystalParent(_pIceCrystalParent)
 {
 	m_hDCKeyAtlas = CBitmapMgr::GetInstance()->GetBitmapMemDC(TEXT("SKILL_ICE_CRYSTAL"));
+
+	m_pColliders[COLLIDER::TYPE_DAMAGED] = this;
 }
 
 CIceCrystalChild::~CIceCrystalChild()
@@ -28,6 +30,8 @@ int CIceCrystalChild::Update(float _fDeltaTime)
 
 void CIceCrystalChild::LateUpdate(void)
 {
+	UpdateCollidedObjs();
+	//m_pColliders[COLLIDER::TYPE_DAMAGED]->LateUpdate();
 }
 
 void CIceCrystalChild::Render(HDC & _hdc, CCamera2D * _pCamera)

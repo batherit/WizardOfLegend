@@ -8,6 +8,7 @@
 #include "CUI_DamageText.h"
 #include "CSpawnerGenerator.h"
 #include "CWizardBallState_Damage.h"
+#include "CCollider.h"
 
 
 CMonster_WizardBall::CMonster_WizardBall(CGameWorld & _rGameWorld, CSpawnerGenerator * _pSpawnerGenerator)
@@ -45,6 +46,7 @@ int CMonster_WizardBall::Update(float _fDeltaTime)
 void CMonster_WizardBall::LateUpdate(void)
 {
 	m_pStateMgr->LateUpdate();
+	m_pColliders[COLLIDER::TYPE_WALL]->LateUpdate();
 }
 
 void CMonster_WizardBall::Render(HDC & _hdc, CCamera2D * _pCamera)
@@ -140,6 +142,9 @@ int CMonster_WizardBall::GetSpriteIndex(void)
 void CMonster_WizardBall::SetInitInfo(void)
 {
 	Release();
+	DeleteSafe(m_pColliders[COLLIDER::TYPE_WALL]);
+	m_pColliders[COLLIDER::TYPE_WALL] = new CCollider(GetGameWorld(), this, 0.f, 0.f, 80.f, 80.f);
+	m_pColliders[COLLIDER::TYPE_DAMAGED] = this;
 	m_pStateMgr = new CStateMgr<CMonster_WizardBall>(GetGameWorld(), *this);
 	// TODO : 아쳐의 Idle 상태만들 것
 	m_pStateMgr->SetNextState(new CWizardBallState_Idle(*this));

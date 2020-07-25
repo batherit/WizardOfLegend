@@ -11,6 +11,10 @@ CPlayerNormalAttack::CPlayerNormalAttack(CGameWorld & _rGameWorld, float _fX, fl
 	CObj(_rGameWorld, _fX, _fY, PLAYER_NORMAL_ATTACK_WIDTH, PLAYER_NORMAL_ATTACK_HEIGHT, _fToX, _fToY)
 {
 	m_hDCKeyAtlas = CBitmapMgr::GetInstance()->GetBitmapMemDC(TEXT("PLAYER_NORMAL_ATTACK"));
+	
+	m_pColliders[COLLIDER::TYPE_DAMAGED] = this;
+	//m_pColliders[COLLIDER::TYPE_WALL] = this;
+	
 	float fDegree = GetPositiveDegreeByVector(_fToX, _fToY);
 	_anim_info stAnimInfo;
 	if (337.5f <= fDegree || fDegree < 22.5f)		stAnimInfo.iState = 0;
@@ -103,7 +107,8 @@ int CPlayerNormalAttack::Update(float _fDeltaTime)
 
 void CPlayerNormalAttack::LateUpdate(void)
 {
-	m_listCollidedObjs.remove_if([](auto& _pObj) { return !IS_VALID_OBJ(_pObj); });
+	UpdateCollidedObjs();
+	//m_pColliders[COLLIDER::TYPE_DAMAGED]->LateUpdate();
 }
 
 void CPlayerNormalAttack::Render(HDC & _hdc, CCamera2D * _pCamera)

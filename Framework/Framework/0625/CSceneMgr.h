@@ -17,6 +17,7 @@ public:
 	void LateUpdate(void);
 	void Render(HDC& _hdc, CCamera2D* _pCamera);
 	void Release(void);
+	CScene* GetCurScene(void) const { return m_pCurScene; }
 
 private:
 	CGameWorld& m_rGameWorld;

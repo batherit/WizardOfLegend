@@ -8,6 +8,7 @@
 #include "CBitmapMgr.h"
 #include "CWizardState_Damage.h"
 #include "CWizardState_Idle.h"
+#include "CCollider.h"
 
 
 
@@ -49,6 +50,7 @@ int CMonster_Wizard::Update(float _fDeltaTime)
 void CMonster_Wizard::LateUpdate(void)
 {
 	m_pStateMgr->LateUpdate();
+	m_pColliders[COLLIDER::TYPE_WALL]->LateUpdate();
 }
 
 void CMonster_Wizard::Render(HDC & _hdc, CCamera2D * _pCamera)
@@ -190,6 +192,9 @@ bool CMonster_Wizard::DirectDirectionToTarget(void)
 void CMonster_Wizard::SetInitInfo(void)
 {
 	Release();
+	DeleteSafe(m_pColliders[COLLIDER::TYPE_WALL]);
+	m_pColliders[COLLIDER::TYPE_WALL] = new CCollider(GetGameWorld(), this, 0.f, 67.f, 70.f, 50.f);
+	m_pColliders[COLLIDER::TYPE_DAMAGED] = this;
 	m_pStateMgr = new CStateMgr<CMonster_Wizard>(GetGameWorld(), *this);
 	// TODO : 위자드의 Idle 상태만들 것
 	m_pStateMgr->SetNextState(new CWizardState_Idle(*this));

@@ -4,7 +4,7 @@
 #include "CCamera2D.h"
 
 
-CTrigger::CTrigger(FILE * _fpIn, CGameWorld & _rGameWorld, COLLIDER::E_TYPE _eType)
+CTrigger::CTrigger(FILE * _fpIn, CGameWorld & _rGameWorld, COLLIDER::E_SHAPE _eShape)
 	:
 	CObj(_rGameWorld, 0.f, 0.f, 0, 0)
 {

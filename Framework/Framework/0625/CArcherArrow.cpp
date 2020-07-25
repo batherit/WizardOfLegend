@@ -3,6 +3,7 @@
 #include "CBitmapMgr.h"
 #include "CCamera2D.h"
 #include "CSpace.h"
+#include "CCollider.h"
 
 
 
@@ -13,6 +14,9 @@ CArcherArrow::CArcherArrow(CGameWorld & _rGameWorld, float _fX, float _fY, float
 {
 	m_hDCKeyAtlas[ARCHER::DIR_LEFT] = CBitmapMgr::GetInstance()->GetBitmapMemDC(TEXT("ARCHER_BOW_LEFT"));
 	m_hDCKeyAtlas[ARCHER::DIR_RIGHT] = CBitmapMgr::GetInstance()->GetBitmapMemDC(TEXT("ARCHER_BOW_RIGHT"));
+
+	m_pColliders[COLLIDER::TYPE_WALL] = new CCollider(_rGameWorld, this, 0.f, 0.f, 40.f, 40.f);
+	m_pColliders[COLLIDER::TYPE_DAMAGED] = m_pColliders[COLLIDER::TYPE_WALL];
 
 	_anim_info stAnimInfo;
 	stAnimInfo.iState = GetAnimState(_fToX, _fToY);
@@ -26,6 +30,7 @@ CArcherArrow::CArcherArrow(CGameWorld & _rGameWorld, float _fX, float _fY, float
 
 CArcherArrow::~CArcherArrow()
 {
+	Release();
 }
 
 int CArcherArrow::Update(float _fDeltaTime)
@@ -40,6 +45,8 @@ int CArcherArrow::Update(float _fDeltaTime)
 
 void CArcherArrow::LateUpdate(void)
 {
+	UpdateCollidedObjs();
+	m_pColliders[COLLIDER::TYPE_WALL]->LateUpdate();
 }
 
 void CArcherArrow::Render(HDC & _hdc, CCamera2D * _pCamera)
@@ -69,6 +76,8 @@ void CArcherArrow::Render(HDC & _hdc, CCamera2D * _pCamera)
 
 void CArcherArrow::Release(void)
 {
+	DeleteSafe(m_pColliders[COLLIDER::TYPE_WALL]);
+	m_pColliders[COLLIDER::TYPE_DAMAGED] = nullptr;
 }
 
 int CArcherArrow::GetAnimState(float _fToX, float _fToY) const
