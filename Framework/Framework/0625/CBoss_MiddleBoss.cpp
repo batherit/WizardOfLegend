@@ -8,7 +8,7 @@
 #include "CBitmapMgr.h"
 #include "CMiddleBossState_Idle.h"
 #include "CMiddleBossState_Death.h"
-
+#include "CUI_MiddleBossBar.h"
 
 
 
@@ -20,6 +20,8 @@ CBoss_MiddleBoss::CBoss_MiddleBoss(CGameWorld & _rGameWorld, CSpawnerGenerator *
 	SetInitInfo();
 	m_fInitX = 0.f;
 	m_fInitY = 0.f;
+	m_pMiddleBossBarUI = new CUI_MiddleBossBar(_rGameWorld, this);
+	TO_WOL(GetGameWorld()).GetListUIs().emplace_back(m_pMiddleBossBarUI);
 }
 
 CBoss_MiddleBoss::CBoss_MiddleBoss(CGameWorld & _rGameWorld, float _fX, float _fY, int _iGroupID, CObj * _pTarget, CSpawnerGenerator * _pSpawnerGenerator)
@@ -32,11 +34,14 @@ CBoss_MiddleBoss::CBoss_MiddleBoss(CGameWorld & _rGameWorld, float _fX, float _f
 	SetInitInfo();
 	m_fInitX = _fX;
 	m_fInitY = _fY;
+	m_pMiddleBossBarUI = new CUI_MiddleBossBar(_rGameWorld, this);
+	TO_WOL(GetGameWorld()).GetListUIs().emplace_back(m_pMiddleBossBarUI);
 }
 
 CBoss_MiddleBoss::~CBoss_MiddleBoss()
 {
 	Release();
+	m_pMiddleBossBarUI->SetValid(false);
 }
 
 int CBoss_MiddleBoss::Update(float _fDeltaTime)

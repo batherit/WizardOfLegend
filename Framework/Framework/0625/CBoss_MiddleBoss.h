@@ -3,6 +3,7 @@
 
 template<typename T> class CStateMgr;
 class CSpawnerGenerator;
+class CUI_MiddleBossBar;
 
 class CBoss_MiddleBoss :
 	public CObj
@@ -47,5 +48,6 @@ private:
 	list<CObj*> m_listMonsters;
 	float m_fInitX = 0.f;
 	float m_fInitY = 0.f;
+	CObj* m_pMiddleBossBarUI = nullptr;
 };
 

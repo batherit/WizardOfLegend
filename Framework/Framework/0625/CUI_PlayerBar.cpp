@@ -17,14 +17,14 @@ CUI_PlayerBar::CUI_PlayerBar(CGameWorld & _rGameWorld, CObj* _pPlayer)
 		rcGauge.top = 57;
 		rcGauge.right = rcGauge.left + HP_BAR_WIDTH;
 		rcGauge.bottom = rcGauge.top + HP_BAR_HEIGHT;
-		m_pHpBar = new CUI_Gauge(_rGameWorld, _pPlayer, rcGauge, _pPlayer->GetMaxHp(), _pPlayer->GetHP());
+		m_pHpBar = new CUI_Gauge(_rGameWorld, nullptr, rcGauge, _pPlayer->GetMaxHp(), _pPlayer->GetHP());
 		m_pHpBar->SetHDC(CBitmapMgr::GetInstance()->GetBitmapMemDC(TEXT("UI_HPBAR")));
 
 		rcGauge.left = 125;
 		rcGauge.top = 97;
 		rcGauge.right = rcGauge.left + MANA_BAR_WIDTH;
 		rcGauge.bottom = rcGauge.top + MANA_BAR_HEIGHT;
-		m_pManaBar = new CUI_Gauge(_rGameWorld, _pPlayer, rcGauge, _pPlayer->GetMaxMana(), _pPlayer->GetMana());
+		m_pManaBar = new CUI_Gauge(_rGameWorld, nullptr, rcGauge, _pPlayer->GetMaxMana(), _pPlayer->GetMana());
 		m_pManaBar->SetHDC(CBitmapMgr::GetInstance()->GetBitmapMemDC(TEXT("UI_MANABAR")));
 	}
 }

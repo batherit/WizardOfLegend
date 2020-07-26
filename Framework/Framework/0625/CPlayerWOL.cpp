@@ -113,6 +113,7 @@ void CPlayerWOL::SetInitInfo(void)
 	m_pSkills[SKILL::KEY_LBUTTON] = new CPlayerNormalSkillState(*this);
 	m_pSkills[SKILL::KEY_SPACE] = new CDashSkillState(*this);
 	m_pSkills[SKILL::KEY_Q] = new CGaiaArmorSkillState(*this);
+	SetMoney(0);
 	//m_pSkills[SKILL::KEY_Q] = new CFireDragonSkillState(*this);
 	//m_pSkills[SKILL::KEY_R] = new CIceCrystalSkillState(*this);
 	m_pStateMgr = new CStateMgr<CPlayerWOL>(GetGameWorld(), *this);
