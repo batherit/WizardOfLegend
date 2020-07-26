@@ -10,9 +10,11 @@ public:
 public:
 	void SetHDC(const HDC& _hdc) { m_hDCImage = _hdc; }
 	void Clear(void) { m_hDCImage = nullptr; }
-	void Render(HDC& _hdc, CCamera2D* pCamera);
+	void Render(HDC& _hdc, CCamera2D* _pCamera);
+	void SetCameraUsing(bool _bIsCameraUsing) { m_bIsCameraUsing = _bIsCameraUsing; }
 
 public:
 	HDC m_hDCImage = nullptr;
+	bool m_bIsCameraUsing = false;
 };
 

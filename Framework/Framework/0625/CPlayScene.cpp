@@ -23,6 +23,8 @@
 #include "CWizardFire.h"
 #include "CItem_Potion.h"
 #include "CItem_Gaia.h"
+#include "CUI_Image.h"
+#include "CBitmapMgr.h"
 
 
 CPlayScene::CPlayScene(CGameWorld& _rGameWorld, const char* _szMapDirectory)
@@ -43,6 +45,7 @@ CPlayScene::~CPlayScene()
 
 void CPlayScene::ResetScene(void)
 {
+	//6749.f, 2373.f
 	Release();
 	m_pMapLoader = new CMapLoader(m_rGameWorld, m_szMapDirectory);
 	const pair<float, float> pairSpawnPoint = m_pMapLoader->GetSpawnPoint()->GetXY();
@@ -53,10 +56,14 @@ void CPlayScene::ResetScene(void)
 	m_pMinimapUI = new CUI_Minimap(m_rGameWorld, m_pMapLoader, m_pPlayer);
 	m_pMoneyUI = new CUI_Money(m_rGameWorld, (WINCX >> 1) - 100, WINCY - 50, *m_pPlayer);
 	m_listSpawners.emplace_back(new CPlayerSpawner(m_rGameWorld, m_pPlayer, pairSpawnPoint.first, pairSpawnPoint.second));
-	//m_listItems.emplace_back(new CItem_DroppedCard(m_rGameWorld, pairSpawnPoint.first, pairSpawnPoint.second, new CFireDragonSkillState(*TO_PLAYER_WOL(m_pPlayer))));
-	//m_listItems.emplace_back(new CItem_DroppedCard(m_rGameWorld, pairSpawnPoint.first + 100, pairSpawnPoint.second, new CIceCrystalSkillState(*TO_PLAYER_WOL(m_pPlayer))));
-	m_listItems.emplace_back(new CItem_Potion(m_rGameWorld, pairSpawnPoint.first, pairSpawnPoint.second));
-	m_listItems.emplace_back(new CItem_Gaia(m_rGameWorld, pairSpawnPoint.first+300, pairSpawnPoint.second));
+	CUI_Image* pImage = new CUI_Image(m_rGameWorld, 6749.f, 2373.f, SHOP_NPC_WIDTH, SHOP_NPC_HEIGHT);
+	pImage->SetHDC(CBitmapMgr::GetInstance()->GetBitmapMemDC(TEXT("ITEMSHOP_NPC")));
+	pImage->SetCameraUsing(true);
+	m_listItems.emplace_back(pImage);
+	m_listItems.emplace_back(new CItem_DroppedCard(m_rGameWorld, 2187.f, 1087.f, new CFireDragonSkillState(*TO_PLAYER_WOL(m_pPlayer))));
+	m_listItems.emplace_back(new CItem_DroppedCard(m_rGameWorld, 346.5f, 2378.f, new CIceCrystalSkillState(*TO_PLAYER_WOL(m_pPlayer))));
+	m_listItems.emplace_back(new CItem_Potion(m_rGameWorld, 6547.f, 2500.f));
+	m_listItems.emplace_back(new CItem_Gaia(m_rGameWorld, 6976.f, 2500.f));
 	//TO_PLAYER_WOL(m_pPlayer)->Respawn(pairSpawnPoint.first, pairSpawnPoint.second);
 	m_vecObjsToRender.reserve(100);
 	m_vecObjsToRender.clear();

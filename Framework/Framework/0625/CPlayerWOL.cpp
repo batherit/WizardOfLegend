@@ -103,6 +103,8 @@ void CPlayerWOL::Release(void)
 	DeleteSafe(m_pStateMgr);
 	for (int i = 0; i < SKILL::KEY_END; i++) DeleteSafe(m_pSkills[i]);
 	for (int i = 0; i < COLLIDER::TYPE_END; i++) DeleteSafe(m_pColliders[i]);
+	ZeroMemory(m_pSkills, sizeof(m_pSkills));
+	ZeroMemory(m_pColliders, sizeof(m_pColliders));
 }
 
 void CPlayerWOL::SetInitInfo(void)
@@ -111,9 +113,9 @@ void CPlayerWOL::SetInitInfo(void)
 	m_pColliders[COLLIDER::TYPE_WALL] = new CCollider(GetGameWorld(), this, 0.f, 50.f, 51, 27);
 	m_pColliders[COLLIDER::TYPE_DAMAGED] = new CCollider(GetGameWorld(), this, 0.f, -13.f, 150, 150);
 	m_pSkills[SKILL::KEY_LBUTTON] = new CPlayerNormalSkillState(*this);
-	m_pSkills[SKILL::KEY_RBUTTON] = new CFireDragonSkillState(*this);
+	//m_pSkills[SKILL::KEY_RBUTTON] = new CFireDragonSkillState(*this);
 	m_pSkills[SKILL::KEY_SPACE] = new CDashSkillState(*this);
-	m_pSkills[SKILL::KEY_Q] = new CGaiaArmorSkillState(*this);
+	//m_pSkills[SKILL::KEY_Q] = new CGaiaArmorSkillState(*this);
 	SetMoney(0);
 	//m_pSkills[SKILL::KEY_Q] = new CFireDragonSkillState(*this);
 	//m_pSkills[SKILL::KEY_R] = new CIceCrystalSkillState(*this);

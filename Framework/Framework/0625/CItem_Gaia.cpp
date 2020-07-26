@@ -73,8 +73,8 @@ bool CItem_Gaia::Used(void)
 	DO_IF_IS_NOT_VALID_OBJ(this) return false;
 
 	CObj* pPlayer = TO_WOL(GetGameWorld()).GetPlayer();
-	if (pPlayer->GetMoney() >= 10) {
-		pPlayer->SetMoney(pPlayer->GetMoney() - 10);
+	if (pPlayer->GetMoney() >= 150) {
+		pPlayer->SetMoney(pPlayer->GetMoney() - 150);
 		if (TO_PLAYER_WOL(TO_WOL(GetGameWorld()).GetPlayer())->AquireSkillState(m_pSkillState)) {
 			return true;
 		}
