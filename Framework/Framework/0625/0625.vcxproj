@@ -180,6 +180,8 @@
     <ClInclude Include="CIceCrystalChild.h" />
     <ClInclude Include="CIceCrystalSkillState.h" />
     <ClInclude Include="CItem_DroppedCard.h" />
+    <ClInclude Include="CItem_Gaia.h" />
+    <ClInclude Include="CItem_Potion.h" />
     <ClInclude Include="CMapLoader.h" />
     <ClInclude Include="CMapFileMgr.h" />
     <ClInclude Include="CMapObjsGroup.h" />
@@ -344,6 +346,8 @@
     <ClCompile Include="CIceCrystalChild.cpp" />
     <ClCompile Include="CIceCrystalSkillState.cpp" />
     <ClCompile Include="CItem_DroppedCard.cpp" />
+    <ClCompile Include="CItem_Gaia.cpp" />
+    <ClCompile Include="CItem_Potion.cpp" />
     <ClCompile Include="CMapLoader.cpp" />
     <ClCompile Include="CMapFileMgr.cpp" />
     <ClCompile Include="CMapObjsGroup.cpp" />

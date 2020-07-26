@@ -524,6 +524,12 @@
     <ClInclude Include="CGaiaArmor.h">
       <Filter>소스 파일\03.Obj\031.Skill\Player</Filter>
     </ClInclude>
+    <ClInclude Include="CItem_Potion.h">
+      <Filter>소스 파일\03.Obj\036.Item</Filter>
+    </ClInclude>
+    <ClInclude Include="CItem_Gaia.h">
+      <Filter>소스 파일\03.Obj\036.Item</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CLayer.cpp">
@@ -858,6 +864,12 @@
     </ClCompile>
     <ClCompile Include="CGaiaArmor.cpp">
       <Filter>소스 파일\03.Obj\031.Skill\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="CItem_Potion.cpp">
+      <Filter>소스 파일\03.Obj\036.Item</Filter>
+    </ClCompile>
+    <ClCompile Include="CItem_Gaia.cpp">
+      <Filter>소스 파일\03.Obj\036.Item</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

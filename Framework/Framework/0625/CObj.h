@@ -91,6 +91,7 @@ public:
 	void UpdateCollidedObjs(void) { m_listCollidedObjs.remove_if([](auto& _pObj) { return !IS_VALID_OBJ(_pObj); }); }
 	float GetMaxHp(void) const { return m_fMaxHp; }
 	float GetHP(void) const { return m_fHp; }
+	void SetHP(float _fHp) { m_fHp = _fHp; }
 	float GetMaxMana(void) const { return m_fMaxMana; }
 	void SetMana(float _fMana) { m_fMana = _fMana; }
 	float GetMana(void) const { return m_fMana; }

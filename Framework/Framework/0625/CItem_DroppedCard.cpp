@@ -26,6 +26,7 @@ int CItem_DroppedCard::Update(float _fDeltaTime)
 	CObj* pPlayer = TO_WOL(GetGameWorld()).GetPlayer();
 	float fDist = GetVectorLength(pPlayer->GetX() - GetX(), pPlayer->GetY() - GetY());
 
+	
 	if (fDist < 200.0f) {
 		if (CKeyMgr::GetInstance()->IsKeyDown(KEY::KEY_F)) {
 			if (Used()) {

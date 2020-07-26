@@ -218,8 +218,8 @@
 #define ICE_CRYSTAL_MIN_DIST			100.f
 #define ICE_CRYSTAL_MAX_DIST			500.f
 // 가이아 아머 사이즈
-#define GAIA_ARMOR_WIDTH		100.f
-#define GAIA_ARMOR_HEIGHT		102.f
+#define GAIA_ARMOR_WIDTH		100
+#define GAIA_ARMOR_HEIGHT		102
 // 가이아 아머 변수
 #define GAIA_ARMOR_MAX_ROT_SPEED	180.f
 #define GAIA_ARMOR_OFFSET			145.f
@@ -232,3 +232,16 @@
 #define UI_DAMAGE_TEXT_KEEP_TIME	0.6f;
 #define UI_DAMAGE_TEXT_MAX_SIZE		50
 #define UI_DAMAGE_TEXT_MIN_SIZE		20
+
+// 상점 NPC
+#define SHOP_NPC_WIDTH		128
+#define SHOP_NPC_HEIGHT		197
+// 상점 테이블
+#define SHOP_TABLE_WIDTH	606
+#define SHOP_TABLE_HEIGHT	234
+// 상점 포션
+#define SHOP_POTION_WIDTH	106
+#define SHOP_POTION_HEIGHT	155
+// 상점 가이아
+#define SHOP_GAIA_WIDTH		106
+#define SHOP_GAIA_HEIGHT	172

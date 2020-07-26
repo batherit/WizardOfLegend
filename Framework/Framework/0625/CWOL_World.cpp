@@ -264,4 +264,10 @@ void CWOL_World::LoadResources(void)
 
 	// 위자드볼 렌더링
 	CBitmapMgr::GetInstance()->InsertBitmap(TEXT("../Textures/WIZARD_BALL.bmp"), TEXT("WIZARD_BALL"));
+
+	// 상점 아이템
+	CBitmapMgr::GetInstance()->InsertBitmap(TEXT("../Textures/ITEMSHOP_NPC.bmp"), TEXT("ITEMSHOP_NPC"));
+	CBitmapMgr::GetInstance()->InsertBitmap(TEXT("../Textures/SHOP_TABLE.bmp"), TEXT("SHOP_TABLE"));
+	CBitmapMgr::GetInstance()->InsertBitmap(TEXT("../Textures/POTION.bmp"), TEXT("POTION"));
+	CBitmapMgr::GetInstance()->InsertBitmap(TEXT("../Textures/GAIA_ARMOR_CARD.bmp"), TEXT("GAIA_ARMOR_CARD"));
 }

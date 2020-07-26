@@ -21,6 +21,8 @@
 #include "CHitEffect.h"
 #include "CCamera2D.h"
 #include "CWizardFire.h"
+#include "CItem_Potion.h"
+#include "CItem_Gaia.h"
 
 
 CPlayScene::CPlayScene(CGameWorld& _rGameWorld, const char* _szMapDirectory)
@@ -51,8 +53,10 @@ void CPlayScene::ResetScene(void)
 	m_pMinimapUI = new CUI_Minimap(m_rGameWorld, m_pMapLoader, m_pPlayer);
 	m_pMoneyUI = new CUI_Money(m_rGameWorld, (WINCX >> 1) - 100, WINCY - 50, *m_pPlayer);
 	m_listSpawners.emplace_back(new CPlayerSpawner(m_rGameWorld, m_pPlayer, pairSpawnPoint.first, pairSpawnPoint.second));
-	m_listItems.emplace_back(new CItem_DroppedCard(m_rGameWorld, pairSpawnPoint.first, pairSpawnPoint.second, new CFireDragonSkillState(*TO_PLAYER_WOL(m_pPlayer))));
-	m_listItems.emplace_back(new CItem_DroppedCard(m_rGameWorld, pairSpawnPoint.first + 100, pairSpawnPoint.second, new CIceCrystalSkillState(*TO_PLAYER_WOL(m_pPlayer))));
+	//m_listItems.emplace_back(new CItem_DroppedCard(m_rGameWorld, pairSpawnPoint.first, pairSpawnPoint.second, new CFireDragonSkillState(*TO_PLAYER_WOL(m_pPlayer))));
+	//m_listItems.emplace_back(new CItem_DroppedCard(m_rGameWorld, pairSpawnPoint.first + 100, pairSpawnPoint.second, new CIceCrystalSkillState(*TO_PLAYER_WOL(m_pPlayer))));
+	m_listItems.emplace_back(new CItem_Potion(m_rGameWorld, pairSpawnPoint.first, pairSpawnPoint.second));
+	m_listItems.emplace_back(new CItem_Gaia(m_rGameWorld, pairSpawnPoint.first+300, pairSpawnPoint.second));
 	//TO_PLAYER_WOL(m_pPlayer)->Respawn(pairSpawnPoint.first, pairSpawnPoint.second);
 	m_vecObjsToRender.reserve(100);
 	m_vecObjsToRender.clear();
