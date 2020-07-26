@@ -52,7 +52,7 @@ int CMiddleBossState_FireDragon::Update(float _fDeltaTime)
 						, m_rOwner.GetY() + m_rOwner.GetToY() * cfPlayerNormalAttackDist
 						, m_pPlayer->GetX() - m_rOwner.GetX(), m_pPlayer->GetY() - m_rOwner.GetY()
 						, m_eAttackType));
-				m_pCamera->Shake(0.3f, 6.f, 5);
+				m_pCamera->Shake(0.3f, 3.f, 5);
 				switch (m_eAttackType)
 				{
 				case PLAYER::STATE_ATTACK1:

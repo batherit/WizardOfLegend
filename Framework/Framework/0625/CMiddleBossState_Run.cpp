@@ -52,17 +52,17 @@ int CMiddleBossState_Run::Update(float _fDeltaTime)
 				int iRandAttack = rand() % 3;
 				if (iRandAttack == 0) m_rOwner.GetStateMgr()->SetNextState(new CMiddleBossState_Fire(m_rOwner));
 				else if (iRandAttack == 1) m_rOwner.GetStateMgr()->SetNextState(new CMiddleBossState_FireDragon(m_rOwner));
-				else m_rOwner.GetStateMgr()->SetNextState(new CMiddleBossState_FireDragon(m_rOwner));
+				else m_rOwner.GetStateMgr()->SetNextState(new CMiddleBossState_IceCrystal(m_rOwner));
 			}
 			else m_rOwner.GetStateMgr()->SetNextState(new CMiddleBossState_Run(m_rOwner));
 		}
 		else {
-			if(rand() % 10 < 3) m_rOwner.GetStateMgr()->SetNextState(new CMiddleBossState_FireDragon(m_rOwner));
+			if(rand() % 10 < 3) m_rOwner.GetStateMgr()->SetNextState(new CMiddleBossState_Summon(m_rOwner));
 			else {
 				int iRandAttack = rand() % 3;
 				if (iRandAttack == 0) m_rOwner.GetStateMgr()->SetNextState(new CMiddleBossState_Fire(m_rOwner));
 				else if (iRandAttack == 1) m_rOwner.GetStateMgr()->SetNextState(new CMiddleBossState_FireDragon(m_rOwner));
-				else if (iRandAttack == 2) m_rOwner.GetStateMgr()->SetNextState(new CMiddleBossState_FireDragon(m_rOwner));
+				else if (iRandAttack == 2) m_rOwner.GetStateMgr()->SetNextState(new CMiddleBossState_IceCrystal(m_rOwner));
 			}
 		}
 	}

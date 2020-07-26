@@ -1,11 +1,10 @@
-﻿  CCamera2D.cpp
+﻿  CMiddleBossState_Run.cpp
 d:\mylab\gamelab\algorithm\wizardoflegend\framework\framework\0625\cobj.h(62): warning C4244: '인수': 'LONG'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
 d:\mylab\gamelab\algorithm\wizardoflegend\framework\framework\0625\cobj.h(63): warning C4244: '인수': 'LONG'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-d:\mylab\gamelab\algorithm\wizardoflegend\framework\framework\0625\ccamera2d.cpp(9): warning C4244: '인수': 'float'에서 'std::size_t'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-d:\mylab\gamelab\algorithm\wizardoflegend\framework\framework\0625\ccamera2d.cpp(111): warning C4244: '=': 'float'에서 'LONG'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-d:\mylab\gamelab\algorithm\wizardoflegend\framework\framework\0625\ccamera2d.cpp(112): warning C4244: '=': 'float'에서 'LONG'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-d:\mylab\gamelab\algorithm\wizardoflegend\framework\framework\0625\ccamera2d.cpp(113): warning C4244: '=': 'float'에서 'LONG'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-d:\mylab\gamelab\algorithm\wizardoflegend\framework\framework\0625\ccamera2d.cpp(114): warning C4244: '=': 'float'에서 'LONG'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  CMiddleBossState_FireDragon.cpp
+d:\mylab\gamelab\algorithm\wizardoflegend\framework\framework\0625\cobj.h(62): warning C4244: '인수': 'LONG'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\mylab\gamelab\algorithm\wizardoflegend\framework\framework\0625\cobj.h(63): warning C4244: '인수': 'LONG'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  코드를 생성하고 있습니다...
 cl : 명령줄 warning D9028: 최소 다시 빌드에 실패했습니다. 정상 빌드로 되돌립니다.
   0625.vcxproj -> D:\MyLab\GameLab\Algorithm\WizardOfLegend\Framework\Framework\Debug\0625.exe
   0625.vcxproj -> D:\MyLab\GameLab\Algorithm\WizardOfLegend\Framework\Framework\Debug\0625.pdb (Full PDB)
