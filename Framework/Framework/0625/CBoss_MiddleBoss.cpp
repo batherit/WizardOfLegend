@@ -201,7 +201,7 @@ void CBoss_MiddleBoss::SetInitInfo(void)
 	m_pStateMgr = new CStateMgr<CBoss_MiddleBoss>(GetGameWorld(), *this);
 	// TODO : 위자드의 Idle 상태만들 것
 	m_pStateMgr->SetNextState(new CMiddleBossState_Idle(*this));
-	m_fMaxHp = 100.f;//WIZARD_MAX_HP;
+	m_fMaxHp = MIDDLE_BOSS_MAX_HP;//WIZARD_MAX_HP;
 	m_fHp = m_fMaxHp;
 	m_eMiddleBossDir = MONSTER::DIR_RIGHT;
 	m_hDCKeyAtlas[ARCHER::DIR_LEFT] = CBitmapMgr::GetInstance()->GetBitmapMemDC(TEXT("MIDDLE_BOSS_LEFT"));

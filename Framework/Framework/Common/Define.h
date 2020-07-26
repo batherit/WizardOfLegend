@@ -2,7 +2,7 @@
 
 // 윈도우 사이즈
 #define WINCX 1750// 1400 1920 
-#define WINCY 1050// 800 1080
+#define WINCY 1000// 800 1080
 
 // 타이머 관련
 #define WORLD_TIMER	CGameWorldTimer::Instance()
@@ -251,6 +251,7 @@
 #define MIDDLE_BOSS_HEIGHT		300
 #define MIDDLE_BOSS_RUN_SPEED	150.f
 #define MIDDLE_BOSS_ATTACKABLE_RANGE_OUT 600.f
+#define MIDDLE_BOSS_MAX_HP		2000.f
 
 // 미들 보스 네임바 출력 사이즈
 #define UI_MIDDLE_BOSS_NAMEBAR_WIDTH	455
