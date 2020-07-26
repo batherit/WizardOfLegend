@@ -26,9 +26,9 @@ int CCamera2D::Update(float _fDeltaTime)
 {
 	if (m_bIsShaking) {
 		m_fShakeTickTime += _fDeltaTime;
-		if (m_fShakeTickTime >= m_fShakeKeepTime / m_iShakeNum) {
+		if (m_fShakeTickTime >= (m_fShakeKeepTime / m_iShakeNum)) {
 			m_fShakeElapsedTime += m_fShakeTickTime;
-			if (m_fShakeElapsedTime >= m_fShakeKeepTime) {
+			if (m_fShakeElapsedTime <= m_fShakeKeepTime) {
 				m_fShakeTickTime = 0.f;
 				m_fOffsetDegree = GetNumberMinBetweenMax(0.f, 360.f);
 				float fT = 1.f - m_fShakeElapsedTime / m_fShakeKeepTime;

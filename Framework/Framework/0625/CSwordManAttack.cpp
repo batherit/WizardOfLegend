@@ -60,6 +60,8 @@ CSwordManAttack::CSwordManAttack(CGameWorld & _rGameWorld, float _fX, float _fY,
 	stAnimInfo.iFrameCount = 4;
 
 	SetNewAnimInfo(stAnimInfo);
+
+	CSoundMgr::Get_Instance()->PlaySound(TEXT("SWORDMAN_ATTACK.mp3"), CSoundMgr::SKILL);
 }
 
 CSwordManAttack::~CSwordManAttack()

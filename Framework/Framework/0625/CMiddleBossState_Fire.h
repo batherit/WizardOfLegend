@@ -15,10 +15,15 @@ public:
 	virtual int Update(float _fDeltaTime) override;
 	virtual void LateUpdate(void) override;
 
-private:
-	bool bAttackOk = false;
+	
 
 	// CState을(를) 통해 상속됨
 	virtual void OnExited(void) override;
+
+private:
+	bool bAttackOk = false;
+	int m_iCount = 30;
+	float m_fPeriod = 0.12f;
+	float m_fElapsedTime = 0.f;
 };
 
