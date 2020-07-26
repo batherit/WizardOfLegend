@@ -110,6 +110,11 @@ void CPlayerWOL::Release(void)
 void CPlayerWOL::SetInitInfo(void)
 {
 	Release();
+	m_pUsingSkill = nullptr;
+	m_pNextSkill = nullptr;
+	m_bIsSkillConfirmed = true;
+	m_bIsSignatureMode = false;
+	m_bIsSignatureSkillUsing = false;
 	m_pColliders[COLLIDER::TYPE_WALL] = new CCollider(GetGameWorld(), this, 0.f, 50.f, 51, 27);
 	m_pColliders[COLLIDER::TYPE_DAMAGED] = new CCollider(GetGameWorld(), this, 0.f, -13.f, 150, 150);
 	m_pSkills[SKILL::KEY_LBUTTON] = new CPlayerNormalSkillState(*this);
