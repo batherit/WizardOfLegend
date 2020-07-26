@@ -10,6 +10,8 @@ CGaiaArmor::CGaiaArmor(CGameWorld & _rGameWorld, CObj * _pOwner)
 	m_pOwner(_pOwner),
 	m_fLifeTime(10.f)
 {
+	
+
 	m_pColliders[COLLIDER::TYPE_DAMAGED] = this;
 	SetSpeed(0.f);
 

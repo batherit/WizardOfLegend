@@ -12,6 +12,9 @@ CIceCrystalChild::CIceCrystalChild(CGameWorld & _rGameWorld, CIceCrystal* _pIceC
 	CObj(_rGameWorld, 0.f, 0.f, ICE_CRYSTAL_WIDTH, ICE_CRYSTAL_HEIGHT),
 	m_pIceCrystalParent(_pIceCrystalParent)
 {
+	SetDamage(12);
+	SetDamageOffset(3);
+
 	m_hDCKeyAtlas = CBitmapMgr::GetInstance()->GetBitmapMemDC(TEXT("SKILL_ICE_CRYSTAL"));
 
 	m_pColliders[COLLIDER::TYPE_DAMAGED] = this;

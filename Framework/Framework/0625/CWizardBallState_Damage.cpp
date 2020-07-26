@@ -55,8 +55,8 @@ int CWizardBallState_Damage::Update(float _fDeltaTime)
 			TO_WOL(m_rOwner.GetGameWorld()).GetListParticles().emplace_back(
 				new CCoin(m_rOwner.GetGameWorld(),
 					m_rOwner.GetX(), m_rOwner.GetY() + (m_rOwner.GetHeight() >> 1),
-					m_rOwner.GetMoney())
-			);
+					2 + GetNumberMinBetweenMax(-1, 0)
+			));
 			return 1;
 		}
 		else if (m_rOwner.GetTarget()) {

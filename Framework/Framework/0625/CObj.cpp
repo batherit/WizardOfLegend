@@ -110,7 +110,7 @@ bool CObj::CheckCollision(CObj * _pObj, POINT* _pCollisionPoint /*= nullptr*/)
 					((rcCollided.bottom + rcCollided.top) >> 1)
 				};
 				if (_pCollisionPoint) *_pCollisionPoint = ptCollisionPoint;
-				_pObj->Attacked(m_iDamage, ptCollisionPoint);					// 데미지를 주고
+				_pObj->Attacked(m_iDamage + GetNumberMinBetweenMax(-m_iDamageOffset, m_iDamageOffset), ptCollisionPoint);					// 데미지를 주고
 				m_listCollidedObjs.emplace_back(_pObj);		// 충돌 리스트에 집어넣는다.
 				return true;
 			}

@@ -106,6 +106,8 @@ public:
 	CObj* GetCollider(COLLIDER::E_TYPE _eType) { return m_pColliders[_eType]; }
 	void SetActive(bool _bIsActive) { m_bIsActive = _bIsActive; }
 	bool IsActive(void) { return m_bIsActive; }
+	void SetDamage(int _iDamage) { m_iDamage = _iDamage; }
+	void SetDamageOffset(int _iDamageOffset) { m_iDamageOffset = _iDamageOffset;  }
 
 protected:
 	int m_iGroupID = -1;
@@ -131,6 +133,7 @@ protected:
 	size_t m_iWidth = 10;
 	size_t m_iHeight = 10;
 	int m_iDamage = 10;
+	int m_iDamageOffset = 2;
 	list<CObj*> m_listCollidedObjs;
 	CObj* m_pColliders[COLLIDER::TYPE_END] = { nullptr, };
 

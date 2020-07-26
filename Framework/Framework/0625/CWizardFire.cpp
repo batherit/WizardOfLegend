@@ -3,6 +3,9 @@
 #include "CBitmapMgr.h"
 #include "CCamera2D.h"
 #include "CSpace.h"
+#include "CWOL_World.h"
+#include "CScene.h"
+#include "CHitEffect.h"
 
 
 
@@ -10,6 +13,9 @@ CWizardFire::CWizardFire(CGameWorld & _rGameWorld, float _fX, float _fY, float _
 	:
 	CObj(_rGameWorld, _fX, _fY, WIZARD_FIRE_WIDTH, WIZARD_FIRE_HEIGHT, _fToX, _fToY, WIZARD_FIRE_SPEED)
 {
+	SetDamage(12);
+	SetDamageOffset(3);
+
 	m_hDCKeyAtlas = CBitmapMgr::GetInstance()->GetBitmapMemDC(TEXT("WIZARD_FIRE"));
 
 	m_pColliders[COLLIDER::TYPE_WALL] = this;
@@ -39,8 +45,27 @@ int CWizardFire::Update(float _fDeltaTime)
 
 void CWizardFire::LateUpdate(void)
 {
-	if (m_listCollidedObjs.size() > 0) {
+	/*if (m_listCollidedObjs.size() > 0) {
 		SetValid(false);
+	}*/
+
+	// 위자드 파이어 삭제 과정
+	DO_IF_IS_VALID_OBJ(this) {
+		for (auto& pPlayerSkill : TO_WOL(GetGameWorld()).GetListUsedPlayerSkills()) {
+			DO_IF_IS_VALID_OBJ(pPlayerSkill) {
+				RECT rcCollisionRect;
+				if (IntersectRect(&rcCollisionRect, &pPlayerSkill->GetRect(), &this->GetRect())) {
+					GetGameWorld().GetSceneManager()->GetCurScene()->GetHitEffects()->emplace_back(
+						new CHitEffect(GetGameWorld(),
+							GetX(),
+							GetY())
+					); 
+					SetValid(false);
+					break;
+				}
+			}
+			DO_IF_IS_NOT_VALID_OBJ(this) break;
+		}
 	}
 }
 

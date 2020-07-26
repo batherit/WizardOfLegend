@@ -71,7 +71,6 @@ void CUI_Cooltime::Render(HDC & _hdc, CCamera2D * _pCamera)
 			SetBkMode(_hdc, TRANSPARENT);							// 텍스트 배경색의 처리
 
 			// 텍스트 출력
-			swprintf_s(m_szCount, TEXT("%d"), static_cast<int>(m_prSkillState->GetCurCooltime()));
 			TextOut(_hdc, GetX() - 10, GetY() - 10, m_szCount, lstrlen(m_szCount));
 			SelectObject(_hdc, hOldFont);
 			DeleteObject(hFont);

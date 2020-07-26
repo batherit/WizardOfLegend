@@ -399,29 +399,29 @@ void CPlayScene::LateUpdate(void)
 		}
 	}
 
-	// 위자드 파이어 삭제 과정
-	CObj* pWizardFire = nullptr;
-	for (auto& pPlayerSkill : TO_WOL(m_rGameWorld).GetListUsedPlayerSkills()) {
-		DO_IF_IS_VALID_OBJ(pPlayerSkill) {
-			RECT rcCollisionRect;
-			for (auto& pMonsterSkill : TO_WOL(m_rGameWorld).GetListUsedMonsterSkills()) {
-				DO_IF_IS_VALID_OBJ(pMonsterSkill) {
-					pWizardFire = dynamic_cast<CWizardFire*>(pMonsterSkill);
-					if (pWizardFire) {
-						if (IntersectRect(&rcCollisionRect, &pPlayerSkill->GetRect(), &pWizardFire->GetRect())) {
-							m_listHitEffects.emplace_back(
-								new CHitEffect(m_rGameWorld,
-									pMonsterSkill->GetX(),
-									pMonsterSkill->GetY())
-							);
-							pMonsterSkill->SetValid(false);
-							break;
-						}
-					}
-				}
-			}
-		}
-	}
+	//// 위자드 파이어 삭제 과정
+	//CObj* pWizardFire = nullptr;
+	//for (auto& pPlayerSkill : TO_WOL(m_rGameWorld).GetListUsedPlayerSkills()) {
+	//	DO_IF_IS_VALID_OBJ(pPlayerSkill) {
+	//		RECT rcCollisionRect;
+	//		for (auto& pMonsterSkill : TO_WOL(m_rGameWorld).GetListUsedMonsterSkills()) {
+	//			DO_IF_IS_VALID_OBJ(pMonsterSkill) {
+	//				pWizardFire = dynamic_cast<CWizardFire*>(pMonsterSkill);
+	//				if (pWizardFire) {
+	//					if (IntersectRect(&rcCollisionRect, &pPlayerSkill->GetRect(), &pWizardFire->GetRect())) {
+	//						m_listHitEffects.emplace_back(
+	//							new CHitEffect(m_rGameWorld,
+	//								pMonsterSkill->GetX(),
+	//								pMonsterSkill->GetY())
+	//						);
+	//						pMonsterSkill->SetValid(false);
+	//						break;
+	//					}
+	//				}
+	//			}
+	//		}
+	//	}
+	//}
 
 
 

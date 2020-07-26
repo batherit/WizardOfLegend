@@ -31,7 +31,7 @@ int CArcherState_Death::Update(float _fDeltaTime)
 		TO_WOL(m_rOwner.GetGameWorld()).GetListParticles().emplace_back(
 			new CCoin(m_rOwner.GetGameWorld(),
 				m_rOwner.GetX(), m_rOwner.GetY() + (m_rOwner.GetHeight() >> 1),
-				m_rOwner.GetMoney())
+				8 + GetNumberMinBetweenMax(-3, 2))
 		);
 		return 1;
 	}

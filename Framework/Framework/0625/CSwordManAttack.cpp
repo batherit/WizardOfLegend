@@ -11,6 +11,9 @@ CSwordManAttack::CSwordManAttack(CGameWorld & _rGameWorld, float _fX, float _fY,
 	:
 	CObj(_rGameWorld, _fX, _fY, SWORDMAN_ATTACK_WIDTH, SWORDMAN_ATTACK_HEIGHT, _fToX, _fToY)
 {
+	SetDamage(13);
+	SetDamageOffset(2);
+
 	m_hDCKeyAtlas = CBitmapMgr::GetInstance()->GetBitmapMemDC(TEXT("SWORDMAN_ATTACK"));
 
 	m_pColliders[COLLIDER::TYPE_DAMAGED] = this;

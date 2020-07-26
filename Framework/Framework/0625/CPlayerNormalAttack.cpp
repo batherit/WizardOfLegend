@@ -10,6 +10,9 @@ CPlayerNormalAttack::CPlayerNormalAttack(CGameWorld & _rGameWorld, float _fX, fl
 	:
 	CObj(_rGameWorld, _fX, _fY, PLAYER_NORMAL_ATTACK_WIDTH, PLAYER_NORMAL_ATTACK_HEIGHT, _fToX, _fToY)
 {
+	SetDamage(10);
+	SetDamageOffset(3);
+
 	m_hDCKeyAtlas = CBitmapMgr::GetInstance()->GetBitmapMemDC(TEXT("PLAYER_NORMAL_ATTACK"));
 	
 	m_pColliders[COLLIDER::TYPE_DAMAGED] = this;

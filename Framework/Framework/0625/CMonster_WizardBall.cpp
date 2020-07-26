@@ -16,6 +16,7 @@ CMonster_WizardBall::CMonster_WizardBall(CGameWorld & _rGameWorld, CSpawnerGener
 	CObj(_rGameWorld, 0.f, 0.f, WIZARD_BALL_OUTPUT_WIDTH, WIZARD_BALL_OUTPUT_HEIGHT),
 	m_pSpawnerGenerator(_pSpawnerGenerator)
 {
+	SetInitInfo();
 }
 
 CMonster_WizardBall::CMonster_WizardBall(CGameWorld & _rGameWorld, float _fX, float _fY, int _iGroupID, CObj * _pTarget, CSpawnerGenerator * _pSpawnerGenerator)
@@ -142,6 +143,8 @@ int CMonster_WizardBall::GetSpriteIndex(void)
 void CMonster_WizardBall::SetInitInfo(void)
 {
 	Release();
+	SetDamage(15);
+	SetDamageOffset(2);
 	DeleteSafe(m_pColliders[COLLIDER::TYPE_WALL]);
 	m_pColliders[COLLIDER::TYPE_WALL] = new CCollider(GetGameWorld(), this, 0.f, 0.f, 80.f, 80.f);
 	m_pColliders[COLLIDER::TYPE_DAMAGED] = this;

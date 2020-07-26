@@ -59,6 +59,17 @@ void CUI_PlayerBar::Render(HDC & _hdc, CCamera2D * _pCamera)
 		m_iWidth,
 		m_iHeight,
 		RGB(255, 0, 255));
+
+	HFONT hFont = CreateFont(27, 0, 0, 0, 0, 0, 0, 0, HANGEUL_CHARSET, 0, 0, 0, VARIABLE_PITCH | FF_ROMAN, TEXT("궁서"));
+	HFONT hOldFont = (HFONT)SelectObject(_hdc, hFont);		// 폰트 설정
+	SetTextColor(_hdc, RGB(255, 255, 255));					// 텍스트 색상 설정
+	SetBkMode(_hdc, TRANSPARENT);							// 텍스트 배경색의 처리
+
+	// 텍스트 출력
+	swprintf_s(m_szHpState, TEXT("%d/%d"), static_cast<int>(m_pHpBar->GetCurrent()), static_cast<int>(m_pHpBar->GetMax()));
+	TextOut(_hdc, GetX() + 40, GetY() - 40, m_szHpState, lstrlen(m_szHpState));
+	SelectObject(_hdc, hOldFont);
+	DeleteObject(hFont);
 }
 
 void CUI_PlayerBar::Release(void)

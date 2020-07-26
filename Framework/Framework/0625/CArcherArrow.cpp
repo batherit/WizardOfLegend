@@ -12,6 +12,8 @@ CArcherArrow::CArcherArrow(CGameWorld & _rGameWorld, float _fX, float _fY, float
 	CObj(_rGameWorld, _fX, _fY, ARCHER_BOW_OUTPUT_WIDTH, ARCHER_BOW_OUTPUT_HEIGHT, _fToX, _fToY, ARCHER_ARROW_SPEED),
 	m_eArcherDir(_eArcherDir)
 {
+	SetDamage(8);
+	SetDamageOffset(5);
 	m_hDCKeyAtlas[ARCHER::DIR_LEFT] = CBitmapMgr::GetInstance()->GetBitmapMemDC(TEXT("ARCHER_BOW_LEFT"));
 	m_hDCKeyAtlas[ARCHER::DIR_RIGHT] = CBitmapMgr::GetInstance()->GetBitmapMemDC(TEXT("ARCHER_BOW_RIGHT"));
 

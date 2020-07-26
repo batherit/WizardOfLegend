@@ -11,6 +11,9 @@ CFireDragon::CFireDragon(CGameWorld & _rGameWorld, float _fX, float _fY, float _
 	:
 	CObj(_rGameWorld, _fX, _fY, PLAYER_FIRE_DRAGON_WIDTH, PLAYER_FIRE_DRAGON_HEIGHT, _fToX, _fToY, PLAYER_FIRE_DRAGON_SPEED)
 {
+	SetDamage(14);
+	SetDamageOffset(3);
+
 	m_hDCKeyAtlas = CBitmapMgr::GetInstance()->GetBitmapMemDC(TEXT("SKILL_FIREDRAGON"));
 
 	m_pColliders[COLLIDER::TYPE_WALL] = new CCollider(_rGameWorld, this, 0.0f, 0.0f, 80.f, 80.f);

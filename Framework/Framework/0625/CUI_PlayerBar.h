@@ -22,5 +22,6 @@ private:
 	CObj* m_pPlayer = nullptr;
 	CUI_Gauge* m_pHpBar = nullptr;
 	CUI_Gauge* m_pManaBar = nullptr;
+	TCHAR m_szHpState[32];
 };
 

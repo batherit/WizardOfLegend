@@ -15,6 +15,8 @@ public:
 	virtual void Release(void) { m_pOwner = nullptr; }
 	void SetHDC(const HDC& _hDCGauge) { m_hDCGauge = _hDCGauge; }
 	void SetMax(float _fMax) { m_fMax = _fMax; }
+	float GetMax(void) const { return m_fMax; }
+	float GetCurrent(void) const { return m_fCurrent; }
 
 private:
 	CObj* m_pOwner;
