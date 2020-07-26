@@ -172,6 +172,9 @@
     <ClInclude Include="CFireDragon.h" />
     <ClInclude Include="CFireDragonSkillState.h" />
     <ClInclude Include="CFireParticle.h" />
+    <ClInclude Include="CGaiaArmor.h" />
+    <ClInclude Include="CGaiaArmorChild.h" />
+    <ClInclude Include="CGaiaArmorSkillState.h" />
     <ClInclude Include="CHitEffect.h" />
     <ClInclude Include="CIceCrystal.h" />
     <ClInclude Include="CIceCrystalChild.h" />
@@ -333,6 +336,9 @@
     <ClCompile Include="CFireDragon.cpp" />
     <ClCompile Include="CFireDragonSkillState.cpp" />
     <ClCompile Include="CFireParticle.cpp" />
+    <ClCompile Include="CGaiaArmor.cpp" />
+    <ClCompile Include="CGaiaArmorChild.cpp" />
+    <ClCompile Include="CGaiaArmorSkillState.cpp" />
     <ClCompile Include="CHitEffect.cpp" />
     <ClCompile Include="CIceCrystal.cpp" />
     <ClCompile Include="CIceCrystalChild.cpp" />

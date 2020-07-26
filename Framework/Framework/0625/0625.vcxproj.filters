@@ -165,6 +165,12 @@
     <Filter Include="소스 파일\99.FMOD">
       <UniqueIdentifier>{458a7ca3-5d6b-4821-ab9d-0212490d1a47}</UniqueIdentifier>
     </Filter>
+    <Filter Include="소스 파일\03.State\031.PlayerSKills\035.GaiaArmorSkillState">
+      <UniqueIdentifier>{2de691de-68c7-4dfc-8fd7-548127f10ca5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\03.Obj\031.Skill\Wizard">
+      <UniqueIdentifier>{cb486777-c93c-4d70-a2e0-b0e9a0524aa8}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CLayer.h">
@@ -506,7 +512,18 @@
     <ClInclude Include="CItem_DroppedCard.h">
       <Filter>소스 파일\03.Obj\036.Item</Filter>
     </ClInclude>
-    <ClInclude Include="CWizardFire.h" />
+    <ClInclude Include="CGaiaArmorSkillState.h">
+      <Filter>소스 파일\03.State\031.PlayerSKills\035.GaiaArmorSkillState</Filter>
+    </ClInclude>
+    <ClInclude Include="CWizardFire.h">
+      <Filter>소스 파일\03.Obj\031.Skill\Wizard</Filter>
+    </ClInclude>
+    <ClInclude Include="CGaiaArmorChild.h">
+      <Filter>소스 파일\03.Obj\031.Skill\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="CGaiaArmor.h">
+      <Filter>소스 파일\03.Obj\031.Skill\Player</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CLayer.cpp">
@@ -831,7 +848,16 @@
       <Filter>소스 파일\01.MainApp</Filter>
     </ClCompile>
     <ClCompile Include="CWizardFire.cpp">
-      <Filter>소스 파일</Filter>
+      <Filter>소스 파일\03.Obj\031.Skill\Wizard</Filter>
+    </ClCompile>
+    <ClCompile Include="CGaiaArmorSkillState.cpp">
+      <Filter>소스 파일\03.State\031.PlayerSKills\035.GaiaArmorSkillState</Filter>
+    </ClCompile>
+    <ClCompile Include="CGaiaArmorChild.cpp">
+      <Filter>소스 파일\03.Obj\031.Skill\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="CGaiaArmor.cpp">
+      <Filter>소스 파일\03.Obj\031.Skill\Player</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

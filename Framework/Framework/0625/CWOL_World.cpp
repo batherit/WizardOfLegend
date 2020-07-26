@@ -236,6 +236,9 @@ void CWOL_World::LoadResources(void)
 	CBitmapMgr::GetInstance()->InsertBitmap(TEXT("../Textures/SKILL_FIREDRAGON_COM.bmp"), TEXT("SKILL_FIREDRAGON"));
 	// 스킬 아이스 크리스탈
 	CBitmapMgr::GetInstance()->InsertBitmap(TEXT("../Textures/SKILL_ICE_CRYSTAL.bmp"), TEXT("SKILL_ICE_CRYSTAL"));
+	// 스킬 가이아 아머
+	CBitmapMgr::GetInstance()->InsertBitmap(TEXT("../Textures/SKILL_GAIA_ARMOR.bmp"), TEXT("SKILL_GAIA_ARMOR"));
+	
 	// 파이어 파티클
 	CBitmapMgr::GetInstance()->InsertBitmap(TEXT("../Textures/FIRE_PARTICLE.bmp"), TEXT("FIRE_PARTICLE"));
 

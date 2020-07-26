@@ -13,7 +13,7 @@ public:
 
 public:
 	// CGameWorld을(를) 통해 상속됨
-	virtual LRESULT OnProcessingWindowMessage(HWND hWnd, UINT nMessageID, WPARAM wParam, LPARAM lParam) override;
+	virtual LRESULT CALLBACK OnProcessingWindowMessage(HWND hWnd, UINT nMessageID, WPARAM wParam, LPARAM lParam) override;
 	void Ready(void);
 	void Update(void);
 	void LateUpdate(void);

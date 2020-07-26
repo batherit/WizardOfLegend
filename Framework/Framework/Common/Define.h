@@ -213,10 +213,16 @@
 // 아이스 크리스탈 차일드 사이즈
 #define ICE_CRYSTAL_WIDTH				200
 #define ICE_CRYSTAL_HEIGHT				200
-#define ICE_CRYSTAL_MIN_ROT_SPEED		20
-#define ICE_CRYSTAL_MAX_ROT_SPEED		900
-#define ICE_CRYSTAL_MIN_DIST			100
-#define ICE_CRYSTAL_MAX_DIST			500
+#define ICE_CRYSTAL_MIN_ROT_SPEED		20.f
+#define ICE_CRYSTAL_MAX_ROT_SPEED		900.f
+#define ICE_CRYSTAL_MIN_DIST			100.f
+#define ICE_CRYSTAL_MAX_DIST			500.f
+// 가이아 아머 사이즈
+#define GAIA_ARMOR_WIDTH		100.f
+#define GAIA_ARMOR_HEIGHT		102.f
+// 가이아 아머 변수
+#define GAIA_ARMOR_MAX_ROT_SPEED	180.f
+#define GAIA_ARMOR_OFFSET			145.f
 
 // 스워드맨 공격 사이즈
 #define SWORDMAN_ATTACK_WIDTH	200

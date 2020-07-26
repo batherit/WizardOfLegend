@@ -8,7 +8,7 @@ class CIceCrystal :
 {
 public:
 	CIceCrystal(CGameWorld& _rGameWorld, CObj* _pOwner);
-	CIceCrystal(CGameWorld& _rGameWorld, float _fX, float _fY);
+	CIceCrystal(CGameWorld& _rGameWorld, float _fX, float _fY); // ¼ÒÈ¯¿ë
 	virtual ~CIceCrystal();
 
 public:
