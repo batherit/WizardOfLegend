@@ -2,7 +2,7 @@
 
 // 윈도우 사이즈
 #define WINCX 1750// 1400 1920 
-#define WINCY 950// 800 1080
+#define WINCY 1050// 800 1080
 
 // 타이머 관련
 #define WORLD_TIMER	CGameWorldTimer::Instance()
@@ -245,3 +245,16 @@
 // 상점 가이아
 #define SHOP_GAIA_WIDTH		106
 #define SHOP_GAIA_HEIGHT	172
+
+//중간 보스 출력 사이즈
+#define MIDDLE_BOSS_WIDTH		220
+#define MIDDLE_BOSS_HEIGHT		300
+#define MIDDLE_BOSS_RUN_SPEED	150.f
+#define MIDDLE_BOSS_ATTACKABLE_RANGE_OUT 600.f
+
+// 미들 보스 네임바 출력 사이즈
+#define UI_MIDDLE_BOSS_NAMEBAR_WIDTH	455
+#define UI_MIDDLE_BOSS_NAMEBAR_HEIGHT	90
+// 보스 체력바
+#define UI_BOSS_HP_BAR_WIDTH	356
+#define UI_BOSS_HP_BAR_HEIGHT	28

@@ -9,6 +9,7 @@
 #include "CWOL_World.h"
 #include "CSpace.h"
 #include "CSpawnerGenerator.h"
+#include "CBoss_MiddleBoss.h"
 
 
 
@@ -59,6 +60,12 @@ CMonsterSpawner::CMonsterSpawner(CGameWorld & _rGameWorld, list<CObj*>& _listMon
 		stAnimInfo.iFrameCount = 32;
 		SetWidth(150); SetHeight(230);
 		break;
+	case SPAWN::TYPE_MIDDLEBOSS:
+		stAnimInfo.iCountToRepeat = 1;
+		stAnimInfo.fTotalTime = 0.5f;
+		stAnimInfo.iStartFrameIndex = 0;
+		stAnimInfo.iFrameCount = 1;
+		break;
 	}
 	SetNewAnimInfo(stAnimInfo);
 }
@@ -75,28 +82,25 @@ int CMonsterSpawner::Update(float _fDeltaTime)
 			m_bIsAnimStarted = true;
 		}
 
-		if (UpdateAnim(_fDeltaTime) == 1) {
-
-			SetValid(false);
-			return 1;
-		}
-
 		CObj* pSpawnedMonster = nullptr;
 		if (!m_bIsSpawend && GetAnimProgress() >= 0.875f) {
 			switch (m_eType) {
 			case SPAWN::TYPE_SWORDMAN:
 				pSpawnedMonster = new CMonster_SwordMan(GetGameWorld(), GetX(), GetY(), m_iGroupID, TO_WOL(GetGameWorld()).GetPlayer(), m_pSpawnerGenerator);
-				if (m_pSummoner && dynamic_cast<CMonster_Wizard*>(m_pSummoner)) dynamic_cast<CMonster_Wizard*>(m_pSummoner)->GetListWizardBalls().emplace_back(pSpawnedMonster);
+				if (m_pSummoner && dynamic_cast<CBoss_MiddleBoss*>(m_pSummoner)) 
+					dynamic_cast<CBoss_MiddleBoss*>(m_pSummoner)->GetListMonsters().emplace_back(pSpawnedMonster);
 				m_listMonsters.emplace_back(pSpawnedMonster);
 				break;
 			case SPAWN::TYPE_ARCHER:
 				pSpawnedMonster = new CMonster_Archer(GetGameWorld(), GetX(), GetY(), m_iGroupID, TO_WOL(GetGameWorld()).GetPlayer(), m_pSpawnerGenerator);
-				if (m_pSummoner && dynamic_cast<CMonster_Wizard*>(m_pSummoner)) dynamic_cast<CMonster_Wizard*>(m_pSummoner)->GetListWizardBalls().emplace_back(pSpawnedMonster);
+				if (m_pSummoner && dynamic_cast<CBoss_MiddleBoss*>(m_pSummoner)) 
+					dynamic_cast<CBoss_MiddleBoss*>(m_pSummoner)->GetListMonsters().emplace_back(pSpawnedMonster);
 				m_listMonsters.emplace_back(pSpawnedMonster);
 				break;
 			case SPAWN::TYPE_WIZARD:
 				pSpawnedMonster = new CMonster_Wizard(GetGameWorld(), GetX(), GetY(), m_iGroupID, TO_WOL(GetGameWorld()).GetPlayer(), m_pSpawnerGenerator);
-				if (m_pSummoner && dynamic_cast<CMonster_Wizard*>(m_pSummoner)) dynamic_cast<CMonster_Wizard*>(m_pSummoner)->GetListWizardBalls().emplace_back(pSpawnedMonster);
+				if (m_pSummoner && dynamic_cast<CBoss_MiddleBoss*>(m_pSummoner)) 
+					dynamic_cast<CBoss_MiddleBoss*>(m_pSummoner)->GetListMonsters().emplace_back(pSpawnedMonster);
 				m_listMonsters.emplace_back(pSpawnedMonster);
 				break;
 			case SPAWN::TYPE_WIZARDBALL:
@@ -105,8 +109,17 @@ int CMonsterSpawner::Update(float _fDeltaTime)
 					dynamic_cast<CMonster_Wizard*>(m_pSummoner)->GetListWizardBalls().emplace_back(pSpawnedMonster);
 				m_listMonsters.emplace_back(pSpawnedMonster);
 				break;
+			case SPAWN::TYPE_MIDDLEBOSS:
+				pSpawnedMonster = new CBoss_MiddleBoss(GetGameWorld(), GetX(), GetY(), m_iGroupID, TO_WOL(GetGameWorld()).GetPlayer(), m_pSpawnerGenerator);
+				m_listMonsters.emplace_back(pSpawnedMonster);
 			}
 			m_bIsSpawend = true;
+		}
+		
+		if (UpdateAnim(_fDeltaTime) == 1) {
+
+			SetValid(false);
+			return 1;
 		}
 	}
 	return 0;
@@ -114,26 +127,29 @@ int CMonsterSpawner::Update(float _fDeltaTime)
 
 void CMonsterSpawner::Render(HDC & _hdc, CCamera2D * _pCamera)
 {
-	if (m_fElapsedTime < m_fTimeToDelay) return;
-	RECT& rcDrawArea = GetRect();
+	if (m_hDCSpawnSprite) {
+		if (m_fElapsedTime < m_fTimeToDelay) return;
+		RECT& rcDrawArea = GetRect();
 
-	// 그릴 영역을 스크린 좌표로 변환한다.
-	pair<float, float>& pairLeftTop = _pCamera->GetScreenPoint(rcDrawArea.left, rcDrawArea.top);
-	pair<float, float>& pairRightBottom = _pCamera->GetScreenPoint(rcDrawArea.right, rcDrawArea.bottom);
+		// 그릴 영역을 스크린 좌표로 변환한다.
+		pair<float, float>& pairLeftTop = _pCamera->GetScreenPoint(rcDrawArea.left, rcDrawArea.top);
+		pair<float, float>& pairRightBottom = _pCamera->GetScreenPoint(rcDrawArea.right, rcDrawArea.bottom);
 
-	RECT rcCollider = { pairLeftTop.first, pairLeftTop.second, pairRightBottom.first, pairRightBottom.second };
-	if (!IsCollided(GetGameWorld().GetViewSpace()->GetRect(), rcCollider)) return;
+		RECT rcCollider = { pairLeftTop.first, pairLeftTop.second, pairRightBottom.first, pairRightBottom.second };
+		if (!IsCollided(GetGameWorld().GetViewSpace()->GetRect(), rcCollider)) return;
 
-	GdiTransparentBlt(_hdc,
-		pairLeftTop.first,			// 출력 시작좌표 X
-		pairLeftTop.second,			// 출력 시작좌표 Y
-		pairRightBottom.first - pairLeftTop.first + 1,					// 출력 크기 (1은 빈여백을 없애기 위한 추가 픽셀이다.)
-		pairRightBottom.second - pairLeftTop.second + 1,				// 출력 크기 (1은 빈여백을 없애기 위한 추가 픽셀이다.)
-		m_hDCSpawnSprite,
-		GetAnimX(),
-		GetAnimY(),
-		m_iWidth,
-		m_iHeight,
-		RGB(255, 0, 255));
-	g_iRenderCount++;
+		GdiTransparentBlt(_hdc,
+			pairLeftTop.first,			// 출력 시작좌표 X
+			pairLeftTop.second,			// 출력 시작좌표 Y
+			pairRightBottom.first - pairLeftTop.first + 1,					// 출력 크기 (1은 빈여백을 없애기 위한 추가 픽셀이다.)
+			pairRightBottom.second - pairLeftTop.second + 1,				// 출력 크기 (1은 빈여백을 없애기 위한 추가 픽셀이다.)
+			m_hDCSpawnSprite,
+			GetAnimX(),
+			GetAnimY(),
+			m_iWidth,
+			m_iHeight,
+			RGB(255, 0, 255));
+		g_iRenderCount++;
+	}
+	
 }

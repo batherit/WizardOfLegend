@@ -17,5 +17,9 @@ public:
 
 	// CState을(를) 통해 상속됨
 	virtual void OnExited(void) override;
+
+private:
+	float m_fBruisingTime = 0.f;
+	float m_fElapsedTime = 0.f;
 };
 

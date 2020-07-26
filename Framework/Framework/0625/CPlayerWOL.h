@@ -32,6 +32,7 @@ public:
 	bool ConfirmValidSkill(void);
 	void SetUsingSkill(CState<CPlayerWOL>* _pSkillState) { m_pUsingSkill = _pSkillState; }
 	void SetNextSkill(CState<CPlayerWOL>* _pSkillState) { 
+		if (!_pSkillState) m_pNextSkill = nullptr;
 		if (!m_bIsSkillConfirmed) return;
 		m_pNextSkill = _pSkillState;
 		m_bIsSkillConfirmed = false;

@@ -160,6 +160,7 @@
     <ClInclude Include="CArcherState_Run.h" />
     <ClInclude Include="CAtlasLoader.h" />
     <ClInclude Include="CAtlasObj.h" />
+    <ClInclude Include="CBoss_MiddleBoss.h" />
     <ClInclude Include="CCoin.h" />
     <ClInclude Include="CCollider.h" />
     <ClInclude Include="CBitmapMgr.h" />
@@ -185,6 +186,13 @@
     <ClInclude Include="CMapLoader.h" />
     <ClInclude Include="CMapFileMgr.h" />
     <ClInclude Include="CMapObjsGroup.h" />
+    <ClInclude Include="CMiddleBossState_Death.h" />
+    <ClInclude Include="CMiddleBossState_Fire.h" />
+    <ClInclude Include="CMiddleBossState_FireDragon.h" />
+    <ClInclude Include="CMiddleBossState_IceCrystal.h" />
+    <ClInclude Include="CMiddleBossState_Idle.h" />
+    <ClInclude Include="CMiddleBossState_Run.h" />
+    <ClInclude Include="CMiddleBossState_Summon.h" />
     <ClInclude Include="CMonsterSpawner.h" />
     <ClInclude Include="CMonster_Archer.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
@@ -326,6 +334,7 @@
     <ClCompile Include="CArcherState_Run.cpp" />
     <ClCompile Include="CAtlasLoader.cpp" />
     <ClCompile Include="CAtlasObj.cpp" />
+    <ClCompile Include="CBoss_MiddleBoss.cpp" />
     <ClCompile Include="CCoin.cpp" />
     <ClCompile Include="CCollider.cpp" />
     <ClCompile Include="CBitmapMgr.cpp" />
@@ -351,6 +360,13 @@
     <ClCompile Include="CMapLoader.cpp" />
     <ClCompile Include="CMapFileMgr.cpp" />
     <ClCompile Include="CMapObjsGroup.cpp" />
+    <ClCompile Include="CMiddleBossState_Death.cpp" />
+    <ClCompile Include="CMiddleBossState_Fire.cpp" />
+    <ClCompile Include="CMiddleBossState_FireDragon.cpp" />
+    <ClCompile Include="CMiddleBossState_IceCrystal.cpp" />
+    <ClCompile Include="CMiddleBossState_Idle.cpp" />
+    <ClCompile Include="CMiddleBossState_Run.cpp" />
+    <ClCompile Include="CMiddleBossState_Summon.cpp" />
     <ClCompile Include="CMonsterSpawner.cpp" />
     <ClCompile Include="CMonster_Archer.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>

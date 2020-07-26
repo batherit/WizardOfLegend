@@ -171,6 +171,12 @@
     <Filter Include="소스 파일\03.Obj\031.Skill\Wizard">
       <UniqueIdentifier>{cb486777-c93c-4d70-a2e0-b0e9a0524aa8}</UniqueIdentifier>
     </Filter>
+    <Filter Include="소스 파일\03.Obj\023.Monster\MiddleBoss">
+      <UniqueIdentifier>{407c80a0-eb3b-4779-ac5d-f4fe4e33401d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일\03.State\036.MiddleBoss">
+      <UniqueIdentifier>{ed80acfa-c9a9-42de-9f8a-67ce1f27c29b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CLayer.h">
@@ -530,6 +536,30 @@
     <ClInclude Include="CItem_Gaia.h">
       <Filter>소스 파일\03.Obj\036.Item</Filter>
     </ClInclude>
+    <ClInclude Include="CBoss_MiddleBoss.h">
+      <Filter>소스 파일\03.Obj\023.Monster\MiddleBoss</Filter>
+    </ClInclude>
+    <ClInclude Include="CMiddleBossState_Idle.h">
+      <Filter>소스 파일\03.State\036.MiddleBoss</Filter>
+    </ClInclude>
+    <ClInclude Include="CMiddleBossState_Run.h">
+      <Filter>소스 파일\03.State\036.MiddleBoss</Filter>
+    </ClInclude>
+    <ClInclude Include="CMiddleBossState_Death.h">
+      <Filter>소스 파일\03.State\036.MiddleBoss</Filter>
+    </ClInclude>
+    <ClInclude Include="CMiddleBossState_Summon.h">
+      <Filter>소스 파일\03.State\036.MiddleBoss</Filter>
+    </ClInclude>
+    <ClInclude Include="CMiddleBossState_Fire.h">
+      <Filter>소스 파일\03.State\036.MiddleBoss</Filter>
+    </ClInclude>
+    <ClInclude Include="CMiddleBossState_IceCrystal.h">
+      <Filter>소스 파일\03.State\036.MiddleBoss</Filter>
+    </ClInclude>
+    <ClInclude Include="CMiddleBossState_FireDragon.h">
+      <Filter>소스 파일\03.State\036.MiddleBoss</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CLayer.cpp">
@@ -700,9 +730,6 @@
     <ClCompile Include="CPlayerSpawner.cpp">
       <Filter>소스 파일\03.Obj\026.Spawner\PlayerSpanwer</Filter>
     </ClCompile>
-    <ClCompile Include="CSpawnerGenerator.cpp">
-      <Filter>소스 파일\98.Generator</Filter>
-    </ClCompile>
     <ClCompile Include="CPlayerNormalAttack.cpp">
       <Filter>소스 파일\03.Obj\031.Skill\Player</Filter>
     </ClCompile>
@@ -870,6 +897,33 @@
     </ClCompile>
     <ClCompile Include="CItem_Gaia.cpp">
       <Filter>소스 파일\03.Obj\036.Item</Filter>
+    </ClCompile>
+    <ClCompile Include="CMiddleBossState_Idle.cpp">
+      <Filter>소스 파일\03.State\036.MiddleBoss</Filter>
+    </ClCompile>
+    <ClCompile Include="CMiddleBossState_Death.cpp">
+      <Filter>소스 파일\03.State\036.MiddleBoss</Filter>
+    </ClCompile>
+    <ClCompile Include="CSpawnerGenerator.cpp">
+      <Filter>소스 파일\98.Generator</Filter>
+    </ClCompile>
+    <ClCompile Include="CMiddleBossState_Summon.cpp">
+      <Filter>소스 파일\03.State\036.MiddleBoss</Filter>
+    </ClCompile>
+    <ClCompile Include="CBoss_MiddleBoss.cpp">
+      <Filter>소스 파일\03.Obj\023.Monster\MiddleBoss</Filter>
+    </ClCompile>
+    <ClCompile Include="CMiddleBossState_Fire.cpp">
+      <Filter>소스 파일\03.State\036.MiddleBoss</Filter>
+    </ClCompile>
+    <ClCompile Include="CMiddleBossState_Run.cpp">
+      <Filter>소스 파일\03.State\036.MiddleBoss</Filter>
+    </ClCompile>
+    <ClCompile Include="CMiddleBossState_IceCrystal.cpp">
+      <Filter>소스 파일\03.State\036.MiddleBoss</Filter>
+    </ClCompile>
+    <ClCompile Include="CMiddleBossState_FireDragon.cpp">
+      <Filter>소스 파일\03.State\036.MiddleBoss</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -25,6 +25,7 @@ void CPlayerState_Damage::OnLoaded(void)
 	if (m_rOwner.GetUsingSkill()) {
 		m_rOwner.GetUsingSkill()->OnExited();
 		m_rOwner.SetUsingSkill(nullptr);
+		//m_rOwner.SetNextSkill(nullptr);
 	}
 	m_rOwner.SetNewStateAnim(PLAYER::STATE_DAMAGE, true);
 	m_rOwner.SetToXY(m_rOwner.GetX() - m_ptCollisionPoint.x, m_rOwner.GetY() - m_ptCollisionPoint.y);

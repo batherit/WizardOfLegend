@@ -261,9 +261,14 @@ void CWOL_World::LoadResources(void)
 	// 위자드 파이어 렌더링
 	CBitmapMgr::GetInstance()->InsertBitmap(TEXT("../Textures/WIZARD_FIRE.bmp"), TEXT("WIZARD_FIRE"));
 
-
 	// 위자드볼 렌더링
 	CBitmapMgr::GetInstance()->InsertBitmap(TEXT("../Textures/WIZARD_BALL.bmp"), TEXT("WIZARD_BALL"));
+
+	// 중간보스 렌더링
+	CBitmapMgr::GetInstance()->InsertBitmap(TEXT("../Textures/MIDDLEBOSS_NAMEBAR.bmp"), TEXT("MIDDLEBOSS_NAMEBAR"));
+	CBitmapMgr::GetInstance()->InsertBitmap(TEXT("../Textures/BOSS_HPBAR.bmp"), TEXT("BOSS_HPBAR"));
+	CBitmapMgr::GetInstance()->InsertBitmap(TEXT("../Textures/MIDDLE_BOSS_LEFT.bmp"), TEXT("MIDDLE_BOSS_LEFT"));
+	CBitmapMgr::GetInstance()->InsertBitmap(TEXT("../Textures/MIDDLE_BOSS_RIGHT.bmp"), TEXT("MIDDLE_BOSS_RIGHT"));
 
 	// 상점 아이템
 	CBitmapMgr::GetInstance()->InsertBitmap(TEXT("../Textures/ITEMSHOP_NPC.bmp"), TEXT("ITEMSHOP_NPC"));

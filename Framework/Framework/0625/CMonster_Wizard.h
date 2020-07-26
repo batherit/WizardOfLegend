@@ -29,7 +29,7 @@ public:
 	bool GoToAttackableLocation(float _fDeltaTime);
 	bool IsAttackable(void);
 	bool DirectDirectionToTarget(void);
-	MONSTER::E_DIRECTION GetArcherDir(void) const { return m_eWizardDir; }
+	MONSTER::E_DIRECTION GetWizardDir(void) const { return m_eWizardDir; }
 	int GetSummonedWizardBalls(void) const { return m_listWizardBalls.size(); }
 	list<CObj*>& GetListWizardBalls(void) { return m_listWizardBalls; }
 
@@ -39,7 +39,7 @@ private:
 private:
 	CObj* m_pTarget = nullptr;
 	CStateMgr<CMonster_Wizard>* m_pStateMgr = nullptr;
-	HDC m_hDCKeyAtlas[ARCHER::DIR_END];
+	HDC m_hDCKeyAtlas[MONSTER::DIR_END];
 	WIZARD::E_STATE m_eState = WIZARD::STATE_END;
 	MONSTER::E_DIRECTION m_eWizardDir = MONSTER::DIR_END;
 	CSpawnerGenerator* m_pSpawnerGenerator = nullptr;

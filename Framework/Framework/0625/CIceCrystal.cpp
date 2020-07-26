@@ -51,7 +51,17 @@ CIceCrystal::CIceCrystal(CGameWorld & _rGameWorld, float _fX, float _fY)
 	m_pOwner(nullptr),
 	m_fLifeTime(5.f)
 {
-	SetSpeed(ICE_CRYSTAL_MIN_ROT_SPEED);
+	m_pColliders[COLLIDER::TYPE_DAMAGED] = this;
+
+	m_iIceCrystalNum = 3;
+	m_iPeriod = 1;
+	m_fMinRotSpeed = ICE_CRYSTAL_MIN_ROT_SPEED;
+	m_fMaxRotSpeed = ICE_CRYSTAL_MAX_ROT_SPEED;
+
+	for (int i = 0; i < m_iIceCrystalNum; i++) {
+		m_pIceCrystal[i] = new CIceCrystalChild(_rGameWorld, this);
+		TO_WOL(_rGameWorld).GetListUsedMonsterSkills().emplace_back(m_pIceCrystal[i]);
+	}
 	CSoundMgr::Get_Instance()->PlaySound(TEXT("ICE_KRYSTAL_START.mp3"), CSoundMgr::SKILL);
 }
 

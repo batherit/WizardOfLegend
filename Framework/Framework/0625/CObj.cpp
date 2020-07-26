@@ -31,6 +31,7 @@ CObj::CObj(CGameWorld& _rGameWorld, float _fX /*= 0*/, float _fY /*= 0*/, size_t
 	m_pDrawFunc(_pDrawFunc)
 {
 	ZeroMemory(m_pColliders, sizeof(m_pColliders));
+	NormalizeVector(m_fToX, m_fToY);
 }
 
 

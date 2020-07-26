@@ -1,24 +1,9 @@
-﻿  CPlayScene.cpp
+﻿  CMiddleBossState_Run.cpp
 d:\mylab\gamelab\algorithm\wizardoflegend\framework\framework\0625\cobj.h(62): warning C4244: '인수': 'LONG'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
 d:\mylab\gamelab\algorithm\wizardoflegend\framework\framework\0625\cobj.h(63): warning C4244: '인수': 'LONG'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-d:\mylab\gamelab\algorithm\wizardoflegend\framework\framework\0625\cplayscene.cpp(133): warning C4244: '인수': 'LONG'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-d:\mylab\gamelab\algorithm\wizardoflegend\framework\framework\0625\cplayscene.cpp(136): warning C4244: '인수': 'LONG'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-d:\mylab\gamelab\algorithm\wizardoflegend\framework\framework\0625\cplayscene.cpp(141): warning C4244: '인수': 'LONG'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-d:\mylab\gamelab\algorithm\wizardoflegend\framework\framework\0625\cplayscene.cpp(144): warning C4244: '인수': 'LONG'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-d:\mylab\gamelab\algorithm\wizardoflegend\framework\framework\0625\cplayscene.cpp(165): warning C4244: '인수': 'LONG'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-d:\mylab\gamelab\algorithm\wizardoflegend\framework\framework\0625\cplayscene.cpp(168): warning C4244: '인수': 'LONG'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-d:\mylab\gamelab\algorithm\wizardoflegend\framework\framework\0625\cplayscene.cpp(173): warning C4244: '인수': 'LONG'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-d:\mylab\gamelab\algorithm\wizardoflegend\framework\framework\0625\cplayscene.cpp(176): warning C4244: '인수': 'LONG'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-d:\mylab\gamelab\algorithm\wizardoflegend\framework\framework\0625\cplayscene.cpp(195): warning C4244: '인수': 'LONG'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-d:\mylab\gamelab\algorithm\wizardoflegend\framework\framework\0625\cplayscene.cpp(216): warning C4244: '인수': 'LONG'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-d:\mylab\gamelab\algorithm\wizardoflegend\framework\framework\0625\cplayscene.cpp(219): warning C4244: '인수': 'LONG'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-d:\mylab\gamelab\algorithm\wizardoflegend\framework\framework\0625\cplayscene.cpp(224): warning C4244: '인수': 'LONG'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-d:\mylab\gamelab\algorithm\wizardoflegend\framework\framework\0625\cplayscene.cpp(227): warning C4244: '인수': 'LONG'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-d:\mylab\gamelab\algorithm\wizardoflegend\framework\framework\0625\cplayscene.cpp(252): warning C4244: '인수': 'LONG'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-d:\mylab\gamelab\algorithm\wizardoflegend\framework\framework\0625\cplayscene.cpp(255): warning C4244: '인수': 'LONG'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-d:\mylab\gamelab\algorithm\wizardoflegend\framework\framework\0625\cplayscene.cpp(260): warning C4244: '인수': 'LONG'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-d:\mylab\gamelab\algorithm\wizardoflegend\framework\framework\0625\cplayscene.cpp(263): warning C4244: '인수': 'LONG'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-d:\mylab\gamelab\algorithm\wizardoflegend\framework\framework\0625\cplayscene.cpp(285): warning C4244: '인수': 'LONG'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-d:\mylab\gamelab\algorithm\wizardoflegend\framework\framework\0625\cplayscene.cpp(288): warning C4244: '인수': 'int'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  CMiddleBossState_IceCrystal.cpp
+d:\mylab\gamelab\algorithm\wizardoflegend\framework\framework\0625\cobj.h(62): warning C4244: '인수': 'LONG'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\mylab\gamelab\algorithm\wizardoflegend\framework\framework\0625\cobj.h(63): warning C4244: '인수': 'LONG'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  코드를 생성하고 있습니다...
   0625.vcxproj -> D:\MyLab\GameLab\Algorithm\WizardOfLegend\Framework\Framework\Debug\0625.exe
   0625.vcxproj -> D:\MyLab\GameLab\Algorithm\WizardOfLegend\Framework\Framework\Debug\0625.pdb (Full PDB)

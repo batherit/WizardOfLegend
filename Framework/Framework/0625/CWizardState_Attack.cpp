@@ -50,19 +50,7 @@ int CWizardState_Attack::Update(float _fDeltaTime)
 	m_rOwner.DirectDirectionToTarget();
 
 	if (m_rOwner.UpdateAnim(_fDeltaTime) == 1) {
-
-
-		if (m_rOwner.GetTarget()) {
-			if (m_rOwner.IsAttackable()) {
-				m_rOwner.GetStateMgr()->SetNextState(new CWizardState_Attack(m_rOwner));
-			}
-			else {
-				m_rOwner.GetStateMgr()->SetNextState(new CWizardState_Run(m_rOwner));
-			}
-		}
-		else {
-			m_rOwner.GetStateMgr()->SetNextState(new CWizardState_Idle(m_rOwner));
-		}
+		m_rOwner.GetStateMgr()->SetNextState(new CWizardState_Idle(m_rOwner));
 	}
 
 	return 0;

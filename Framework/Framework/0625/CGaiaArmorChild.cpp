@@ -42,6 +42,7 @@ void CGaiaArmorChild::LateUpdate(void)
 		for (auto& pMonsterSkill : TO_WOL(GetGameWorld()).GetListUsedMonsterSkills()) {
 			DO_IF_IS_VALID_OBJ(pMonsterSkill) {
 				pCollider = pMonsterSkill->GetCollider(COLLIDER::TYPE_WALL);
+				if (!pCollider) break;
 				if (IntersectRect(&rcCollisionRect, &GetRect(), &pCollider->GetRect())) {
 					GetGameWorld().GetSceneManager()->GetCurScene()->GetHitEffects()->emplace_back(
 						new CHitEffect(GetGameWorld(),
