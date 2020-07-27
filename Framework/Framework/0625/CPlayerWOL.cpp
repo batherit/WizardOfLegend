@@ -63,7 +63,10 @@ int CPlayerWOL::Update(float _fDeltaTime)
 		SetHP(PLAYER_MAX_HP);
 	}
 	if (CKeyMgr::GetInstance()->IsKeyDown(KEY::KEY_P)) {
-		if (g_bDebugShowSpec) g_bDebugShowSpec = false;
+		if (g_bDebugShowSpec) {
+			g_bDebugShowSpec = false;
+			TO_WOL(GetGameWorld()).GetCamera()->SetZoomMultiple(1.f);
+		}
 		else g_bDebugShowSpec = true;
 	}
 

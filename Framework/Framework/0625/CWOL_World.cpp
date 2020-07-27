@@ -23,7 +23,27 @@ CWOL_World::~CWOL_World()
 
 LRESULT CWOL_World::OnProcessingWindowMessage(HWND hWnd, UINT nMessageID, WPARAM wParam, LPARAM lParam)
 {
-	return LRESULT();
+	// 윈도우 프로시져에서는 ESC키에 대한 처리를 한다.
+	// ESC -> 종료
+	if (g_bDebugShowSpec) {
+		switch (nMessageID)
+		{
+		case WM_MOUSEWHEEL:
+		{
+			int zDelta = GET_WHEEL_DELTA_WPARAM(wParam);
+
+			if (zDelta > 0) {
+				m_pCamera->ZoomIn(0.05f);
+			}
+			else {
+				m_pCamera->ZoomOut(0.05f);
+			}
+			break;
+		}
+		}
+	}
+	
+	return 0;
 }
 
 void CWOL_World::Ready(void)
