@@ -5,7 +5,6 @@
 #include "CMapObjsGroup.h"
 #include "CSpace.h"
 #include "CStateMgr.h"
-#include "CPlayerState_Spawn.h"
 #include "CMonster_SwordMan.h"
 #include "CMonsterSpawner.h"
 #include "CPlayerSpawner.h"
@@ -496,9 +495,16 @@ void CPlayScene::Render(HDC & _hdc, CCamera2D * _pCamera)
 	for (auto& pObj : m_pMapLoader->GetAtlasObjsGroups(1)) {
 		pObj->Render(_hdc, _pCamera);
 	}
-	/*for (auto& pObj : m_pMapLoader->GetCollidersGroups()) {
-		pObj->Render(_hdc, _pCamera);
-	}*/
+	if (g_bDebugShowSpec) {
+		for (auto& pObj : m_pMapLoader->GetCollidersGroups()) {
+			pObj->Render(_hdc, _pCamera);
+			pObj->RenderGroupArea(_hdc, _pCamera);
+		}
+		for (auto& pObj : m_pMapLoader->GetTriggersGroups()) {
+			pObj->Render(_hdc, _pCamera);
+			pObj->RenderGroupArea(_hdc, _pCamera);
+		}
+	}
 
 	m_pPlayerBarUI->Render(_hdc, _pCamera);
 	m_pSkillBarUI->Render(_hdc, _pCamera);

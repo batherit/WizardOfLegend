@@ -4,7 +4,6 @@
 #include "CBitmapMgr.h"
 #include "CCamera2D.h"
 #include "CEffect_Spawn.h"
-#include "CSwordManState_Spawn.h"
 #include "CSwordManState_Idle.h"
 #include "CSwordManState_Damage.h"
 #include "CSpawnerGenerator.h"

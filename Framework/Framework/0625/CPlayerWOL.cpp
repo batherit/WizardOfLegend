@@ -58,6 +58,14 @@ int CPlayerWOL::Update(float _fDeltaTime)
 	for (auto& pCollider : m_pColliders) {
 		pCollider->Update(_fDeltaTime);
 	}
+	
+	if (CKeyMgr::GetInstance()->IsKeyDown(KEY::KEY_G)) {
+		SetHP(PLAYER_MAX_HP);
+	}
+	if (CKeyMgr::GetInstance()->IsKeyDown(KEY::KEY_P)) {
+		if (g_bDebugShowSpec) g_bDebugShowSpec = false;
+		else g_bDebugShowSpec = true;
+	}
 
 	return 0;
 }

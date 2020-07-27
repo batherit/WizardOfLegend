@@ -323,12 +323,6 @@
     <ClInclude Include="Function.h">
       <Filter>소스 파일\99.Helper</Filter>
     </ClInclude>
-    <ClInclude Include="CSwordManState_Spawn.h">
-      <Filter>소스 파일\03.State\032.SwordMan</Filter>
-    </ClInclude>
-    <ClInclude Include="CPlayerState_Spawn.h">
-      <Filter>소스 파일\03.State\031.Player</Filter>
-    </ClInclude>
     <ClInclude Include="CSwordManState_Idle.h">
       <Filter>소스 파일\03.State\032.SwordMan</Filter>
     </ClInclude>
@@ -703,17 +697,11 @@
     <ClCompile Include="CPlayerState_Attack.cpp">
       <Filter>소스 파일\03.State\031.Player</Filter>
     </ClCompile>
-    <ClCompile Include="CPlayerState_Spawn.cpp">
-      <Filter>소스 파일\03.State\031.Player</Filter>
-    </ClCompile>
     <ClCompile Include="CEffect_Spawn.cpp">
       <Filter>소스 파일\03.Obj\02. Effect</Filter>
     </ClCompile>
     <ClCompile Include="Function.cpp">
       <Filter>소스 파일\99.Helper</Filter>
-    </ClCompile>
-    <ClCompile Include="CSwordManState_Spawn.cpp">
-      <Filter>소스 파일\03.State\032.SwordMan</Filter>
     </ClCompile>
     <ClCompile Include="CSwordManState_Idle.cpp">
       <Filter>소스 파일\03.State\032.SwordMan</Filter>

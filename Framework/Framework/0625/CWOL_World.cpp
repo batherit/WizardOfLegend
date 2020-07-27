@@ -47,15 +47,6 @@ void CWOL_World::Update(void)
 		}
 	}
 
-	if (CKeyMgr::GetInstance()->IsKeyDown(KEY::KEY_P)) {
-		m_plistUsedPlayerSkills.emplace_back(new CFireDragon(
-			*this,
-			m_pPlayer->GetX(), m_pPlayer->GetY(),
-			m_pPlayer->GetToX(), m_pPlayer->GetToY(),
-			TO_PLAYER_WOL(m_pPlayer)->GetLastAttackState()
-		));
-	}
-
 	m_pCursor->Update(fDeltaTime);
 
 	GetSceneManager()->Update(fDeltaTime * m_fTimeFactor);
@@ -114,15 +105,15 @@ void CWOL_World::Render(void)
 		pObj->Render(GetBackbufferDC(), m_pCamera);
 	}
 
-	//if (m_fElapsedTime >= 1.f) {
-	//	TCHAR szBuf[64];
-	//	
-	//	swprintf_s(szBuf, TEXT("Wizard Of Legend (FPS : %d, RenderCnt : %d)"), m_iFrameCount, g_iRenderCount);
-	//	SetWindowText(g_hWND, szBuf);
-	//	//TextOut(GetBackbufferDC(), 0, 0, szBuf, lstrlen(szBuf));
-	//	m_fElapsedTime = 0.f;
-	//	m_iFrameCount = 0;
-	//}
+	if (m_fElapsedTime >= 1.f) {
+		TCHAR szBuf[64];
+		
+		swprintf_s(szBuf, TEXT("Wizard Of Legend (FPS : %d, RenderCnt : %d)"), m_iFrameCount, g_iRenderCount);
+		SetWindowText(g_hWND, szBuf);
+		//TextOut(GetBackbufferDC(), 0, 0, szBuf, lstrlen(szBuf));
+		m_fElapsedTime = 0.f;
+		m_iFrameCount = 0;
+	}
 
 	m_pCursor->Render(GetBackbufferDC(), m_pCamera);
 
