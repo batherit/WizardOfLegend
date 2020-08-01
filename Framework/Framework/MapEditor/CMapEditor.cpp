@@ -132,6 +132,15 @@ void CMapEditor::Update(float _fDeltaTime)
 		else g_bDebugShowGroup = true;
 	}
 
+	if (CKeyMgr::GetInstance()->IsKeyDown(KEY::KEY_LBUTTON)) {
+		if (m_iVisibleAtlasID != -1) {
+			// 클릭시 타일 검출 관련. (Detect Tile)
+			m_stDetectedAtlasObj = m_stMapRenderInfo.vecAtlasLoaders[m_iVisibleAtlasID]->GetDetectedTileRowCol(GetClientCursorPoint());
+			m_stMapRenderInfo.vecAtlasLoaders[m_iVisibleAtlasID]->SetVisible(false);
+			m_iVisibleAtlasID = -1;
+		}
+	}
+
 	for (auto& pButton : m_vecEditorButtons) {
 		iUiReturnVal = pButton->Update(_fDeltaTime);
 		if (iUiReturnVal == 1) return;
@@ -161,15 +170,6 @@ void CMapEditor::Update(float _fDeltaTime)
 	// 툴 변경
 	if (CKeyMgr::GetInstance()->IsKeyDown(KEY::KEY_LSHIFT) || CKeyMgr::GetInstance()->IsKeyUp(KEY::KEY_LSHIFT)) {
 		m_eTool = (m_eTool == MAP_EDITOR::TOOL_PAINT ? MAP_EDITOR::TOOL_ERASE : MAP_EDITOR::TOOL_PAINT);
-	}
-
-	if (CKeyMgr::GetInstance()->IsKeyDown(KEY::KEY_LBUTTON)) {
-		if (m_iVisibleAtlasID != -1) {
-			// 클릭시 타일 검출 관련. (Detect Tile)
-			m_stDetectedAtlasObj = m_stMapRenderInfo.vecAtlasLoaders[m_iVisibleAtlasID]->GetDetectedTileRowCol(GetClientCursorPoint());
-			m_stMapRenderInfo.vecAtlasLoaders[m_iVisibleAtlasID]->SetVisible(false);
-			m_iVisibleAtlasID = -1;
-		}
 	}
 	
 	if (CKeyMgr::GetInstance()->IsKeyPressing(KEY::KEY_LBUTTON)) {

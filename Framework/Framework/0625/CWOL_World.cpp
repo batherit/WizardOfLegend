@@ -166,8 +166,10 @@ void CWOL_World::LoadResources(void)
 	// 마우스 커서 세팅
 	CBitmapMgr::GetInstance()->InsertBitmap(TEXT("../Textures/UI_MOUSE_CURSOR.bmp"), TEXT("UI_MOUSE_CURSOR"));
 
-	// 타이틀 화면
-	CBitmapMgr::GetInstance()->InsertBitmap(TEXT("../Textures/READY_MENU.bmp"), TEXT("READY_MENU"));					// 타이틀 화면
+	// 메뉴
+	CBitmapMgr::GetInstance()->InsertBitmap(TEXT("../Textures/READY_MENU.bmp"), TEXT("READY_MENU"));		// 타이틀 화면
+	CBitmapMgr::GetInstance()->InsertBitmap(TEXT("../Textures/MAIN_MENU.bmp"), TEXT("MAIN_MENU"));
+	CBitmapMgr::GetInstance()->InsertBitmap(TEXT("../Textures/QUIT_MENU.bmp"), TEXT("QUIT_MENU"));
 
 	// 맵 렌더링
 	CBitmapMgr::GetInstance()->InsertBitmap(TEXT("../Textures/WOL_TILE_DUNGEON.bmp"), TEXT("WOL_TILE_DUNGEON"));		// 던젼용 아틀라스
