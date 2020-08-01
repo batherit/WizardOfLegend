@@ -33,13 +33,21 @@ CPlayerSpawner::~CPlayerSpawner()
 
 int CPlayerSpawner::Update(float _fDeltaTime)
 {
-	if (UpdateAnim(_fDeltaTime) == 1) {
-		SetValid(false);
-		return 1;
+	if ((m_fElapsedTime += _fDeltaTime) >= m_fTimeToDelay) {
+		if (!m_bIsAnimStarted) {
+			CSoundMgr::Get_Instance()->PlaySound(TEXT("CARD_SUMMON.mp3"), CSoundMgr::MONSTER);
+			m_bIsAnimStarted = true;
+		}
+
+		if (UpdateAnim(_fDeltaTime) == 1) {
+			SetValid(false);
+			return 1;
+		}
+		if (!m_bIsSpawend && GetAnimProgress() >= 0) {
+			m_bIsSpawend = true;
+		}
 	}
-	if (!m_bIsSpawend && GetAnimProgress() >= 0) {
-		m_bIsSpawend = true;
-	}
+	
 	return 0;
 }
 

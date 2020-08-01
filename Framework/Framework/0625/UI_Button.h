@@ -36,7 +36,7 @@ template<typename T>
 inline CUI_Button<T>::CUI_Button(CGameWorld& _rGameWorld, float _fX, float _fY, size_t _iWidth, size_t _iHeight, const TCHAR* _szButtonName, T* _pOwner, void (T::*_pEvent) (void*), void* _pArgu)
 	:
 	CObj(_rGameWorld, _fX, _fY, _iWidth, _iHeight),
-	m_pOwner(_pOwner),
+	m_pOwner(_pOwner)
 {
 	ZeroMemory(m_pEvent, sizeof(m_pEvent));
 	ZeroMemory(m_pArgu, sizeof(m_pArgu));

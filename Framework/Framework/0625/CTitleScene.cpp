@@ -26,7 +26,12 @@ CTitleScene::CTitleScene(CGameWorld& _rGameWorld)
 	m_iWidth[TYPE_START] = pBitmapObj->GetWitdh();
 	m_iHeight[TYPE_START] = pBitmapObj->GetHeight();
 
-	//m_pButtons[TYPE_READY] = new CUI_Button<CTitleScene>(_rGameWorld, WINCX >> 1, WINCY >> 1, WINCX, WINCY, TEXT(""), this,;
+	m_pButtons[TYPE_START] = new CUI_Button<CTitleScene>(_rGameWorld, 870, 520, 210, 50, TEXT(""), this);
+	m_pButtons[TYPE_START]->SetEvent(CUI_Button<CTitleScene>::BUTTON_STATE_HOVERED, &CTitleScene::HoveredOnStartButton, nullptr);
+	m_pButtons[TYPE_START]->SetEvent(CUI_Button<CTitleScene>::BUTTON_STATE_CLICKED, &CTitleScene::ClickStartButton, nullptr);
+	m_pButtons[TYPE_QUIT] = new CUI_Button<CTitleScene>(_rGameWorld, 870, 880, 80, 50, TEXT(""), this);
+	m_pButtons[TYPE_QUIT]->SetEvent(CUI_Button<CTitleScene>::BUTTON_STATE_HOVERED, &CTitleScene::HoveredOnQuitButton, nullptr);
+	m_pButtons[TYPE_QUIT]->SetEvent(CUI_Button<CTitleScene>::BUTTON_STATE_CLICKED, &CTitleScene::ClickQuitButton, nullptr);
 	
 	CSoundMgr::Get_Instance()->PlayBGM(TEXT("MAIN_MENU_BGM.mp3"));
 }
@@ -55,18 +60,11 @@ int CTitleScene::Update(float _fDeltaTime)
 			//m_rGameWorld.GetSceneManager()->SetNextScene(new CPlayScene(m_rGameWorld, "../MapDatas/Maps/0/Game_Map.txt"));
 		}
 		break;
-	case TYPE_START:
-
-		break;
-	case TYPE_QUIT:
+	case TYPE_START: case TYPE_QUIT:
+		m_pButtons[TYPE_START]->Update(_fDeltaTime);
+		m_pButtons[TYPE_QUIT]->Update(_fDeltaTime);
 		break;
 	}
-
-	/*if (CKeyMgr::GetInstance()->IsKeyDown(KEY::KEY_LBUTTON)) {
-		CSoundMgr::Get_Instance()->PlaySound(TEXT("CLICK_MENU.mp3"),CSoundMgr::UI);
-		CSoundMgr::Get_Instance()->StopSound(CSoundMgr::BGM);
-		m_rGameWorld.GetSceneManager()->SetNextScene(new CPlayScene(m_rGameWorld, "../MapDatas/Maps/0/Game_Map.txt"));
-	}*/
 
 	return 0;
 }
@@ -85,4 +83,25 @@ void CTitleScene::Release(void)
 	for (int i = 0; i < TYPE_END; i++) {
 		DeleteSafe(m_pButtons[i]);
 	}
+}
+
+void CTitleScene::HoveredOnStartButton(void *)
+{
+	m_eType = TYPE_START;
+}
+
+void CTitleScene::ClickStartButton(void *)
+{
+	CSoundMgr::Get_Instance()->StopSound(CSoundMgr::BGM);
+	m_rGameWorld.GetSceneManager()->SetNextScene(new CPlayScene(m_rGameWorld, "../MapDatas/Maps/0/Game_Map.txt"));
+}
+
+void CTitleScene::HoveredOnQuitButton(void *)
+{
+	m_eType = TYPE_QUIT;
+}
+
+void CTitleScene::ClickQuitButton(void *)
+{
+	DestroyWindow(g_hWND);
 }

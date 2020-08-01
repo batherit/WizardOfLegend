@@ -12,6 +12,9 @@ public:
 	virtual void Render(HDC& _hdc, CCamera2D*) override;
 
 private:
+	const float m_fTimeToDelay = 0.25f;
+	float m_fElapsedTime = 0.f;
+	bool m_bIsAnimStarted = false;
 	CObj* m_pPlayer = nullptr;
 };
 

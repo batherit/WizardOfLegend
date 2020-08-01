@@ -22,6 +22,13 @@ public:
 	virtual void Release(void) override;
 
 private:
+	// button event
+	void HoveredOnStartButton(void*);
+	void ClickStartButton(void*);
+	void HoveredOnQuitButton(void*);
+	void ClickQuitButton(void*);
+
+private:
 	HDC m_hDCTitle[TYPE_END] = { nullptr, };
 	TITLE_TYPE m_eType = TYPE_READY;
 	int m_iWidth[TYPE_END] = { 0, };

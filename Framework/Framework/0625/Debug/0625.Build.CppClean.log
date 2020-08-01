@@ -61,6 +61,7 @@ d:\mylab\gamelab\algorithm\wizardoflegend\framework\framework\0625\debug\cswordm
 d:\mylab\gamelab\algorithm\wizardoflegend\framework\framework\0625\debug\cswordmanstate_idle.obj
 d:\mylab\gamelab\algorithm\wizardoflegend\framework\framework\0625\debug\cswordmanstate_run.obj
 d:\mylab\gamelab\algorithm\wizardoflegend\framework\framework\0625\debug\ctimer.obj
+d:\mylab\gamelab\algorithm\wizardoflegend\framework\framework\0625\debug\ctitlescene.obj
 d:\mylab\gamelab\algorithm\wizardoflegend\framework\framework\0625\debug\cmiddlebossstate_death.obj
 d:\mylab\gamelab\algorithm\wizardoflegend\framework\framework\0625\debug\cmiddlebossstate_fire.obj
 d:\mylab\gamelab\algorithm\wizardoflegend\framework\framework\0625\debug\cmiddlebossstate_firedragon.obj
@@ -114,7 +115,16 @@ d:\mylab\gamelab\algorithm\wizardoflegend\framework\framework\0625\debug\catlaso
 d:\mylab\gamelab\algorithm\wizardoflegend\framework\framework\0625\debug\cboss_middleboss.obj
 d:\mylab\gamelab\algorithm\wizardoflegend\framework\framework\0625\debug\ccoin.obj
 d:\mylab\gamelab\algorithm\wizardoflegend\framework\framework\0625\debug\ccollider.obj
-d:\mylab\gamelab\algorithm\wizardoflegend\framework\framework\0625\debug\ctitlescene.obj
+d:\mylab\gamelab\algorithm\wizardoflegend\framework\framework\debug\0625.ilk
+d:\mylab\gamelab\algorithm\wizardoflegend\framework\framework\debug\0625.exe
+d:\mylab\gamelab\algorithm\wizardoflegend\framework\framework\debug\0625.pdb
+d:\mylab\gamelab\algorithm\wizardoflegend\framework\framework\0625\debug\0625.res
 d:\mylab\gamelab\algorithm\wizardoflegend\framework\framework\0625\debug\0625.tlog\cl.command.1.tlog
 d:\mylab\gamelab\algorithm\wizardoflegend\framework\framework\0625\debug\0625.tlog\cl.read.1.tlog
 d:\mylab\gamelab\algorithm\wizardoflegend\framework\framework\0625\debug\0625.tlog\cl.write.1.tlog
+d:\mylab\gamelab\algorithm\wizardoflegend\framework\framework\0625\debug\0625.tlog\link.command.1.tlog
+d:\mylab\gamelab\algorithm\wizardoflegend\framework\framework\0625\debug\0625.tlog\link.read.1.tlog
+d:\mylab\gamelab\algorithm\wizardoflegend\framework\framework\0625\debug\0625.tlog\link.write.1.tlog
+d:\mylab\gamelab\algorithm\wizardoflegend\framework\framework\0625\debug\0625.tlog\rc.command.1.tlog
+d:\mylab\gamelab\algorithm\wizardoflegend\framework\framework\0625\debug\0625.tlog\rc.read.1.tlog
+d:\mylab\gamelab\algorithm\wizardoflegend\framework\framework\0625\debug\0625.tlog\rc.write.1.tlog
