@@ -13,7 +13,9 @@
 #include "CFireDragonSkillState.h"
 #include "CIceCrystalSkillState.h"
 #include "CGaiaArmorSkillState.h"
+#include "CIceBlastSkillState.h"
 #include "CCollider.h"
+
 //#include "CPlayerState_Spawn.h"
 //#include "CEffect_Spawn.h"
 
@@ -131,6 +133,7 @@ void CPlayerWOL::SetInitInfo(void)
 	m_pSkills[SKILL::KEY_LBUTTON] = new CPlayerNormalSkillState(*this);
 	//m_pSkills[SKILL::KEY_RBUTTON] = new CFireDragonSkillState(*this);
 	m_pSkills[SKILL::KEY_SPACE] = new CDashSkillState(*this);
+	m_pSkills[SKILL::KEY_RBUTTON] = new CIceBlastSkillState(*this);
 	//m_pSkills[SKILL::KEY_Q] = new CGaiaArmorSkillState(*this);
 	SetMoney(0);
 	//m_pSkills[SKILL::KEY_Q] = new CFireDragonSkillState(*this);

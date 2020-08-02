@@ -223,6 +223,11 @@
 // 가이아 아머 변수
 #define GAIA_ARMOR_MAX_ROT_SPEED	180.f
 #define GAIA_ARMOR_OFFSET			145.f
+// 아이스 블라스트 변수
+#define ICE_BLAST_SPEED			1100.f
+// 아이스 블라스트 차일드 사이즈
+#define ICE_BLAST_WIDTH			200
+#define ICE_BLAST_HEIGHT		250
 
 // 스워드맨 공격 사이즈
 #define SWORDMAN_ATTACK_WIDTH	200

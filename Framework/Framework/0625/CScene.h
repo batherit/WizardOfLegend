@@ -1,6 +1,7 @@
 #pragma once
 
 class CGameWorld;
+class CMapObjsGroup;
 
 class CScene abstract
 {
@@ -19,6 +20,7 @@ public:
 	virtual list<CObj*>* GetHitEffects() { return nullptr; }
 	virtual list<CObj*>* GetSpawners() { return nullptr; }
 	virtual list<CObj*>* GetMonsters() { return nullptr; }
+	virtual const vector<CMapObjsGroup*>* GetColliders() { return nullptr; }
 
 protected:
 	CGameWorld& m_rGameWorld;

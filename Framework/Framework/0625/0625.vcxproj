@@ -179,6 +179,9 @@
     <ClInclude Include="CGaiaArmorChild.h" />
     <ClInclude Include="CGaiaArmorSkillState.h" />
     <ClInclude Include="CHitEffect.h" />
+    <ClInclude Include="CIceBlast.h" />
+    <ClInclude Include="CIceBlastChild.h" />
+    <ClInclude Include="CIceBlastSkillState.h" />
     <ClInclude Include="CIceCrystal.h" />
     <ClInclude Include="CIceCrystalChild.h" />
     <ClInclude Include="CIceCrystalSkillState.h" />
@@ -353,6 +356,9 @@
     <ClCompile Include="CGaiaArmorChild.cpp" />
     <ClCompile Include="CGaiaArmorSkillState.cpp" />
     <ClCompile Include="CHitEffect.cpp" />
+    <ClCompile Include="CIceBlast.cpp" />
+    <ClCompile Include="CIceBlastChild.cpp" />
+    <ClCompile Include="CIceBlastSkillState.cpp" />
     <ClCompile Include="CIceCrystal.cpp" />
     <ClCompile Include="CIceCrystalChild.cpp" />
     <ClCompile Include="CIceCrystalSkillState.cpp" />

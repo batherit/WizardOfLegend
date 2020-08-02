@@ -26,6 +26,7 @@ public:
 	virtual list<CObj*>* GetHitEffects() override { return &m_listHitEffects; } 
 	virtual list<CObj*>* GetSpawners() override { return &m_listSpawners; }
 	virtual list<CObj*>* GetMonsters() override { return &m_listMonsters; } 
+	virtual const vector<CMapObjsGroup*>* GetColliders() override;
 
 private:
 	CMapLoader* m_pMapLoader = nullptr;

@@ -177,6 +177,9 @@
     <Filter Include="소스 파일\03.State\036.MiddleBoss">
       <UniqueIdentifier>{ed80acfa-c9a9-42de-9f8a-67ce1f27c29b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="소스 파일\03.State\031.PlayerSKills\036.IceBlastSkillState">
+      <UniqueIdentifier>{277c6710-bb8c-4f3a-8863-6acdfaf91073}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CLayer.h">
@@ -557,6 +560,15 @@
     <ClInclude Include="CUI_MiddleBossBar.h">
       <Filter>소스 파일\03.Obj\040.UI</Filter>
     </ClInclude>
+    <ClInclude Include="CIceBlastSkillState.h">
+      <Filter>소스 파일\03.State\031.PlayerSKills\036.IceBlastSkillState</Filter>
+    </ClInclude>
+    <ClInclude Include="CIceBlast.h">
+      <Filter>소스 파일\03.Obj\031.Skill\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="CIceBlastChild.h">
+      <Filter>소스 파일\03.Obj\031.Skill\Player</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CLayer.cpp">
@@ -918,6 +930,15 @@
     </ClCompile>
     <ClCompile Include="CUI_MiddleBossBar.cpp">
       <Filter>소스 파일\03.Obj\040.UI</Filter>
+    </ClCompile>
+    <ClCompile Include="CIceBlastSkillState.cpp">
+      <Filter>소스 파일\03.State\031.PlayerSKills\036.IceBlastSkillState</Filter>
+    </ClCompile>
+    <ClCompile Include="CIceBlast.cpp">
+      <Filter>소스 파일\03.Obj\031.Skill\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="CIceBlastChild.cpp">
+      <Filter>소스 파일\03.Obj\031.Skill\Player</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -87,7 +87,10 @@ void CTitleScene::Release(void)
 
 void CTitleScene::HoveredOnStartButton(void *)
 {
-	m_eType = TYPE_START;
+	if (m_eType != TYPE_START) {
+		m_eType = TYPE_START;
+		CSoundMgr::Get_Instance()->PlaySound(TEXT("SELECT_MENU.mp3"), CSoundMgr::UI);
+	}
 }
 
 void CTitleScene::ClickStartButton(void *)
@@ -98,7 +101,10 @@ void CTitleScene::ClickStartButton(void *)
 
 void CTitleScene::HoveredOnQuitButton(void *)
 {
-	m_eType = TYPE_QUIT;
+	if (m_eType != TYPE_QUIT) {
+		m_eType = TYPE_QUIT;
+		CSoundMgr::Get_Instance()->PlaySound(TEXT("SELECT_MENU.mp3"), CSoundMgr::UI);
+	}
 }
 
 void CTitleScene::ClickQuitButton(void *)

@@ -208,7 +208,6 @@ void CWOL_World::LoadResources(void)
 	CBitmapMgr::GetInstance()->InsertBitmap(TEXT("../Textures/FIRE_DRAGON_SKILLBAR.bmp"), TEXT("FIRE_DRAGON_SKILLBAR"));
 	CBitmapMgr::GetInstance()->InsertBitmap(TEXT("../Textures/GAIA_ARMOR_SKILLBAR.bmp"), TEXT("GAIA_ARMOR_SKILLBAR"));
 	CBitmapMgr::GetInstance()->InsertBitmap(TEXT("../Textures/ICE_CRYSTAL_SKILLBAR.bmp"), TEXT("ICE_CRYSTAL_SKILLBAR"));
-	CBitmapMgr::GetInstance()->InsertBitmap(TEXT("../Textures/ICE_BLAST_SKILLBAR.bmp"), TEXT("ICE_BLAST_SKILLBAR"));
 
 	// 스킬키 바인딩
 	CBitmapMgr::GetInstance()->InsertBitmap(TEXT("../Textures/INVENTORY.bmp"), TEXT("INVENTORY"));
@@ -251,6 +250,8 @@ void CWOL_World::LoadResources(void)
 	CBitmapMgr::GetInstance()->InsertBitmap(TEXT("../Textures/SKILL_ICE_CRYSTAL.bmp"), TEXT("SKILL_ICE_CRYSTAL"));
 	// 스킬 가이아 아머
 	CBitmapMgr::GetInstance()->InsertBitmap(TEXT("../Textures/SKILL_GAIA_ARMOR.bmp"), TEXT("SKILL_GAIA_ARMOR"));
+	// 스킬 아이스 블라스트
+	CBitmapMgr::GetInstance()->InsertBitmap(TEXT("../Textures/SKILL_ICE_BLAST.bmp"), TEXT("SKILL_ICE_BLAST"));
 	
 	// 파이어 파티클
 	CBitmapMgr::GetInstance()->InsertBitmap(TEXT("../Textures/FIRE_PARTICLE.bmp"), TEXT("FIRE_PARTICLE"));

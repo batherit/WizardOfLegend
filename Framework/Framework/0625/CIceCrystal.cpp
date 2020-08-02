@@ -11,7 +11,7 @@ CIceCrystal::CIceCrystal(CGameWorld & _rGameWorld, CObj * _pOwner)
 	m_pOwner(_pOwner),
 	m_fLifeTime(5.f)
 {
-	m_pColliders[COLLIDER::TYPE_DAMAGED] = this;
+	//m_pColliders[COLLIDER::TYPE_DAMAGED] = this;
 
 	if (m_pOwner) {
 		SetX(m_pOwner->GetX());
@@ -51,7 +51,7 @@ CIceCrystal::CIceCrystal(CGameWorld & _rGameWorld, float _fX, float _fY)
 	m_pOwner(nullptr),
 	m_fLifeTime(5.f)
 {
-	m_pColliders[COLLIDER::TYPE_DAMAGED] = this;
+	//m_pColliders[COLLIDER::TYPE_DAMAGED] = this;
 
 	m_iIceCrystalNum = 3;
 	m_iPeriod = 1;
