@@ -13,6 +13,7 @@ CWizardFire::CWizardFire(CGameWorld & _rGameWorld, float _fX, float _fY, float _
 	:
 	CObj(_rGameWorld, _fX, _fY, WIZARD_FIRE_WIDTH, WIZARD_FIRE_HEIGHT, _fToX, _fToY, WIZARD_FIRE_SPEED)
 {
+	SetObjType(OBJ::TYPE_MONSTER_SKILL);
 	SetDamage(12);
 	SetDamageOffset(3);
 
@@ -45,28 +46,24 @@ int CWizardFire::Update(float _fDeltaTime)
 
 void CWizardFire::LateUpdate(void)
 {
-	/*if (m_listCollidedObjs.size() > 0) {
-		SetValid(false);
-	}*/
-
-	// 위자드 파이어 삭제 과정
-	DO_IF_IS_VALID_OBJ(this) {
-		for (auto& pPlayerSkill : TO_WOL(GetGameWorld()).GetListUsedPlayerSkills()) {
-			DO_IF_IS_VALID_OBJ(pPlayerSkill) {
-				RECT rcCollisionRect;
-				if (IntersectRect(&rcCollisionRect, &pPlayerSkill->GetRect(), &this->GetRect())) {
-					GetGameWorld().GetSceneManager()->GetCurScene()->GetHitEffects()->emplace_back(
-						new CHitEffect(GetGameWorld(),
-							GetX(),
-							GetY())
-					); 
-					SetValid(false);
-					break;
-				}
-			}
-			DO_IF_IS_NOT_VALID_OBJ(this) break;
-		}
-	}
+	//// 위자드 파이어 삭제 과정
+	//DO_IF_IS_VALID_OBJ(this) {
+	//	for (auto& pPlayerSkill : GetGameWorld().GetListObjs()) {
+	//		DO_IF_IS_VALID_OBJ(pPlayerSkill) {
+	//			RECT rcCollisionRect;
+	//			if (IntersectRect(&rcCollisionRect, &pPlayerSkill->GetRect(), &this->GetRect())) {
+	//				GetGameWorld().GetSceneManager()->GetCurScene()->GetHitEffects()->emplace_back(
+	//					new CHitEffect(GetGameWorld(),
+	//						GetX(),
+	//						GetY())
+	//				); 
+	//				SetValid(false);
+	//				break;
+	//			}
+	//		}
+	//		DO_IF_IS_NOT_VALID_OBJ(this) break;
+	//	}
+	//}
 }
 
 void CWizardFire::Render(HDC & _hdc, CCamera2D * _pCamera)
@@ -119,4 +116,17 @@ int CWizardFire::GetAnimState(float _fToX, float _fToY) const
 	else if (146.25f <= fDegree && fDegree < 168.75f) return 14;
 	else if (168.75f <= fDegree && fDegree < 191.25f) return 15;
 	else return 7;
+}
+
+void CWizardFire::ReactToCollider(CObj * _pCollider, POINT & _ptCollisionPoint)
+{
+	switch (_pCollider->GetObjType())
+	{
+	case OBJ::TYPE_WALL: case OBJ::TYPE_PLAYER_SKILL:
+		GetGameWorld().GetListObjs().emplace_back(new CHitEffect(GetGameWorld(), _ptCollisionPoint.x, _ptCollisionPoint.y));
+		SetValid(false);
+		break;
+	default:
+		break;
+	}
 }

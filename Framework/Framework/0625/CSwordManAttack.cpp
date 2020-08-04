@@ -11,6 +11,7 @@ CSwordManAttack::CSwordManAttack(CGameWorld & _rGameWorld, float _fX, float _fY,
 	:
 	CObj(_rGameWorld, _fX, _fY, SWORDMAN_ATTACK_WIDTH, SWORDMAN_ATTACK_HEIGHT, _fToX, _fToY)
 {
+	SetObjType(OBJ::TYPE_MONSTER_SKILL);
 	SetDamage(13);
 	SetDamageOffset(2);
 

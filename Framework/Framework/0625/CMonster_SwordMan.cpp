@@ -9,6 +9,9 @@
 #include "CSpawnerGenerator.h"
 #include "CUI_DamageText.h"
 #include "CCollider.h"
+#include "CHitEffect.h"
+#include "CSpace.h"
+#include "CPlayerWOL.h"
 
 
 CMonster_SwordMan::CMonster_SwordMan(CGameWorld & _rGameWorld, CSpawnerGenerator* _pSpawnerGenerator/* = nullptr*/)
@@ -16,6 +19,7 @@ CMonster_SwordMan::CMonster_SwordMan(CGameWorld & _rGameWorld, CSpawnerGenerator
 	CObj(_rGameWorld, 0.f, 0.f, SWORDMAN_OUTPUT_WIDTH, SWORDMAN_OUTPUT_HEIGHT),
 	m_pSpawnerGenerator(_pSpawnerGenerator)
 {
+	SetObjType(OBJ::TYPE_MONSTER);
 	SetInitInfo();
 }
 
@@ -25,6 +29,7 @@ CMonster_SwordMan::CMonster_SwordMan(CGameWorld& _rGameWorld, float _fX, float _
 	m_pTarget(_pTarget),
 	m_pSpawnerGenerator(_pSpawnerGenerator)
 {
+	SetObjType(OBJ::TYPE_MONSTER);
 	m_iGroupID = _iGroupID;
 	SetInitInfo();
 }
@@ -56,11 +61,11 @@ void CMonster_SwordMan::Render(HDC & _hdc, CCamera2D * _pCamera)
 	RECT& rcDrawArea = GetRect();
 
 	// 그릴 영역을 스크린 좌표로 변환한다.
-	const pair<int, int>& pairLeftTop = _pCamera->GetScreenPoint(rcDrawArea.left, rcDrawArea.top);
-	const pair<int, int>& pairRightBottom = _pCamera->GetScreenPoint(rcDrawArea.right, rcDrawArea.bottom);
+	pair<float, float>& pairLeftTop = _pCamera->GetScreenPoint(rcDrawArea.left, rcDrawArea.top);
+	pair<float, float>& pairRightBottom = _pCamera->GetScreenPoint(rcDrawArea.right, rcDrawArea.bottom);
 
-	//RECT rcCollider = { pairLeftTop.first, pairLeftTop.second, pairRightBottom.first, pairRightBottom.second };
-	//if (!IsCollided(GetGameWorld().GetViewSpace()->GetRect(), rcCollider)) return;
+	RECT rcCollider = { pairLeftTop.first, pairLeftTop.second, pairRightBottom.first, pairRightBottom.second };
+	if (!IsCollided(GetGameWorld().GetViewSpace()->GetRect(), rcCollider)) return;
 
 	GdiTransparentBlt(_hdc,
 		pairLeftTop.first,			// 출력 시작좌표 X
@@ -170,6 +175,31 @@ bool CMonster_SwordMan::DirectDirectionToTarget(void)
 	float fToY = pairPlayerXY.second - GetY();
 	SetToXY(fToX, fToY);
 	return true;
+}
+
+void CMonster_SwordMan::ReactToCollider(CObj * _pCollider, POINT & _ptCollisionPoint)
+{
+	switch (_pCollider->GetObjType())
+	{
+	case OBJ::TYPE_PLAYER_SKILL:
+		if (!_pCollider->IsRegisteredCollidedObj(this)) {
+			int iDamage = _pCollider->GetDamageWithOffset();
+			Attacked(iDamage, _ptCollisionPoint);
+			CObj* pPlayer = TO_WOL(GetGameWorld()).GetPlayer();
+
+			if (!TO_PLAYER_WOL(pPlayer)->IsSignatureMode() && !TO_PLAYER_WOL(pPlayer)->IsSignatureSkillUsing()) {
+				pPlayer->IncreaseMana(iDamage);
+				if (pPlayer->IsManaFulled()) {
+					CSoundMgr::Get_Instance()->PlaySound(TEXT("ULT_ON.mp3"), CSoundMgr::SKILL);
+					TO_PLAYER_WOL(pPlayer)->SetSignatureMode(true);
+				}
+			}
+			_pCollider->RegisterCollidedObj(this);
+		}
+		break;
+	default:
+		break;
+	}
 }
 
 bool CMonster_SwordMan::GoToTarget(float _fDeltaTime)

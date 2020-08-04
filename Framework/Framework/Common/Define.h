@@ -108,7 +108,7 @@
 // 플레이어 상수
 #define PLAYER_MAX_HP		500.f
 #define PLAYER_MAX_MANA		500.f
-#define PLAYER_MANA_REDUCTION_PER_SEC	5.f
+#define PLAYER_MANA_REDUCTION_PER_SEC	20.f
 
 // UI 스킬바 비트맵 출력 사이즈
 #define UI_SKILLBAR_OUTPUT_WIDTH			640
@@ -224,7 +224,7 @@
 #define GAIA_ARMOR_MAX_ROT_SPEED	180.f
 #define GAIA_ARMOR_OFFSET			145.f
 // 아이스 블라스트 변수
-#define ICE_BLAST_SPEED			1100.f
+#define ICE_BLAST_SPEED			1200.f
 // 아이스 블라스트 차일드 사이즈
 #define ICE_BLAST_WIDTH			200
 #define ICE_BLAST_HEIGHT		250

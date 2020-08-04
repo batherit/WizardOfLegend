@@ -33,11 +33,11 @@ int CMiddleBossState_IceCrystal::Update(float _fDeltaTime)
 {
 	if (m_rOwner.UpdateAnim(_fDeltaTime) == 1) {
 		// TODO : 여기에 아이스 크리스탈 스킬 생성해주면 됩니더ㅓㅓㄷㄷ..
-		TO_WOL(m_rOwner.GetGameWorld()).GetListUsedMonsterSkills().emplace_back(
+		m_rOwner.GetGameWorld().GetListObjs().emplace_back(
 			new CIceCrystal(m_rOwner.GetGameWorld(), m_rOwner.GetX() - 300, m_rOwner.GetY() - 300));
-		TO_WOL(m_rOwner.GetGameWorld()).GetListUsedMonsterSkills().emplace_back(
+		m_rOwner.GetGameWorld().GetListObjs().emplace_back(
 			new CIceCrystal(m_rOwner.GetGameWorld(), m_rOwner.GetX() + 300, m_rOwner.GetY() - 300));
-		TO_WOL(m_rOwner.GetGameWorld()).GetListUsedMonsterSkills().emplace_back(
+		m_rOwner.GetGameWorld().GetListObjs().emplace_back(
 			new CIceCrystal(m_rOwner.GetGameWorld(), m_rOwner.GetX(), m_rOwner.GetY() + 300));
 		m_rOwner.GetStateMgr()->SetNextState(new CMiddleBossState_Idle(m_rOwner));
 		return 1;

@@ -4,6 +4,8 @@
 #include "CCamera2D.h"
 #include "CSpace.h"
 #include "CCollider.h"
+#include "CHitEffect.h"
+#include "CGaiaArmorChild.h"
 
 
 
@@ -12,6 +14,7 @@ CArcherArrow::CArcherArrow(CGameWorld & _rGameWorld, float _fX, float _fY, float
 	CObj(_rGameWorld, _fX, _fY, ARCHER_BOW_OUTPUT_WIDTH, ARCHER_BOW_OUTPUT_HEIGHT, _fToX, _fToY, ARCHER_ARROW_SPEED),
 	m_eArcherDir(_eArcherDir)
 {
+	SetObjType(OBJ::TYPE_MONSTER_SKILL);
 	SetDamage(8);
 	SetDamageOffset(5);
 	m_hDCKeyAtlas[ARCHER::DIR_LEFT] = CBitmapMgr::GetInstance()->GetBitmapMemDC(TEXT("ARCHER_BOW_LEFT"));
@@ -102,4 +105,26 @@ int CArcherArrow::GetAnimState(float _fToX, float _fToY) const
 	else if (213.75f <= fDegree && fDegree < 236.25f)	return 2;
 	else if (236.25f <= fDegree && fDegree < 258.75f)	return 1;
 	return 4;
+}
+
+void CArcherArrow::ReactToCollider(CObj * _pCollider, POINT & _ptCollisionPoint)
+{
+	switch (_pCollider->GetObjType())
+	{
+	case OBJ::TYPE_WALL:
+		GetGameWorld().GetListObjs().emplace_back(new CHitEffect(GetGameWorld(), _ptCollisionPoint.x, _ptCollisionPoint.y));
+		SetValid(false);
+		break;
+	case OBJ::TYPE_PLAYER_SKILL:
+	{
+		CObj* pSkill = dynamic_cast<CGaiaArmorChild*>(_pCollider);
+		if (pSkill) {
+			GetGameWorld().GetListObjs().emplace_back(new CHitEffect(GetGameWorld(), _ptCollisionPoint.x, _ptCollisionPoint.y));
+			SetValid(false);
+		}
+	}
+		break;
+	default:
+		break;
+	}
 }

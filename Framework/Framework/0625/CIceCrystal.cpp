@@ -38,7 +38,7 @@ CIceCrystal::CIceCrystal(CGameWorld & _rGameWorld, CObj * _pOwner)
 
 		for (int i = 0; i < m_iIceCrystalNum; i++) {
 			m_pIceCrystal[i] = new CIceCrystalChild(_rGameWorld, this);
-			TO_WOL(_rGameWorld).GetListUsedPlayerSkills().emplace_back(m_pIceCrystal[i]);
+			_rGameWorld.GetListObjs().emplace_back(m_pIceCrystal[i]);
 		}
 		CSoundMgr::Get_Instance()->PlaySound(TEXT("ICE_KRYSTAL_START.mp3"), CSoundMgr::SKILL);
 	}
@@ -60,7 +60,7 @@ CIceCrystal::CIceCrystal(CGameWorld & _rGameWorld, float _fX, float _fY)
 
 	for (int i = 0; i < m_iIceCrystalNum; i++) {
 		m_pIceCrystal[i] = new CIceCrystalChild(_rGameWorld, this);
-		TO_WOL(_rGameWorld).GetListUsedMonsterSkills().emplace_back(m_pIceCrystal[i]);
+		_rGameWorld.GetListObjs().emplace_back(m_pIceCrystal[i]);
 	}
 	CSoundMgr::Get_Instance()->PlaySound(TEXT("ICE_KRYSTAL_START.mp3"), CSoundMgr::SKILL);
 }

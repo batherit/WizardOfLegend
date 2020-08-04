@@ -13,6 +13,7 @@ CGaiaArmorChild::CGaiaArmorChild(CGameWorld & _rGameWorld, CGaiaArmor * _pGaiaAr
 	CObj(_rGameWorld, 0.f, 0.f, GAIA_ARMOR_WIDTH, GAIA_ARMOR_HEIGHT),
 	m_pGaiaArmorParent(_pGaiaArmorParent)
 {
+	SetObjType(OBJ::TYPE_PLAYER_SKILL);
 	SetDamage(3);
 	SetDamageOffset(1);
 
@@ -34,12 +35,12 @@ int CGaiaArmorChild::Update(float _fDeltaTime)
 
 void CGaiaArmorChild::LateUpdate(void)
 {
-	UpdateCollidedObjs();
+	/*UpdateCollidedObjs();
 
 	CObj* pCollider;
 	RECT rcCollisionRect;
 	DO_IF_IS_VALID_OBJ(this) {
-		for (auto& pMonsterSkill : TO_WOL(GetGameWorld()).GetListUsedMonsterSkills()) {
+		for (auto& pMonsterSkill : GetGameWorld().GetListObjs()) {
 			DO_IF_IS_VALID_OBJ(pMonsterSkill) {
 				pCollider = pMonsterSkill->GetCollider(COLLIDER::TYPE_WALL);
 				if (!pCollider) break;
@@ -53,8 +54,7 @@ void CGaiaArmorChild::LateUpdate(void)
 				}
 			}
 		}
-	}
-
+	}*/
 }
 
 void CGaiaArmorChild::Render(HDC & _hdc, CCamera2D * _pCamera)

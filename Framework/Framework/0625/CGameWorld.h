@@ -4,6 +4,7 @@ class CTimer;
 class CSceneMgr;
 class CSpace;
 class CCamera2D;
+class CObj;
 
 class CGameWorld abstract
 {
@@ -30,6 +31,7 @@ public:
 	CSceneMgr* GetSceneManager(void) const { return m_pSceneManager; }
 	CSpace* GetViewSpace(void) const { return m_pViewSpace; }
 	virtual CCamera2D* GetCamera(void) const { return nullptr; }
+	list<CObj*>& GetListObjs(void) { return m_listObjs; } // 객체의 생성과 소멸은 객체를 생성/소멸하는 주체가 담당한다.
 
 private:
 	HDC m_hDC;
@@ -38,5 +40,6 @@ private:
 	CTimer* m_pTimer;
 	CSpace* m_pViewSpace;
 	CSceneMgr* m_pSceneManager;
+	list<CObj*> m_listObjs;
 };
 

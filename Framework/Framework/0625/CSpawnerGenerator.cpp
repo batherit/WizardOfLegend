@@ -3,11 +3,11 @@
 #include "CMonsterSpawner.h"
 
 
-CSpawnerGenerator::CSpawnerGenerator(CGameWorld & _rGameWorld, list<CObj*>& _listSpawners, list<CObj*>& _listMonsters, int _iGroupID)
+CSpawnerGenerator::CSpawnerGenerator(CGameWorld & _rGameWorld, list<CObj*>& _listSpawners/*, list<CObj*>& _listMonsters*/, int _iGroupID)
 	:
 	m_rGameWorld(_rGameWorld),
 	m_listSpawners(_listSpawners),
-	m_listMonserts(_listMonsters),
+	//m_listMonserts(_listMonsters),
 	m_iGroupID(_iGroupID)
 {
 	string strEventDirectory = "../EventDatas/";
@@ -30,7 +30,7 @@ CSpawnerGenerator::CSpawnerGenerator(CGameWorld & _rGameWorld, list<CObj*>& _lis
 				if (eType < 0) break;
 
 				m_vecUnactiveSpawnersPerPhase[i].emplace_back(
-					new CMonsterSpawner(m_rGameWorld, _listMonsters, fTimeToDelay, iSpawnX, iSpawnY, eType, _iGroupID, this));
+					new CMonsterSpawner(m_rGameWorld/*, _listMonsters*/, fTimeToDelay, iSpawnX, iSpawnY, eType, _iGroupID, this));
 			}
 		}
 	}

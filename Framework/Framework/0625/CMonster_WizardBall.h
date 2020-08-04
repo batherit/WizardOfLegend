@@ -19,6 +19,7 @@ public:
 	virtual void LateUpdate(void)						override;
 	virtual void Render(HDC& _hdc, CCamera2D* _pCamera)	override;
 	virtual void Release(void)							override;
+	virtual void ReactToCollider(CObj * _pCollider, POINT & _ptCollisionPoint) override;
 
 public:
 	void SetTarget(CObj* pTarget) { m_pTarget = pTarget; }
@@ -30,6 +31,7 @@ public:
 	bool IsAttackable(void);
 	bool DirectDirectionToTarget(void);
 	int GetSpriteIndex(void);
+
 
 private:
 	void SetInitInfo(void);

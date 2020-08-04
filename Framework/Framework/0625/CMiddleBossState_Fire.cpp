@@ -50,7 +50,7 @@ int CMiddleBossState_Fire::Update(float _fDeltaTime)
 				float fIntervalDegree = 360.f / 8.f;
 				CObj* pPlayer = TO_WOL(m_rOwner.GetGameWorld()).GetPlayer();
 				for (int i = 0; i < 8; i++) {
-					TO_WOL(m_rOwner.GetGameWorld()).GetListUsedMonsterSkills().emplace_back(
+					m_rOwner.GetGameWorld().GetListObjs().emplace_back(
 						new CWizardFire(
 							m_rOwner.GetGameWorld(),
 							pPlayer->GetX() + cosf(TO_RADIAN(fIntervalDegree * i)) * 450.f, pPlayer->GetY() + sinf(TO_RADIAN(fIntervalDegree* i))* 450.f,

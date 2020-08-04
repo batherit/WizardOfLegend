@@ -23,9 +23,9 @@ public:
 	virtual void Render(HDC & _hdc, CCamera2D * _pCamera) override;
 	virtual void Release(void) override;
 
-	virtual list<CObj*>* GetHitEffects() override { return &m_listHitEffects; } 
+	//virtual list<CObj*>* GetHitEffects() override { return &m_listHitEffects; } 
 	virtual list<CObj*>* GetSpawners() override { return &m_listSpawners; }
-	virtual list<CObj*>* GetMonsters() override { return &m_listMonsters; } 
+	//virtual list<CObj*>* GetMonsters() override { return &m_listMonsters; } 
 	virtual const vector<CMapObjsGroup*>* GetColliders() override;
 
 private:
@@ -37,8 +37,8 @@ private:
 	CUI_Minimap* m_pMinimapUI = nullptr;
 	CUI_Money* m_pMoneyUI = nullptr;
 	list<CObj*> m_listItems;
-	list<CObj*> m_listMonsters;
-	list<CObj*> m_listHitEffects;
+	//list<CObj*> m_listMonsters;
+	//list<CObj*> m_listHitEffects;
 	list<CSpawnerGenerator*> m_listSpawnerGenerators;
 	list<CObj*> m_listSpawners;
 	vector<CObj*> m_vecObjsToRender;

@@ -14,11 +14,11 @@
 
 
 
-CMonsterSpawner::CMonsterSpawner(CGameWorld & _rGameWorld, list<CObj*>& _listMonsters, float _fTimeToDelay, float _fX, float _fY, SPAWN::E_TYPE _eType, int _iGroupID, CSpawnerGenerator* _pSpawnerGenerator, CObj* _pSummoner)
+CMonsterSpawner::CMonsterSpawner(CGameWorld & _rGameWorld/*, list<CObj*>& _listMonsters*/, float _fTimeToDelay, float _fX, float _fY, SPAWN::E_TYPE _eType, int _iGroupID, CSpawnerGenerator* _pSpawnerGenerator, CObj* _pSummoner)
 	:
 	m_fTimeToDelay(_fTimeToDelay),
 	CSpawner(_rGameWorld, _fX, _fY),
-	m_listMonsters(_listMonsters),
+//	m_listMonsters(_listMonsters),
 	m_eType(_eType),
 	m_pSpawnerGenerator(_pSpawnerGenerator),
 	m_pSummoner(_pSummoner)
@@ -89,30 +89,26 @@ int CMonsterSpawner::Update(float _fDeltaTime)
 				pSpawnedMonster = new CMonster_SwordMan(GetGameWorld(), GetX(), GetY(), m_iGroupID, TO_WOL(GetGameWorld()).GetPlayer(), m_pSpawnerGenerator);
 				if (m_pSummoner && dynamic_cast<CBoss_MiddleBoss*>(m_pSummoner)) 
 					dynamic_cast<CBoss_MiddleBoss*>(m_pSummoner)->GetListMonsters().emplace_back(pSpawnedMonster);
-				m_listMonsters.emplace_back(pSpawnedMonster);
 				break;
 			case SPAWN::TYPE_ARCHER:
 				pSpawnedMonster = new CMonster_Archer(GetGameWorld(), GetX(), GetY(), m_iGroupID, TO_WOL(GetGameWorld()).GetPlayer(), m_pSpawnerGenerator);
 				if (m_pSummoner && dynamic_cast<CBoss_MiddleBoss*>(m_pSummoner)) 
 					dynamic_cast<CBoss_MiddleBoss*>(m_pSummoner)->GetListMonsters().emplace_back(pSpawnedMonster);
-				m_listMonsters.emplace_back(pSpawnedMonster);
 				break;
 			case SPAWN::TYPE_WIZARD:
 				pSpawnedMonster = new CMonster_Wizard(GetGameWorld(), GetX(), GetY(), m_iGroupID, TO_WOL(GetGameWorld()).GetPlayer(), m_pSpawnerGenerator);
 				if (m_pSummoner && dynamic_cast<CBoss_MiddleBoss*>(m_pSummoner)) 
 					dynamic_cast<CBoss_MiddleBoss*>(m_pSummoner)->GetListMonsters().emplace_back(pSpawnedMonster);
-				m_listMonsters.emplace_back(pSpawnedMonster);
 				break;
 			case SPAWN::TYPE_WIZARDBALL:
 				pSpawnedMonster = new CMonster_WizardBall(GetGameWorld(), GetX(), GetY(), m_iGroupID, TO_WOL(GetGameWorld()).GetPlayer(), m_pSpawnerGenerator);
 				if (m_pSummoner && dynamic_cast<CMonster_Wizard*>(m_pSummoner)) 
 					dynamic_cast<CMonster_Wizard*>(m_pSummoner)->GetListWizardBalls().emplace_back(pSpawnedMonster);
-				m_listMonsters.emplace_back(pSpawnedMonster);
 				break;
 			case SPAWN::TYPE_MIDDLEBOSS:
 				pSpawnedMonster = new CBoss_MiddleBoss(GetGameWorld(), GetX(), GetY(), m_iGroupID, TO_WOL(GetGameWorld()).GetPlayer(), m_pSpawnerGenerator);
-				m_listMonsters.emplace_back(pSpawnedMonster);
 			}
+			if(pSpawnedMonster) GetGameWorld().GetListObjs().emplace_back(pSpawnedMonster);
 			m_bIsSpawend = true;
 		}
 		

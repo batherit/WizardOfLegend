@@ -60,7 +60,7 @@ void CFireDragonSkillState::OnLoaded(void)
 	}
 	m_rOwner.SetNewAnimInfo(stAnimInfo);
 
-	TO_WOL(m_rOwner.GetGameWorld()).GetListUsedPlayerSkills().emplace_back(
+	m_rOwner.GetGameWorld().GetListObjs().emplace_back(
 		new CFireDragon(m_rOwner.GetGameWorld()
 			, m_rOwner.GetX() + m_rOwner.GetToX() * cfPlayerNormalAttackDist
 			, m_rOwner.GetY() + m_rOwner.GetToY() * cfPlayerNormalAttackDist
@@ -100,7 +100,7 @@ int CFireDragonSkillState::Update(float _fDeltaTime)
 			}
 			m_rOwner.SetNewAnimInfo(stAnimInfo);
 
-			TO_WOL(m_rOwner.GetGameWorld()).GetListUsedPlayerSkills().emplace_back(
+			m_rOwner.GetGameWorld().GetListObjs().emplace_back(
 				new CFireDragon(m_rOwner.GetGameWorld()
 					, m_rOwner.GetX() + m_rOwner.GetToX() * cfPlayerNormalAttackDist
 					, m_rOwner.GetY() + m_rOwner.GetToY() * cfPlayerNormalAttackDist

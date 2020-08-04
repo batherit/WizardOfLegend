@@ -30,14 +30,14 @@ void CWizardState_Attack::OnLoaded(void)
 	
 	if (m_rOwner.GetSummonedWizardBalls() == 0) {
 		m_rOwner.GetGameWorld().GetSceneManager()->GetCurScene()->GetSpawners()->emplace_back(
-			new CMonsterSpawner(m_rOwner.GetGameWorld(), *(m_rOwner.GetGameWorld().GetSceneManager()->GetCurScene()->GetMonsters()), 0.f, m_rOwner.GetX() - 80, m_rOwner.GetY(), SPAWN::TYPE_WIZARDBALL, -1, nullptr, &m_rOwner));
+			new CMonsterSpawner(m_rOwner.GetGameWorld()/*, *(m_rOwner.GetGameWorld().GetSceneManager()->GetCurScene()->GetMonsters())*/, 0.f, m_rOwner.GetX() - 80, m_rOwner.GetY(), SPAWN::TYPE_WIZARDBALL, -1, nullptr, &m_rOwner));
 		m_rOwner.GetGameWorld().GetSceneManager()->GetCurScene()->GetSpawners()->emplace_back(
-			new CMonsterSpawner(m_rOwner.GetGameWorld(), *(m_rOwner.GetGameWorld().GetSceneManager()->GetCurScene()->GetMonsters()), 0.f, m_rOwner.GetX(), m_rOwner.GetY() + 80, SPAWN::TYPE_WIZARDBALL, -1, nullptr, &m_rOwner));
+			new CMonsterSpawner(m_rOwner.GetGameWorld()/*, *(m_rOwner.GetGameWorld().GetSceneManager()->GetCurScene()->GetMonsters())*/, 0.f, m_rOwner.GetX(), m_rOwner.GetY() + 80, SPAWN::TYPE_WIZARDBALL, -1, nullptr, &m_rOwner));
 		m_rOwner.GetGameWorld().GetSceneManager()->GetCurScene()->GetSpawners()->emplace_back(
-			new CMonsterSpawner(m_rOwner.GetGameWorld(), *(m_rOwner.GetGameWorld().GetSceneManager()->GetCurScene()->GetMonsters()), 0.f, m_rOwner.GetX() + 80, m_rOwner.GetY(), SPAWN::TYPE_WIZARDBALL, -1, nullptr, &m_rOwner));
+			new CMonsterSpawner(m_rOwner.GetGameWorld()/*, *(m_rOwner.GetGameWorld().GetSceneManager()->GetCurScene()->GetMonsters())*/, 0.f, m_rOwner.GetX() + 80, m_rOwner.GetY(), SPAWN::TYPE_WIZARDBALL, -1, nullptr, &m_rOwner));
 	}
 	else {
-		TO_WOL(m_rOwner.GetGameWorld()).GetListUsedMonsterSkills().emplace_back(
+		m_rOwner.GetGameWorld().GetListObjs().emplace_back(
 			new CWizardFire(
 				m_rOwner.GetGameWorld(),
 				m_rOwner.GetX(), m_rOwner.GetY(),

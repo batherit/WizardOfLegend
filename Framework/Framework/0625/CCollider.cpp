@@ -7,6 +7,7 @@ CCollider::CCollider(FILE* _fpIn, CGameWorld & _rGameWorld, COLLIDER::E_SHAPE _e
 	:
 	CObj(_rGameWorld, 0.f, 0.f, 0, 0)
 {
+	SetObjType(OBJ::TYPE_WALL);
 	// 0) 오브젝트 타입과 그룹 아이디
 	CObj::LoadMapData(_fpIn);
 
@@ -31,6 +32,7 @@ CCollider::CCollider(CGameWorld & _rGameWorld, CObj* _pOwner, float _fOffsetX, f
 	m_fOffsetX(_fOffsetX),
 	m_fOffsetY(_fOffsetY)
 {
+	SetObjType(OBJ::TYPE_WALL);
 	if (m_pOwner) {
 		SetX(m_pOwner->GetX() + _fOffsetX);
 		SetY(m_pOwner->GetY() + _fOffsetY);

@@ -2,7 +2,7 @@
 class CSpawnerGenerator
 {
 public:
-	CSpawnerGenerator(CGameWorld & _rGameWorld, list<CObj*>& _listSpawners, list<CObj*>& _listMonsters, int _iGroupID);
+	CSpawnerGenerator(CGameWorld & _rGameWorld, list<CObj*>& _listSpawners/*, list<CObj*>& _listMonsters*/, int _iGroupID);
 	virtual ~CSpawnerGenerator();
 
 public:
@@ -15,7 +15,7 @@ private:
 	CGameWorld& m_rGameWorld;
 	vector<list<CObj*>> m_vecUnactiveSpawnersPerPhase;
 	list<CObj*>& m_listSpawners;
-	list<CObj*>& m_listMonserts;
+	//list<CObj*>& m_listMonserts;
 	int m_iMaxPhase = 0;
 	int m_iCurPhase = 0;
 	int m_iGroupID = -1;

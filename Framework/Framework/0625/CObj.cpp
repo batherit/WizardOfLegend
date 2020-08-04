@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "CObj.h"
 #include "CCamera2D.h"
+#include "CHitEffect.h"
 
 CObj::CObj(CGameWorld& _rGameWorld)
 	:
@@ -52,7 +53,7 @@ void CObj::Render(HDC & _hdc, CCamera2D * _pCamera)
 
 void CObj::LoadMapData(FILE * _fpIn)
 {
-	fscanf_s(_fpIn, " %d %d", &m_eObjType, &m_iGroupID);
+	fscanf_s(_fpIn, " %d %d", &m_eMapObjType, &m_iGroupID);
 }
 
 int CObj::UpdateAnim(float _fDeltaTime)
@@ -93,35 +94,73 @@ int CObj::UpdateAnim(float _fDeltaTime)
 
 void CObj::Attacked(float _fDamageAmount, POINT _ptCollisionPoint)
 {
+	GetGameWorld().GetListObjs().emplace_back(new CHitEffect(GetGameWorld(), _ptCollisionPoint.x, _ptCollisionPoint.y));
 	Clamp(&(m_fHp -= _fDamageAmount), 0.f, 5000.f);
 	CCamera2D* pCamera = m_rGameWorld.GetCamera();
 	if (pCamera) pCamera->Shake(0.6f, 7.f, 4);
 }
 
-bool CObj::CheckCollision(CObj * _pObj, POINT* _pCollisionPoint /*= nullptr*/)
+bool CObj::IsRegisteredCollidedObj(CObj * _pObj)
 {
-	DO_IF_IS_VALID_OBJ(_pObj) {
-		auto iter = find(m_listCollidedObjs.begin(), m_listCollidedObjs.end(), _pObj);
-		if (iter == m_listCollidedObjs.end()) {
-			// 충돌 리스트에 없는데 충돌했다면,
-			RECT rcCollided;
-			if (IntersectRect(&rcCollided, &_pObj->GetCollider(COLLIDER::TYPE_DAMAGED)->GetRect(), &this->GetCollider(COLLIDER::TYPE_DAMAGED)->GetRect())) {
-				POINT ptCollisionPoint = {
-					((rcCollided.right + rcCollided.left) >> 1),
-					((rcCollided.bottom + rcCollided.top) >> 1)
-				};
-				if (_pCollisionPoint) *_pCollisionPoint = ptCollisionPoint;
-				_pObj->Attacked(m_iDamage + GetNumberMinBetweenMax(-m_iDamageOffset, m_iDamageOffset), ptCollisionPoint);					// 데미지를 주고
-				m_listCollidedObjs.emplace_back(_pObj);		// 충돌 리스트에 집어넣는다.
-				return true;
-			}
-		}
-		else {
-			// 충돌 리스트에 있는데 충돌하지 않았다면,
-			if (!IsCollided(_pObj, this)) {
-				m_listCollidedObjs.erase(iter);				// 충돌 리스트에서 제거한다.
-			}
-		}
-	}
-	return false;
+	auto iter = find(m_listCollidedObjs.begin(), m_listCollidedObjs.end(), _pObj);
+	return iter != m_listCollidedObjs.end();
 }
+
+bool CObj::RegisterCollidedObj(CObj * _pObj)
+{
+	if (IsRegisteredCollidedObj(_pObj)) return false;	// 이미 등록되어 있으므로 등록하지 않는다.
+
+	m_listCollidedObjs.emplace_back(_pObj);
+	return true;
+}
+
+bool CObj::EraseCollidedObj(CObj * _pObj)
+{
+	if (m_listCollidedObjs.empty()) return false;		// 지울 것이 없다.
+
+	auto iter = find(m_listCollidedObjs.begin(), m_listCollidedObjs.end(), _pObj);
+	if (iter == m_listCollidedObjs.end()) return false;	// 찾아봤는데 지울 것이 없다.
+	
+	// 지운다.
+	m_listCollidedObjs.erase(iter);
+	return true;
+}
+
+void CObj::UpdateCollidedObjs(void)
+{
+	if (m_listCollidedObjs.empty()) return;
+	m_listCollidedObjs.remove_if([](auto& _pObj) { return !IS_VALID_OBJ(_pObj); });
+}
+
+
+
+//bool CObj::CheckCollision(CObj * _pObj, POINT* _pCollisionPoint /*= nullptr*/)
+//{
+//	DO_IF_IS_VALID_OBJ(_pObj) {
+//		if (!_pObj->GetCollider(COLLIDER::TYPE_DAMAGED)) return false;
+//		if (!this->GetCollider(COLLIDER::TYPE_DAMAGED)) return false;
+//
+//		auto iter = find(m_listCollidedObjs.begin(), m_listCollidedObjs.end(), _pObj);
+//		if (iter == m_listCollidedObjs.end()) {
+//			// 충돌 리스트에 없는데 충돌했다면,
+//			RECT rcCollided;
+//			if (IntersectRect(&rcCollided, &_pObj->GetCollider(COLLIDER::TYPE_DAMAGED)->GetRect(), &this->GetCollider(COLLIDER::TYPE_DAMAGED)->GetRect())) {
+//				POINT ptCollisionPoint = {
+//					((rcCollided.right + rcCollided.left) >> 1),
+//					((rcCollided.bottom + rcCollided.top) >> 1)
+//				};
+//				if (_pCollisionPoint) *_pCollisionPoint = ptCollisionPoint;
+//				_pObj->Attacked(m_iDamage + GetNumberMinBetweenMax(-m_iDamageOffset, m_iDamageOffset), ptCollisionPoint);					// 데미지를 주고
+//				m_listCollidedObjs.emplace_back(_pObj);		// 충돌 리스트에 집어넣는다.
+//				return true;
+//			}
+//		}
+//		else {
+//			// 충돌 리스트에 있는데 충돌하지 않았다면,
+//			if (!IsCollided(_pObj, this)) {
+//				m_listCollidedObjs.erase(iter);				// 충돌 리스트에서 제거한다.
+//			}
+//		}
+//	}
+//	return false;
+//}

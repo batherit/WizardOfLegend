@@ -9,6 +9,7 @@
 #include "CMiddleBossState_Idle.h"
 #include "CMiddleBossState_Death.h"
 #include "CUI_MiddleBossBar.h"
+#include "CPlayerWOL.h"
 
 
 
@@ -17,6 +18,7 @@ CBoss_MiddleBoss::CBoss_MiddleBoss(CGameWorld & _rGameWorld, CSpawnerGenerator *
 	CObj(_rGameWorld, 0.f, 0.f, MIDDLE_BOSS_WIDTH, MIDDLE_BOSS_HEIGHT),
 	m_pSpawnerGenerator(_pSpawnerGenerator)
 {
+	SetObjType(OBJ::TYPE_MONSTER);
 	SetInitInfo();
 	m_fInitX = 0.f;
 	m_fInitY = 0.f;
@@ -30,6 +32,7 @@ CBoss_MiddleBoss::CBoss_MiddleBoss(CGameWorld & _rGameWorld, float _fX, float _f
 	m_pTarget(_pTarget),
 	m_pSpawnerGenerator(_pSpawnerGenerator)
 {
+	SetObjType(OBJ::TYPE_MONSTER);
 	m_iGroupID = _iGroupID;
 	SetInitInfo();
 	m_fInitX = _fX;
@@ -110,6 +113,30 @@ void CBoss_MiddleBoss::Attacked(float _fDamageAmount, POINT _ptCollisionPoint)
 			GetStateMgr()->SetNextState(new CMiddleBossState_Death(*this), true);
 		}
 		//GetStateMgr()->SetNextState(new CWizardState_Damage(*this, _ptCollisionPoint), true);
+	}
+}
+
+void CBoss_MiddleBoss::ReactToCollider(CObj * _pCollider, POINT & _ptCollisionPoint) {
+	switch (_pCollider->GetObjType())
+	{
+	case OBJ::TYPE_PLAYER_SKILL:
+		if (!_pCollider->IsRegisteredCollidedObj(this)) {
+			int iDamage = _pCollider->GetDamageWithOffset();
+			Attacked(iDamage, _ptCollisionPoint);
+			CObj* pPlayer = TO_WOL(GetGameWorld()).GetPlayer();
+
+			if (!TO_PLAYER_WOL(pPlayer)->IsSignatureMode() && !TO_PLAYER_WOL(pPlayer)->IsSignatureSkillUsing()) {
+				pPlayer->IncreaseMana(iDamage);
+				if (pPlayer->IsManaFulled()) {
+					CSoundMgr::Get_Instance()->PlaySound(TEXT("ULT_ON.mp3"), CSoundMgr::SKILL);
+					TO_PLAYER_WOL(pPlayer)->SetSignatureMode(true);
+				}
+			}
+			_pCollider->RegisterCollidedObj(this);
+		}
+		break;
+	default:
+		break;
 	}
 }
 

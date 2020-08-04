@@ -5,12 +5,14 @@
 #include "CSpace.h"
 #include "CFireParticle.h"
 #include "CCollider.h"
+#include "CHitEffect.h"
 
 
 CFireDragon::CFireDragon(CGameWorld & _rGameWorld, float _fX, float _fY, float _fToX, float _fToY, PLAYER::E_STATE _eAttackType)
 	:
 	CObj(_rGameWorld, _fX, _fY, PLAYER_FIRE_DRAGON_WIDTH, PLAYER_FIRE_DRAGON_HEIGHT, _fToX, _fToY, PLAYER_FIRE_DRAGON_SPEED)
 {
+	SetObjType(OBJ::TYPE_PLAYER_SKILL);
 	SetDamage(14);
 	SetDamageOffset(3);
 
@@ -179,6 +181,19 @@ void CFireDragon::Release(void)
 {
 	DeleteSafe(m_pColliders[COLLIDER::TYPE_WALL]);
 	m_pColliders[COLLIDER::TYPE_DAMAGED] = nullptr;	// 얕은 복사이므로.
+}
+
+void CFireDragon::ReactToCollider(CObj * _pCollider, POINT & _ptCollisionPoint)
+{
+	switch (_pCollider->GetObjType())
+	{
+	case OBJ::TYPE_WALL:
+		GetGameWorld().GetListObjs().emplace_back(new CHitEffect(GetGameWorld(), _ptCollisionPoint.x, _ptCollisionPoint.y));
+		SetValid(false);
+		break;
+	default:
+		break;
+	}
 }
 
 int CFireDragon::GetSpriteIndex(void)

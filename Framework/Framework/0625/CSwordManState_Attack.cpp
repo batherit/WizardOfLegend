@@ -29,7 +29,7 @@ void CSwordManState_Attack::OnLoaded(void)
 int CSwordManState_Attack::Update(float _fDeltaTime)
 {
 	if (!bAttackOk && m_rOwner.GetAnimProgress() >= 0.5f) {
-		TO_WOL(m_rOwner.GetGameWorld()).GetListUsedMonsterSkills().emplace_back(
+		m_rOwner.GetGameWorld().GetListObjs().emplace_back(
 			new CSwordManAttack(m_rOwner.GetGameWorld()
 				, m_rOwner.GetX() + m_rOwner.GetToX() * cfSwordManNormalAttackDist
 				, m_rOwner.GetY() + m_rOwner.GetToY() * cfSwordManNormalAttackDist

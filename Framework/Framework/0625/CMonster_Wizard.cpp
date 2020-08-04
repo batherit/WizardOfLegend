@@ -9,6 +9,7 @@
 #include "CWizardState_Damage.h"
 #include "CWizardState_Idle.h"
 #include "CCollider.h"
+#include "CPlayerWOL.h"
 
 
 
@@ -17,6 +18,7 @@ CMonster_Wizard::CMonster_Wizard(CGameWorld & _rGameWorld, CSpawnerGenerator * _
 	CObj(_rGameWorld, 0.f, 0.f, WIZARD_OUTPUT_WIDTH, WIZARD_OUTPUT_HEIGHT),
 	m_pSpawnerGenerator(_pSpawnerGenerator)
 {
+	SetObjType(OBJ::TYPE_MONSTER);
 	SetInitInfo();
 }
 
@@ -26,6 +28,7 @@ CMonster_Wizard::CMonster_Wizard(CGameWorld & _rGameWorld, float _fX, float _fY,
 	m_pTarget(_pTarget),
 	m_pSpawnerGenerator(_pSpawnerGenerator)
 {
+	SetObjType(OBJ::TYPE_MONSTER);
 	m_iGroupID = _iGroupID;
 	SetInitInfo();
 }
@@ -204,4 +207,29 @@ void CMonster_Wizard::SetInitInfo(void)
 	m_eWizardDir = MONSTER::DIR_RIGHT;
 	m_hDCKeyAtlas[ARCHER::DIR_LEFT] = CBitmapMgr::GetInstance()->GetBitmapMemDC(TEXT("WIZARD_LEFT"));
 	m_hDCKeyAtlas[ARCHER::DIR_RIGHT] = CBitmapMgr::GetInstance()->GetBitmapMemDC(TEXT("WIZARD_RIGHT"));
+}
+
+void CMonster_Wizard::ReactToCollider(CObj * _pCollider, POINT & _ptCollisionPoint)
+{
+	switch (_pCollider->GetObjType())
+	{
+	case OBJ::TYPE_PLAYER_SKILL:
+		if (!_pCollider->IsRegisteredCollidedObj(this)) {
+			int iDamage = _pCollider->GetDamageWithOffset();
+			Attacked(iDamage, _ptCollisionPoint);
+			CObj* pPlayer = TO_WOL(GetGameWorld()).GetPlayer();
+
+			if (!TO_PLAYER_WOL(pPlayer)->IsSignatureMode() && !TO_PLAYER_WOL(pPlayer)->IsSignatureSkillUsing()) {
+				pPlayer->IncreaseMana(iDamage);
+				if (pPlayer->IsManaFulled()) {
+					CSoundMgr::Get_Instance()->PlaySound(TEXT("ULT_ON.mp3"), CSoundMgr::SKILL);
+					TO_PLAYER_WOL(pPlayer)->SetSignatureMode(true);
+				}
+			}
+			_pCollider->RegisterCollidedObj(this);
+		}
+		break;
+	default:
+		break;
+	}
 }

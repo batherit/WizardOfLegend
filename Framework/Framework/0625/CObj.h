@@ -87,8 +87,11 @@ public:
 	void SetDirType(const OBJ::E_DIRECTION& _eDir) { m_eDir = _eDir; }
 	virtual void Attacked(float _fDamageAmount, POINT _ptCollisionPoint);
 	const bool IsDead(void) const { return m_fHp == 0.f; }
-	bool CheckCollision(CObj* _pObj, POINT* _pCollisionPoint = nullptr);
-	void UpdateCollidedObjs(void) { m_listCollidedObjs.remove_if([](auto& _pObj) { return !IS_VALID_OBJ(_pObj); }); }
+	bool IsRegisteredCollidedObj(CObj* _pObj);
+	bool RegisterCollidedObj(CObj* _pObj);
+	bool EraseCollidedObj(CObj* _pObj);
+	void UpdateCollidedObjs(void);
+	virtual void ReactToCollider(CObj * _pCollider, POINT& _ptCollisionPoint) {}; // 충돌체에 대한 반응을 정의해야함.
 	float GetMaxHp(void) const { return m_fMaxHp; }
 	float GetHP(void) const { return m_fHp; }
 	void SetHP(float _fHp) { m_fHp = _fHp; }
@@ -100,6 +103,7 @@ public:
 	bool IsManaFulled(void) { return GetMana() >= GetMaxMana(); }
 	bool IsManaEmpty(void) { return GetMana() <= 0.f; }
 	int GetDamage(void) { return m_iDamage; }
+	int GetDamageWithOffset(void) { return m_iDamage + GetNumberMinBetweenMax(-m_iDamageOffset, m_iDamageOffset); }
 	void SetMoney(int iMoney) { m_iMoney = iMoney; }
 	int GetMoney(void) { return m_iMoney; }
 	bool IsVisible(void) { return m_bIsVisible; }
@@ -109,10 +113,12 @@ public:
 	bool IsActive(void) { return m_bIsActive; }
 	void SetDamage(int _iDamage) { m_iDamage = _iDamage; }
 	void SetDamageOffset(int _iDamageOffset) { m_iDamageOffset = _iDamageOffset;  }
+	void SetObjType(OBJ::E_TYPE _eObjType) { m_eObjType = _eObjType; }
+	const OBJ::E_TYPE GetObjType(void) const { return m_eObjType; }
 
 protected:
 	int m_iGroupID = -1;
-	MAP_OBJ::E_TYPE m_eObjType = MAP_OBJ::TYPE_END;
+	MAP_OBJ::E_TYPE m_eMapObjType = MAP_OBJ::TYPE_END;
 	OBJ::E_DIRECTION m_eDir = OBJ::DIR_DOWN;
 	_anim_info m_stAnimInfo;
 	_anim_processing_info m_stAnimProcessingInfo;
@@ -137,6 +143,7 @@ protected:
 	int m_iDamageOffset = 2;
 	list<CObj*> m_listCollidedObjs;
 	CObj* m_pColliders[COLLIDER::TYPE_END] = { nullptr, };
+	OBJ::E_TYPE m_eObjType = OBJ::TYPE_END;
 
 	BOOL (__stdcall *m_pDrawFunc) (HDC hdc, int _left, int _right, int _top, int _bottom) = Rectangle;
 

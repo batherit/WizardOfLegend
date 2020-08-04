@@ -53,3 +53,4 @@ void CGameWorld::RenderWindow(void)
 {
 	BitBlt(m_hDC, 0, 0, WINCX, WINCY, m_hBackbufferDC, 0, 0, SRCCOPY);
 }
+

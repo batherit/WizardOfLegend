@@ -23,6 +23,7 @@ CWizardBallState_Attack::~CWizardBallState_Attack()
 void CWizardBallState_Attack::OnLoaded(void)
 {
 	m_rOwner.SetSpeed(WIZARD_BALL_ATTACK_SPEED);
+	m_rOwner.SetObjType(OBJ::TYPE_MONSTER_SKILL);
 	CSoundMgr::Get_Instance()->PlaySound(TEXT("BALL_ATTACK.mp3"), CSoundMgr::MONSTER);
 }
 
@@ -40,6 +41,7 @@ int CWizardBallState_Attack::Update(float _fDeltaTime)
 			m_rOwner.SetNewAnimInfo(stAnimInfo);
 			m_rOwner.SetSpeed(WIZARD_BALL_BALLAST_SPEED);	
 			m_fElapsedTime = 0.f;
+			m_rOwner.SetObjType(OBJ::TYPE_MONSTER);
 			m_bIsAttacking = false;
 		
 			return 0;
@@ -68,19 +70,20 @@ int CWizardBallState_Attack::Update(float _fDeltaTime)
 
 void CWizardBallState_Attack::LateUpdate(void)
 {
-	if (m_bIsAttacking) {
-		m_rOwner.UpdateCollidedObjs(); // 충돌 리스트를 정리
-		CObj* pPlayer = TO_WOL(m_rOwner.GetGameWorld()).GetPlayer();
-		DO_IF_IS_VALID_OBJ(pPlayer) {
-			POINT ptCollisionPoint;
-			if (m_rOwner.CheckCollision(pPlayer, &ptCollisionPoint)) {
-				m_rOwner.GetGameWorld().GetSceneManager()->GetCurScene()->GetHitEffects()->emplace_back(
-					new CHitEffect(m_rOwner.GetGameWorld(), ptCollisionPoint.x, ptCollisionPoint.y));
-			}
-		}
-	}
+	//if (m_bIsAttacking) {
+	//	m_rOwner.UpdateCollidedObjs(); // 충돌 리스트를 정리
+	//	CObj* pPlayer = TO_WOL(m_rOwner.GetGameWorld()).GetPlayer();
+	//	DO_IF_IS_VALID_OBJ(pPlayer) {
+	//		POINT ptCollisionPoint;
+	//		if (m_rOwner.CheckCollision(pPlayer, &ptCollisionPoint)) {
+	//			m_rOwner.GetGameWorld().GetSceneManager()->GetCurScene()->GetHitEffects()->emplace_back(
+	//				new CHitEffect(m_rOwner.GetGameWorld(), ptCollisionPoint.x, ptCollisionPoint.y));
+	//		}
+	//	}
+	//}
 }
 
 void CWizardBallState_Attack::OnExited(void)
 {
+	m_rOwner.SetObjType(OBJ::TYPE_MONSTER);
 }

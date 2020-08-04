@@ -46,7 +46,7 @@ void CGaiaArmorSkillState::OnLoaded(void)
 	}
 	m_rOwner.SetNewAnimInfo(stAnimInfo);
 
-	TO_WOL(m_rOwner.GetGameWorld()).GetListUsedPlayerSkills().emplace_back(
+	m_rOwner.GetGameWorld().GetListObjs().emplace_back(
 		new CGaiaArmor(m_rOwner.GetGameWorld(), &m_rOwner));
 	// 쿨타임 초기화
 	m_fCurCooltime = 0.f;

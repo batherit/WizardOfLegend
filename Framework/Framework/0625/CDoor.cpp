@@ -9,6 +9,7 @@ CDoor::CDoor(FILE * _fpIn, CGameWorld & _rGameWorld)
 	:
 	CObj(_rGameWorld, 0.f, 0.f, 0, 0)
 {
+	SetObjType(OBJ::TYPE_WALL);
 	// 0) 오브젝트 타입과 그룹 아이디
 	CObj::LoadMapData(_fpIn);
 
@@ -25,7 +26,7 @@ CDoor::CDoor(FILE * _fpIn, CGameWorld & _rGameWorld)
 	SetWidth(rcRect.right - rcRect.left);
 	SetHeight(rcRect.bottom - rcRect.top);
 
-	switch (m_eObjType) {
+	switch (m_eMapObjType) {
 	case MAP_OBJ::TYPE_DOOR_HOR:
 		m_tDoorBitmapKey = TEXT("PRISON_HOR");
 		break;
@@ -36,6 +37,8 @@ CDoor::CDoor(FILE * _fpIn, CGameWorld & _rGameWorld)
 
 	m_hMemdc = CBitmapMgr::GetInstance()->GetBitmapMemDC(m_tDoorBitmapKey);
 	m_pBitmapObj = CBitmapMgr::GetInstance()->GetBitmapObj(m_tDoorBitmapKey);
+	iWidth = m_pBitmapObj->GetWitdh();
+	iHeight = m_pBitmapObj->GetHeight();
 }
 
 CDoor::~CDoor()
@@ -60,32 +63,7 @@ void CDoor::Render(HDC & _hdc, CCamera2D * _pCamera)
 		m_hMemdc,
 		0,
 		0,
-		m_pBitmapObj->GetWitdh(),
-		m_pBitmapObj->GetHeight(),
+		iWidth,
+		iHeight,
 		RGB(255, 0, 255));
-
-
-	//// 내부가 빈
-	//HBRUSH hBrush = (HBRUSH)GetStockObject(NULL_BRUSH);
-	//HBRUSH hOldBrush = (HBRUSH)SelectObject(_hdc, hBrush);
-
-	//// 빨간 선을 지닌
-	//HPEN hPen = CreatePen(PS_SOLID, 2, RGB(235, 120, 100));
-	//HPEN hOldPen = (HPEN)SelectObject(_hdc, hPen);
-
-	//// 직사각형을 그린다.
-	//Rectangle(_hdc, pairLeftTop.first, pairLeftTop.second, pairRightBottom.first + 1, pairRightBottom.second + 1);
-	//MoveToEx(_hdc, pairLeftTop.first, pairLeftTop.second, nullptr);
-	//LineTo(_hdc, pairRightBottom.first, pairRightBottom.second);
-	//MoveToEx(_hdc, pairRightBottom.first, pairLeftTop.second, nullptr);
-	//LineTo(_hdc, pairLeftTop.first, pairRightBottom.second);
-
-	//SelectObject(_hdc, hOldBrush);
-	//SelectObject(_hdc, hOldPen);
-	//DeleteObject(hBrush);
-	//DeleteObject(hPen);
-
-	/*TCHAR szMode[32];
-	swprintf_s(szMode, TEXT("GN : %d"), m_iGroupID);
-	TextOut(_hdc, pairLeftTop.first, pairLeftTop.second, szMode, lstrlen(szMode));*/
 }

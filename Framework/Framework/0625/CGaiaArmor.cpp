@@ -10,9 +10,7 @@ CGaiaArmor::CGaiaArmor(CGameWorld & _rGameWorld, CObj * _pOwner)
 	m_pOwner(_pOwner),
 	m_fLifeTime(10.f)
 {
-	
-
-	m_pColliders[COLLIDER::TYPE_DAMAGED] = this;
+	//m_pColliders[COLLIDER::TYPE_DAMAGED] = this;
 	SetSpeed(0.f);
 
 	if (m_pOwner) {
@@ -22,7 +20,7 @@ CGaiaArmor::CGaiaArmor(CGameWorld & _rGameWorld, CObj * _pOwner)
 
 		for (int i = 0; i < m_iGaiaArmorNum; i++) {
 			m_pGaiaArmor[i] = new CGaiaArmorChild(_rGameWorld, this);
-			TO_WOL(_rGameWorld).GetListUsedPlayerSkills().emplace_back(m_pGaiaArmor[i]);
+			_rGameWorld.GetListObjs().emplace_back(m_pGaiaArmor[i]);
 		}
 		CSoundMgr::Get_Instance()->PlaySound(TEXT("GAIA_ARMOR_START.mp3"), CSoundMgr::SKILL);
 	}

@@ -55,7 +55,7 @@ void CIceBlastSkillState::OnLoaded(void)
 	float fDegree = GetPositiveDegreeByVector(m_rOwner.GetToX(), m_rOwner.GetToY());
 	m_rOwner.SetDirType(GetDirByDegree(fDegree));
 	// TODO : 여기에 아이스 크리스탈 스킬 생성해주면 됩니더ㅓㅓㄷㄷ..
-	TO_WOL(m_rOwner.GetGameWorld()).GetListUIs().emplace_back(
+	m_rOwner.GetGameWorld().GetListObjs().emplace_back(
 		new CIceBlast(m_rOwner.GetGameWorld(), &m_rOwner, m_rOwner.GetToX(), m_rOwner.GetToY()));
 
 	// 쿨타임 초기화

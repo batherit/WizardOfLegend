@@ -9,6 +9,7 @@
 #include "CSpawnerGenerator.h"
 #include "CWizardBallState_Damage.h"
 #include "CCollider.h"
+#include "CPlayerWOL.h"
 
 
 CMonster_WizardBall::CMonster_WizardBall(CGameWorld & _rGameWorld, CSpawnerGenerator * _pSpawnerGenerator)
@@ -16,6 +17,7 @@ CMonster_WizardBall::CMonster_WizardBall(CGameWorld & _rGameWorld, CSpawnerGener
 	CObj(_rGameWorld, 0.f, 0.f, WIZARD_BALL_OUTPUT_WIDTH, WIZARD_BALL_OUTPUT_HEIGHT),
 	m_pSpawnerGenerator(_pSpawnerGenerator)
 {
+	SetObjType(OBJ::TYPE_MONSTER);
 	SetInitInfo();
 }
 
@@ -25,6 +27,7 @@ CMonster_WizardBall::CMonster_WizardBall(CGameWorld & _rGameWorld, float _fX, fl
 	m_pTarget(_pTarget),
 	m_pSpawnerGenerator(_pSpawnerGenerator)
 {
+	SetObjType(OBJ::TYPE_MONSTER);
 	m_iGroupID = _iGroupID;
 	SetInitInfo();
 }
@@ -86,6 +89,31 @@ void CMonster_WizardBall::Attacked(float _fDamageAmount, POINT _ptCollisionPoint
 		TO_WOL(GetGameWorld()).GetListUIs().emplace_back(new CUI_DamageText(GetGameWorld(), GetX(), GetY(), _ptCollisionPoint, _fDamageAmount));
 		if (IsDead() && m_pSpawnerGenerator) m_pSpawnerGenerator->DecreaseSpawnedMonstersNum();
 		GetStateMgr()->SetNextState(new CWizardBallState_Damage(*this, _ptCollisionPoint), true);
+	}
+}
+
+void CMonster_WizardBall::ReactToCollider(CObj * _pCollider, POINT & _ptCollisionPoint)
+{
+	switch (_pCollider->GetObjType())
+	{
+	case OBJ::TYPE_PLAYER_SKILL:
+		if (!_pCollider->IsRegisteredCollidedObj(this)) {
+			int iDamage = _pCollider->GetDamageWithOffset();
+			Attacked(iDamage, _ptCollisionPoint);
+			CObj* pPlayer = TO_WOL(GetGameWorld()).GetPlayer();
+
+			if (!TO_PLAYER_WOL(pPlayer)->IsSignatureMode() && !TO_PLAYER_WOL(pPlayer)->IsSignatureSkillUsing()) {
+				pPlayer->IncreaseMana(iDamage);
+				if (pPlayer->IsManaFulled()) {
+					CSoundMgr::Get_Instance()->PlaySound(TEXT("ULT_ON.mp3"), CSoundMgr::SKILL);
+					TO_PLAYER_WOL(pPlayer)->SetSignatureMode(true);
+				}
+			}
+			_pCollider->RegisterCollidedObj(this);
+		}
+		break;
+	default:
+		break;
 	}
 }
 

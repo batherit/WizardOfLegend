@@ -8,6 +8,7 @@ CTrigger::CTrigger(FILE * _fpIn, CGameWorld & _rGameWorld, COLLIDER::E_SHAPE _eS
 	:
 	CObj(_rGameWorld, 0.f, 0.f, 0, 0)
 {
+	SetObjType(OBJ::TYPE_TRIGGER);
 	// 0) 오브젝트 타입과 그룹 아이디
 	CObj::LoadMapData(_fpIn);
 

@@ -82,9 +82,6 @@ d:\mylab\gamelab\algorithm\wizardoflegend\framework\framework\0625\debug\cplayer
 d:\mylab\gamelab\algorithm\wizardoflegend\framework\framework\0625\debug\cplayerstate_dash.obj
 d:\mylab\gamelab\algorithm\wizardoflegend\framework\framework\0625\debug\cplayerstate_death.obj
 d:\mylab\gamelab\algorithm\wizardoflegend\framework\framework\0625\debug\cplayerstate_idle.obj
-d:\mylab\gamelab\algorithm\wizardoflegend\framework\framework\0625\debug\cbitmapmgr.obj
-d:\mylab\gamelab\algorithm\wizardoflegend\framework\framework\0625\debug\cbitmapobj.obj
-d:\mylab\gamelab\algorithm\wizardoflegend\framework\framework\0625\debug\ccamera2d.obj
 d:\mylab\gamelab\algorithm\wizardoflegend\framework\framework\0625\debug\cdoor.obj
 d:\mylab\gamelab\algorithm\wizardoflegend\framework\framework\0625\debug\cfiredragon.obj
 d:\mylab\gamelab\algorithm\wizardoflegend\framework\framework\0625\debug\cfiredragonskillstate.obj
@@ -93,6 +90,9 @@ d:\mylab\gamelab\algorithm\wizardoflegend\framework\framework\0625\debug\cgaiaar
 d:\mylab\gamelab\algorithm\wizardoflegend\framework\framework\0625\debug\cgaiaarmorchild.obj
 d:\mylab\gamelab\algorithm\wizardoflegend\framework\framework\0625\debug\cgaiaarmorskillstate.obj
 d:\mylab\gamelab\algorithm\wizardoflegend\framework\framework\0625\debug\chiteffect.obj
+d:\mylab\gamelab\algorithm\wizardoflegend\framework\framework\0625\debug\ciceblast.obj
+d:\mylab\gamelab\algorithm\wizardoflegend\framework\framework\0625\debug\ciceblastchild.obj
+d:\mylab\gamelab\algorithm\wizardoflegend\framework\framework\0625\debug\ciceblastskillstate.obj
 d:\mylab\gamelab\algorithm\wizardoflegend\framework\framework\0625\debug\cicecrystal.obj
 d:\mylab\gamelab\algorithm\wizardoflegend\framework\framework\0625\debug\cicecrystalchild.obj
 d:\mylab\gamelab\algorithm\wizardoflegend\framework\framework\0625\debug\cicecrystalskillstate.obj
@@ -115,6 +115,9 @@ d:\mylab\gamelab\algorithm\wizardoflegend\framework\framework\0625\debug\catlaso
 d:\mylab\gamelab\algorithm\wizardoflegend\framework\framework\0625\debug\cboss_middleboss.obj
 d:\mylab\gamelab\algorithm\wizardoflegend\framework\framework\0625\debug\ccoin.obj
 d:\mylab\gamelab\algorithm\wizardoflegend\framework\framework\0625\debug\ccollider.obj
+d:\mylab\gamelab\algorithm\wizardoflegend\framework\framework\0625\debug\cbitmapmgr.obj
+d:\mylab\gamelab\algorithm\wizardoflegend\framework\framework\0625\debug\cbitmapobj.obj
+d:\mylab\gamelab\algorithm\wizardoflegend\framework\framework\0625\debug\ccamera2d.obj
 d:\mylab\gamelab\algorithm\wizardoflegend\framework\framework\debug\0625.ilk
 d:\mylab\gamelab\algorithm\wizardoflegend\framework\framework\debug\0625.exe
 d:\mylab\gamelab\algorithm\wizardoflegend\framework\framework\debug\0625.pdb

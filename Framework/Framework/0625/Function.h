@@ -54,5 +54,13 @@ void CollectGarbageObjects(list<T*>& _list)
 	_list.remove_if([](auto& pObj) { return pObj == nullptr; });
 }
 
+template<typename T>
+void CollectGarbageObjects(vector<T*>& _vector)
+{
+	for (auto& pObj : _vector) { DO_IF_IS_NOT_VALID_OBJ(pObj) { DeleteSafe(pObj); } }
+	remove_if(_vector.begin(), _vector.end(), [](auto& pObj) { return pObj == nullptr; });
+}
+
+
 void NormalizeVector(float& _fToX, float& _fToY);
 float GetVectorLength(const float& _fToX, const float& _fToY);

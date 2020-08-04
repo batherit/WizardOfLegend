@@ -48,7 +48,7 @@ int CMiddleBossState_FireDragon::Update(float _fDeltaTime)
 			if ((m_fElapsedTime += _fDeltaTime) > m_fPeriod) {
 				float fLength = 0;
 				SetAttackDirection(&fLength);
-				TO_WOL(m_rOwner.GetGameWorld()).GetListUsedMonsterSkills().emplace_back(
+				m_rOwner.GetGameWorld().GetListObjs().emplace_back(
 					new CFireDragon(m_rOwner.GetGameWorld()
 						, m_rOwner.GetX() + m_rOwner.GetToX() * 130.f
 						, m_rOwner.GetY() + m_rOwner.GetToY() * 130.f

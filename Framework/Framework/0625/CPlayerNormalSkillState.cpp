@@ -46,7 +46,7 @@ void CPlayerNormalSkillState::OnLoaded(void)
 		break;
 	}
 
-	TO_WOL(m_rOwner.GetGameWorld()).GetListUsedPlayerSkills().emplace_back(
+	m_rOwner.GetGameWorld().GetListObjs().emplace_back(
 		new CPlayerNormalAttack(m_rOwner.GetGameWorld()
 			, m_rOwner.GetX() + m_rOwner.GetToX() * cfPlayerNormalAttackDist
 			, m_rOwner.GetY() + m_rOwner.GetToY() * cfPlayerNormalAttackDist

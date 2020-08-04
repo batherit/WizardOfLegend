@@ -17,5 +17,7 @@ private:
 	TCHAR* m_tDoorBitmapKey = L"";
 	HDC m_hMemdc;
 	const CBitmapObj* m_pBitmapObj;
+	int iWidth = 0;
+	int iHeight = 0;
 };
 

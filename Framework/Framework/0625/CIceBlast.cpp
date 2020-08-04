@@ -11,11 +11,11 @@ CIceBlast::CIceBlast(CGameWorld & _rGameWorld, CObj * _pOwner, float _fToX, floa
 	CObj(_rGameWorld, 0.f, 0.f, (ICE_BLAST_WIDTH *0.2f), (ICE_BLAST_HEIGHT *0.2f), _fToX, _fToY, ICE_BLAST_SPEED),
 	m_pOwner(_pOwner)
 {
+	m_pColliders[COLLIDER::TYPE_WALL] = this;
 	if (m_pOwner) {
 		SetX(m_pOwner->GetX());
 		SetY(m_pOwner->GetY());
 	}
-
 }
 
 CIceBlast::~CIceBlast()
@@ -28,11 +28,11 @@ int CIceBlast::Update(float _fDeltaTime)
 
 	if ((m_fSpawnTime += _fDeltaTime) >= 0.06f) {
 		// 스킬 생성
-		TO_WOL(GetGameWorld()).GetListUsedPlayerSkills().emplace_back(new CIceBlastChild(GetGameWorld(), GetX(), GetY()));
+		GetGameWorld().GetListObjs().emplace_back(new CIceBlastChild(GetGameWorld(), GetX(), GetY()));
 		m_fSpawnTime = 0.f;
 	}
 
-	if ((m_fElapsedtime += _fDeltaTime) > 0.7f) {
+	if ((m_fElapsedtime += _fDeltaTime) > 0.6f) {
 		float fLength = GetVectorLength(GetX() - m_pOwner->GetX(), GetY() - m_pOwner->GetY());
 		if (fLength <= 10.f) {
 			SetValid(false);
@@ -79,41 +79,6 @@ void CIceBlast::LateUpdate(void)
 			}
 		}
 	}
-	
-	//for (auto& pGroup : m_pMapLoader->GetCollidersGroups()) {
-	//	for (auto& pObj : pGroup->GetMapObjs()) {
-	//		RECT& rcDrawArea = pObj->GetRect();
-
-	//		// 그릴 영역을 스크린 좌표로 변환한다.
-	//		const pair<int, int>& pairLeftTop = m_pCamera->GetScreenPoint(rcDrawArea.left, rcDrawArea.top);
-	//		const pair<int, int>& pairRightBottom = m_pCamera->GetScreenPoint(rcDrawArea.right, rcDrawArea.bottom);
-
-	//		RECT rcCollider = { pairLeftTop.first + iOffsetX, pairLeftTop.second + iOffsetY, pairRightBottom.first + iOffsetX, pairRightBottom.second + iOffsetY };
-	//		if (!IsCollided(GetRect(), rcCollider)) continue;
-
-	//		HBRUSH hBrush = CreateSolidBrush(RGB(122, 122, 122));
-	//		HBRUSH hOldBrush = (HBRUSH)SelectObject(_hdc, hBrush);
-
-	//		Rectangle(_hdc, rcCollider.left, rcCollider.top, rcCollider.right, rcCollider.bottom);
-
-	//		SelectObject(_hdc, hOldBrush);
-	//		DeleteObject(hBrush);
-
-	//		GdiTransparentBlt(
-	//			_hdc,
-	//			m_fX - (UI_PLAYER_MINIMAP_WIDHT >> 1),
-	//			m_fY - (UI_PLAYER_MINIMAP_HEIGHT >> 1),
-	//			UI_PLAYER_MINIMAP_WIDHT,
-	//			UI_PLAYER_MINIMAP_HEIGHT,
-	//			m_hDCPlayerPos,
-	//			0, 0,
-	//			UI_PLAYER_MINIMAP_WIDHT,
-	//			UI_PLAYER_MINIMAP_HEIGHT,
-	//			RGB(255, 0, 255));
-
-	//		g_iRenderCount++;
-	//	}
-	//}
 }
 
 void CIceBlast::Render(HDC & _hdc, CCamera2D * _pCamera)

@@ -15,6 +15,7 @@
 #include "CGaiaArmorSkillState.h"
 #include "CIceBlastSkillState.h"
 #include "CCollider.h"
+#include "CHitEffect.h"
 
 //#include "CPlayerState_Spawn.h"
 //#include "CEffect_Spawn.h"
@@ -24,6 +25,7 @@ CPlayerWOL::CPlayerWOL(CGameWorld & _rGameWorld)
 	:
 	CObj(_rGameWorld, 0, 0, PLAYER_OUTPUT_WITDH, PLAYER_OUTPUT_HEIGHT, 0.f, 0.f, 0.f, Rectangle)
 {
+	SetObjType(OBJ::TYPE_PLAYER);
 	ZeroMemory(m_pSkills, sizeof(m_pSkills));
 	SetInitInfo();
 }
@@ -32,6 +34,7 @@ CPlayerWOL::CPlayerWOL(CGameWorld & _rGameWorld, float _fX, float _fY)
 	:
 	CObj(_rGameWorld, _fX, _fY, PLAYER_OUTPUT_WITDH, PLAYER_OUTPUT_HEIGHT, 0.f, 0.f, 0.f, Rectangle)
 {
+	SetObjType(OBJ::TYPE_PLAYER);
 	ZeroMemory(m_pSkills, sizeof(m_pSkills));
 	SetInitInfo();
 }
@@ -50,6 +53,8 @@ int CPlayerWOL::Update(float _fDeltaTime)
 	// 유효하지 않은 상태로 컨펌되면 false를 반환한다.
 	if (!m_pStateMgr->ConfirmValidState()) return 1;
 	DecreaseMana(PLAYER_MANA_REDUCTION_PER_SEC * _fDeltaTime);
+	if (IsSignatureMode() && IsManaEmpty())
+		SetSignatureMode(false);
 
 	for (auto& pSkillState : m_pSkills) {
 		if(pSkillState) pSkillState->AlwaysUpdate(_fDeltaTime);
@@ -78,7 +83,7 @@ int CPlayerWOL::Update(float _fDeltaTime)
 void CPlayerWOL::LateUpdate(void)
 {
 	m_pStateMgr->LateUpdate();
-	if (IsSignatureMode() && IsManaEmpty()) SetSignatureMode(false);
+	
 	for (auto& pCollider : m_pColliders) {
 		pCollider->LateUpdate();
 	}
@@ -131,13 +136,13 @@ void CPlayerWOL::SetInitInfo(void)
 	m_pColliders[COLLIDER::TYPE_WALL] = new CCollider(GetGameWorld(), this, 0.f, 50.f, 51, 27);
 	m_pColliders[COLLIDER::TYPE_DAMAGED] = new CCollider(GetGameWorld(), this, 0.f, -13.f, 150, 150);
 	m_pSkills[SKILL::KEY_LBUTTON] = new CPlayerNormalSkillState(*this);
-	//m_pSkills[SKILL::KEY_RBUTTON] = new CFireDragonSkillState(*this);
+	m_pSkills[SKILL::KEY_RBUTTON] = new CFireDragonSkillState(*this);
 	m_pSkills[SKILL::KEY_SPACE] = new CDashSkillState(*this);
-	m_pSkills[SKILL::KEY_RBUTTON] = new CIceBlastSkillState(*this);
-	//m_pSkills[SKILL::KEY_Q] = new CGaiaArmorSkillState(*this);
+	//m_pSkills[SKILL::KEY_RBUTTON] = new CIceBlastSkillState(*this);
+	m_pSkills[SKILL::KEY_Q] = new CGaiaArmorSkillState(*this);
 	SetMoney(0);
 	//m_pSkills[SKILL::KEY_Q] = new CFireDragonSkillState(*this);
-	//m_pSkills[SKILL::KEY_R] = new CIceCrystalSkillState(*this);
+	m_pSkills[SKILL::KEY_R] = new CIceCrystalSkillState(*this);
 	m_pStateMgr = new CStateMgr<CPlayerWOL>(GetGameWorld(), *this);
 	m_pStateMgr->SetNextState(new CPlayerState_Idle(*this));
 	m_fMaxHp = PLAYER_MAX_HP;
@@ -184,6 +189,21 @@ bool CPlayerWOL::AquireSkillState(CState<CPlayerWOL>* _pSkillState)
 		}
 	}
 	return false;
+}
+
+void CPlayerWOL::ReactToCollider(CObj * _pCollider, POINT& _ptCollisionPoint)
+{
+	switch (_pCollider->GetObjType())
+	{
+	case OBJ::TYPE_MONSTER_SKILL:
+		if (!_pCollider->IsRegisteredCollidedObj(this)) {
+			Attacked(_pCollider->GetDamageWithOffset(), _ptCollisionPoint);
+			_pCollider->RegisterCollidedObj(this);
+		}
+		break;
+	default:
+		break;
+	}
 }
 
 void CPlayerWOL::SetNewStateAnim(PLAYER::E_STATE _eNewState, bool _bReset /*= false*/)
@@ -336,6 +356,7 @@ void CPlayerWOL::Attacked(float _fDamageAmount, POINT _ptCollisionPoint)
 	// TODO : 받은 데미지를 보여주는 UI를 띄우셈! 했어오 ^ㅅ^v
 	if (!IsDead()) {
 		CObj::Attacked(_fDamageAmount, _ptCollisionPoint);
+		GetGameWorld().GetListObjs().emplace_back(new CHitEffect(GetGameWorld(), _ptCollisionPoint.x, _ptCollisionPoint.y));
 		TO_WOL(GetGameWorld()).GetListUIs().emplace_back(new CUI_DamageText(GetGameWorld(), GetX(), GetY(), _ptCollisionPoint, _fDamageAmount));
 		GetStateMgr()->SetNextState(new CPlayerState_Damage(*this, _ptCollisionPoint), true);
 	}

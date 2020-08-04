@@ -46,7 +46,7 @@ void CIceCrystalSkillState::OnLoaded(void)
 	m_rOwner.SetNewAnimInfo(stAnimInfo);
 
 	// TODO : 여기에 아이스 크리스탈 스킬 생성해주면 됩니더ㅓㅓㄷㄷ..
-	TO_WOL(m_rOwner.GetGameWorld()).GetListUsedPlayerSkills().emplace_back(
+	m_rOwner.GetGameWorld().GetListObjs().emplace_back(
 		new CIceCrystal(m_rOwner.GetGameWorld(), &m_rOwner));
 	
 	// 쿨타임 초기화
