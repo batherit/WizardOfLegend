@@ -48,12 +48,13 @@ int CMiddleBossState_FireDragon::Update(float _fDeltaTime)
 			if ((m_fElapsedTime += _fDeltaTime) > m_fPeriod) {
 				float fLength = 0;
 				SetAttackDirection(&fLength);
-				m_rOwner.GetGameWorld().GetListObjs().emplace_back(
-					new CFireDragon(m_rOwner.GetGameWorld()
-						, m_rOwner.GetX() + m_rOwner.GetToX() * 130.f
-						, m_rOwner.GetY() + m_rOwner.GetToY() * 130.f
-						, m_pPlayer->GetX() - m_rOwner.GetX(), m_pPlayer->GetY() - m_rOwner.GetY()
-						, m_eAttackType));
+				CObj* pSkill = new CFireDragon(m_rOwner.GetGameWorld()
+					, m_rOwner.GetX() + m_rOwner.GetToX() * 130.f
+					, m_rOwner.GetY() + m_rOwner.GetToY() * 130.f
+					, m_pPlayer->GetX() - m_rOwner.GetX(), m_pPlayer->GetY() - m_rOwner.GetY()
+					, m_eAttackType);
+				pSkill->SetObjType(OBJ::TYPE_MONSTER_SKILL);
+				m_rOwner.GetGameWorld().GetListObjs().emplace_back(pSkill);
 				m_pCamera->Shake(0.3f, 3.f, 5);
 				switch (m_eAttackType)
 				{

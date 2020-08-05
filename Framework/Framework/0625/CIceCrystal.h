@@ -16,6 +16,7 @@ public:
 	virtual void LateUpdate(void);
 	virtual void Render(HDC & _hdc, CCamera2D * _pCamera);
 	virtual void Release(void);
+	virtual void SetObjType(OBJ::E_TYPE _eObjType) override;
 
 	float GetDegree(void) const { return m_fDegree; }
 

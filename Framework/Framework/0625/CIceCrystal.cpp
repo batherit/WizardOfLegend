@@ -126,3 +126,11 @@ void CIceCrystal::Release(void)
 {
 	// 가비지 콜렉터가 자식들 수거해감.
 }
+
+void CIceCrystal::SetObjType(OBJ::E_TYPE _eObjType)
+{
+	// 자식 타입만 변경
+	for (int i = 0; i < m_iIceCrystalNum; i++) {
+		m_pIceCrystal[i]->SetObjType(_eObjType);
+	}
+}

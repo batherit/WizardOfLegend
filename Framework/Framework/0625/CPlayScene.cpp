@@ -144,22 +144,21 @@ void CPlayScene::LateUpdate(void) {
 				for (auto& pWall : pGroup->GetMapObjs()) {
 					// 충돌이 일어났다면, 위치를 조정한다.
 					if (IntersectRect(&rcCollidedRect, &pCollider->GetRect(), &pWall->GetRect())) {
-						if (rcCollidedRect.bottom - rcCollidedRect.top > rcCollidedRect.right - rcCollidedRect.left) {
-							if (pCollider->GetX() <= pWall->GetX()) {
-								pObj->MoveTo(-(rcCollidedRect.right - rcCollidedRect.left), 0.f);
-							}
-							else if (pCollider->GetX() >= pWall->GetX()) {
-								pObj->MoveTo((rcCollidedRect.right - rcCollidedRect.left), 0.f);
-							}
-						}
-						else {
-							if (pCollider->GetY() >= pWall->GetY()) {
-								pObj->MoveTo(0.f, (rcCollidedRect.bottom - rcCollidedRect.top));
-							}
-							else if (pCollider->GetY() <= pWall->GetY()) {
-								pObj->MoveTo(0.f, -(rcCollidedRect.bottom - rcCollidedRect.top));
-							}
-
+						switch (GetDirByDegree(
+							GetPositiveDegreeByVector(pCollider->GetX() - pWall->GetX(), pCollider->GetY() - pWall->GetY())
+							, pWall->GetWidth(), pWall->GetHeight())) {
+						case OBJ::DIR_RIGHT:
+							pObj->MoveTo((rcCollidedRect.right - rcCollidedRect.left) + max(0, pWall->GetRect().right - rcCollidedRect.right), 0.f);
+							break;
+						case OBJ::DIR_LEFT:
+							pObj->MoveTo(-(rcCollidedRect.right - rcCollidedRect.left) - max(0, pWall->GetRect().left - rcCollidedRect.left), 0.f);
+							break;
+						case OBJ::DIR_DOWN:
+							pObj->MoveTo(0.f, (rcCollidedRect.bottom - rcCollidedRect.top) + max(0, pWall->GetRect().bottom - rcCollidedRect.bottom));
+							break;
+						case OBJ::DIR_UP:
+							pObj->MoveTo(0.f, -(rcCollidedRect.bottom - rcCollidedRect.top) - max(0, pWall->GetRect().top - rcCollidedRect.top));
+							break;
 						}
 						pCollider->LateUpdate();
 
@@ -184,26 +183,25 @@ void CPlayScene::LateUpdate(void) {
 		for (auto& pDoor : m_pMapLoader->GetDoors()) {
 			// 충돌이 일어났다면, 위치를 조정한다.
 			if (IntersectRect(&rcCollidedRect, &pCollider->GetRect(), &pDoor->GetRect())) {
-				if (rcCollidedRect.bottom - rcCollidedRect.top > rcCollidedRect.right - rcCollidedRect.left) {
-					if (pCollider->GetX() <= pDoor->GetX()) {
-						pObj->MoveTo(-(rcCollidedRect.right - rcCollidedRect.left), 0.f);
-					}
-					else if (pCollider->GetX() >= pDoor->GetX()) {
-						pObj->MoveTo((rcCollidedRect.right - rcCollidedRect.left), 0.f);
-					}
-				}
-				else {
-					if (pCollider->GetY() >= pDoor->GetY()) {
-						pObj->MoveTo(0.f, (rcCollidedRect.bottom - rcCollidedRect.top));
-					}
-					else if (pCollider->GetY() <= pDoor->GetY()) {
-						pObj->MoveTo(0.f, -(rcCollidedRect.bottom - rcCollidedRect.top));
-					}
-
+				switch (GetDirByDegree(
+					GetPositiveDegreeByVector(pCollider->GetX() - pDoor->GetX(), pCollider->GetY() - pDoor->GetY())
+					, pDoor->GetWidth(), pDoor->GetHeight())) {
+				case OBJ::DIR_RIGHT:
+					pObj->MoveTo((rcCollidedRect.right - rcCollidedRect.left) + max(0, pDoor->GetRect().right - rcCollidedRect.right), 0.f);
+					break;
+				case OBJ::DIR_LEFT:
+					pObj->MoveTo(-(rcCollidedRect.right - rcCollidedRect.left) - max(0, pDoor->GetRect().left - rcCollidedRect.left), 0.f);
+					break;
+				case OBJ::DIR_DOWN:
+					pObj->MoveTo(0.f, (rcCollidedRect.bottom - rcCollidedRect.top) + max(0, pDoor->GetRect().bottom - rcCollidedRect.bottom));
+					break;
+				case OBJ::DIR_UP:
+					pObj->MoveTo(0.f, -(rcCollidedRect.bottom - rcCollidedRect.top) - max(0, pDoor->GetRect().top - rcCollidedRect.top));
+					break;
 				}
 				pCollider->LateUpdate();
 
-				// pObj가 문에 충돌했을시 반응. Ex. 문과 충돌하면 사라진다던지..
+				// pObj가 벽에 충돌했을시 반응. Ex. 벽과 충돌하면 사라진다던지..
 				pObj->ReactToCollider(pDoor,
 					POINT{
 					((rcCollidedRect.right + rcCollidedRect.left) >> 1),
@@ -250,6 +248,7 @@ void CPlayScene::LateUpdate(void) {
 
 	m_listSpawnerGenerators.remove_if([](auto& pObj) { return pObj == nullptr; });
 	CollectGarbageObjects(m_rGameWorld.GetListObjs());
+	CollectGarbageObjects(m_listItems);
 	CollectGarbageObjects(m_listSpawners);
 }
 
@@ -591,9 +590,10 @@ void CPlayScene::Render(HDC & _hdc, CCamera2D * _pCamera)
 	/*for (auto& pObj : m_listMonsters) {
 		m_vecObjsToRender.emplace_back(pObj);
 	}
+	*/
 	for (auto& pObj : m_listItems) {
 		m_vecObjsToRender.emplace_back(pObj);
-	}*/
+	}
 	
 	RECT rcScreenRect;
 	for (auto& pGroup : m_pMapLoader->GetAtlasObjsGroups(2)) {

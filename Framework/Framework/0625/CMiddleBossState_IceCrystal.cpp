@@ -33,12 +33,19 @@ int CMiddleBossState_IceCrystal::Update(float _fDeltaTime)
 {
 	if (m_rOwner.UpdateAnim(_fDeltaTime) == 1) {
 		// TODO : 여기에 아이스 크리스탈 스킬 생성해주면 됩니더ㅓㅓㄷㄷ..
-		m_rOwner.GetGameWorld().GetListObjs().emplace_back(
-			new CIceCrystal(m_rOwner.GetGameWorld(), m_rOwner.GetX() - 300, m_rOwner.GetY() - 300));
-		m_rOwner.GetGameWorld().GetListObjs().emplace_back(
-			new CIceCrystal(m_rOwner.GetGameWorld(), m_rOwner.GetX() + 300, m_rOwner.GetY() - 300));
-		m_rOwner.GetGameWorld().GetListObjs().emplace_back(
-			new CIceCrystal(m_rOwner.GetGameWorld(), m_rOwner.GetX(), m_rOwner.GetY() + 300));
+		CObj* pSkill = nullptr;
+		// 1)
+		pSkill = new CIceCrystal(m_rOwner.GetGameWorld(), m_rOwner.GetX() - 300, m_rOwner.GetY() - 300);
+		pSkill->SetObjType(OBJ::TYPE_MONSTER_SKILL);
+		m_rOwner.GetGameWorld().GetListObjs().emplace_back(pSkill);
+		// 2)
+		pSkill = new CIceCrystal(m_rOwner.GetGameWorld(), m_rOwner.GetX() + 300, m_rOwner.GetY() - 300);
+		pSkill->SetObjType(OBJ::TYPE_MONSTER_SKILL);
+		m_rOwner.GetGameWorld().GetListObjs().emplace_back(pSkill);
+		// 3)
+		pSkill = new CIceCrystal(m_rOwner.GetGameWorld(), m_rOwner.GetX(), m_rOwner.GetY() + 300);
+		pSkill->SetObjType(OBJ::TYPE_MONSTER_SKILL);
+		m_rOwner.GetGameWorld().GetListObjs().emplace_back(pSkill);
 		m_rOwner.GetStateMgr()->SetNextState(new CMiddleBossState_Idle(m_rOwner));
 		return 1;
 	}

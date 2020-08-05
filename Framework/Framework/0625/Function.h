@@ -30,7 +30,7 @@ POINT GetClientCursorPoint(void);
 float GetRandomFloat(void);
 float GetRadianByVector(float _fToX, float _fToY);
 float GetPositiveDegreeByVector(float _fToX, float _fToY);
-OBJ::E_DIRECTION GetDirByDegree(float _fDegree);
+OBJ::E_DIRECTION GetDirByDegree(float _fDegree, float _fWidth = 1.f, float _fHeight = 1.f, float _fWeight = 0.43f);
 int GetNumberMinBetweenMax(int _iMin, int _iMax);
 float GetNumberMinBetweenMax(float _fMin, float _fMax);
 template<typename T>

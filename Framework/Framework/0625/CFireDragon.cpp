@@ -6,6 +6,7 @@
 #include "CFireParticle.h"
 #include "CCollider.h"
 #include "CHitEffect.h"
+#include "CGaiaArmorChild.h"
 
 
 CFireDragon::CFireDragon(CGameWorld & _rGameWorld, float _fX, float _fY, float _fToX, float _fToY, PLAYER::E_STATE _eAttackType)
@@ -191,6 +192,15 @@ void CFireDragon::ReactToCollider(CObj * _pCollider, POINT & _ptCollisionPoint)
 		GetGameWorld().GetListObjs().emplace_back(new CHitEffect(GetGameWorld(), _ptCollisionPoint.x, _ptCollisionPoint.y));
 		SetValid(false);
 		break;
+	case OBJ::TYPE_PLAYER_SKILL:
+	{
+		CObj* pSkill = dynamic_cast<CGaiaArmorChild*>(_pCollider);
+		if (GetObjType() == OBJ::TYPE_MONSTER_SKILL && pSkill) {
+			GetGameWorld().GetListObjs().emplace_back(new CHitEffect(GetGameWorld(), _ptCollisionPoint.x, _ptCollisionPoint.y));
+			SetValid(false);
+		}
+	}
+	break;
 	default:
 		break;
 	}

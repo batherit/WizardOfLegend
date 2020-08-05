@@ -113,7 +113,7 @@ public:
 	bool IsActive(void) { return m_bIsActive; }
 	void SetDamage(int _iDamage) { m_iDamage = _iDamage; }
 	void SetDamageOffset(int _iDamageOffset) { m_iDamageOffset = _iDamageOffset;  }
-	void SetObjType(OBJ::E_TYPE _eObjType) { m_eObjType = _eObjType; }
+	virtual void SetObjType(OBJ::E_TYPE _eObjType) { m_eObjType = _eObjType; }
 	const OBJ::E_TYPE GetObjType(void) const { return m_eObjType; }
 
 protected:

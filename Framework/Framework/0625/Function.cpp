@@ -60,14 +60,29 @@ float GetPositiveDegreeByVector(float _fToX, float _fToY) {
 	return fDegree;
 }
 
-OBJ::E_DIRECTION GetDirByDegree(float _fDegree) {
-	if (45.f <= _fDegree && _fDegree < 135.f) {
+OBJ::E_DIRECTION GetDirByDegree(float _fDegree, float _fWidth, float _fHeight, float _fWeight) {
+	Clamp(&_fWeight, 0.f, 1.f);
+
+	float fWidthDegree = 90.f * (_fWidth / (_fWidth + _fHeight));
+	float fHeightDegree = 90.f - fWidthDegree;
+
+	if (_fWidth > _fHeight) {
+		fWidthDegree = 90.f * (_fWidth * (1.f - _fWeight) + (_fWidth + _fHeight) * _fWeight)/(_fWidth + _fHeight);
+		fHeightDegree = 90.f - fWidthDegree;
+	}
+	else if (_fWidth < _fHeight) {
+		fHeightDegree = 90.f * (_fHeight * (1.f - _fWeight) + (_fWidth + _fHeight) * _fWeight)/(_fWidth + _fHeight);
+		fWidthDegree = 90.f - fHeightDegree;
+	}
+	
+
+	if (fHeightDegree <= _fDegree && _fDegree < fHeightDegree + 2.f * fWidthDegree) {
 		return OBJ::DIR_DOWN;
 	}
-	else if (135.f <= _fDegree && _fDegree < 225.f) {
+	else if (fHeightDegree + 2.f * fWidthDegree <= _fDegree && _fDegree < 3.f * fHeightDegree + 2.f * fWidthDegree) {
 		return OBJ::DIR_LEFT;
 	}
-	else if (225.f <= _fDegree && _fDegree < 315.f) {
+	else if (3.f * fHeightDegree + 2.f * fWidthDegree <= _fDegree && _fDegree < 3.f * fHeightDegree + 4.f * fWidthDegree) {
 		return OBJ::DIR_UP;
 	}
 	else return OBJ::DIR_RIGHT;
