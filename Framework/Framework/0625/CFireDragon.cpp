@@ -13,6 +13,7 @@ CFireDragon::CFireDragon(CGameWorld & _rGameWorld, float _fX, float _fY, float _
 	:
 	CObj(_rGameWorld, _fX, _fY, PLAYER_FIRE_DRAGON_WIDTH, PLAYER_FIRE_DRAGON_HEIGHT, _fToX, _fToY, PLAYER_FIRE_DRAGON_SPEED)
 {
+	SetRenderLayer(2);
 	SetObjType(OBJ::TYPE_PLAYER_SKILL);
 	SetDamage(14);
 	SetDamageOffset(3);

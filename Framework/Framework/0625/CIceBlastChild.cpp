@@ -11,6 +11,7 @@ CIceBlastChild::CIceBlastChild(CGameWorld & _rGameWorld, float _fX, float _fY)
 	CObj(_rGameWorld, _fX, _fY, ICE_BLAST_WIDTH, ICE_BLAST_HEIGHT),
 	m_fLifeTime(0.7f)
 {
+	SetRenderLayer(1);
 	SetObjType(OBJ::TYPE_PLAYER_SKILL);
 	SetDamage(12);
 	SetDamageOffset(3);

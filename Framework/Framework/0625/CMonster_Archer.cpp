@@ -228,6 +228,7 @@ void CMonster_Archer::ReactToCollider(CObj * _pCollider, POINT & _ptCollisionPoi
 void CMonster_Archer::SetInitInfo(void)
 {
 	Release();
+	SetRenderLayer(1);
 	DeleteSafe(m_pColliders[COLLIDER::TYPE_WALL]);
 	m_pColliders[COLLIDER::TYPE_WALL] = new CCollider(GetGameWorld(), this, 0.f, 67.f, 70.f, 50.f);
 	m_pColliders[COLLIDER::TYPE_DAMAGED] = this;

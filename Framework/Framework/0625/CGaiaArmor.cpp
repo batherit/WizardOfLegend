@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "CGaiaArmor.h"
 #include "CGaiaArmorChild.h"
+#include "CBottomHole.h"
 
 
 
@@ -17,8 +18,14 @@ CGaiaArmor::CGaiaArmor(CGameWorld & _rGameWorld, CObj * _pOwner)
 		SetX(m_pOwner->GetX());
 		SetY(m_pOwner->GetY());
 
-
+		float fChildDegree = 0.f;
 		for (int i = 0; i < m_iGaiaArmorNum; i++) {
+			fChildDegree = (360.f / m_iGaiaArmorNum) * i;
+			if (fChildDegree >= 360.f) fChildDegree -= 360.f;
+			_rGameWorld.GetListObjs().emplace_back(new CBottomHole(_rGameWorld, GetX() + cosf(TO_RADIAN(fChildDegree)) * GAIA_ARMOR_OFFSET, GetY() + sinf(TO_RADIAN(fChildDegree)) * GAIA_ARMOR_OFFSET));
+		}
+
+		for (int i = 0; i < m_iGaiaArmorNum; i++) {	
 			m_pGaiaArmor[i] = new CGaiaArmorChild(_rGameWorld, this);
 			_rGameWorld.GetListObjs().emplace_back(m_pGaiaArmor[i]);
 		}
@@ -62,11 +69,11 @@ int CGaiaArmor::Update(float _fDeltaTime)
 
 	m_fDegree += m_fSpeed * _fDeltaTime;
 	if (m_fDegree >= 360.f) m_fDegree -= 360.f;
-	float m_fChildDegree = 0.f;
+	float fChildDegree = 0.f;
 	for (int i = 0; i < m_iGaiaArmorNum; i++) {
-		m_fChildDegree = m_fDegree + (360.f / m_iGaiaArmorNum) * i;
-		if (m_fChildDegree >= 360.f) m_fChildDegree -= 360.f;
-		m_pGaiaArmor[i]->SetXY(GetX() + cosf(TO_RADIAN(m_fChildDegree)) * GAIA_ARMOR_OFFSET, GetY() + sinf(TO_RADIAN(m_fChildDegree)) * GAIA_ARMOR_OFFSET);
+		fChildDegree = m_fDegree + (360.f / m_iGaiaArmorNum) * i;
+		if (fChildDegree >= 360.f) fChildDegree -= 360.f;
+		m_pGaiaArmor[i]->SetXY(GetX() + cosf(TO_RADIAN(fChildDegree)) * GAIA_ARMOR_OFFSET, GetY() + sinf(TO_RADIAN(fChildDegree)) * GAIA_ARMOR_OFFSET);
 	}
 
 

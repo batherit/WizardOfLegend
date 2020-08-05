@@ -10,6 +10,7 @@ CHitEffect::CHitEffect(CGameWorld & _rGameWorld, float _fX, float _fY)
 	:
 	CObj(_rGameWorld, _fX, _fY, HIT_EFFECT_OUTPUT_WIDTH, HIT_EFFECT_OUTPUT_HEIGHT)
 {
+	SetRenderLayer(3);
 	m_hDCKeyAtlas = CBitmapMgr::GetInstance()->GetBitmapMemDC(TEXT("HIT_EFFECT"));
 	_anim_info stAnimInfo;
 	stAnimInfo.iState = rand() % 4;

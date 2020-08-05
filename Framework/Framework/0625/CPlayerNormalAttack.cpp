@@ -10,6 +10,7 @@ CPlayerNormalAttack::CPlayerNormalAttack(CGameWorld & _rGameWorld, float _fX, fl
 	:
 	CObj(_rGameWorld, _fX, _fY, PLAYER_NORMAL_ATTACK_WIDTH, PLAYER_NORMAL_ATTACK_HEIGHT, _fToX, _fToY)
 {
+	SetRenderLayer(1);
 	SetObjType(OBJ::TYPE_PLAYER_SKILL);
 	SetDamage(10);
 	SetDamageOffset(3);

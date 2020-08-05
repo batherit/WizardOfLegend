@@ -128,6 +128,7 @@ void CPlayerWOL::Release(void)
 void CPlayerWOL::SetInitInfo(void)
 {
 	Release();
+	SetRenderLayer(1);
 	m_pUsingSkill = nullptr;
 	m_pNextSkill = nullptr;
 	m_bIsSkillConfirmed = true;

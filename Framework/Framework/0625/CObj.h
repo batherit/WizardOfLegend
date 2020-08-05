@@ -115,6 +115,8 @@ public:
 	void SetDamageOffset(int _iDamageOffset) { m_iDamageOffset = _iDamageOffset;  }
 	virtual void SetObjType(OBJ::E_TYPE _eObjType) { m_eObjType = _eObjType; }
 	const OBJ::E_TYPE GetObjType(void) const { return m_eObjType; }
+	void SetRenderLayer(int _iRenderLayer) { m_iRenderLayer = _iRenderLayer; }
+	int GetRenderLayer(void) { return m_iRenderLayer; }
 
 protected:
 	int m_iGroupID = -1;
@@ -144,6 +146,7 @@ protected:
 	list<CObj*> m_listCollidedObjs;
 	CObj* m_pColliders[COLLIDER::TYPE_END] = { nullptr, };
 	OBJ::E_TYPE m_eObjType = OBJ::TYPE_END;
+	int m_iRenderLayer = 0;
 
 	BOOL (__stdcall *m_pDrawFunc) (HDC hdc, int _left, int _right, int _top, int _bottom) = Rectangle;
 

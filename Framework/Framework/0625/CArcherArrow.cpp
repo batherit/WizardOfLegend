@@ -14,6 +14,7 @@ CArcherArrow::CArcherArrow(CGameWorld & _rGameWorld, float _fX, float _fY, float
 	CObj(_rGameWorld, _fX, _fY, ARCHER_BOW_OUTPUT_WIDTH, ARCHER_BOW_OUTPUT_HEIGHT, _fToX, _fToY, ARCHER_ARROW_SPEED),
 	m_eArcherDir(_eArcherDir)
 {
+	SetRenderLayer(2);
 	SetObjType(OBJ::TYPE_MONSTER_SKILL);
 	SetDamage(8);
 	SetDamageOffset(5);

@@ -58,6 +58,7 @@ void CPlayScene::ResetScene(void)
 	m_listSpawners.emplace_back(new CPlayerSpawner(m_rGameWorld, m_pPlayer, pairSpawnPoint.first, pairSpawnPoint.second));
 	CUI_Image* pImage = new CUI_Image(m_rGameWorld, 6749.f, 2373.f, SHOP_NPC_WIDTH, SHOP_NPC_HEIGHT);
 	pImage->SetHDC(CBitmapMgr::GetInstance()->GetBitmapMemDC(TEXT("ITEMSHOP_NPC")));
+	pImage->SetRenderLayer(1);
 	pImage->SetCameraUsing(true);
 	m_listItems.emplace_back(pImage);
 	m_listItems.emplace_back(new CItem_DroppedCard(m_rGameWorld, 2187.f, 1087.f, new CFireDragonSkillState(*TO_PLAYER_WOL(m_pPlayer))));
@@ -615,7 +616,13 @@ void CPlayScene::Render(HDC & _hdc, CCamera2D * _pCamera)
 
 	// yÃà Á¤·Ä
 	sort(m_vecObjsToRender.begin(), m_vecObjsToRender.end(), [](CObj* pObj1, CObj* pObj2) {
-		return pObj1->GetBottom() < pObj2->GetBottom();
+		if (pObj1->GetRenderLayer() < pObj2->GetRenderLayer()) {
+			return true;
+		}
+		else if(pObj1->GetRenderLayer() == pObj2->GetRenderLayer()) {
+			return pObj1->GetBottom() < pObj2->GetBottom();
+		}
+		return false;
 	});
 	for (auto& pObj : m_vecObjsToRender) {
 		pObj->Render(_hdc, _pCamera);

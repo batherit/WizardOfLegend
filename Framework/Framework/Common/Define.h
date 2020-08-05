@@ -223,6 +223,9 @@
 // 가이아 아머 변수
 #define GAIA_ARMOR_MAX_ROT_SPEED	180.f
 #define GAIA_ARMOR_OFFSET			145.f
+// 가이아 아머 생성시 생기는 땅구멍 사이즈
+#define BOTTOM_HOLE_WIDTH		200
+#define BOTTOM_HOLE_HEIGHT		150
 // 아이스 블라스트 변수
 #define ICE_BLAST_SPEED			1200.f
 // 아이스 블라스트 차일드 사이즈

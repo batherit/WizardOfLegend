@@ -250,6 +250,8 @@ void CWOL_World::LoadResources(void)
 	CBitmapMgr::GetInstance()->InsertBitmap(TEXT("../Textures/SKILL_ICE_CRYSTAL.bmp"), TEXT("SKILL_ICE_CRYSTAL"));
 	// 스킬 가이아 아머
 	CBitmapMgr::GetInstance()->InsertBitmap(TEXT("../Textures/SKILL_GAIA_ARMOR.bmp"), TEXT("SKILL_GAIA_ARMOR"));
+	// 땅구멍
+	CBitmapMgr::GetInstance()->InsertBitmap(TEXT("../Textures/BOTTOM_HOLE.bmp"), TEXT("BOTTOM_HOLE"));
 	// 스킬 아이스 블라스트
 	CBitmapMgr::GetInstance()->InsertBitmap(TEXT("../Textures/SKILL_ICE_BLAST.bmp"), TEXT("SKILL_ICE_BLAST"));
 	

@@ -13,6 +13,7 @@ CItem_Gaia::CItem_Gaia(CGameWorld & _rGameWorld, float _fX, float _fY)
 	CObj(_rGameWorld, _fX, _fY, SHOP_GAIA_WIDTH, SHOP_GAIA_HEIGHT),
 	m_pSkillState(new CGaiaArmorSkillState(*TO_PLAYER_WOL(TO_WOL(_rGameWorld).GetPlayer())))
 {
+	SetRenderLayer(1);
 	m_hDCKey = CBitmapMgr::GetInstance()->GetBitmapMemDC(TEXT("GAIA_ARMOR_CARD"));
 }
 

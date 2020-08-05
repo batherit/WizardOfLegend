@@ -13,6 +13,7 @@ CItem_DroppedCard::CItem_DroppedCard(CGameWorld & _rGameWorld, float _fX, float 
 	CObj(_rGameWorld, _fX, _fY, ITEM_DROPPED_CARD_WIDTH, ITEM_DROPPED_CARD_HEIGHT),
 	m_pSkillState(_pSkillState)
 {
+	SetRenderLayer(1);
 	m_hDCKey = _pSkillState->GetStateHDC(STATE_HDC::STATE_HDC_CARD);
 }
 

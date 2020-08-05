@@ -223,6 +223,7 @@ bool CBoss_MiddleBoss::DirectDirectionToTarget(void)
 void CBoss_MiddleBoss::SetInitInfo(void)
 {
 	Release();
+	SetRenderLayer(1);
 	m_pColliders[COLLIDER::TYPE_WALL] = new CCollider(GetGameWorld(), this, 0.f, 67.f, 70.f, 50.f);
 	m_pColliders[COLLIDER::TYPE_DAMAGED] = this;
 	m_pStateMgr = new CStateMgr<CBoss_MiddleBoss>(GetGameWorld(), *this);

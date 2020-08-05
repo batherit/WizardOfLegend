@@ -10,6 +10,7 @@ CItem_Potion::CItem_Potion(CGameWorld & _rGameWorld, float _fX, float _fY)
 	:
 	CObj(_rGameWorld, _fX, _fY, SHOP_POTION_WIDTH, SHOP_POTION_HEIGHT)
 {
+	SetRenderLayer(1);
 	m_hDCKey = CBitmapMgr::GetInstance()->GetBitmapMemDC(TEXT("POTION"));
 }
 

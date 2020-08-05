@@ -215,6 +215,7 @@ bool CMonster_SwordMan::GoToTarget(float _fDeltaTime)
 
 void CMonster_SwordMan::SetInitInfo(void)
 {
+	SetRenderLayer(1);
 	DeleteSafe(m_pStateMgr);
 	DeleteSafe(m_pColliders[COLLIDER::TYPE_WALL]);
 	m_pColliders[COLLIDER::TYPE_WALL] = new CCollider(GetGameWorld(), this, 0.f, 67.f, 70.f, 50.f);

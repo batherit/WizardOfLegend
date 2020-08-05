@@ -12,6 +12,7 @@ CIceCrystalChild::CIceCrystalChild(CGameWorld & _rGameWorld, CIceCrystal* _pIceC
 	CObj(_rGameWorld, 0.f, 0.f, ICE_CRYSTAL_WIDTH, ICE_CRYSTAL_HEIGHT),
 	m_pIceCrystalParent(_pIceCrystalParent)
 {
+	SetRenderLayer(2);
 	SetObjType(OBJ::TYPE_PLAYER_SKILL);
 	SetDamage(12);
 	SetDamageOffset(3);

@@ -171,6 +171,7 @@ int CMonster_WizardBall::GetSpriteIndex(void)
 void CMonster_WizardBall::SetInitInfo(void)
 {
 	Release();
+	SetRenderLayer(1);
 	SetDamage(15);
 	SetDamageOffset(2);
 	DeleteSafe(m_pColliders[COLLIDER::TYPE_WALL]);

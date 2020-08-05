@@ -569,6 +569,9 @@
     <ClInclude Include="CIceBlastChild.h">
       <Filter>소스 파일\03.Obj\031.Skill\Player</Filter>
     </ClInclude>
+    <ClInclude Include="CBottomHole.h">
+      <Filter>소스 파일\03.Obj\023.Particle</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CLayer.cpp">
@@ -784,9 +787,6 @@
     <ClCompile Include="CFireDragon.cpp">
       <Filter>소스 파일\03.Obj\031.Skill\Player</Filter>
     </ClCompile>
-    <ClCompile Include="CFireParticle.cpp">
-      <Filter>소스 파일\03.Obj\023.Particle</Filter>
-    </ClCompile>
     <ClCompile Include="CMonster_Wizard.cpp">
       <Filter>소스 파일\03.Obj\023.Monster\Wizard</Filter>
     </ClCompile>
@@ -939,6 +939,12 @@
     </ClCompile>
     <ClCompile Include="CIceBlastChild.cpp">
       <Filter>소스 파일\03.Obj\031.Skill\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="CFireParticle.cpp">
+      <Filter>소스 파일\03.Obj\023.Particle</Filter>
+    </ClCompile>
+    <ClCompile Include="CBottomHole.cpp">
+      <Filter>소스 파일\03.Obj\023.Particle</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

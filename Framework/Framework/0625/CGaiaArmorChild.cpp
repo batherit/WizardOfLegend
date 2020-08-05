@@ -13,6 +13,7 @@ CGaiaArmorChild::CGaiaArmorChild(CGameWorld & _rGameWorld, CGaiaArmor * _pGaiaAr
 	CObj(_rGameWorld, 0.f, 0.f, GAIA_ARMOR_WIDTH, GAIA_ARMOR_HEIGHT),
 	m_pGaiaArmorParent(_pGaiaArmorParent)
 {
+	SetRenderLayer(1);
 	SetObjType(OBJ::TYPE_PLAYER_SKILL);
 	SetDamage(3);
 	SetDamageOffset(1);

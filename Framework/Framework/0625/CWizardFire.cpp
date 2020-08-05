@@ -13,6 +13,7 @@ CWizardFire::CWizardFire(CGameWorld & _rGameWorld, float _fX, float _fY, float _
 	:
 	CObj(_rGameWorld, _fX, _fY, WIZARD_FIRE_WIDTH, WIZARD_FIRE_HEIGHT, _fToX, _fToY, WIZARD_FIRE_SPEED)
 {
+	SetRenderLayer(2);
 	SetObjType(OBJ::TYPE_MONSTER_SKILL);
 	SetDamage(12);
 	SetDamageOffset(3);
