@@ -47,24 +47,6 @@ int CWizardFire::Update(float _fDeltaTime)
 
 void CWizardFire::LateUpdate(void)
 {
-	//// 위자드 파이어 삭제 과정
-	//DO_IF_IS_VALID_OBJ(this) {
-	//	for (auto& pPlayerSkill : GetGameWorld().GetListObjs()) {
-	//		DO_IF_IS_VALID_OBJ(pPlayerSkill) {
-	//			RECT rcCollisionRect;
-	//			if (IntersectRect(&rcCollisionRect, &pPlayerSkill->GetRect(), &this->GetRect())) {
-	//				GetGameWorld().GetSceneManager()->GetCurScene()->GetHitEffects()->emplace_back(
-	//					new CHitEffect(GetGameWorld(),
-	//						GetX(),
-	//						GetY())
-	//				); 
-	//				SetValid(false);
-	//				break;
-	//			}
-	//		}
-	//		DO_IF_IS_NOT_VALID_OBJ(this) break;
-	//	}
-	//}
 }
 
 void CWizardFire::Render(HDC & _hdc, CCamera2D * _pCamera)
@@ -123,7 +105,7 @@ void CWizardFire::ReactToCollider(CObj * _pCollider, POINT & _ptCollisionPoint)
 {
 	switch (_pCollider->GetObjType())
 	{
-	case OBJ::TYPE_WALL: case OBJ::TYPE_PLAYER_SKILL:
+	case OBJ::TYPE_WALL: case OBJ::TYPE_PLAYER_SKILL: case OBJ::TYPE_PLAYER:
 		GetGameWorld().GetListObjs().emplace_back(new CHitEffect(GetGameWorld(), _ptCollisionPoint.x, _ptCollisionPoint.y));
 		SetValid(false);
 		break;
