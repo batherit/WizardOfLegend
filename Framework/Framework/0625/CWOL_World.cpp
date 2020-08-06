@@ -76,13 +76,13 @@ void CWOL_World::Update(void)
 		pObj->Update(fDeltaTime* m_fTimeFactor);
 	}
 
-	for (auto& pObj : m_plistUsedPlayerSkills) {
+	/*for (auto& pObj : m_plistUsedPlayerSkills) {
 		pObj->Update(fDeltaTime* m_fTimeFactor);
 	}
 
 	for (auto& pObj : m_plistUsedMonsterSkills) {
 		pObj->Update(fDeltaTime* m_fTimeFactor);
-	}
+	}*/
 
 	for (auto& pObj : m_plistUIs) {
 		pObj->Update(fDeltaTime);
@@ -100,8 +100,8 @@ void CWOL_World::LateUpdate(void)
 	GetSceneManager()->LateUpdate();
 	m_pCamera->LateUpdate();
 
-	CollectGarbageObjects(m_plistUsedPlayerSkills);		// 무효화된 플레이어 스킬 제거
-	CollectGarbageObjects(m_plistUsedMonsterSkills);	// 무효화된 몬스터 스킬 제거
+	//CollectGarbageObjects(m_plistUsedPlayerSkills);		// 무효화된 플레이어 스킬 제거
+	//CollectGarbageObjects(m_plistUsedMonsterSkills);	// 무효화된 몬스터 스킬 제거
 	CollectGarbageObjects(m_plistUIs);					// 무효화된 UI를 제거
 	CollectGarbageObjects(m_plistParticles);
 }
@@ -115,12 +115,12 @@ void CWOL_World::Render(void)
 	for (auto* pObj : m_plistParticles) {
 		pObj->Render(GetBackbufferDC(), m_pCamera);
 	}
-	for (auto& pObj : m_plistUsedPlayerSkills) {
+	/*for (auto& pObj : m_plistUsedPlayerSkills) {
 		pObj->Render(GetBackbufferDC(), m_pCamera);
 	}
 	for (auto& pObj : m_plistUsedMonsterSkills) {
 		pObj->Render(GetBackbufferDC(), m_pCamera);
-	}
+	}*/
 	for (auto& pObj : m_plistUIs) {
 		pObj->Render(GetBackbufferDC(), m_pCamera);
 	}
@@ -144,8 +144,8 @@ void CWOL_World::Release(void)
 {
 	DeleteSafe(m_pCursor);
 	DeleteSafe(m_pCamera);
-	DeleteListSafe(m_plistUsedPlayerSkills);
-	DeleteListSafe(m_plistUsedMonsterSkills);
+	/*DeleteListSafe(m_plistUsedPlayerSkills);
+	DeleteListSafe(m_plistUsedMonsterSkills);*/
 	DeleteListSafe(m_plistUIs);
 	DeleteListSafe(m_plistParticles);
 	CBitmapMgr::DestroyInstance();
@@ -285,6 +285,16 @@ void CWOL_World::LoadResources(void)
 	CBitmapMgr::GetInstance()->InsertBitmap(TEXT("../Textures/BOSS_HPBAR.bmp"), TEXT("BOSS_HPBAR"));
 	CBitmapMgr::GetInstance()->InsertBitmap(TEXT("../Textures/MIDDLE_BOSS_LEFT.bmp"), TEXT("MIDDLE_BOSS_LEFT"));
 	CBitmapMgr::GetInstance()->InsertBitmap(TEXT("../Textures/MIDDLE_BOSS_RIGHT.bmp"), TEXT("MIDDLE_BOSS_RIGHT"));
+
+	// 보스 렌더링
+	CBitmapMgr::GetInstance()->InsertBitmap(TEXT("../Textures/BOSS_ATTACK.bmp"), TEXT("BOSS_ATTACK"));
+	CBitmapMgr::GetInstance()->InsertBitmap(TEXT("../Textures/BOSS_LEFT.bmp"), TEXT("BOSS_LEFT"));
+	CBitmapMgr::GetInstance()->InsertBitmap(TEXT("../Textures/BOSS_RIGHT.bmp"), TEXT("BOSS_RIGHT"));
+	CBitmapMgr::GetInstance()->InsertBitmap(TEXT("../Textures/BOSS_SKILL.bmp"), TEXT("BOSS_SKILL"));
+	CBitmapMgr::GetInstance()->InsertBitmap(TEXT("../Textures/BOSS_BOXATTACK.bmp"), TEXT("BOSS_BOXATTACK"));
+
+	// 보스 네임바 렌더링
+	CBitmapMgr::GetInstance()->InsertBitmap(TEXT("../Textures/BOSS_NAMEBAR.bmp"), TEXT("BOSS_NAMEBAR"));
 
 	// 상점 아이템
 	CBitmapMgr::GetInstance()->InsertBitmap(TEXT("../Textures/ITEMSHOP_NPC.bmp"), TEXT("ITEMSHOP_NPC"));

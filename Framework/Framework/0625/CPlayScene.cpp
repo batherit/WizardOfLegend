@@ -580,7 +580,6 @@ void CPlayScene::Render(HDC & _hdc, CCamera2D * _pCamera)
 {
 	g_iRenderCount = 0;
 
-	m_vecObjsToRender.emplace_back(m_pPlayer);
 	for (auto& pObj : m_pMapLoader->GetDoors()) {
 		m_vecObjsToRender.emplace_back(pObj);
 	}

@@ -10,6 +10,7 @@
 #include "CMiddleBossState_Death.h"
 #include "CUI_MiddleBossBar.h"
 #include "CPlayerWOL.h"
+#include "CSpace.h"
 
 
 
@@ -71,11 +72,11 @@ void CBoss_MiddleBoss::Render(HDC & _hdc, CCamera2D * _pCamera)
 	RECT& rcDrawArea = GetRect();
 
 	// 그릴 영역을 스크린 좌표로 변환한다.
-	const pair<int, int>& pairLeftTop = _pCamera->GetScreenPoint(rcDrawArea.left, rcDrawArea.top);
-	const pair<int, int>& pairRightBottom = _pCamera->GetScreenPoint(rcDrawArea.right, rcDrawArea.bottom);
+	pair<float, float>& pairLeftTop = _pCamera->GetScreenPoint(rcDrawArea.left, rcDrawArea.top);
+	pair<float, float>& pairRightBottom = _pCamera->GetScreenPoint(rcDrawArea.right, rcDrawArea.bottom);
 
-	//RECT rcCollider = { pairLeftTop.first, pairLeftTop.second, pairRightBottom.first, pairRightBottom.second };
-	//if (!IsCollided(GetGameWorld().GetViewSpace()->GetRect(), rcCollider)) return;
+	RECT rcCollider = { pairLeftTop.first, pairLeftTop.second, pairRightBottom.first, pairRightBottom.second };
+	if (!IsCollided(GetGameWorld().GetViewSpace()->GetRect(), rcCollider)) return;
 
 	GdiTransparentBlt(_hdc,
 		pairLeftTop.first,			// 출력 시작좌표 X
@@ -232,6 +233,6 @@ void CBoss_MiddleBoss::SetInitInfo(void)
 	m_fMaxHp = MIDDLE_BOSS_MAX_HP;//WIZARD_MAX_HP;
 	m_fHp = m_fMaxHp;
 	m_eMiddleBossDir = MONSTER::DIR_RIGHT;
-	m_hDCKeyAtlas[ARCHER::DIR_LEFT] = CBitmapMgr::GetInstance()->GetBitmapMemDC(TEXT("MIDDLE_BOSS_LEFT"));
-	m_hDCKeyAtlas[ARCHER::DIR_RIGHT] = CBitmapMgr::GetInstance()->GetBitmapMemDC(TEXT("MIDDLE_BOSS_RIGHT"));
+	m_hDCKeyAtlas[MONSTER::DIR_LEFT] = CBitmapMgr::GetInstance()->GetBitmapMemDC(TEXT("MIDDLE_BOSS_LEFT"));
+	m_hDCKeyAtlas[MONSTER::DIR_RIGHT] = CBitmapMgr::GetInstance()->GetBitmapMemDC(TEXT("MIDDLE_BOSS_RIGHT"));
 }

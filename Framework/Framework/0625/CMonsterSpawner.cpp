@@ -10,6 +10,7 @@
 #include "CSpace.h"
 #include "CSpawnerGenerator.h"
 #include "CBoss_MiddleBoss.h"
+#include "CBoss_Boss.h"
 
 
 
@@ -62,7 +63,13 @@ CMonsterSpawner::CMonsterSpawner(CGameWorld & _rGameWorld/*, list<CObj*>& _listM
 		break;
 	case SPAWN::TYPE_MIDDLEBOSS:
 		stAnimInfo.iCountToRepeat = 1;
-		stAnimInfo.fTotalTime = 0.5f;
+		stAnimInfo.fTotalTime = 0.5f;		// 0.5초후 등장
+		stAnimInfo.iStartFrameIndex = 0;
+		stAnimInfo.iFrameCount = 1;
+		break;
+	case SPAWN::TYPE_BOSS:
+		stAnimInfo.iCountToRepeat = 1;
+		stAnimInfo.fTotalTime = 0.5f;		// 0.5초후 등장
 		stAnimInfo.iStartFrameIndex = 0;
 		stAnimInfo.iFrameCount = 1;
 		break;
@@ -107,6 +114,10 @@ int CMonsterSpawner::Update(float _fDeltaTime)
 				break;
 			case SPAWN::TYPE_MIDDLEBOSS:
 				pSpawnedMonster = new CBoss_MiddleBoss(GetGameWorld(), GetX(), GetY(), m_iGroupID, TO_WOL(GetGameWorld()).GetPlayer(), m_pSpawnerGenerator);
+				break;
+			case SPAWN::TYPE_BOSS:
+				pSpawnedMonster = new CBoss_Boss(GetGameWorld(), GetX(), GetY(), m_iGroupID, TO_WOL(GetGameWorld()).GetPlayer(), m_pSpawnerGenerator);
+				break;
 			}
 			if(pSpawnedMonster) GetGameWorld().GetListObjs().emplace_back(pSpawnedMonster);
 			m_bIsSpawend = true;

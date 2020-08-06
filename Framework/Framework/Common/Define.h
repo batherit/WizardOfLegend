@@ -267,3 +267,18 @@
 // 보스 체력바
 #define UI_BOSS_HP_BAR_WIDTH	356
 #define UI_BOSS_HP_BAR_HEIGHT	28
+
+// 보스 출력 사이즈
+#define BOSS_WIDTH		220
+#define BOSS_HEIGHT		300
+#define BOSS_MAX_HP		80.f
+// 보스 스킬 사이즈
+#define BOSS_SKILL_WIDTH	80
+#define BOSS_SKILL_HEIGHT	255
+// 보스 박스 어택 사이즈
+#define BOSS_BOXATTACK_WIDTH	110
+#define BOSS_BOXATTACK_HEIGHT	155
+// 보스 네임바 출력 사이즈
+#define UI_BOSS_NAMEBAR_WIDTH	455
+#define UI_BOSS_NAMEBAR_HEIGHT	90
+
