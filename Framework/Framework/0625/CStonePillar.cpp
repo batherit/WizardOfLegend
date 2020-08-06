@@ -91,7 +91,7 @@ void CStonePillar::Render(HDC & _hdc, CCamera2D * _pCamera)
 		m_iHeight,
 		RGB(255, 0, 255));
 
-	if(m_pColliders[COLLIDER::TYPE_WALL])m_pColliders[COLLIDER::TYPE_WALL]->Render(_hdc, _pCamera);
+	//if(m_pColliders[COLLIDER::TYPE_WALL])m_pColliders[COLLIDER::TYPE_WALL]->Render(_hdc, _pCamera);
 }
 
 void CStonePillar::Release(void)

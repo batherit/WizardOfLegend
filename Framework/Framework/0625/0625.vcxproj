@@ -166,6 +166,7 @@
     <ClInclude Include="CBoss_Boss.h" />
     <ClInclude Include="CBoss_MiddleBoss.h" />
     <ClInclude Include="CBottomHole.h" />
+    <ClInclude Include="CBoxAttack.h" />
     <ClInclude Include="CCoin.h" />
     <ClInclude Include="CCollider.h" />
     <ClInclude Include="CBitmapMgr.h" />
@@ -348,6 +349,7 @@
     <ClCompile Include="CBoss_Boss.cpp" />
     <ClCompile Include="CBoss_MiddleBoss.cpp" />
     <ClCompile Include="CBottomHole.cpp" />
+    <ClCompile Include="CBoxAttack.cpp" />
     <ClCompile Include="CCoin.cpp" />
     <ClCompile Include="CCollider.cpp" />
     <ClCompile Include="CBitmapMgr.cpp" />

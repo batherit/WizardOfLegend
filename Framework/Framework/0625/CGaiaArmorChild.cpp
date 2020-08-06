@@ -5,6 +5,7 @@
 #include "CScene.h"
 #include "CGaiaArmor.h"
 #include "CHitEffect.h"
+#include "CSpace.h"
 
 
 
@@ -36,26 +37,6 @@ int CGaiaArmorChild::Update(float _fDeltaTime)
 
 void CGaiaArmorChild::LateUpdate(void)
 {
-	/*UpdateCollidedObjs();
-
-	CObj* pCollider;
-	RECT rcCollisionRect;
-	DO_IF_IS_VALID_OBJ(this) {
-		for (auto& pMonsterSkill : GetGameWorld().GetListObjs()) {
-			DO_IF_IS_VALID_OBJ(pMonsterSkill) {
-				pCollider = pMonsterSkill->GetCollider(COLLIDER::TYPE_WALL);
-				if (!pCollider) break;
-				if (IntersectRect(&rcCollisionRect, &GetRect(), &pCollider->GetRect())) {
-					GetGameWorld().GetSceneManager()->GetCurScene()->GetHitEffects()->emplace_back(
-						new CHitEffect(GetGameWorld(),
-							pMonsterSkill->GetX(),
-							pMonsterSkill->GetY()));
-					pMonsterSkill->SetValid(false);
-					break;
-				}
-			}
-		}
-	}*/
 }
 
 void CGaiaArmorChild::Render(HDC & _hdc, CCamera2D * _pCamera)
@@ -66,8 +47,8 @@ void CGaiaArmorChild::Render(HDC & _hdc, CCamera2D * _pCamera)
 	pair<float, float>& pairLeftTop = _pCamera->GetScreenPoint(rcDrawArea.left, rcDrawArea.top);
 	pair<float, float>& pairRightBottom = _pCamera->GetScreenPoint(rcDrawArea.right, rcDrawArea.bottom);
 
-	//RECT rcCollider = { pairLeftTop.first, pairLeftTop.second, pairRightBottom.first, pairRightBottom.second };
-	//if (!IsCollided(GetGameWorld().GetViewSpace()->GetRect(), rcCollider)) return;
+	RECT rcCollider = { pairLeftTop.first, pairLeftTop.second, pairRightBottom.first, pairRightBottom.second };
+	if (!IsCollided(GetGameWorld().GetViewSpace()->GetRect(), rcCollider)) return;
 
 	GdiTransparentBlt(_hdc,
 		pairLeftTop.first,			// 출력 시작좌표 X

@@ -590,7 +590,12 @@
     <ClInclude Include="CBossState_Idle.h">
       <Filter>소스 파일\03.State\037.Boss</Filter>
     </ClInclude>
-    <ClInclude Include="CStonePillar.h" />
+    <ClInclude Include="CStonePillar.h">
+      <Filter>소스 파일\03.Obj\031.Skill\Boss</Filter>
+    </ClInclude>
+    <ClInclude Include="CBoxAttack.h">
+      <Filter>소스 파일\03.Obj\031.Skill\Boss</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CLayer.cpp">
@@ -975,7 +980,10 @@
       <Filter>소스 파일\03.State\037.Boss</Filter>
     </ClCompile>
     <ClCompile Include="CStonePillar.cpp">
-      <Filter>소스 파일</Filter>
+      <Filter>소스 파일\03.Obj\031.Skill\Boss</Filter>
+    </ClCompile>
+    <ClCompile Include="CBoxAttack.cpp">
+      <Filter>소스 파일\03.Obj\031.Skill\Boss</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

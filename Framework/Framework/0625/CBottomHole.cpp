@@ -7,10 +7,10 @@
 
 
 
-CBottomHole::CBottomHole(CGameWorld & _rGameWorld, float _fX, float _fY)
+CBottomHole::CBottomHole(CGameWorld & _rGameWorld, float _fX, float _fY, float _fLifeTime)
 	:
 	CObj(_rGameWorld, _fX, _fY, BOTTOM_HOLE_WIDTH, BOTTOM_HOLE_HEIGHT),
-	m_fLifeTime(5.f)
+	m_fLifeTime(_fLifeTime)
 {
 	SetRenderLayer(0);
 	m_hDCKeyAtlas = CBitmapMgr::GetInstance()->GetBitmapMemDC(TEXT("BOTTOM_HOLE"));

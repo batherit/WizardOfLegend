@@ -60,8 +60,8 @@ void CArcherBow::Render(HDC & _hdc, CCamera2D * _pCamera)
 	RECT& rcDrawArea = GetRect();
 
 	// 그릴 영역을 스크린 좌표로 변환한다.
-	const pair<int, int>& pairLeftTop = _pCamera->GetScreenPoint(rcDrawArea.left, rcDrawArea.top);
-	const pair<int, int>& pairRightBottom = _pCamera->GetScreenPoint(rcDrawArea.right, rcDrawArea.bottom);
+	pair<float, float>& pairLeftTop = _pCamera->GetScreenPoint(rcDrawArea.left, rcDrawArea.top);
+	pair<float, float>& pairRightBottom = _pCamera->GetScreenPoint(rcDrawArea.right, rcDrawArea.bottom);
 
 	RECT rcCollider = { pairLeftTop.first, pairLeftTop.second, pairRightBottom.first, pairRightBottom.second };
 	if (!IsCollided(GetGameWorld().GetViewSpace()->GetRect(), rcCollider)) return;

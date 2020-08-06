@@ -4,7 +4,7 @@ class CBottomHole :
 	public CObj
 {
 public:
-	CBottomHole(CGameWorld& _rGameWorld, float _fX, float _fY);
+	CBottomHole(CGameWorld& _rGameWorld, float _fX, float _fY, float _fLifeTime = 5.f);
 	virtual ~CBottomHole();
 
 	virtual int Update(float _fDeltaTime);

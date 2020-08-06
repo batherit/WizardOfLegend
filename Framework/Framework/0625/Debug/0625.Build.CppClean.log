@@ -42,8 +42,6 @@ d:\mylab\gamelab\algorithm\wizardoflegend\framework\framework\0625\debug\cwizard
 d:\mylab\gamelab\algorithm\wizardoflegend\framework\framework\0625\debug\cwizardfire.obj
 d:\mylab\gamelab\algorithm\wizardoflegend\framework\framework\0625\debug\cwizardstate_attack.obj
 d:\mylab\gamelab\algorithm\wizardoflegend\framework\framework\0625\debug\cwizardstate_damage.obj
-d:\mylab\gamelab\algorithm\wizardoflegend\framework\framework\0625\debug\cplayerstate_run.obj
-d:\mylab\gamelab\algorithm\wizardoflegend\framework\framework\0625\debug\cplayerwol.obj
 d:\mylab\gamelab\algorithm\wizardoflegend\framework\framework\0625\debug\cplayscene.obj
 d:\mylab\gamelab\algorithm\wizardoflegend\framework\framework\0625\debug\cscene.obj
 d:\mylab\gamelab\algorithm\wizardoflegend\framework\framework\0625\debug\cscenemgr.obj
@@ -54,6 +52,7 @@ d:\mylab\gamelab\algorithm\wizardoflegend\framework\framework\0625\debug\cspawne
 d:\mylab\gamelab\algorithm\wizardoflegend\framework\framework\0625\debug\cspawnpoint.obj
 d:\mylab\gamelab\algorithm\wizardoflegend\framework\framework\0625\debug\cstate.obj
 d:\mylab\gamelab\algorithm\wizardoflegend\framework\framework\0625\debug\cstatemgr.obj
+d:\mylab\gamelab\algorithm\wizardoflegend\framework\framework\0625\debug\cstonepillar.obj
 d:\mylab\gamelab\algorithm\wizardoflegend\framework\framework\0625\debug\cswordmanattack.obj
 d:\mylab\gamelab\algorithm\wizardoflegend\framework\framework\0625\debug\cswordmanstate_attack.obj
 d:\mylab\gamelab\algorithm\wizardoflegend\framework\framework\0625\debug\cswordmanstate_damage.obj
@@ -62,7 +61,6 @@ d:\mylab\gamelab\algorithm\wizardoflegend\framework\framework\0625\debug\cswordm
 d:\mylab\gamelab\algorithm\wizardoflegend\framework\framework\0625\debug\cswordmanstate_run.obj
 d:\mylab\gamelab\algorithm\wizardoflegend\framework\framework\0625\debug\ctimer.obj
 d:\mylab\gamelab\algorithm\wizardoflegend\framework\framework\0625\debug\ctitlescene.obj
-d:\mylab\gamelab\algorithm\wizardoflegend\framework\framework\0625\debug\cmiddlebossstate_death.obj
 d:\mylab\gamelab\algorithm\wizardoflegend\framework\framework\0625\debug\cmiddlebossstate_fire.obj
 d:\mylab\gamelab\algorithm\wizardoflegend\framework\framework\0625\debug\cmiddlebossstate_firedragon.obj
 d:\mylab\gamelab\algorithm\wizardoflegend\framework\framework\0625\debug\cmiddlebossstate_icecrystal.obj
@@ -82,7 +80,7 @@ d:\mylab\gamelab\algorithm\wizardoflegend\framework\framework\0625\debug\cplayer
 d:\mylab\gamelab\algorithm\wizardoflegend\framework\framework\0625\debug\cplayerstate_dash.obj
 d:\mylab\gamelab\algorithm\wizardoflegend\framework\framework\0625\debug\cplayerstate_death.obj
 d:\mylab\gamelab\algorithm\wizardoflegend\framework\framework\0625\debug\cplayerstate_idle.obj
-d:\mylab\gamelab\algorithm\wizardoflegend\framework\framework\0625\debug\cdoor.obj
+d:\mylab\gamelab\algorithm\wizardoflegend\framework\framework\0625\debug\cplayerstate_run.obj
 d:\mylab\gamelab\algorithm\wizardoflegend\framework\framework\0625\debug\cfiredragon.obj
 d:\mylab\gamelab\algorithm\wizardoflegend\framework\framework\0625\debug\cfiredragonskillstate.obj
 d:\mylab\gamelab\algorithm\wizardoflegend\framework\framework\0625\debug\cfireparticle.obj
@@ -102,7 +100,7 @@ d:\mylab\gamelab\algorithm\wizardoflegend\framework\framework\0625\debug\citem_p
 d:\mylab\gamelab\algorithm\wizardoflegend\framework\framework\0625\debug\cmaploader.obj
 d:\mylab\gamelab\algorithm\wizardoflegend\framework\framework\0625\debug\cmapfilemgr.obj
 d:\mylab\gamelab\algorithm\wizardoflegend\framework\framework\0625\debug\cmapobjsgroup.obj
-d:\mylab\gamelab\algorithm\wizardoflegend\framework\framework\0625\debug\bullet.obj
+d:\mylab\gamelab\algorithm\wizardoflegend\framework\framework\0625\debug\cmiddlebossstate_death.obj
 d:\mylab\gamelab\algorithm\wizardoflegend\framework\framework\0625\debug\carcherarrow.obj
 d:\mylab\gamelab\algorithm\wizardoflegend\framework\framework\0625\debug\carcherbow.obj
 d:\mylab\gamelab\algorithm\wizardoflegend\framework\framework\0625\debug\carcherstate_attack.obj
@@ -112,6 +110,9 @@ d:\mylab\gamelab\algorithm\wizardoflegend\framework\framework\0625\debug\carcher
 d:\mylab\gamelab\algorithm\wizardoflegend\framework\framework\0625\debug\carcherstate_run.obj
 d:\mylab\gamelab\algorithm\wizardoflegend\framework\framework\0625\debug\catlasloader.obj
 d:\mylab\gamelab\algorithm\wizardoflegend\framework\framework\0625\debug\catlasobj.obj
+d:\mylab\gamelab\algorithm\wizardoflegend\framework\framework\0625\debug\cbossstate_death.obj
+d:\mylab\gamelab\algorithm\wizardoflegend\framework\framework\0625\debug\cbossstate_idle.obj
+d:\mylab\gamelab\algorithm\wizardoflegend\framework\framework\0625\debug\cboss_boss.obj
 d:\mylab\gamelab\algorithm\wizardoflegend\framework\framework\0625\debug\cboss_middleboss.obj
 d:\mylab\gamelab\algorithm\wizardoflegend\framework\framework\0625\debug\cbottomhole.obj
 d:\mylab\gamelab\algorithm\wizardoflegend\framework\framework\0625\debug\ccoin.obj
@@ -119,16 +120,8 @@ d:\mylab\gamelab\algorithm\wizardoflegend\framework\framework\0625\debug\ccollid
 d:\mylab\gamelab\algorithm\wizardoflegend\framework\framework\0625\debug\cbitmapmgr.obj
 d:\mylab\gamelab\algorithm\wizardoflegend\framework\framework\0625\debug\cbitmapobj.obj
 d:\mylab\gamelab\algorithm\wizardoflegend\framework\framework\0625\debug\ccamera2d.obj
-d:\mylab\gamelab\algorithm\wizardoflegend\framework\framework\debug\0625.ilk
-d:\mylab\gamelab\algorithm\wizardoflegend\framework\framework\debug\0625.exe
-d:\mylab\gamelab\algorithm\wizardoflegend\framework\framework\debug\0625.pdb
-d:\mylab\gamelab\algorithm\wizardoflegend\framework\framework\0625\debug\0625.res
+d:\mylab\gamelab\algorithm\wizardoflegend\framework\framework\0625\debug\cdoor.obj
+d:\mylab\gamelab\algorithm\wizardoflegend\framework\framework\0625\debug\bullet.obj
 d:\mylab\gamelab\algorithm\wizardoflegend\framework\framework\0625\debug\0625.tlog\cl.command.1.tlog
 d:\mylab\gamelab\algorithm\wizardoflegend\framework\framework\0625\debug\0625.tlog\cl.read.1.tlog
 d:\mylab\gamelab\algorithm\wizardoflegend\framework\framework\0625\debug\0625.tlog\cl.write.1.tlog
-d:\mylab\gamelab\algorithm\wizardoflegend\framework\framework\0625\debug\0625.tlog\link.command.1.tlog
-d:\mylab\gamelab\algorithm\wizardoflegend\framework\framework\0625\debug\0625.tlog\link.read.1.tlog
-d:\mylab\gamelab\algorithm\wizardoflegend\framework\framework\0625\debug\0625.tlog\link.write.1.tlog
-d:\mylab\gamelab\algorithm\wizardoflegend\framework\framework\0625\debug\0625.tlog\rc.command.1.tlog
-d:\mylab\gamelab\algorithm\wizardoflegend\framework\framework\0625\debug\0625.tlog\rc.read.1.tlog
-d:\mylab\gamelab\algorithm\wizardoflegend\framework\framework\0625\debug\0625.tlog\rc.write.1.tlog

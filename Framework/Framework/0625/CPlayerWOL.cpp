@@ -16,6 +16,7 @@
 #include "CIceBlastSkillState.h"
 #include "CCollider.h"
 #include "CHitEffect.h"
+#include "CStonePillar.h"
 
 //#include "CPlayerState_Spawn.h"
 //#include "CEffect_Spawn.h"
@@ -113,7 +114,7 @@ void CPlayerWOL::Render(HDC & _hdc, CCamera2D * _pCamera)
 		RGB(255, 0, 255));
 	g_iRenderCount++;
 
-	m_pColliders[1]->Render(_hdc, _pCamera);
+	//m_pColliders[1]->Render(_hdc, _pCamera);
 }
 
 void CPlayerWOL::Release(void)
@@ -197,10 +198,28 @@ void CPlayerWOL::ReactToCollider(CObj * _pCollider, POINT& _ptCollisionPoint, RE
 	switch (_pCollider->GetObjType())
 	{
 	case OBJ::TYPE_MONSTER_SKILL:
-		if (!_pCollider->IsRegisteredCollidedObj(this)) {
-			Attacked(_pCollider->GetDamageWithOffset(), _ptCollisionPoint);
-			_pCollider->RegisterCollidedObj(this);
+	{
+		CObj* pMonsterSkill = dynamic_cast<CStonePillar*>(_pCollider);
+		if (!pMonsterSkill) {
+			if (!_pCollider->IsRegisteredCollidedObj(this)) {
+				Attacked(_pCollider->GetDamageWithOffset(), _ptCollisionPoint);
+				_pCollider->RegisterCollidedObj(this);
+			}
 		}
+		else {
+			CObj* pCollider1 = m_pColliders[COLLIDER::TYPE_WALL];
+			CObj* pCollider2 = _pCollider->GetCollider(COLLIDER::TYPE_DAMAGED);
+
+			if (!pCollider1 || !pCollider2) return;
+
+			if (IsCollided(pCollider1->GetRect(), pCollider2->GetRect())) {
+				if (!_pCollider->IsRegisteredCollidedObj(this)) {
+					Attacked(_pCollider->GetDamageWithOffset(), _ptCollisionPoint);
+					_pCollider->RegisterCollidedObj(this);
+				}
+			}
+		}
+	}
 		break;
 	default:
 		break;
