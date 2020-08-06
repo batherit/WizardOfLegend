@@ -200,7 +200,7 @@ bool CMonster_Archer::DirectDirectionToTarget(void)
 	return true;
 }
 
-void CMonster_Archer::ReactToCollider(CObj * _pCollider, POINT & _ptCollisionPoint)
+void CMonster_Archer::ReactToCollider(CObj * _pCollider, POINT & _ptCollisionPoint, RECT& _rcCollisionRect)
 {
 	switch (_pCollider->GetObjType())
 	{

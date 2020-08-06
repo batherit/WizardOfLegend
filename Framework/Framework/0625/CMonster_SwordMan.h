@@ -30,7 +30,7 @@ public:
 	bool IsAttackable(void);
 	bool DirectDirectionToTarget(void);
 	SWORDMAN::E_DIRECTION GetSwordManDir(void) const { return m_eSwordManDir; }
-	virtual void ReactToCollider(CObj * _pCollider, POINT& _ptCollisionPoint) override;
+	virtual void ReactToCollider(CObj * _pCollider, POINT& _ptCollisionPoint, RECT& _rcCollisionRect) override;
 
 
 private:

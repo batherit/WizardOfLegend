@@ -45,7 +45,7 @@ public:
 	bool AquireSkillState(CState<CPlayerWOL>* _pSkillState);
 	void SetIsSignatureSkillUsing(bool _bValue) { m_bIsSignatureSkillUsing = _bValue; }
 	bool IsSignatureSkillUsing(void) { return m_bIsSignatureSkillUsing; }
-	virtual void ReactToCollider(CObj * _pCollider, POINT& _ptCollisionPoint) override;
+	virtual void ReactToCollider(CObj * _pCollider, POINT& _ptCollisionPoint, RECT& _rcCollisionRect) override;
 
 private:
 	CStateMgr<CPlayerWOL>* m_pStateMgr = nullptr;

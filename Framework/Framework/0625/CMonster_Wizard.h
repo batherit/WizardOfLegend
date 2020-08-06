@@ -32,7 +32,7 @@ public:
 	MONSTER::E_DIRECTION GetWizardDir(void) const { return m_eWizardDir; }
 	int GetSummonedWizardBalls(void) const { return m_listWizardBalls.size(); }
 	list<CObj*>& GetListWizardBalls(void) { return m_listWizardBalls; }
-	virtual void ReactToCollider(CObj * _pCollider, POINT & _ptCollisionPoint) override;
+	virtual void ReactToCollider(CObj * _pCollider, POINT & _ptCollisionPoint, RECT& _rcCollisionRect) override;
 
 private:
 	void SetInitInfo(void);

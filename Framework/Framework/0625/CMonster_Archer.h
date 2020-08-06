@@ -30,7 +30,7 @@ public:
 	bool IsAttackable(void);
 	bool DirectDirectionToTarget(void);
 	ARCHER::E_DIRECTION GetArcherDir(void) const { return m_eArcherDir; }
-	virtual void ReactToCollider(CObj * _pCollider, POINT& _ptCollisionPoint) override;
+	virtual void ReactToCollider(CObj * _pCollider, POINT& _ptCollisionPoint, RECT& _rcCollisionRect) override;
 
 
 private:

@@ -101,7 +101,7 @@ int CWizardFire::GetAnimState(float _fToX, float _fToY) const
 	else return 7;
 }
 
-void CWizardFire::ReactToCollider(CObj * _pCollider, POINT & _ptCollisionPoint)
+void CWizardFire::ReactToCollider(CObj * _pCollider, POINT & _ptCollisionPoint, RECT& _rcCollisionRect)
 {
 	switch (_pCollider->GetObjType())
 	{

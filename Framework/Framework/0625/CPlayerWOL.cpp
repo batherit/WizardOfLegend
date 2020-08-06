@@ -113,7 +113,7 @@ void CPlayerWOL::Render(HDC & _hdc, CCamera2D * _pCamera)
 		RGB(255, 0, 255));
 	g_iRenderCount++;
 
-	//m_pColliders[1]->Render(_hdc, _pCamera);
+	m_pColliders[1]->Render(_hdc, _pCamera);
 }
 
 void CPlayerWOL::Release(void)
@@ -192,7 +192,7 @@ bool CPlayerWOL::AquireSkillState(CState<CPlayerWOL>* _pSkillState)
 	return false;
 }
 
-void CPlayerWOL::ReactToCollider(CObj * _pCollider, POINT& _ptCollisionPoint)
+void CPlayerWOL::ReactToCollider(CObj * _pCollider, POINT& _ptCollisionPoint, RECT& _rcCollisionRect)
 {
 	switch (_pCollider->GetObjType())
 	{

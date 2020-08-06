@@ -92,7 +92,7 @@ void CMonster_WizardBall::Attacked(float _fDamageAmount, POINT _ptCollisionPoint
 	}
 }
 
-void CMonster_WizardBall::ReactToCollider(CObj * _pCollider, POINT & _ptCollisionPoint)
+void CMonster_WizardBall::ReactToCollider(CObj * _pCollider, POINT & _ptCollisionPoint, RECT& _rcCollisionRect)
 {
 	switch (_pCollider->GetObjType())
 	{

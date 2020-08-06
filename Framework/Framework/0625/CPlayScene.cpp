@@ -24,6 +24,7 @@
 #include "CItem_Gaia.h"
 #include "CUI_Image.h"
 #include "CBitmapMgr.h"
+#include "CStonePillar.h"
 
 
 CPlayScene::CPlayScene(CGameWorld& _rGameWorld, const char* _szMapDirectory)
@@ -72,6 +73,10 @@ void CPlayScene::ResetScene(void)
 
 int CPlayScene::Update(float _fDeltaTime)
 {
+	if (CKeyMgr::GetInstance()->IsKeyDown(KEY::KEY_M)) {
+		m_rGameWorld.GetListObjs().emplace_back(new CStonePillar(m_rGameWorld, m_pPlayer->GetX(), m_pPlayer->GetY(), 0.5f, 5.f));
+	}
+
 	for (auto& pObj : m_listSpawnerGenerators) {
 		if (pObj->Update(_fDeltaTime) == 1) {
 			m_pMapLoader->UnactivateDoors(pObj->GetGroupID());
@@ -167,7 +172,7 @@ void CPlayScene::LateUpdate(void) {
 						pObj->ReactToCollider(pWall, 
 							POINT{ 
 							((rcCollidedRect.right + rcCollidedRect.left) >> 1),
-							((rcCollidedRect.bottom + rcCollidedRect.top) >> 1)});
+							((rcCollidedRect.bottom + rcCollidedRect.top) >> 1)}, rcCollidedRect);
 					}
 				}
 			}
@@ -206,7 +211,7 @@ void CPlayScene::LateUpdate(void) {
 				pObj->ReactToCollider(pDoor,
 					POINT{
 					((rcCollidedRect.right + rcCollidedRect.left) >> 1),
-					((rcCollidedRect.bottom + rcCollidedRect.top) >> 1) });
+					((rcCollidedRect.bottom + rcCollidedRect.top) >> 1) }, rcCollidedRect);
 			}
 		}
 	}
@@ -231,11 +236,11 @@ void CPlayScene::LateUpdate(void) {
 				pObj1->ReactToCollider(pObj2,
 					POINT{
 					((rcCollidedRect.right + rcCollidedRect.left) >> 1),
-					((rcCollidedRect.bottom + rcCollidedRect.top) >> 1) });
+					((rcCollidedRect.bottom + rcCollidedRect.top) >> 1) }, rcCollidedRect);
 				pObj2->ReactToCollider(pObj1,
 					POINT{
 					((rcCollidedRect.right + rcCollidedRect.left) >> 1),
-					((rcCollidedRect.bottom + rcCollidedRect.top) >> 1) });
+					((rcCollidedRect.bottom + rcCollidedRect.top) >> 1) }, rcCollidedRect);
 			}
 			else {
 				pObj1->EraseCollidedObj(pObj2);

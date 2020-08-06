@@ -185,7 +185,7 @@ void CFireDragon::Release(void)
 	m_pColliders[COLLIDER::TYPE_DAMAGED] = nullptr;	// 얕은 복사이므로.
 }
 
-void CFireDragon::ReactToCollider(CObj * _pCollider, POINT & _ptCollisionPoint)
+void CFireDragon::ReactToCollider(CObj * _pCollider, POINT & _ptCollisionPoint, RECT& _rcCollisionRect)
 {
 	switch (_pCollider->GetObjType())
 	{

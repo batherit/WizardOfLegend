@@ -108,7 +108,7 @@ int CArcherArrow::GetAnimState(float _fToX, float _fToY) const
 	return 4;
 }
 
-void CArcherArrow::ReactToCollider(CObj * _pCollider, POINT & _ptCollisionPoint)
+void CArcherArrow::ReactToCollider(CObj * _pCollider, POINT & _ptCollisionPoint, RECT& _rcCollisionRect)
 {
 	switch (_pCollider->GetObjType())
 	{

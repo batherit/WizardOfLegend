@@ -91,7 +91,7 @@ void CBoss_Boss::Release(void)
 	DeleteSafe(m_pColliders[COLLIDER::TYPE_WALL]);
 }
 
-void CBoss_Boss::ReactToCollider(CObj * _pCollider, POINT & _ptCollisionPoint)
+void CBoss_Boss::ReactToCollider(CObj * _pCollider, POINT & _ptCollisionPoint, RECT& _rcCollisionRect)
 {
 	switch (_pCollider->GetObjType())
 	{

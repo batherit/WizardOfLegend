@@ -91,7 +91,7 @@ public:
 	bool RegisterCollidedObj(CObj* _pObj);
 	bool EraseCollidedObj(CObj* _pObj);
 	void UpdateCollidedObjs(void);
-	virtual void ReactToCollider(CObj * _pCollider, POINT& _ptCollisionPoint) {}; // 충돌체에 대한 반응을 정의해야함.
+	virtual void ReactToCollider(CObj * _pCollider, POINT& _ptCollisionPoint, RECT& _rcCollisionRect) {}; // 충돌체에 대한 반응을 정의해야함.
 	float GetMaxHp(void) const { return m_fMaxHp; }
 	float GetHP(void) const { return m_fHp; }
 	void SetHP(float _fHp) { m_fHp = _fHp; }

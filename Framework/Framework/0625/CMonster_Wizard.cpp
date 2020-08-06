@@ -210,7 +210,7 @@ void CMonster_Wizard::SetInitInfo(void)
 	m_hDCKeyAtlas[ARCHER::DIR_RIGHT] = CBitmapMgr::GetInstance()->GetBitmapMemDC(TEXT("WIZARD_RIGHT"));
 }
 
-void CMonster_Wizard::ReactToCollider(CObj * _pCollider, POINT & _ptCollisionPoint)
+void CMonster_Wizard::ReactToCollider(CObj * _pCollider, POINT & _ptCollisionPoint, RECT& _rcCollisionRect)
 {
 	switch (_pCollider->GetObjType())
 	{

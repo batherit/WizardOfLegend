@@ -117,7 +117,7 @@ void CBoss_MiddleBoss::Attacked(float _fDamageAmount, POINT _ptCollisionPoint)
 	}
 }
 
-void CBoss_MiddleBoss::ReactToCollider(CObj * _pCollider, POINT & _ptCollisionPoint) {
+void CBoss_MiddleBoss::ReactToCollider(CObj * _pCollider, POINT & _ptCollisionPoint, RECT& _rcCollisionRect) {
 	switch (_pCollider->GetObjType())
 	{
 	case OBJ::TYPE_PLAYER_SKILL:

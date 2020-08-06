@@ -240,6 +240,7 @@
     <ClInclude Include="CSpawnPoint.h" />
     <ClInclude Include="CState.h" />
     <ClInclude Include="CStateMgr.h" />
+    <ClInclude Include="CStonePillar.h" />
     <ClInclude Include="CSwordManAttack.h" />
     <ClInclude Include="CSwordManState_Attack.h" />
     <ClInclude Include="CSwordManState_Damage.h" />
@@ -418,6 +419,7 @@
     <ClCompile Include="CSpawnPoint.cpp" />
     <ClCompile Include="CState.cpp" />
     <ClCompile Include="CStateMgr.cpp" />
+    <ClCompile Include="CStonePillar.cpp" />
     <ClCompile Include="CSwordManAttack.cpp" />
     <ClCompile Include="CSwordManState_Attack.cpp" />
     <ClCompile Include="CSwordManState_Damage.cpp" />

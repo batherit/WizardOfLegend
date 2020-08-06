@@ -58,7 +58,7 @@ void CBottomHole::Render(HDC & _hdc, CCamera2D * _pCamera)
 	g_iRenderCount++;
 }
 
-void CBottomHole::ReactToCollider(CObj * _pCollider, POINT & _ptCollisionPoint)
+void CBottomHole::ReactToCollider(CObj * _pCollider, POINT & _ptCollisionPoint, RECT& _rcCollisionRect)
 {
 	switch (_pCollider->GetObjType()) {
 	case COLLIDER::TYPE_WALL:

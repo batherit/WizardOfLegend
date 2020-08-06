@@ -9,7 +9,7 @@ public:
 
 	virtual int Update(float _fDeltaTime);
 	virtual void Render(HDC& _hdc, CCamera2D* _pCamera);
-	virtual void ReactToCollider(CObj * _pCollider, POINT& _ptCollisionPoint) override;
+	virtual void ReactToCollider(CObj * _pCollider, POINT& _ptCollisionPoint, RECT& _rcCollisionRect) override;
 
 private:
 	HDC m_hDCKeyAtlas = nullptr;
