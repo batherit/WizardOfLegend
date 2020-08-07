@@ -1,6 +1,8 @@
 #include "stdafx.h"
 #include "CPlayerState_Death.h"
 #include "CPlayerWOL.h"
+#include "CPlayerState_Idle.h"
+#include "CStateMgr.h"
 
 
 CPlayerState_Death::CPlayerState_Death(CPlayerWOL & _rOwner)
@@ -23,6 +25,7 @@ int CPlayerState_Death::Update(float _fDeltaTime)
 {
 	if (m_rOwner.UpdateAnim(_fDeltaTime) == 1) {
 		m_rOwner.GetGameWorld().GetSceneManager()->RequestSceneInit();
+		TO_PLAYER_WOL(TO_WOL(m_rOwner.GetGameWorld()).GetPlayer())->SetInitInfo();
 		return 1;
 	}
 

@@ -189,6 +189,9 @@
     <Filter Include="소스 파일\03.Obj\031.Skill\Boss">
       <UniqueIdentifier>{26bd4747-c2b6-48bc-93da-fcbcb49564e2}</UniqueIdentifier>
     </Filter>
+    <Filter Include="소스 파일\03.Obj\037.Teleport">
+      <UniqueIdentifier>{759ce3bb-e094-4cc7-bd9d-49105ef37bf0}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CLayer.h">
@@ -605,6 +608,8 @@
     <ClInclude Include="CBossState_StonePillar.h">
       <Filter>소스 파일\03.State\037.Boss</Filter>
     </ClInclude>
+    <ClInclude Include="CTeleport.h" />
+    <ClInclude Include="CBossScene.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CLayer.cpp">
@@ -1002,6 +1007,12 @@
     </ClCompile>
     <ClCompile Include="CBossState_StonePillar.cpp">
       <Filter>소스 파일\03.State\037.Boss</Filter>
+    </ClCompile>
+    <ClCompile Include="CTeleport.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="CBossScene.cpp">
+      <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

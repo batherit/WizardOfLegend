@@ -161,6 +161,7 @@
     <ClInclude Include="CArcherState_Run.h" />
     <ClInclude Include="CAtlasLoader.h" />
     <ClInclude Include="CAtlasObj.h" />
+    <ClInclude Include="CBossScene.h" />
     <ClInclude Include="CBossState_BoxAttack.h" />
     <ClInclude Include="CBossState_Death.h" />
     <ClInclude Include="CBossState_Idle.h" />
@@ -251,6 +252,7 @@
     <ClInclude Include="CSwordManState_Death.h" />
     <ClInclude Include="CSwordManState_Idle.h" />
     <ClInclude Include="CSwordManState_Run.h" />
+    <ClInclude Include="CTeleport.h" />
     <ClInclude Include="CTimer.h" />
     <ClInclude Include="CTitleScene.h" />
     <ClInclude Include="CTrigger.h" />
@@ -347,6 +349,7 @@
     <ClCompile Include="CArcherState_Run.cpp" />
     <ClCompile Include="CAtlasLoader.cpp" />
     <ClCompile Include="CAtlasObj.cpp" />
+    <ClCompile Include="CBossScene.cpp" />
     <ClCompile Include="CBossState_BoxAttack.cpp" />
     <ClCompile Include="CBossState_Death.cpp" />
     <ClCompile Include="CBossState_Idle.cpp" />
@@ -434,6 +437,7 @@
     <ClCompile Include="CSwordManState_Death.cpp" />
     <ClCompile Include="CSwordManState_Idle.cpp" />
     <ClCompile Include="CSwordManState_Run.cpp" />
+    <ClCompile Include="CTeleport.cpp" />
     <ClCompile Include="CTimer.cpp" />
     <ClCompile Include="CTitleScene.cpp" />
     <ClCompile Include="CTrigger.cpp" />

@@ -22,14 +22,11 @@ public:
 	virtual void LateUpdate(void) override;
 	virtual void Render(HDC & _hdc, CCamera2D * _pCamera) override;
 	virtual void Release(void) override;
-
-	//virtual list<CObj*>* GetHitEffects() override { return &m_listHitEffects; } 
 	virtual list<CObj*>* GetSpawners() override { return &m_listSpawners; }
-	//virtual list<CObj*>* GetMonsters() override { return &m_listMonsters; } 
-	virtual const vector<CMapObjsGroup*>* GetColliders() override;
 
 private:
 	CMapLoader* m_pMapLoader = nullptr;
+	CObj* m_pTeleport = nullptr;
 	CObj* m_pPlayer = nullptr;
 	CUI_PlayerBar* m_pPlayerBarUI = nullptr;
 	CUI_SkillBar* m_pSkillBarUI = nullptr;

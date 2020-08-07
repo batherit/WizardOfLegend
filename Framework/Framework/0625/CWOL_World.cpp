@@ -54,6 +54,7 @@ void CWOL_World::Ready(void)
 	GetSceneManager()->SetNextScene(new CTitleScene(*this));
 	m_pPlayer = new CPlayerWOL(*this, 0.f, 0.f);
 	m_pCamera = new CCamera2D(*this, m_pPlayer, WINCX >> 1, WINCY >> 1);
+	TO_PLAYER_WOL(m_pPlayer)->SetInitInfo();
 }
 
 void CWOL_World::Update(void)
@@ -301,4 +302,7 @@ void CWOL_World::LoadResources(void)
 	CBitmapMgr::GetInstance()->InsertBitmap(TEXT("../Textures/SHOP_TABLE.bmp"), TEXT("SHOP_TABLE"));
 	CBitmapMgr::GetInstance()->InsertBitmap(TEXT("../Textures/POTION.bmp"), TEXT("POTION"));
 	CBitmapMgr::GetInstance()->InsertBitmap(TEXT("../Textures/GAIA_ARMOR_CARD.bmp"), TEXT("GAIA_ARMOR_CARD"));
+
+	// 텔레포트
+	CBitmapMgr::GetInstance()->InsertBitmap(TEXT("../Textures/TELEPORT.bmp"), TEXT("TELEPORT"));
 }

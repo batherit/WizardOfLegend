@@ -27,6 +27,7 @@
 //#include "CStonePillar.h"
 //#include "CBoxAttack.h"
 #include "CStonePillarGenerator.h"
+#include "CTeleport.h"
 
 
 CPlayScene::CPlayScene(CGameWorld& _rGameWorld, const char* _szMapDirectory)
@@ -47,11 +48,10 @@ CPlayScene::~CPlayScene()
 
 void CPlayScene::ResetScene(void)
 {
-	//6749.f, 2373.f
 	Release();
 	m_pMapLoader = new CMapLoader(m_rGameWorld, m_szMapDirectory);
 	const pair<float, float> pairSpawnPoint = m_pMapLoader->GetSpawnPoint()->GetXY();
-	TO_PLAYER_WOL(m_pPlayer)->SetInitInfo();
+	m_pTeleport = new CTeleport(m_rGameWorld, pairSpawnPoint.first, pairSpawnPoint.second);
 	m_rGameWorld.GetListObjs().emplace_back(m_pPlayer); // 전역 objs 리스트에 집어넣는다. => 충돌체크하기 위함.
 	m_pPlayerBarUI = new CUI_PlayerBar(m_rGameWorld, m_pPlayer);
 	m_pSkillBarUI = new CUI_SkillBar(m_rGameWorld, m_pPlayer);
@@ -68,26 +68,13 @@ void CPlayScene::ResetScene(void)
 	m_listItems.emplace_back(new CItem_DroppedCard(m_rGameWorld, 346.5f, 2378.f, new CIceCrystalSkillState(*TO_PLAYER_WOL(m_pPlayer))));
 	m_listItems.emplace_back(new CItem_Potion(m_rGameWorld, 6547.f, 2500.f));
 	m_listItems.emplace_back(new CItem_Gaia(m_rGameWorld, 6976.f, 2500.f));
-	//TO_PLAYER_WOL(m_pPlayer)->Respawn(pairSpawnPoint.first, pairSpawnPoint.second);
 	m_vecObjsToRender.reserve(100);
 	m_vecObjsToRender.clear();
 }
 
 int CPlayScene::Update(float _fDeltaTime)
 {
-	/*static CObj* pSkill = nullptr;
-	if (CKeyMgr::GetInstance()->IsKeyDown(KEY::KEY_M)) {
-		pSkill = new CBoxAttack(m_rGameWorld, m_pPlayer->GetX(), m_pPlayer->GetY());
-		m_rGameWorld.GetListObjs().emplace_back(pSkill);
-	}
-	if (CKeyMgr::GetInstance()->IsKeyDown(KEY::KEY_P)) {
-		DO_IF_IS_VALID_OBJ(pSkill) dynamic_cast<CBoxAttack*>(pSkill)->ThrowBoxAttack(1.f, 0.f, 1600.f);
-	}
-	if (CKeyMgr::GetInstance()->IsKeyDown(KEY::KEY_M)) {
-		m_rGameWorld.GetListObjs().emplace_back(
-			new CStonePillarGenerator(m_rGameWorld, m_pPlayer->GetX(), m_pPlayer->GetY(), 1.f, 1.f, 75.f, 0.03f, 0.2f, 1.f));
-	}
-	*/
+	m_pTeleport->Update(_fDeltaTime);
 
 	for (auto& pObj : m_listSpawnerGenerators) {
 		if (pObj->Update(_fDeltaTime) == 1) {
@@ -307,6 +294,8 @@ void CPlayScene::Render(HDC & _hdc, CCamera2D * _pCamera)
 		}
 	}
 
+	m_pTeleport->Render(_hdc, _pCamera);
+
 	// y축 정렬
 	sort(m_vecObjsToRender.begin(), m_vecObjsToRender.end(), [](CObj* pObj1, CObj* pObj2) {
 		if (pObj1->GetRenderLayer() < pObj2->GetRenderLayer()) {
@@ -358,6 +347,7 @@ void CPlayScene::Release(void)
 	DeleteSafe(m_pMinimapUI);
 	DeleteSafe(m_pMoneyUI);
 	DeleteSafe(m_pMapLoader);
+	DeleteSafe(m_pTeleport);
 	DeleteListSafe(m_listItems);
 	DeleteListSafe(m_listSpawnerGenerators);
 	//DeleteListSafe(m_listMonsters);
@@ -372,9 +362,4 @@ void CPlayScene::Release(void)
 		vecObjs.erase(iter);
 	}
 	DeleteListSafe(vecObjs);
-}
-
-const vector<CMapObjsGroup*>* CPlayScene::GetColliders()
-{
-	return &m_pMapLoader->GetCollidersGroups();
 }

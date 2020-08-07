@@ -96,7 +96,7 @@ void CTitleScene::HoveredOnStartButton(void *)
 void CTitleScene::ClickStartButton(void *)
 {
 	CSoundMgr::Get_Instance()->StopSound(CSoundMgr::BGM);
-	m_rGameWorld.GetSceneManager()->SetNextScene(new CPlayScene(m_rGameWorld, "../MapDatas/Maps/0/Game_Map.txt"));
+	m_rGameWorld.GetSceneManager()->SetNextScene(new CPlayScene(m_rGameWorld, "../MapDatas/Maps/Game_Map_Normal.txt"));
 }
 
 void CTitleScene::HoveredOnQuitButton(void *)

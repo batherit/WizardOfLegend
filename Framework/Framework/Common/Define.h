@@ -254,6 +254,10 @@
 #define SHOP_GAIA_WIDTH		106
 #define SHOP_GAIA_HEIGHT	172
 
+// 텔레포트 출력 사이즈
+#define TELEPORT_WIDTH		311
+#define TELEPORT_HEIGHT	298
+
 //중간 보스 출력 사이즈
 #define MIDDLE_BOSS_WIDTH		220
 #define MIDDLE_BOSS_HEIGHT		300
