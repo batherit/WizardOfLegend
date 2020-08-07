@@ -29,7 +29,7 @@ CStonePillar::CStonePillar(CGameWorld & _rGameWorld, float _fX, float _fY, float
 
 	SetNewAnimInfo(stAnimInfo);
 
-	_rGameWorld.GetListObjs().emplace_back(new CBottomHole(_rGameWorld, GetX(), GetY() + 90.f));
+	_rGameWorld.GetListObjs().emplace_back(new CBottomHole(_rGameWorld, GetX(), GetY() + 90.f, _fLifeTime + 2.f));
 }
 
 CStonePillar::~CStonePillar()

@@ -1,4 +1,4 @@
-﻿  CBossState_BoxAttack.cpp
+﻿  CBossState_StonePillar.cpp
 d:\mylab\gamelab\algorithm\wizardoflegend\framework\framework\0625\cobj.h(62): warning C4244: '인수': 'LONG'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
 d:\mylab\gamelab\algorithm\wizardoflegend\framework\framework\0625\cobj.h(63): warning C4244: '인수': 'LONG'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
   0625.vcxproj -> D:\MyLab\GameLab\Algorithm\WizardOfLegend\Framework\Framework\Debug\0625.exe

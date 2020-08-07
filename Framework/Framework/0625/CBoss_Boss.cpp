@@ -152,7 +152,6 @@ void CBoss_Boss::GenerateBox(float _fStartDegree, float _fRangeDegree, int _iNum
 		_fIntervalDegree = _fRangeDegree / (_iNum - 1);
 	}
 	
-
 	for (int i = 0; i < _iNum; i++) {
 		CObj* pSkill = new CBoxAttack(GetGameWorld(),
 			GetX() + 300.f * cosf(TO_RADIAN(_fStartDegree + _fIntervalDegree * i)),

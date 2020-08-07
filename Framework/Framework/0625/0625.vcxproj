@@ -164,6 +164,7 @@
     <ClInclude Include="CBossState_BoxAttack.h" />
     <ClInclude Include="CBossState_Death.h" />
     <ClInclude Include="CBossState_Idle.h" />
+    <ClInclude Include="CBossState_StonePillar.h" />
     <ClInclude Include="CBoss_Boss.h" />
     <ClInclude Include="CBoss_MiddleBoss.h" />
     <ClInclude Include="CBottomHole.h" />
@@ -243,6 +244,7 @@
     <ClInclude Include="CState.h" />
     <ClInclude Include="CStateMgr.h" />
     <ClInclude Include="CStonePillar.h" />
+    <ClInclude Include="CStonePillarGenerator.h" />
     <ClInclude Include="CSwordManAttack.h" />
     <ClInclude Include="CSwordManState_Attack.h" />
     <ClInclude Include="CSwordManState_Damage.h" />
@@ -348,6 +350,7 @@
     <ClCompile Include="CBossState_BoxAttack.cpp" />
     <ClCompile Include="CBossState_Death.cpp" />
     <ClCompile Include="CBossState_Idle.cpp" />
+    <ClCompile Include="CBossState_StonePillar.cpp" />
     <ClCompile Include="CBoss_Boss.cpp" />
     <ClCompile Include="CBoss_MiddleBoss.cpp" />
     <ClCompile Include="CBottomHole.cpp" />
@@ -424,6 +427,7 @@
     <ClCompile Include="CState.cpp" />
     <ClCompile Include="CStateMgr.cpp" />
     <ClCompile Include="CStonePillar.cpp" />
+    <ClCompile Include="CStonePillarGenerator.cpp" />
     <ClCompile Include="CSwordManAttack.cpp" />
     <ClCompile Include="CSwordManState_Attack.cpp" />
     <ClCompile Include="CSwordManState_Damage.cpp" />

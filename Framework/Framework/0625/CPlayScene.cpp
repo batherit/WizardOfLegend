@@ -26,6 +26,7 @@
 #include "CBitmapMgr.h"
 //#include "CStonePillar.h"
 //#include "CBoxAttack.h"
+#include "CStonePillarGenerator.h"
 
 
 CPlayScene::CPlayScene(CGameWorld& _rGameWorld, const char* _szMapDirectory)
@@ -81,7 +82,12 @@ int CPlayScene::Update(float _fDeltaTime)
 	}
 	if (CKeyMgr::GetInstance()->IsKeyDown(KEY::KEY_P)) {
 		DO_IF_IS_VALID_OBJ(pSkill) dynamic_cast<CBoxAttack*>(pSkill)->ThrowBoxAttack(1.f, 0.f, 1600.f);
-	}*/
+	}
+	if (CKeyMgr::GetInstance()->IsKeyDown(KEY::KEY_M)) {
+		m_rGameWorld.GetListObjs().emplace_back(
+			new CStonePillarGenerator(m_rGameWorld, m_pPlayer->GetX(), m_pPlayer->GetY(), 1.f, 1.f, 75.f, 0.03f, 0.2f, 1.f));
+	}
+	*/
 
 	for (auto& pObj : m_listSpawnerGenerators) {
 		if (pObj->Update(_fDeltaTime) == 1) {
