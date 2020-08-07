@@ -24,8 +24,8 @@
 #include "CItem_Gaia.h"
 #include "CUI_Image.h"
 #include "CBitmapMgr.h"
-#include "CStonePillar.h"
-#include "CBoxAttack.h"
+//#include "CStonePillar.h"
+//#include "CBoxAttack.h"
 
 
 CPlayScene::CPlayScene(CGameWorld& _rGameWorld, const char* _szMapDirectory)
@@ -74,14 +74,14 @@ void CPlayScene::ResetScene(void)
 
 int CPlayScene::Update(float _fDeltaTime)
 {
-	static CObj* pSkill = nullptr;
+	/*static CObj* pSkill = nullptr;
 	if (CKeyMgr::GetInstance()->IsKeyDown(KEY::KEY_M)) {
 		pSkill = new CBoxAttack(m_rGameWorld, m_pPlayer->GetX(), m_pPlayer->GetY());
 		m_rGameWorld.GetListObjs().emplace_back(pSkill);
 	}
 	if (CKeyMgr::GetInstance()->IsKeyDown(KEY::KEY_P)) {
 		DO_IF_IS_VALID_OBJ(pSkill) dynamic_cast<CBoxAttack*>(pSkill)->ThrowBoxAttack(1.f, 0.f, 1600.f);
-	}
+	}*/
 
 	for (auto& pObj : m_listSpawnerGenerators) {
 		if (pObj->Update(_fDeltaTime) == 1) {

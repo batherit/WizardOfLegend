@@ -5,6 +5,8 @@
 #include "CBossState_Death.h"
 #include "CCamera2D.h"
 #include "CSpace.h"
+#include "CStateMgr.h"
+#include "CBossState_BoxAttack.h"
 
 
 CBossState_Idle::CBossState_Idle(CBoss_Boss & _rOwner)
@@ -43,9 +45,10 @@ int CBossState_Idle::Update(float _fDeltaTime)
 	pair<float, float>& pairRightBottom = m_pCamera->GetScreenPoint(rcDrawArea.right, rcDrawArea.bottom);
 
 	RECT rcCollider = { pairLeftTop.first, pairLeftTop.second, pairRightBottom.first, pairRightBottom.second };
-	if (IsCollided(m_rOwner.GetGameWorld().GetViewSpace()->GetRect(), rcCollider)) return 0;
+	if (!IsCollided(m_rOwner.GetGameWorld().GetViewSpace()->GetRect(), rcCollider)) return 0;
 
 	// TODO : 첫 공격을 하는 상태를 집어넣는다.
+	m_rOwner.GetStateMgr()->SetNextState(new CBossState_BoxAttack(m_rOwner));
 
 	return 0;
 }

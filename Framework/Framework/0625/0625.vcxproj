@@ -161,6 +161,7 @@
     <ClInclude Include="CArcherState_Run.h" />
     <ClInclude Include="CAtlasLoader.h" />
     <ClInclude Include="CAtlasObj.h" />
+    <ClInclude Include="CBossState_BoxAttack.h" />
     <ClInclude Include="CBossState_Death.h" />
     <ClInclude Include="CBossState_Idle.h" />
     <ClInclude Include="CBoss_Boss.h" />
@@ -344,6 +345,7 @@
     <ClCompile Include="CArcherState_Run.cpp" />
     <ClCompile Include="CAtlasLoader.cpp" />
     <ClCompile Include="CAtlasObj.cpp" />
+    <ClCompile Include="CBossState_BoxAttack.cpp" />
     <ClCompile Include="CBossState_Death.cpp" />
     <ClCompile Include="CBossState_Idle.cpp" />
     <ClCompile Include="CBoss_Boss.cpp" />
