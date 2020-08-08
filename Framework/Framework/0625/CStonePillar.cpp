@@ -29,7 +29,7 @@ CStonePillar::CStonePillar(CGameWorld & _rGameWorld, float _fX, float _fY, float
 
 	SetNewAnimInfo(stAnimInfo);
 
-	_rGameWorld.GetListObjs().emplace_back(new CBottomHole(_rGameWorld, GetX(), GetY() + 90.f, _fLifeTime + 2.f));
+	_rGameWorld.GetListObjs().emplace_back(new CBottomHole(_rGameWorld, GetX(), GetY() + 90.f, _fDelayTime + _fLifeTime + 2.f));
 }
 
 CStonePillar::~CStonePillar()
@@ -57,9 +57,22 @@ int CStonePillar::Update(float _fDeltaTime)
 		}
 	}
 
-	if (m_fElapsedTime >= m_fLifeTime) {
-		SetValid(false);
-		return 1;
+	if (m_fElapsedTime >= m_fLifeTime + m_fDelayTime) {
+		if (!m_bDeath) {
+			_anim_info stAnimInfo;
+			stAnimInfo.fTotalTime = 0.4f;
+			stAnimInfo.iCountToRepeat = 1;
+			stAnimInfo.iFrameCount = 3;
+			stAnimInfo.iStartFrameIndex = 2;
+			stAnimInfo.iState = 0;
+			stAnimInfo.bIsReversePlay = true;
+			SetNewAnimInfo(stAnimInfo);
+			m_bDeath = true;
+		}
+		if (UpdateAnim(_fDeltaTime) == 1) {
+			SetValid(false);
+			return 1;
+		}
 	}
  	return 0;
 }

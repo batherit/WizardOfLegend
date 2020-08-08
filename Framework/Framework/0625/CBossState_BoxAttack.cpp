@@ -27,8 +27,6 @@ void CBossState_BoxAttack::OnLoaded(void)
 
 	m_rOwner.SetNewAnimInfo(stAnimInfo);
 	m_rOwner.SetBoxAttackUsing(false);
-
-
 }
 
 int CBossState_BoxAttack::Update(float _fDeltaTime)

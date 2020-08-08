@@ -8,6 +8,7 @@
 #include "CStateMgr.h"
 #include "CBossState_BoxAttack.h"
 #include "CBossState_StonePillar.h"
+#include "CBossState_JumpAttack.h"
 
 
 CBossState_Idle::CBossState_Idle(CBoss_Boss & _rOwner)
@@ -49,7 +50,7 @@ int CBossState_Idle::Update(float _fDeltaTime)
 	if (!IsCollided(m_rOwner.GetGameWorld().GetViewSpace()->GetRect(), rcCollider)) return 0;
 
 	// TODO : 첫 공격을 하는 상태를 집어넣는다.
-	m_rOwner.GetStateMgr()->SetNextState(new CBossState_StonePillar(m_rOwner));
+	m_rOwner.GetStateMgr()->SetNextState(new CBossState_JumpAttack(m_rOwner));
 
 	return 0;
 }

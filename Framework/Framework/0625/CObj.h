@@ -109,6 +109,11 @@ public:
 	bool IsVisible(void) { return m_bIsVisible; }
 	void SetVisible(bool _bIsVisible) { m_bIsVisible = _bIsVisible; }
 	CObj* GetCollider(COLLIDER::E_TYPE _eType) { return m_pColliders[_eType]; }
+	CObj* SetCollider(CObj* _pCollider, COLLIDER::E_TYPE _eType) { 
+		CObj* pOldCollider = m_pColliders[_eType];
+		m_pColliders[_eType] = _pCollider;
+		return pOldCollider;
+	}
 	void SetActive(bool _bIsActive) { m_bIsActive = _bIsActive; }
 	bool IsActive(void) { return m_bIsActive; }
 	void SetDamage(int _iDamage) { m_iDamage = _iDamage; }

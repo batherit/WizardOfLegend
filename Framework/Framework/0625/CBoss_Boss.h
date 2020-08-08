@@ -37,6 +37,7 @@ public:
 	bool ThrowBox(void);	// 박스를 날렸다면 true, 박스가 없어서 날리지 못했으면 false
 	void ClearBox(void);
 	void SwapAttackState();
+	void GenerateRangeStonePillar(float _fStart, float _fEnd, float _fInterval);
 
 private:
 	void SetInitInfo(void);

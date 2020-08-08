@@ -110,6 +110,7 @@ void CBoss_MiddleBoss::Attacked(float _fDamageAmount, POINT _ptCollisionPoint)
 		CObj::Attacked(_fDamageAmount, _ptCollisionPoint);
 		TO_WOL(GetGameWorld()).GetListUIs().emplace_back(new CUI_DamageText(GetGameWorld(), GetX(), GetY(), _ptCollisionPoint, _fDamageAmount));
 		if (IsDead() && m_pSpawnerGenerator) {
+			m_pMiddleBossBarUI->SetVisible(false);
 			m_pSpawnerGenerator->DecreaseSpawnedMonstersNum();
 			GetStateMgr()->SetNextState(new CMiddleBossState_Death(*this), true);
 		}

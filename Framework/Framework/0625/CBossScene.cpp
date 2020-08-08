@@ -22,7 +22,7 @@ CBossScene::CBossScene(CGameWorld & _rGameWorld, const char * _szMapDirectory)
 	m_szMapDirectory(_szMapDirectory),
 	m_pPlayer(TO_WOL(_rGameWorld).GetPlayer())
 {
-	ResetScene();
+	//ResetScene();
 }
 
 CBossScene::~CBossScene()
@@ -41,7 +41,7 @@ void CBossScene::ResetScene(void)
 	m_pSkillKeyBindingUI = new CUI_SkillKeyBinding(m_rGameWorld, m_pPlayer);
 	m_pMinimapUI = new CUI_Minimap(m_rGameWorld, m_pMapLoader, m_pPlayer);
 	m_pMoneyUI = new CUI_Money(m_rGameWorld, (WINCX >> 1) - 100, WINCY - 50, *m_pPlayer);
-	m_listSpawners.emplace_back(new CPlayerSpawner(m_rGameWorld, m_pPlayer, pairSpawnPoint.first, pairSpawnPoint.second));
+	m_listSpawners.emplace_back(new CPlayerSpawner(m_rGameWorld, m_pPlayer, pairSpawnPoint.first, pairSpawnPoint.second, 0.05f));
 	m_vecObjsToRender.reserve(100);
 	m_vecObjsToRender.clear();
 }

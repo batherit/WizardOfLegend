@@ -4,10 +4,11 @@
 #include "CCamera2D.h"
 
 
-CPlayerSpawner::CPlayerSpawner(CGameWorld & _rGameWorld, CObj * _pPlayer, float _fX, float _fY)
+CPlayerSpawner::CPlayerSpawner(CGameWorld & _rGameWorld, CObj * _pPlayer, float _fX, float _fY, float _fTimeToDelay)
 	:
 	CSpawner(_rGameWorld, _fX, _fY),
-	m_pPlayer(_pPlayer)
+	m_pPlayer(_pPlayer),
+	m_fTimeToDelay(_fTimeToDelay)
 {
 	m_pPlayer->SetX(GetX());
 	m_pPlayer->SetY(GetY());
@@ -34,17 +35,9 @@ CPlayerSpawner::~CPlayerSpawner()
 int CPlayerSpawner::Update(float _fDeltaTime)
 {
 	if ((m_fElapsedTime += _fDeltaTime) >= m_fTimeToDelay) {
-		if (!m_bIsAnimStarted) {
-			CSoundMgr::Get_Instance()->PlaySound(TEXT("CARD_SUMMON.mp3"), CSoundMgr::MONSTER);
-			m_bIsAnimStarted = true;
-		}
-
 		if (UpdateAnim(_fDeltaTime) == 1) {
 			SetValid(false);
 			return 1;
-		}
-		if (!m_bIsSpawend && GetAnimProgress() >= 0) {
-			m_bIsSpawend = true;
 		}
 	}
 	

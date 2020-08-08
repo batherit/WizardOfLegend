@@ -1,0 +1,56 @@
+﻿  Bullet.cpp
+d:\mylab\gamelab\algorithm\wizardoflegend\framework\framework\0625\CObj.h(62): warning C4244: '인수': 'LONG'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\mylab\gamelab\algorithm\wizardoflegend\framework\framework\0625\CObj.h(63): warning C4244: '인수': 'LONG'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\mylab\gamelab\algorithm\wizardoflegend\framework\framework\0625\CObj.h(83): warning C4267: 'return': 'size_t'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\mylab\gamelab\algorithm\wizardoflegend\framework\framework\0625\CObj.h(84): warning C4267: 'return': 'size_t'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  CCollider.cpp
+d:\mylab\gamelab\algorithm\wizardoflegend\framework\framework\0625\CObj.h(62): warning C4244: '인수': 'LONG'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\mylab\gamelab\algorithm\wizardoflegend\framework\framework\0625\CObj.h(63): warning C4244: '인수': 'LONG'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\mylab\gamelab\algorithm\wizardoflegend\framework\framework\0625\CObj.h(83): warning C4267: 'return': 'size_t'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\mylab\gamelab\algorithm\wizardoflegend\framework\framework\0625\CObj.h(84): warning C4267: 'return': 'size_t'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+CCollider.cpp(22): warning C4244: '인수': 'LONG'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+CCollider.cpp(23): warning C4244: '인수': 'LONG'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+CCollider.cpp(69): warning C4244: '인수': 'LONG'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+CCollider.cpp(70): warning C4244: '인수': 'LONG'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+CCollider.cpp(81): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+CCollider.cpp(82): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+CCollider.cpp(83): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+CCollider.cpp(84): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+CCollider.cpp(85): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  CItem_Gaia.cpp
+d:\mylab\gamelab\algorithm\wizardoflegend\framework\framework\0625\CObj.h(62): warning C4244: '인수': 'LONG'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\mylab\gamelab\algorithm\wizardoflegend\framework\framework\0625\CObj.h(63): warning C4244: '인수': 'LONG'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\mylab\gamelab\algorithm\wizardoflegend\framework\framework\0625\CObj.h(83): warning C4267: 'return': 'size_t'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\mylab\gamelab\algorithm\wizardoflegend\framework\framework\0625\CObj.h(84): warning C4267: 'return': 'size_t'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+CItem_Gaia.cpp(46): warning C4244: '인수': 'LONG'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+CItem_Gaia.cpp(47): warning C4244: '인수': 'LONG'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+CItem_Gaia.cpp(62): warning C4267: '인수': 'size_t'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\include\utility(200): warning C4244: '초기화 중': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  CItem_Gaia.cpp(46): note: 컴파일 중인 함수 템플릿 인스턴스화 'std::pair<int,int>::pair<float,float,void,0>(std::pair<float,float> &&) noexcept'에 대한 참조를 확인하십시오.
+  CItem_Gaia.cpp(46): note: 컴파일 중인 함수 템플릿 인스턴스화 'std::pair<int,int>::pair<float,float,void,0>(std::pair<float,float> &&) noexcept'에 대한 참조를 확인하십시오.
+  CPlayerState_Attack.cpp
+d:\mylab\gamelab\algorithm\wizardoflegend\framework\framework\0625\CObj.h(62): warning C4244: '인수': 'LONG'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\mylab\gamelab\algorithm\wizardoflegend\framework\framework\0625\CObj.h(63): warning C4244: '인수': 'LONG'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\mylab\gamelab\algorithm\wizardoflegend\framework\framework\0625\CObj.h(83): warning C4267: 'return': 'size_t'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\mylab\gamelab\algorithm\wizardoflegend\framework\framework\0625\CObj.h(84): warning C4267: 'return': 'size_t'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  CSwordManState_Attack.cpp
+d:\mylab\gamelab\algorithm\wizardoflegend\framework\framework\0625\CObj.h(62): warning C4244: '인수': 'LONG'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\mylab\gamelab\algorithm\wizardoflegend\framework\framework\0625\CObj.h(63): warning C4244: '인수': 'LONG'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\mylab\gamelab\algorithm\wizardoflegend\framework\framework\0625\CObj.h(83): warning C4267: 'return': 'size_t'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\mylab\gamelab\algorithm\wizardoflegend\framework\framework\0625\CObj.h(84): warning C4267: 'return': 'size_t'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  CUI_SkillKeyButton.cpp
+d:\mylab\gamelab\algorithm\wizardoflegend\framework\framework\0625\CObj.h(62): warning C4244: '인수': 'LONG'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\mylab\gamelab\algorithm\wizardoflegend\framework\framework\0625\CObj.h(63): warning C4244: '인수': 'LONG'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\mylab\gamelab\algorithm\wizardoflegend\framework\framework\0625\CObj.h(83): warning C4267: 'return': 'size_t'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+d:\mylab\gamelab\algorithm\wizardoflegend\framework\framework\0625\CObj.h(84): warning C4267: 'return': 'size_t'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+SoundMgr.obj : error LNK2001: FMOD_System_Create 외부 기호를 확인할 수 없습니다.
+SoundMgr.obj : error LNK2001: FMOD_System_Init 외부 기호를 확인할 수 없습니다.
+SoundMgr.obj : error LNK2001: FMOD_Sound_Release 외부 기호를 확인할 수 없습니다.
+SoundMgr.obj : error LNK2001: FMOD_System_Release 외부 기호를 확인할 수 없습니다.
+SoundMgr.obj : error LNK2001: FMOD_System_Close 외부 기호를 확인할 수 없습니다.
+SoundMgr.obj : error LNK2001: FMOD_System_PlaySound 외부 기호를 확인할 수 없습니다.
+SoundMgr.obj : error LNK2001: FMOD_System_Update 외부 기호를 확인할 수 없습니다.
+SoundMgr.obj : error LNK2001: FMOD_Channel_SetMode 외부 기호를 확인할 수 없습니다.
+SoundMgr.obj : error LNK2001: FMOD_Channel_Stop 외부 기호를 확인할 수 없습니다.
+SoundMgr.obj : error LNK2001: FMOD_System_CreateSound 외부 기호를 확인할 수 없습니다.
+D:\MyLab\GameLab\Algorithm\WizardOfLegend\Framework\Framework\x64\Release\0625.exe : fatal error LNK1120: 10개의 확인할 수 없는 외부 참조입니다.

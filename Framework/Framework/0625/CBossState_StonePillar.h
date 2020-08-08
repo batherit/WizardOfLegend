@@ -6,8 +6,6 @@ class CBoss_Boss;
 class CBossState_StonePillar :
 	public CState<CBoss_Boss>
 {
-private:
-	enum E_STATE { STATE_READY1, STATE_READY2, STATE_ATTACK, STATE_END };
 public:
 	CBossState_StonePillar(CBoss_Boss& _rOwner);
 	virtual ~CBossState_StonePillar();
@@ -17,6 +15,9 @@ public:
 	virtual int Update(float _fDeltaTime) override;
 	virtual void LateUpdate(void) override;
 	virtual void OnExited(void) override;
+
+private:
+	enum E_STATE { STATE_READY1, STATE_READY2, STATE_ATTACK, STATE_END };
 
 private:
 	E_STATE m_eState = STATE_READY1;

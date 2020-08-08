@@ -57,7 +57,11 @@ void CAtlasObj::Render(HDC & _hdc, CCamera2D * _pCamera)
 	pair<float, float>& pairLeftTop = _pCamera->GetScreenPoint(rcDrawArea.left, rcDrawArea.top);
 	pair<float, float>& pairRightBottom = _pCamera->GetScreenPoint(rcDrawArea.right, rcDrawArea.bottom);
 
-	RECT rcCollider = { pairLeftTop.first, pairLeftTop.second, pairRightBottom.first, pairRightBottom.second };
+	RECT rcCollider = { 
+		static_cast<LONG>(pairLeftTop.first), 
+		static_cast<LONG>(pairLeftTop.second), 
+		static_cast<LONG>(pairRightBottom.first), 
+		static_cast<LONG>(pairRightBottom.second) };
 	if (!IsCollided(GetGameWorld().GetViewSpace()->GetRect(), rcCollider)) return;
 
 	GdiTransparentBlt(_hdc,

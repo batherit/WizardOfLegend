@@ -20,5 +20,6 @@ private:
 	float m_fLifeTime = 0.f;
 	float m_fElapsedTime = 0.f;
 	bool m_bAttackState = false;
+	bool m_bDeath = false;
 };
 

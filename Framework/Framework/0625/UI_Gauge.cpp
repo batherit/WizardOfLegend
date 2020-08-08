@@ -48,7 +48,7 @@ void CUI_Gauge::SetCurrentGauge(float _fCurrent)
 {
 	m_fCurrent = Clamp(_fCurrent, 0.f, m_fMax);
 	float fT = m_fCurrent / m_fMax;
-	swprintf_s(szBuf, 64, TEXT("%d / %d"), static_cast<int>(m_fCurrent), static_cast<int>(m_fMax));
+	//swprintf_s(szBuf, 64, TEXT("%d / %d"), static_cast<int>(m_fCurrent), static_cast<int>(m_fMax));
 
 	RECT rcCurGaugeRect = m_rcMaxGaugeRect;
 	switch (m_eDir)

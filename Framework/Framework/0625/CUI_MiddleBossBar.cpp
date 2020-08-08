@@ -35,21 +35,23 @@ int CUI_MiddleBossBar::Update(float _fDeltaTime)
 
 void CUI_MiddleBossBar::Render(HDC & _hdc, CCamera2D * _pCamera)
 {
-	if (m_pHpBar) m_pHpBar->Render(_hdc, _pCamera);
+	if (m_bIsVisible) {
+		if (m_pHpBar) m_pHpBar->Render(_hdc, _pCamera);
 
-	RECT& rcDrawArea = GetRect();
+		RECT& rcDrawArea = GetRect();
 
-	GdiTransparentBlt(_hdc,
-		rcDrawArea.left,			// Ãâ·Â ½ÃÀÛÁÂÇ¥ X
-		rcDrawArea.top,			// Ãâ·Â ½ÃÀÛÁÂÇ¥ Y
-		rcDrawArea.right - rcDrawArea.left,
-		rcDrawArea.bottom - rcDrawArea.top,
-		m_hDCMiddleBossBar,
-		0,
-		0,
-		m_iWidth,
-		m_iHeight,
-		RGB(255, 0, 255));
+		GdiTransparentBlt(_hdc,
+			rcDrawArea.left,			// Ãâ·Â ½ÃÀÛÁÂÇ¥ X
+			rcDrawArea.top,			// Ãâ·Â ½ÃÀÛÁÂÇ¥ Y
+			rcDrawArea.right - rcDrawArea.left,
+			rcDrawArea.bottom - rcDrawArea.top,
+			m_hDCMiddleBossBar,
+			0,
+			0,
+			m_iWidth,
+			m_iHeight,
+			RGB(255, 0, 255));
+	}
 }
 
 void CUI_MiddleBossBar::Release(void)

@@ -11,6 +11,8 @@
 #include "CBossState_Idle.h"
 #include "CBossState_Death.h"
 #include "CBoxAttack.h"
+#include "CUI_BossBar.h"
+#include "CStonePillar.h"
 
 
 CBoss_Boss::CBoss_Boss(CGameWorld & _rGameWorld, CSpawnerGenerator * _pSpawnerGenerator)
@@ -20,8 +22,8 @@ CBoss_Boss::CBoss_Boss(CGameWorld & _rGameWorld, CSpawnerGenerator * _pSpawnerGe
 {
 	SetObjType(OBJ::TYPE_MONSTER);
 	SetInitInfo();
-	//m_pMiddleBossBarUI = new CUI_MiddleBossBar(_rGameWorld, this);
-	//TO_WOL(GetGameWorld()).GetListUIs().emplace_back(m_pMiddleBossBarUI);
+	m_pBossBarUI = new CUI_BossBar(_rGameWorld, this);
+	TO_WOL(GetGameWorld()).GetListUIs().emplace_back(m_pBossBarUI);
 }
 
 CBoss_Boss::CBoss_Boss(CGameWorld & _rGameWorld, float _fX, float _fY, int _iGroupID, CObj * _pTarget, CSpawnerGenerator * _pSpawnerGenerator)
@@ -33,14 +35,14 @@ CBoss_Boss::CBoss_Boss(CGameWorld & _rGameWorld, float _fX, float _fY, int _iGro
 		SetObjType(OBJ::TYPE_MONSTER);
 		m_iGroupID = _iGroupID;
 		SetInitInfo();
-		//m_pMiddleBossBarUI = new CUI_MiddleBossBar(_rGameWorld, this);
-		//TO_WOL(GetGameWorld()).GetListUIs().emplace_back(m_pMiddleBossBarUI);
+		m_pBossBarUI = new CUI_BossBar(_rGameWorld, this);
+		TO_WOL(GetGameWorld()).GetListUIs().emplace_back(m_pBossBarUI);
 }
 
 CBoss_Boss::~CBoss_Boss()
 {
 	Release();
-	// m_pMiddleBossBarUI->SetValid(false);
+	m_pBossBarUI->SetValid(false);
 }
 
 int CBoss_Boss::Update(float _fDeltaTime)
@@ -58,7 +60,7 @@ int CBoss_Boss::Update(float _fDeltaTime)
 void CBoss_Boss::LateUpdate(void)
 {
 	m_pStateMgr->LateUpdate();
-	m_pColliders[COLLIDER::TYPE_WALL]->LateUpdate();
+	if(m_pColliders[COLLIDER::TYPE_WALL]) m_pColliders[COLLIDER::TYPE_WALL]->LateUpdate();
 }
 
 void CBoss_Boss::Render(HDC & _hdc, CCamera2D * _pCamera)
@@ -123,9 +125,11 @@ void CBoss_Boss::Attacked(float _fDamageAmount, POINT _ptCollisionPoint)
 		CObj::Attacked(_fDamageAmount, _ptCollisionPoint);
 		TO_WOL(GetGameWorld()).GetListUIs().emplace_back(new CUI_DamageText(GetGameWorld(), GetX(), GetY(), _ptCollisionPoint, _fDamageAmount));
 		if (IsDead() && m_pSpawnerGenerator) {
+			m_pBossBarUI->SetVisible(false);
 			m_pSpawnerGenerator->DecreaseSpawnedMonstersNum();
 			GetStateMgr()->SetNextState(new CBossState_Death(*this), true);
 		}
+		
 		//GetStateMgr()->SetNextState(new CWizardState_Damage(*this, _ptCollisionPoint), true);
 	}
 }
@@ -201,7 +205,7 @@ bool CBoss_Boss::ThrowBox(void)
 		dynamic_cast<CBoxAttack*>(m_pBox[m_iBoxIndex])->ThrowBoxAttack(
 			m_pTarget->GetX() - m_pBox[m_iBoxIndex]->GetX(),
 			m_pTarget->GetY() - m_pBox[m_iBoxIndex]->GetY(),
-			1600.f
+			1950.f
 		);
 		m_iBoxIndex++;
 
@@ -231,6 +235,27 @@ void CBoss_Boss::SwapAttackState()
 {
 	m_eAttackState = (m_eAttackState == BOSS::STATE_LEFT_ATTACK ?
 		BOSS::STATE_RIGHT_ATTACK : BOSS::STATE_LEFT_ATTACK);
+}
+
+void CBoss_Boss::GenerateRangeStonePillar(float _fStart, float _fEnd, float _fInterval)
+{
+	int iNum = (_fEnd - _fStart) / _fInterval;
+	int iCnt = 0;
+	int iDist = 0;
+	float fIntervalRadian = 0.f;
+	float fRandRadian = 0.f;
+
+	for (int i = 0; i < iNum; i++) {
+		iDist = (_fStart + _fInterval * i) ;
+		iCnt = iDist/ 250.f * 8;
+		fIntervalRadian = TO_RADIAN(360.f / iCnt);
+		fRandRadian = TO_RADIAN(rand() % 360);
+		for (int j = 0; j < iCnt; j++) {
+			GetGameWorld().GetListObjs().emplace_back(
+				new CStonePillar(GetGameWorld(), m_fX + iDist * cosf(fIntervalRadian * j + fRandRadian), m_fY + iDist * sinf(fIntervalRadian* j + fRandRadian), 0.2 * i, 0.6f)
+			);
+		}
+	}
 }
 
 void CBoss_Boss::SetInitInfo(void)
