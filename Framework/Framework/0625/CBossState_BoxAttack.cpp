@@ -33,12 +33,12 @@ int CBossState_BoxAttack::Update(float _fDeltaTime)
 {
 	if (m_rOwner.UpdateAnim(_fDeltaTime) == 1) {
 		if (!m_bIsBoxGenerated) {
-			m_rOwner.GenerateBox(0.f, 180.f, 3);
+			m_rOwner.GenerateBox(0.f, 270.f, 3);
 			m_bIsBoxGenerated = true;
 			return 0;
 		}
 		if ((m_fElapsedTime += _fDeltaTime) >= 1.3f) {
-			if (!m_rOwner.ThrowBox()) {
+			if (!m_rOwner.ThrowBox(0.8f)) {
 				m_rOwner.SetBoxAttackUsing(false);
 				m_rOwner.GetStateMgr()->SetNextState(new CBossState_Idle(m_rOwner));
 				return 0;

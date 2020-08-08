@@ -20,6 +20,7 @@ public:
 	virtual void OnExited(void) override;
 
 private:
-	CCamera2D* m_pCamera = nullptr;
+	float m_fBruisingTime = 0.f;
+	float m_fElapsedTime = 0.f;
 };
 

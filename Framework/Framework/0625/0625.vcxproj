@@ -164,6 +164,7 @@
     <ClInclude Include="CAtlasObj.h" />
     <ClInclude Include="CBossScene.h" />
     <ClInclude Include="CBossState_BoxAttack.h" />
+    <ClInclude Include="CBossState_BoxAttack_Upgrade.h" />
     <ClInclude Include="CBossState_Death.h" />
     <ClInclude Include="CBossState_Idle.h" />
     <ClInclude Include="CBossState_JumpAttack.h" />
@@ -357,6 +358,7 @@
     <ClCompile Include="CAtlasObj.cpp" />
     <ClCompile Include="CBossScene.cpp" />
     <ClCompile Include="CBossState_BoxAttack.cpp" />
+    <ClCompile Include="CBossState_BoxAttack_Upgrade.cpp" />
     <ClCompile Include="CBossState_Death.cpp" />
     <ClCompile Include="CBossState_Idle.cpp" />
     <ClCompile Include="CBossState_JumpAttack.cpp" />

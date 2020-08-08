@@ -7,6 +7,7 @@
 #include "CHitEffect.h"
 #include "CGaiaArmorChild.h"
 #include "CCollider.h"
+#include "CStonePillar.h"
 
 
 
@@ -16,7 +17,7 @@ CBoxAttack::CBoxAttack(CGameWorld & _rGameWorld, float _fX, float _fY)
 	m_fYToReach(_fY - 50.f)
 {
 	SetRenderLayer(1);
-	SetDamage(15);
+	SetDamage(25);
 	SetDamageOffset(1);
 
 	m_hDCKeyAtlas = CBitmapMgr::GetInstance()->GetBitmapMemDC(TEXT("BOSS_BOXATTACK"));
@@ -99,8 +100,10 @@ void CBoxAttack::ReactToCollider(CObj * _pCollider, POINT & _ptCollisionPoint, R
 	switch (_pCollider->GetObjType())
 	{
 	case OBJ::TYPE_WALL:
-		GetGameWorld().GetListObjs().emplace_back(new CHitEffect(GetGameWorld(), _ptCollisionPoint.x, _ptCollisionPoint.y));
-		SetValid(false);
+		if (!dynamic_cast<CStonePillar*>(_pCollider)) {
+			GetGameWorld().GetListObjs().emplace_back(new CHitEffect(GetGameWorld(), _ptCollisionPoint.x, _ptCollisionPoint.y));
+			SetValid(false);
+		}		
 		break;
 	case OBJ::TYPE_PLAYER_SKILL:
 	{

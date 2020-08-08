@@ -13,6 +13,7 @@
 #include "CBoxAttack.h"
 #include "CUI_BossBar.h"
 #include "CStonePillar.h"
+#include "CStonePillarGenerator.h"
 
 
 CBoss_Boss::CBoss_Boss(CGameWorld & _rGameWorld, CSpawnerGenerator * _pSpawnerGenerator)
@@ -151,10 +152,7 @@ void CBoss_Boss::GenerateBox(float _fStartDegree, float _fRangeDegree, int _iNum
 	// _fStartDegree에서부터 _fRangeDegree만큼 _iNum개의 박스를 생성한다.
 	m_iBoxNum = _iNum;
 
-	float _fIntervalDegree = 0.f;
-	if (_iNum > 1) {
-		_fIntervalDegree = _fRangeDegree / (_iNum - 1);
-	}
+	float _fIntervalDegree =  _fRangeDegree / _iNum ;
 	
 	for (int i = 0; i < _iNum; i++) {
 		CObj* pSkill = new CBoxAttack(GetGameWorld(),
@@ -166,11 +164,11 @@ void CBoss_Boss::GenerateBox(float _fStartDegree, float _fRangeDegree, int _iNum
 	}
 }
 
-bool CBoss_Boss::ThrowBox(void)
+bool CBoss_Boss::ThrowBox(float _fDelay, float _fSpeed, bool _bGenerateStonePillar)
 {
 	if (m_iBoxIndex < m_iBoxNum) {
 		_anim_info stAnimInfo;
-		stAnimInfo.fTotalTime = 0.8f;
+		stAnimInfo.fTotalTime = _fDelay;
 		stAnimInfo.iCountToRepeat = 1;
 		stAnimInfo.iFrameCount = 3;
 
@@ -205,8 +203,20 @@ bool CBoss_Boss::ThrowBox(void)
 		dynamic_cast<CBoxAttack*>(m_pBox[m_iBoxIndex])->ThrowBoxAttack(
 			m_pTarget->GetX() - m_pBox[m_iBoxIndex]->GetX(),
 			m_pTarget->GetY() - m_pBox[m_iBoxIndex]->GetY(),
-			1950.f
+			_fSpeed
 		);
+
+		if (_bGenerateStonePillar) {
+			GetGameWorld().GetListObjs().emplace_back(
+				new CStonePillarGenerator(GetGameWorld(),
+					m_pBox[m_iBoxIndex]->GetX(), m_pBox[m_iBoxIndex]->GetY(),
+					m_pBox[m_iBoxIndex]->GetToX(), m_pBox[m_iBoxIndex]->GetToY(),
+					100, 0.03f, 0.1f, 0.5f)
+			);
+		}
+
+		m_pBox[m_iBoxIndex] = nullptr; // 던져진 박스에 대해서는 신경쓰지 않는다.
+
 		m_iBoxIndex++;
 
 		SetBoxAttackUsing(true);
