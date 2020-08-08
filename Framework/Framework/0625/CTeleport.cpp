@@ -26,6 +26,7 @@ int CTeleport::Update(float _fDeltaTime)
 
 	if (fDist < 200.0f) {
 		if (CKeyMgr::GetInstance()->IsKeyDown(KEY::KEY_F)) {
+			CSoundMgr::Get_Instance()->StopSound(CSoundMgr::BGM);
 			GetGameWorld().GetSceneManager()->SetNextScene(new CBossScene(GetGameWorld(), "../MapDatas/Maps/Game_Map_Boss.txt"));
 			GetGameWorld().GetSceneManager()->RequestSceneInit();
 		}

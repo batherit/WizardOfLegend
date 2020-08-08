@@ -626,6 +626,9 @@
     <ClInclude Include="CBossState_BoxAttack_Upgrade.h">
       <Filter>소스 파일\03.State\037.Boss</Filter>
     </ClInclude>
+    <ClInclude Include="CBossState_StonePillar_Upgrade.h">
+      <Filter>소스 파일\03.State\037.Boss</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CLayer.cpp">
@@ -1040,6 +1043,9 @@
       <Filter>소스 파일\03.State\037.Boss</Filter>
     </ClCompile>
     <ClCompile Include="CBossState_BoxAttack_Upgrade.cpp">
+      <Filter>소스 파일\03.State\037.Boss</Filter>
+    </ClCompile>
+    <ClCompile Include="CBossState_StonePillar_Upgrade.cpp">
       <Filter>소스 파일\03.State\037.Boss</Filter>
     </ClCompile>
   </ItemGroup>

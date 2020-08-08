@@ -21,7 +21,7 @@ CBoxAttack::CBoxAttack(CGameWorld & _rGameWorld, float _fX, float _fY)
 	SetDamageOffset(1);
 
 	m_hDCKeyAtlas = CBitmapMgr::GetInstance()->GetBitmapMemDC(TEXT("BOSS_BOXATTACK"));
-
+	CSoundMgr::Get_Instance()->PlaySound(TEXT("BOSS_DROP.mp3"), CSoundMgr::SKILL);
 	_rGameWorld.GetListObjs().emplace_back(new CBottomHole(_rGameWorld, GetX(), GetY() + 60, 2.f));
 }
 

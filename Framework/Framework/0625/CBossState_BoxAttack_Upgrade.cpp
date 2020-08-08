@@ -30,6 +30,8 @@ void CBossState_BoxAttack_Upgrade::OnLoaded(void)
 
 	m_rOwner.SetNewAnimInfo(stAnimInfo);
 	m_rOwner.SetBoxAttackUsing(false);
+
+	CSoundMgr::Get_Instance()->PlaySound(TEXT("BOSS_POSE.mp3"), CSoundMgr::MONSTER);
 }
 
 int CBossState_BoxAttack_Upgrade::Update(float _fDeltaTime)

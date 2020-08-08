@@ -56,23 +56,23 @@ int CBossState_StonePillar::Update(float _fDeltaTime)
 			m_rOwner.GetGameWorld().GetListObjs().emplace_back(
 				new CStonePillarGenerator(m_rOwner.GetGameWorld(),
 					m_rOwner.GetX(), m_rOwner.GetY(),
-					cosf(TO_RADIAN(fToTargetDegree + 30.f)),
-					sinf(TO_RADIAN(fToTargetDegree + 30.f)),
-					70, 0.025f, 0.02f, 6.f)
+					cosf(TO_RADIAN(fToTargetDegree + 50.f)),
+					sinf(TO_RADIAN(fToTargetDegree + 50.f)),
+					70, 0.025f, 0.02f, 4.5f)
 			);
 			m_rOwner.GetGameWorld().GetListObjs().emplace_back(
 				new CStonePillarGenerator(m_rOwner.GetGameWorld(),
 					m_rOwner.GetX(), m_rOwner.GetY(),
-					cosf(TO_RADIAN(fToTargetDegree - 30.f)),
-					sinf(TO_RADIAN(fToTargetDegree - 30.f)),
-					70, 0.02f, 0.01f, 6.f)
+					cosf(TO_RADIAN(fToTargetDegree - 50.f)),
+					sinf(TO_RADIAN(fToTargetDegree - 50.f)),
+					70, 0.02f, 0.01f, 4.5f)
 			);
 			m_eState = STATE_ATTACK;
 		}
 	}
 	break;
 	case STATE_ATTACK: {
-		if ((m_fTickTime += _fDeltaTime) >= 0.7f) {
+		if ((m_fTickTime += _fDeltaTime) >= 0.8f) {
 			float fToTargetDegree = GetPositiveDegreeByVector(
 				m_rOwner.GetTarget()->GetX() - m_rOwner.GetX(),
 				m_rOwner.GetTarget()->GetY() - m_rOwner.GetY());
@@ -82,13 +82,13 @@ int CBossState_StonePillar::Update(float _fDeltaTime)
 					m_rOwner.GetX(), m_rOwner.GetY(),
 					cosf(TO_RADIAN(fToTargetDegree)),
 					sinf(TO_RADIAN(fToTargetDegree)),
-					80, 0.0f, 0.01f, 1.2f)
+					100, 0.05f, 0.02f, 0.8f)
 			);
 			m_fElapsedTime += m_fTickTime;
 			m_fTickTime = 0.f;
 		}
 
-		if (m_fElapsedTime >= 6.f) {
+		if (m_fElapsedTime >= 4.0f) {
 			m_rOwner.GetStateMgr()->SetNextState(new CBossState_Idle(m_rOwner));
 			return 1;
 		}

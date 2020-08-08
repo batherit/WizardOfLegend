@@ -51,6 +51,8 @@ int CBossState_JumpAttack::Update(float _fDeltaTime)
 			stAnimInfo.iFrameCount = 1;
 			stAnimInfo.iStartFrameIndex = 1;
 			m_rOwner.SetNewAnimInfo(stAnimInfo);
+
+			CSoundMgr::Get_Instance()->PlaySound(TEXT("BOSS_JUMP.mp3"), CSoundMgr::MONSTER);
 		}
 		break;
 	case STATE_JUMP: {
@@ -106,6 +108,7 @@ int CBossState_JumpAttack::Update(float _fDeltaTime)
 			}
 
 			m_rOwner.GetGameWorld().GetCamera()->Shake(1.f, 9.f, 20);
+			CSoundMgr::Get_Instance()->PlaySound(TEXT("BOSS_DROP.mp3"), CSoundMgr::MONSTER);
 
 			return 0;
 		}

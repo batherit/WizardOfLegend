@@ -5,6 +5,8 @@
 #include "CBossState_Idle.h"
 #include "CCamera2D.h"
 #include "CPlayerWOL.h"
+#include "CTimer.h"
+#include "CWOL_World.h"
 
 
 CBossState_JumpAttack_Upgrade::CBossState_JumpAttack_Upgrade(CBoss_Boss& _rOwner)
@@ -51,6 +53,8 @@ int CBossState_JumpAttack_Upgrade::Update(float _fDeltaTime)
 			stAnimInfo.iFrameCount = 1;
 			stAnimInfo.iStartFrameIndex = 1;
 			m_rOwner.SetNewAnimInfo(stAnimInfo);
+
+			CSoundMgr::Get_Instance()->PlaySound(TEXT("BOSS_JUMP.mp3"), CSoundMgr::MONSTER);
 		}
 		break;
 	case STATE_JUMP: {
@@ -108,6 +112,8 @@ int CBossState_JumpAttack_Upgrade::Update(float _fDeltaTime)
 			}
 
 			m_rOwner.GetGameWorld().GetCamera()->Shake(2.f, 9.f, 20);
+			CSoundMgr::Get_Instance()->PlaySound(TEXT("BOSS_DROP.mp3"), CSoundMgr::MONSTER);
+			//TO_WOL(m_rOwner.GetGameWorld()).TemporarilyAdjustWorldTimeSpeed(0.6f, 0.2f);
 
 			return 0;
 		}

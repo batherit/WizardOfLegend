@@ -138,13 +138,14 @@ void CPlayerWOL::SetInitInfo(void)
 	m_pColliders[COLLIDER::TYPE_WALL] = new CCollider(GetGameWorld(), this, 0.f, 50.f, 51, 27);
 	m_pColliders[COLLIDER::TYPE_DAMAGED] = new CCollider(GetGameWorld(), this, 0.f, -13.f, 150, 150);
 	m_pSkills[SKILL::KEY_LBUTTON] = new CPlayerNormalSkillState(*this);
-	m_pSkills[SKILL::KEY_RBUTTON] = new CFireDragonSkillState(*this);
+	
 	m_pSkills[SKILL::KEY_SPACE] = new CDashSkillState(*this);
-	//m_pSkills[SKILL::KEY_RBUTTON] = new CIceBlastSkillState(*this);
-	m_pSkills[SKILL::KEY_Q] = new CGaiaArmorSkillState(*this);
-	SetMoney(0);
-	//m_pSkills[SKILL::KEY_Q] = new CFireDragonSkillState(*this);
+	m_pSkills[SKILL::KEY_RBUTTON] = new CIceBlastSkillState(*this);
+	m_pSkills[SKILL::KEY_E] = new CGaiaArmorSkillState(*this);
+	m_pSkills[SKILL::KEY_Q] = new CFireDragonSkillState(*this);
 	m_pSkills[SKILL::KEY_R] = new CIceCrystalSkillState(*this);
+	SetMoney(0);
+	
 	m_pStateMgr = new CStateMgr<CPlayerWOL>(GetGameWorld(), *this);
 	m_pStateMgr->SetNextState(new CPlayerState_Idle(*this));
 	m_fMaxHp = PLAYER_MAX_HP;

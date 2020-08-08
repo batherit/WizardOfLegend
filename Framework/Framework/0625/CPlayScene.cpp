@@ -17,6 +17,7 @@
 #include "CItem_DroppedCard.h"
 #include "CFireDragonSkillState.h"
 #include "CIceCrystalSkillState.h"
+#include "CIceBlastSkillState.h"
 #include "CHitEffect.h"
 #include "CCamera2D.h"
 #include "CWizardFire.h"
@@ -24,7 +25,7 @@
 #include "CItem_Gaia.h"
 #include "CUI_Image.h"
 #include "CBitmapMgr.h"
-//#include "CStonePillar.h"
+#include "CStonePillar.h"
 //#include "CBoxAttack.h"
 #include "CStonePillarGenerator.h"
 #include "CTeleport.h"
@@ -51,7 +52,7 @@ void CPlayScene::ResetScene(void)
 	Release();
 	m_pMapLoader = new CMapLoader(m_rGameWorld, m_szMapDirectory);
 	const pair<float, float> pairSpawnPoint = m_pMapLoader->GetSpawnPoint()->GetXY();
-	m_pTeleport = new CTeleport(m_rGameWorld, pairSpawnPoint.first, pairSpawnPoint.second);
+	m_pTeleport = new CTeleport(m_rGameWorld, 7052.f, 7187.f);
 	m_rGameWorld.GetListObjs().emplace_back(m_pPlayer); // 전역 objs 리스트에 집어넣는다. => 충돌체크하기 위함.
 	m_pPlayerBarUI = new CUI_PlayerBar(m_rGameWorld, m_pPlayer);
 	m_pSkillBarUI = new CUI_SkillBar(m_rGameWorld, m_pPlayer);
@@ -66,6 +67,7 @@ void CPlayScene::ResetScene(void)
 	m_listItems.emplace_back(pImage);
 	m_listItems.emplace_back(new CItem_DroppedCard(m_rGameWorld, 2187.f, 1087.f, new CFireDragonSkillState(*TO_PLAYER_WOL(m_pPlayer))));
 	m_listItems.emplace_back(new CItem_DroppedCard(m_rGameWorld, 346.5f, 2378.f, new CIceCrystalSkillState(*TO_PLAYER_WOL(m_pPlayer))));
+	m_listItems.emplace_back(new CItem_DroppedCard(m_rGameWorld, 2785.f, 3235.f, new CIceBlastSkillState(*TO_PLAYER_WOL(m_pPlayer))));
 	m_listItems.emplace_back(new CItem_Potion(m_rGameWorld, 6547.f, 2500.f));
 	m_listItems.emplace_back(new CItem_Gaia(m_rGameWorld, 6976.f, 2500.f));
 	m_vecObjsToRender.reserve(100);
@@ -74,6 +76,12 @@ void CPlayScene::ResetScene(void)
 
 int CPlayScene::Update(float _fDeltaTime)
 {
+	/*if (CKeyMgr::GetInstance()->IsKeyDown(KEY::KEY_M)) {
+		m_rGameWorld.GetListObjs().emplace_back(
+			new CStonePillar(m_rGameWorld, m_pPlayer->GetX(), m_pPlayer->GetY(), 0.2f, 2.f)
+		);
+	}*/
+
 	m_pTeleport->Update(_fDeltaTime);
 
 	for (auto& pObj : m_listSpawnerGenerators) {

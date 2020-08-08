@@ -170,6 +170,7 @@
     <ClInclude Include="CBossState_JumpAttack.h" />
     <ClInclude Include="CBossState_JumpAttack_Upgrade.h" />
     <ClInclude Include="CBossState_StonePillar.h" />
+    <ClInclude Include="CBossState_StonePillar_Upgrade.h" />
     <ClInclude Include="CBoss_Boss.h" />
     <ClInclude Include="CBoss_MiddleBoss.h" />
     <ClInclude Include="CBottomHole.h" />
@@ -364,6 +365,7 @@
     <ClCompile Include="CBossState_JumpAttack.cpp" />
     <ClCompile Include="CBossState_JumpAttack_Upgrade.cpp" />
     <ClCompile Include="CBossState_StonePillar.cpp" />
+    <ClCompile Include="CBossState_StonePillar_Upgrade.cpp" />
     <ClCompile Include="CBoss_Boss.cpp" />
     <ClCompile Include="CBoss_MiddleBoss.cpp" />
     <ClCompile Include="CBottomHole.cpp" />

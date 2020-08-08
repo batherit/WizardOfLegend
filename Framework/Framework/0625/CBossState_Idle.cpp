@@ -11,6 +11,7 @@
 #include "CBossState_JumpAttack.h"
 #include "CBossState_BoxAttack_Upgrade.h"
 #include "CBossState_JumpAttack_Upgrade.h"
+#include "CBossState_StonePillar_Upgrade.h"
 
 
 CBossState_Idle::CBossState_Idle(CBoss_Boss & _rOwner)
@@ -25,7 +26,7 @@ CBossState_Idle::~CBossState_Idle()
 
 void CBossState_Idle::OnLoaded(void)
 {
-	m_fBruisingTime = GetNumberMinBetweenMax(0.5f, 1.f);
+	m_fBruisingTime = GetNumberMinBetweenMax(1.0f, 1.5f);
 	m_fElapsedTime = 0.f;
 
 	_anim_info stAnimInfo;
@@ -55,7 +56,7 @@ int CBossState_Idle::Update(float _fDeltaTime)
 			if (iSkillIndex == 0)
 				m_rOwner.GetStateMgr()->SetNextState(new CBossState_BoxAttack_Upgrade(m_rOwner));
 			else if (iSkillIndex == 1)
-				m_rOwner.GetStateMgr()->SetNextState(new CBossState_StonePillar(m_rOwner));
+				m_rOwner.GetStateMgr()->SetNextState(new CBossState_StonePillar_Upgrade(m_rOwner));
 			else if (iSkillIndex == 2)
 				m_rOwner.GetStateMgr()->SetNextState(new CBossState_JumpAttack_Upgrade(m_rOwner));
 		}

@@ -275,7 +275,7 @@
 // 보스 출력 사이즈
 #define BOSS_WIDTH		220
 #define BOSS_HEIGHT		300
-#define BOSS_MAX_HP		80.f
+#define BOSS_MAX_HP		3000.f
 // 보스 스킬 사이즈
 #define BOSS_SKILL_WIDTH	80
 #define BOSS_SKILL_HEIGHT	255

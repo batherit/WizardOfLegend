@@ -28,7 +28,6 @@ CStonePillar::CStonePillar(CGameWorld & _rGameWorld, float _fX, float _fY, float
 	stAnimInfo.iState = 0;
 
 	SetNewAnimInfo(stAnimInfo);
-
 	_rGameWorld.GetListObjs().emplace_back(new CBottomHole(_rGameWorld, GetX(), GetY() + 90.f, _fDelayTime + _fLifeTime + 2.f));
 }
 
@@ -39,41 +38,45 @@ CStonePillar::~CStonePillar()
 int CStonePillar::Update(float _fDeltaTime)
 {
 	DO_IF_IS_NOT_VALID_OBJ(this) return 1;
-	if ((m_fElapsedTime += _fDeltaTime) >= m_fDelayTime) {
-		if (UpdateAnim(_fDeltaTime) == 1) {
-			// 석주가 솟아나는 애니메이션이 끝나면 객체 속성을 벽으로 설정한다.
-			if (m_bAttackState) {
-				SetObjType(OBJ::TYPE_WALL);
-				m_pColliders[COLLIDER::TYPE_WALL] = m_pColliders[COLLIDER::TYPE_DAMAGED];
-				m_bAttackState = false;
-			}
-		}
-		else {
-			if (m_bAttackState == false) {
-				SetObjType(OBJ::TYPE_MONSTER_SKILL);
-				m_pColliders[COLLIDER::TYPE_DAMAGED] = new CCollider(GetGameWorld(), this, 0.f, 90.f, 90, 90);
-				m_bAttackState = true;
-			}
-		}
-	}
 
-	if (m_fElapsedTime >= m_fLifeTime + m_fDelayTime) {
-		if (!m_bDeath) {
+	switch (m_eState) {
+	case STATE_READY:
+		if ((m_fElapsedTime += _fDeltaTime) >= m_fDelayTime) {
+			SetObjType(OBJ::TYPE_MONSTER_SKILL);
+			m_pColliders[COLLIDER::TYPE_DAMAGED] = new CCollider(GetGameWorld(), this, 0.f, 90.f, 90, 90);
+			m_eState = STATE_ATTACK;
+		}
+		break;
+	case STATE_ATTACK:
+		if (UpdateAnim(_fDeltaTime) == 1) {
+			m_fElapsedTime += _fDeltaTime;
+			// 석주가 솟아나는 애니메이션이 끝나면 객체 속성을 벽으로 설정한다.
+			SetObjType(OBJ::TYPE_WALL);
+			m_pColliders[COLLIDER::TYPE_WALL] = m_pColliders[COLLIDER::TYPE_DAMAGED];
+			m_eState = STATE_IDLE;
+		}
+		break;
+	case STATE_IDLE:
+		if ((m_fElapsedTime += _fDeltaTime) >= m_fDelayTime + m_fLifeTime) {
 			_anim_info stAnimInfo;
 			stAnimInfo.fTotalTime = 0.4f;
 			stAnimInfo.iCountToRepeat = 1;
 			stAnimInfo.iFrameCount = 3;
-			stAnimInfo.iStartFrameIndex = 2;
+			stAnimInfo.iStartFrameIndex = 0;
 			stAnimInfo.iState = 0;
 			stAnimInfo.bIsReversePlay = true;
 			SetNewAnimInfo(stAnimInfo);
-			m_bDeath = true;
+			m_eState = STATE_DEATH;
 		}
+		break;
+	case STATE_DEATH:
 		if (UpdateAnim(_fDeltaTime) == 1) {
 			SetValid(false);
 			return 1;
 		}
+		break;
 	}
+
  	return 0;
 }
 

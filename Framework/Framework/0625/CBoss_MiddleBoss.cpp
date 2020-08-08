@@ -107,6 +107,9 @@ void CBoss_MiddleBoss::SetNewStateAnim(WIZARD::E_STATE _eNewState, bool _bReset)
 void CBoss_MiddleBoss::Attacked(float _fDamageAmount, POINT _ptCollisionPoint)
 {
 	if (!IsDead()) {
+		int iRandSountIndex = rand() % 2;
+		if (iRandSountIndex == 0)			CSoundMgr::Get_Instance()->PlaySound(TEXT("HIT_SOUND_NORMAL_1.mp3"), CSoundMgr::MONSTER);
+		else if (iRandSountIndex == 1)		CSoundMgr::Get_Instance()->PlaySound(TEXT("HIT_SOUND_NORMAL_2.mp3"), CSoundMgr::MONSTER);
 		CObj::Attacked(_fDamageAmount, _ptCollisionPoint);
 		TO_WOL(GetGameWorld()).GetListUIs().emplace_back(new CUI_DamageText(GetGameWorld(), GetX(), GetY(), _ptCollisionPoint, _fDamageAmount));
 		if (IsDead() && m_pSpawnerGenerator) {

@@ -32,7 +32,7 @@ void CMiddleBossState_Summon::OnLoaded(void)
 	m_rOwner.DirectDirectionToTarget();
 
 	if (m_rOwner.GetSummonedMonstersNum() == 0) {
-		SPAWN::E_TYPE eTypeToSpawn = static_cast<SPAWN::E_TYPE>(rand() % (SPAWN::TYPE_END - 1));
+		SPAWN::E_TYPE eTypeToSpawn = static_cast<SPAWN::E_TYPE>(rand() % (SPAWN::TYPE_END - 2));
 		m_rOwner.GetGameWorld().GetSceneManager()->GetCurScene()->GetSpawners()->emplace_back(
 			new CMonsterSpawner(m_rOwner.GetGameWorld()/*, *(m_rOwner.GetGameWorld().GetSceneManager()->GetCurScene()->GetMonsters())*/, 0.f, m_rOwner.GetX() - 120, m_rOwner.GetY(), eTypeToSpawn, -1, nullptr, &m_rOwner));
 		m_rOwner.GetGameWorld().GetSceneManager()->GetCurScene()->GetSpawners()->emplace_back(

@@ -16,6 +16,7 @@
 #include "CStonePillarGenerator.h"
 
 
+
 CBoss_Boss::CBoss_Boss(CGameWorld & _rGameWorld, CSpawnerGenerator * _pSpawnerGenerator)
 	:
 	CObj(_rGameWorld, 0.f, 0.f, BOSS_WIDTH, BOSS_HEIGHT),
@@ -25,6 +26,7 @@ CBoss_Boss::CBoss_Boss(CGameWorld & _rGameWorld, CSpawnerGenerator * _pSpawnerGe
 	SetInitInfo();
 	m_pBossBarUI = new CUI_BossBar(_rGameWorld, this);
 	TO_WOL(GetGameWorld()).GetListUIs().emplace_back(m_pBossBarUI);
+	CSoundMgr::Get_Instance()->PlayBGM(TEXT("BOSS_BGM.mp3"));
 }
 
 CBoss_Boss::CBoss_Boss(CGameWorld & _rGameWorld, float _fX, float _fY, int _iGroupID, CObj * _pTarget, CSpawnerGenerator * _pSpawnerGenerator)
@@ -38,6 +40,7 @@ CBoss_Boss::CBoss_Boss(CGameWorld & _rGameWorld, float _fX, float _fY, int _iGro
 		SetInitInfo();
 		m_pBossBarUI = new CUI_BossBar(_rGameWorld, this);
 		TO_WOL(GetGameWorld()).GetListUIs().emplace_back(m_pBossBarUI);
+		CSoundMgr::Get_Instance()->PlayBGM(TEXT("BOSS_BGM.mp3"));
 }
 
 CBoss_Boss::~CBoss_Boss()
@@ -123,9 +126,13 @@ void CBoss_Boss::ReactToCollider(CObj * _pCollider, POINT & _ptCollisionPoint, R
 void CBoss_Boss::Attacked(float _fDamageAmount, POINT _ptCollisionPoint)
 {
 	if (!IsDead()) {
+		int iRandSountIndex = rand() % 2;
+		if (iRandSountIndex == 0)			CSoundMgr::Get_Instance()->PlaySound(TEXT("HIT_SOUND_NORMAL_1.mp3"), CSoundMgr::MONSTER);
+		else if (iRandSountIndex == 1)		CSoundMgr::Get_Instance()->PlaySound(TEXT("HIT_SOUND_NORMAL_2.mp3"), CSoundMgr::MONSTER);
 		CObj::Attacked(_fDamageAmount, _ptCollisionPoint);
 		TO_WOL(GetGameWorld()).GetListUIs().emplace_back(new CUI_DamageText(GetGameWorld(), GetX(), GetY(), _ptCollisionPoint, _fDamageAmount));
 		if (IsDead() && m_pSpawnerGenerator) {
+			CSoundMgr::Get_Instance()->StopSound(CSoundMgr::BGM);
 			m_pBossBarUI->SetVisible(false);
 			m_pSpawnerGenerator->DecreaseSpawnedMonstersNum();
 			GetStateMgr()->SetNextState(new CBossState_Death(*this), true);
@@ -216,7 +223,7 @@ bool CBoss_Boss::ThrowBox(float _fDelay, float _fSpeed, bool _bGenerateStonePill
 		}
 
 		m_pBox[m_iBoxIndex] = nullptr; // 던져진 박스에 대해서는 신경쓰지 않는다.
-
+		CSoundMgr::Get_Instance()->PlaySound(TEXT("BOSS_JUMP.mp3"), CSoundMgr::SKILL);
 		m_iBoxIndex++;
 
 		SetBoxAttackUsing(true);

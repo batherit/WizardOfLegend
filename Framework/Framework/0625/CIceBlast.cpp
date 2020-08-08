@@ -50,35 +50,6 @@ int CIceBlast::Update(float _fDeltaTime)
 
 void CIceBlast::LateUpdate(void)
 {
-	DO_IF_IS_NOT_VALID_OBJ(this) return;
-
-	RECT rcCollidedRect;
-
-	for (auto& pGroup : *TO_WOL(GetGameWorld()).GetSceneManager()->GetCurScene()->GetColliders()) {
-		if (IsCollided(GetRect(), pGroup->GetRect())) {
-			for (auto& pCollider : pGroup->GetMapObjs()) {
-				if (IntersectRect(&rcCollidedRect, &GetRect(), &pCollider->GetRect())) {
-					if (rcCollidedRect.bottom - rcCollidedRect.top > rcCollidedRect.right - rcCollidedRect.left) {
-						if (GetX() <= pCollider->GetX()) {
-							MoveTo(-(rcCollidedRect.right - rcCollidedRect.left), 0.f);
-						}
-						else if (GetX() >= pCollider->GetX()) {
-							MoveTo((rcCollidedRect.right - rcCollidedRect.left), 0.f);
-						}
-					}
-					else {
-						if (GetY() >= pCollider->GetY()) {
-							MoveTo(0.f, (rcCollidedRect.bottom - rcCollidedRect.top));
-						}
-						else if (GetY() <= pCollider->GetY()) {
-							MoveTo(0.f, -(rcCollidedRect.bottom - rcCollidedRect.top));
-						}
-
-					}
-				}
-			}
-		}
-	}
 }
 
 void CIceBlast::Render(HDC & _hdc, CCamera2D * _pCamera)
@@ -90,3 +61,4 @@ void CIceBlast::Release(void)
 {
 	// 해제할 것이 없음
 }
+
